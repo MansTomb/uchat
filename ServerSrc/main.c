@@ -1,4 +1,5 @@
 #include "../inc/uchat.h"
+#include <gtk/gtk.h>
 
 // multiple connected users
 int main(int argc , char *argv[])   

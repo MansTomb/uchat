@@ -1,3 +1,5 @@
+#pragma once
+
 #include <unistd.h> 
 #include <stdio.h> 
 #include <sys/socket.h> 
@@ -11,7 +13,8 @@
 #include <sys/time.h> //FD_SET, FD_ISSET, FD_ZERO macros  
 #include <sys/socketvar.h>
 #include <arpa/inet.h>
+#include <gtk/gtk.h>
 
-#define TRUE 1
-#define FALSE 0
+#include "client.h"
+
 #define PORT 8888
