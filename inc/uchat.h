@@ -17,4 +17,7 @@
 
 #include "client.h"
 
+#define BACKIMAGE_PATH "./Resources/images/back.jpg"
 #define PORT 8888
+#define WIDTH 1280
+#define HEIGHT 720

@@ -23,5 +23,6 @@
 *.pdf
 
 # current project
-server
-client
+uchatclient
+uchatserver
+obj
