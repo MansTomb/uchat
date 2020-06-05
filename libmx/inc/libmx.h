@@ -27,6 +27,7 @@
 #include "vector.h"
 #include "tstring.h"
 #include "json.h"
+#include "json-builder.h"
 
 /*
  * file
