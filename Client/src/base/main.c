@@ -27,20 +27,21 @@ static t_info *create_info(GtkApplication *app) {
     return new;
 }
 
-static void activate (GtkApplication *app, gpointer user_data) {
-    t_info *info = create_info(app);
+static void activate (GtkApplication *app, gpointer info) {
+    info = create_info(app);
 
     mx_login_screen_create(info);
-    if(user_data && info) {};
+    if(info) {};
 }
 
 
 int main(int argc, char *argv[]) {
   GtkApplication *app;
+  t_info *info = NULL;
   int status;
 
   app = gtk_application_new("uchat.org", G_APPLICATION_FLAGS_NONE);
-  g_signal_connect(app, "activate", G_CALLBACK (activate), NULL);
+  g_signal_connect(app, "activate", G_CALLBACK (activate), info);
   status = g_application_run(G_APPLICATION (app), argc, argv);
   g_object_unref (app);
 
