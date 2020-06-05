@@ -1,4 +1,4 @@
-#include "uchat.h"
+#include "client.h"
 
 void login_on_click(GtkApplication *app, gpointer user_data) {
     t_info *info = (t_info *)user_data;

@@ -12,12 +12,12 @@ all: install
 install:
 	@make -sC $(LIB_DIR) -f Makefile install
 	@make -sC $(CLIENT_DIR) -f Makefile install
-#@make -sC $(SERVER_DIR) -f Makefile install
+	@make -sC $(SERVER_DIR) -f Makefile install
 	@mv $(client) .
-#@mv $(server) .
+	@mv $(server) .
 
 clean:
-	@rm -rf uchatclient uchatserver obj Client/obj
+	@rm -rf uchatclient uchatserver obj Client/obj Server/obj
 
 reinstall:
 

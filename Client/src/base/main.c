@@ -1,51 +1,36 @@
-#include "uchat.h"
+#include "client.h"
 
-static GtkWidget *create_main_window(GtkApplication *app) {
-    GtkWidget *window = gtk_application_window_new(app);
 
-    gtk_window_set_title(GTK_WINDOW (window), "uchat");
-    gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
-    gtk_window_set_default_size(GTK_WINDOW (window), WIDTH, HEIGHT);
-    gtk_widget_set_name(window, "main_window");
-    return window;
+static void wrong_usage(GtkApplication *app, gpointer data) {
+    printf("Wrong Usage Client\n");
+    if (app && data) {};
 }
 
-static t_info *create_info(GtkApplication *app) {
-    t_info *new = malloc(sizeof(t_info));
-    GdkDisplay *display;
-    GdkScreen *screen;
+static void open (GtkApplication *app, GFile **files, gint n_file, gchar *hint, gpointer sock) {
+    if (n_file != 2) {
+        wrong_usage(app, sock);
+        exit(EXIT_FAILURE); // nado bude funka uni4tozitel
+    }
+    t_info *info = create_info(app);
 
-    display = gdk_display_get_default();
-    screen = gdk_display_get_default_screen(display);
-
-    new->main_window = create_main_window(app);
-    new->layout = mx_layout_constructor("main_layout", WIDTH, HEIGHT);
-    gtk_container_add(GTK_CONTAINER(new->main_window), new->layout);
-    new->back_image = mx_constructor_background_image(new->main_window, BACKIMAGE_PATH);
-    new->css = gtk_css_provider_new();
-    gtk_style_context_add_provider_for_screen(screen, GTK_STYLE_PROVIDER(new->css), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-    return new;
-}
-
-static void activate (GtkApplication *app, gpointer info) {
-    info = create_info(app);
+    info->sock = mx_client_socket_create(g_file_get_basename(files[0]), atoi(g_file_get_basename(files[1])));
 
     mx_login_screen_create(info);
-    if(info) {};
+
+    if(sock && files && n_file && hint) {};
 }
 
-
 int main(int argc, char *argv[]) {
-  GtkApplication *app;
-  t_info *info = NULL;
-  int status;
+    GtkApplication *app;
+    int status;
 
-  app = gtk_application_new("uchat.org", G_APPLICATION_FLAGS_NONE);
-  g_signal_connect(app, "activate", G_CALLBACK (activate), info);
-  status = g_application_run(G_APPLICATION (app), argc, argv);
-  g_object_unref (app);
+    app = gtk_application_new("uchat.org", G_APPLICATION_HANDLES_OPEN);
+    g_signal_connect(app, "open", G_CALLBACK(open), NULL);
+    g_signal_connect(app, "activate", G_CALLBACK(wrong_usage), NULL);
+    status = g_application_run(G_APPLICATION(app), argc, argv);
+    g_object_unref (app);
 
-  return status;
+    return status;
 }
 
 // int main(int argc, char *argv[]) {

@@ -1,4 +1,4 @@
-#include "uchat.h"
+#include "client.h"
 
 GtkWidget *mx_button_constuctor(char *label, char *button_name) {
     GtkWidget *button = gtk_button_new_with_label(label);

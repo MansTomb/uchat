@@ -1,4 +1,4 @@
-#include "uchat.h"
+#include "client.h"
 
 GtkWidget *mx_layout_constructor(char *name, int width, int height) {
     GtkWidget *new = gtk_layout_new(NULL, NULL);

@@ -1,16 +1,17 @@
 CC = clang
 LIB = libmx.a
-NAME = uchatclient
+NAME = uchatserver
 
-base = main socket info window
+base = main
 
-login = login callbacks
+sockets = create_and_init init_2 loop sockets loop_utils handle_new_connection \
+		handle_incoming_data
 
-utils = background_images buttons grids input_labels layouts css labels
+utils = initialize_zero
 
 #$(addprefix parse/, $(parse))
 RAW = $(addprefix base/, $(base)) 	\
-	  $(addprefix login/, $(login)) $(addprefix utils/, $(utils)) \
+		$(addprefix sockets/, $(sockets)) $(addprefix utils/, $(utils))
 
 SRC_DIR = ./src/
 OBJ_DIR = ./obj/
@@ -30,9 +31,9 @@ PGKCONFIGFLAGS = `pkg-config --cflags gtk+-3.0`
 all: install
 
 $(OBJ_DIR):
-	@mkdir -p $(OBJ_DIR) $(OBJ_DIR)/base $(OBJ_DIR)/login \
-				$(OBJ_DIR)/utils
-#$(OBJ_DIR)/parse
+	@mkdir -p $(OBJ_DIR) $(OBJ_DIR)/base \
+			$(OBJ_DIR)/sockets $(OBJ_DIR)/utils
+
 # $(LIB):
 # 	@make -sC $(LIB_DIR) -f Makefile install
 

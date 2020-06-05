@@ -1,4 +1,4 @@
-#include "uchat.h"
+#include "client.h"
 
 void mx_css_from_file(t_info *info, char *filename) {
     gtk_css_provider_load_from_path(info->css, filename, NULL);

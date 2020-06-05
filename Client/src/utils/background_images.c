@@ -1,4 +1,4 @@
-#include "uchat.h"
+#include "client.h"
 
 t_background_image *mx_constructor_background_image(GtkWidget *window, char *image_path) {
     t_background_image *new = malloc(sizeof(t_background_image));

@@ -1,4 +1,4 @@
-#include "uchat.h"
+#include "client.h"
 
 GtkWidget *mx_entry_constructor(char *name) {
     GtkWidget *new = gtk_entry_new();

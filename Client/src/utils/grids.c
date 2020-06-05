@@ -1,4 +1,4 @@
-#include "uchat.h"
+#include "client.h"
 
 GtkWidget *mx_grid_constructor(char *name, int width, int height) {
     GtkWidget *new = gtk_grid_new();

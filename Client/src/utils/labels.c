@@ -1,4 +1,4 @@
-#include "uchat.h"
+#include "client.h"
 
 GtkWidget *mx_label_constructor(char *name, char *text) {
     GtkWidget *new = gtk_label_new(text);

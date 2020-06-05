@@ -2,6 +2,14 @@
 
 #include "uchat.h"
 
+typedef struct sockaddr_in t_saddr;
+
+typedef struct s_sock {
+    int sock;
+    int valread;
+
+    t_saddr serv_addr;
+} t_sock;
 typedef struct s_background_image {
     GtkWidget *window;
     GtkWidget *image;
@@ -16,6 +24,8 @@ typedef struct s_info {
 
     t_background_image *back_image;
 
+
+    t_sock *sock;
     gpointer current_window;
 } t_info;
 
@@ -29,6 +39,13 @@ typedef struct s_login {
     GtkWidget *username_entry;
     GtkWidget *password_entry;
 } t_login;
+
+/* Main */
+GtkWidget *create_main_window(GtkApplication *app);
+t_info *create_info(GtkApplication *app);
+
+/* Sockets functions */
+t_sock *mx_client_socket_create(char *ip, int port);
 
 /* UTILS FUNCTIONS */
 

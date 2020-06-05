@@ -15,9 +15,8 @@
 #include <arpa/inet.h>
 #include <gtk/gtk.h>
 
-#include "client.h"
-
 #define BACKIMAGE_PATH "./Resources/images/back.jpg"
 #define PORT 8888
+#define MAX_CLIENTS 128
 #define WIDTH 1280
 #define HEIGHT 720
