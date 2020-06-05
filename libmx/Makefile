@@ -30,11 +30,14 @@ vector = assign_vector at clear_vector copy_vector create_vector              \
 
 json = json json-builder
 
+sql = sqlite3
+
 RAW = $(addprefix file/mx_, $(file)) $(addprefix list/mx_, $(list))           \
 	$(addprefix memory/mx_, $(memory)) $(addprefix print/mx_, $(print))       \
 	$(addprefix string/mx_, $(string)) $(addprefix tree/mx_, $(tree))         \
 	$(addprefix utils/mx_, $(utils)) $(addprefix vector/mx_, $(vector))       \
-	$(addprefix tstring/mx_, $(tstring)) $(addprefix json/, $(json))
+	$(addprefix tstring/mx_, $(tstring)) $(addprefix json/, $(json))          \
+	$(addprefix sql/, $(sql))
 
 SRC_DIR = ./src/
 OBJ_DIR = ./obj/
@@ -52,7 +55,7 @@ all: install
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR) $(OBJ_DIR)/file $(OBJ_DIR)/list $(OBJ_DIR)/memory    \
 	$(OBJ_DIR)/print $(OBJ_DIR)/string $(OBJ_DIR)/tree $(OBJ_DIR)/utils       \
-	$(OBJ_DIR)/vector $(OBJ_DIR)/tstring $(OBJ_DIR)/json
+	$(OBJ_DIR)/vector $(OBJ_DIR)/tstring $(OBJ_DIR)/json $(OBJ_DIR)/sql
 
 # install
 # $(OBJ_DIR)%.o: $(SRC_DIR)%.c

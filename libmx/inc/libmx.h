@@ -28,6 +28,7 @@
 #include "tstring.h"
 #include "json.h"
 #include "json-builder.h"
+#include "sqlite3.h"
 
 /*
  * file

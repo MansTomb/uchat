@@ -24,7 +24,6 @@ typedef struct s_info {
 
     t_background_image *back_image;
 
-
     t_sock *sock;
     gpointer current_window;
 } t_info;
@@ -44,6 +43,10 @@ typedef struct s_login {
 GtkWidget *create_main_window(GtkApplication *app);
 t_info *create_info(GtkApplication *app);
 
+/* Jsons */
+json_value *mx_login_build_json(t_info *info);
+
+
 /* Sockets functions */
 t_sock *mx_client_socket_create(char *ip, int port);
 
@@ -60,6 +63,8 @@ void mx_button_delete(GtkWidget *button);
 
     /* Work with entry(input bar) */
 GtkWidget *mx_entry_constructor(char *name);
+bool mx_entry_text_exist(GtkWidget *entry);
+const char *mx_entry_get_text(GtkWidget *entry);
 
     /* Work with grids */
 GtkWidget *mx_grid_constructor(char *name, int width, int height);

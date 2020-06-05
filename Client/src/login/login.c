@@ -10,6 +10,8 @@ static t_login *login_constructor() {
         new->password_entry = mx_entry_constructor("password_entry");
         new->username_label = mx_label_constructor("username_label", "Username");
         new->password_label = mx_label_constructor("password_label", "Password");
+
+        gtk_entry_set_visibility(GTK_ENTRY(new->password_entry), FALSE);
     }
     return new;
 }
@@ -32,7 +34,7 @@ static void attach_signals(t_info *info, t_login *log) {
 void mx_login_screen_create(t_info *info) {
     t_login *log = login_constructor();
 
-    // info->current_window = log;
+    info->current_window = log;
 
     mx_background_image_show(info);
     mx_css_from_file(info, "./Resources/css/login.css");

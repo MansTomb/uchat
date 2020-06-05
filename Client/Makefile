@@ -8,9 +8,12 @@ login = login callbacks
 
 utils = background_images buttons grids input_labels layouts css labels
 
+json-build-login = build
+
 #$(addprefix parse/, $(parse))
 RAW = $(addprefix base/, $(base)) 	\
 	  $(addprefix login/, $(login)) $(addprefix utils/, $(utils)) \
+	  $(addprefix json-build-login/, $(json-build-login))
 
 SRC_DIR = ./src/
 OBJ_DIR = ./obj/
@@ -31,7 +34,7 @@ all: install
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR) $(OBJ_DIR)/base $(OBJ_DIR)/login \
-				$(OBJ_DIR)/utils
+				$(OBJ_DIR)/utils $(OBJ_DIR)/json-build-login
 #$(OBJ_DIR)/parse
 # $(LIB):
 # 	@make -sC $(LIB_DIR) -f Makefile install
