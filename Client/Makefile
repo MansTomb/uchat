@@ -6,7 +6,8 @@ base = main socket info window
 
 login = login callbacks
 
-utils = background_images buttons grids input_labels layouts css labels
+utils = background_images buttons grids input_labels layouts css labels widget \
+
 
 json-build-login = build
 

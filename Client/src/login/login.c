@@ -16,6 +16,8 @@ static t_login *login_constructor() {
     return new;
 }
 
+
+
 static void attach_layout(t_info *info, t_login *log) {
     gtk_layout_put(GTK_LAYOUT(info->layout), log->username_label, WIDTH / 2 - 100, HEIGHT / 2 - 115);
     gtk_layout_put(GTK_LAYOUT(info->layout), log->username_entry, WIDTH / 2 - 100, HEIGHT / 2 - 100);
@@ -36,8 +38,25 @@ void mx_login_screen_create(t_info *info) {
 
     info->current_window = log;
 
-    mx_background_image_show(info);
+    log->back_image = mx_background_image_constructor(info->main_window, BACKIMAGE_PATH);
+    mx_background_image_show(info->layout, log->back_image);
     mx_css_from_file(info, "./Resources/css/login.css");
     attach_signals(info, log);
     attach_layout(info, log);
+}
+
+void mx_login_screen_delete(t_info *info) {
+    t_login *log = info->current_window;
+
+    g_signal_handlers_destroy(log->loginbt);
+    g_signal_handlers_destroy(log->registerbt);
+    gtk_widget_destroy(log->loginbt);
+    gtk_widget_destroy(log->registerbt);
+    gtk_widget_destroy(log->username_entry);
+    gtk_widget_destroy(log->password_entry);
+    gtk_widget_destroy(log->username_label);
+    gtk_widget_destroy(log->password_label);
+    mx_background_image_delete(log->back_image);
+    free(log);
+    info->current_window = NULL;
 }

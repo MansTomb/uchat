@@ -1,6 +1,6 @@
 #include "client.h"
 
-t_background_image *mx_constructor_background_image(GtkWidget *window, char *image_path) {
+t_background_image *mx_background_image_constructor(GtkWidget *window, char *image_path) {
     t_background_image *new = malloc(sizeof(t_background_image));
 
     if (new != NULL) {
@@ -11,12 +11,12 @@ t_background_image *mx_constructor_background_image(GtkWidget *window, char *ima
     return new;
 }
 
-void mx_background_image_show(t_info *info) {
-    gtk_layout_put(GTK_LAYOUT(info->layout), info->back_image->image, 0, 0);
-    gtk_widget_show_all(info->back_image->window);
+void mx_background_image_show(GtkWidget *layout, t_background_image *image) {
+    gtk_layout_put(GTK_LAYOUT(layout), image->image, 0, 0);
 }
 
 void mx_background_image_delete(t_background_image *back_image) {
     gtk_widget_destroy(back_image->image);
-    gtk_widget_destroy(GTK_WIDGET(back_image->pixbuf));
+    g_object_unref(back_image->pixbuf);
+    free(back_image);
 }

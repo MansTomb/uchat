@@ -22,8 +22,6 @@ typedef struct s_info {
 
     GtkCssProvider *css;
 
-    t_background_image *back_image;
-
     t_sock *sock;
     gpointer current_window;
 } t_info;
@@ -37,6 +35,8 @@ typedef struct s_login {
 
     GtkWidget *username_entry;
     GtkWidget *password_entry;
+
+    t_background_image *back_image;
 } t_login;
 
 /* Main */
@@ -52,9 +52,12 @@ t_sock *mx_client_socket_create(char *ip, int port);
 
 /* UTILS FUNCTIONS */
 
+    /* Work with widgets */
+void mx_widget_destroy(GtkWidget *widget);
+
     /* Work with background images */
-t_background_image *mx_constructor_background_image(GtkWidget *window, char *image_path);
-void mx_background_image_show(t_info *info);
+t_background_image *mx_background_image_constructor(GtkWidget *window, char *image_path);
+void mx_background_image_show(GtkWidget *layout, t_background_image *image);
 void mx_background_image_delete(t_background_image *back_image);
 
     /* Work with buttons */
@@ -81,6 +84,7 @@ GtkWidget *mx_label_constructor(char *name, char *text);
 
 /* LOGIN SCREEN */
 void mx_login_screen_create(t_info *info);
+void mx_login_screen_delete(t_info *info);
 
     /* Login callbacks */
 void login_on_click(GtkApplication *app, gpointer user_data);
