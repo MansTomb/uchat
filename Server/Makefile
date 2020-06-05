@@ -11,7 +11,7 @@ utils = initialize_zero
 
 #$(addprefix parse/, $(parse))
 RAW = $(addprefix base/, $(base)) 	\
-		$(addprefix sockets/, $(sockets)) $(addprefix utils/, $(utils))
+		$(addprefix sockets/, $(sockets)) $(addprefix utils/, $(utils)) \
 
 SRC_DIR = ./src/
 OBJ_DIR = ./obj/
@@ -60,6 +60,5 @@ clean:
 uninstall:
 	@make -sC $(LIB_DIR) -f Makefile uninstall
 	@rm -rf $(NAME)
-	@rm -rf $(OBJ_DIR)
 
 reinstall: uninstall install

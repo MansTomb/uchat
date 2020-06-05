@@ -13,6 +13,7 @@ typedef struct s_sock {
     t_saddr address;
     int opt;
 
+    char buffer[1024];
     int valread;
 } t_sock;
 

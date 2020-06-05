@@ -58,7 +58,6 @@ clean:
 
 uninstall:
 	@make -sC $(LIB_DIR) -f Makefile uninstall
-	@rm -rf $(NAME)
 	@rm -rf $(OBJ_DIR)
 
 reinstall: uninstall install

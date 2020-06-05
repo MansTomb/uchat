@@ -6,7 +6,7 @@ static void wrong_usage(GtkApplication *app, gpointer data) {
     if (app && data) {};
 }
 
-static void open (GtkApplication *app, GFile **files, gint n_file, gchar *hint, gpointer sock) {
+static void open_app(GtkApplication *app, GFile **files, gint n_file, gchar *hint, gpointer sock) {
     if (n_file != 2) {
         wrong_usage(app, sock);
         exit(EXIT_FAILURE); // nado bude funka uni4tozitel
@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
     int status;
 
     app = gtk_application_new("uchat.org", G_APPLICATION_HANDLES_OPEN);
-    g_signal_connect(app, "open", G_CALLBACK(open), NULL);
+    g_signal_connect(app, "open", G_CALLBACK(open_app), NULL);
     g_signal_connect(app, "activate", G_CALLBACK(wrong_usage), NULL);
     status = g_application_run(G_APPLICATION(app), argc, argv);
     g_object_unref (app);

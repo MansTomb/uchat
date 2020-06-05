@@ -15,6 +15,8 @@
 #include <arpa/inet.h>
 #include <gtk/gtk.h>
 
+#include "libmx.h"
+
 #define BACKIMAGE_PATH "./Resources/images/back.jpg"
 #define PORT 8888
 #define MAX_CLIENTS 128

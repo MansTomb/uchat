@@ -18,7 +18,16 @@ install:
 
 clean:
 	@rm -rf uchatclient uchatserver obj Client/obj Server/obj
+	@make -sC $(LIB_DIR) -f Makefile clean
+	@make -sC $(CLIENT_DIR) -f Makefile clean
+	@make -sC $(SERVER_DIR) -f Makefile clean
 
 reinstall:
+	@make -sC $(LIB_DIR) -f Makefile reinstall
+	@make -sC $(CLIENT_DIR) -f Makefile reinstall
+	@make -sC $(SERVER_DIR) -f Makefile reinstall
 
 uninstall:
+	@make -sC $(LIB_DIR) -f Makefile uninstall
+	@make -sC $(CLIENT_DIR) -f Makefile uninstall
+	@make -sC $(SERVER_DIR) -f Makefile uninstall

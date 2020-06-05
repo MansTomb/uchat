@@ -26,6 +26,7 @@
 #include "tree.h"
 #include "vector.h"
 #include "tstring.h"
+#include "json.h"
 
 /*
  * file

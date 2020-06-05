@@ -28,11 +28,13 @@ vector = assign_vector at clear_vector copy_vector create_vector              \
 	delete_vector end erase foreach_vector foreach_vector_reverse get_back    \
 	get_front insert pop_backward push_backward reverse_vector
 
+json = json
+
 RAW = $(addprefix file/mx_, $(file)) $(addprefix list/mx_, $(list))           \
 	$(addprefix memory/mx_, $(memory)) $(addprefix print/mx_, $(print))       \
 	$(addprefix string/mx_, $(string)) $(addprefix tree/mx_, $(tree))         \
 	$(addprefix utils/mx_, $(utils)) $(addprefix vector/mx_, $(vector))       \
-	$(addprefix tstring/mx_, $(tstring))
+	$(addprefix tstring/mx_, $(tstring)) $(addprefix json/, $(json))
 
 SRC_DIR = ./src/
 OBJ_DIR = ./obj/
@@ -50,7 +52,7 @@ all: install
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR) $(OBJ_DIR)/file $(OBJ_DIR)/list $(OBJ_DIR)/memory    \
 	$(OBJ_DIR)/print $(OBJ_DIR)/string $(OBJ_DIR)/tree $(OBJ_DIR)/utils       \
-	$(OBJ_DIR)/vector $(OBJ_DIR)/tstring
+	$(OBJ_DIR)/vector $(OBJ_DIR)/tstring $(OBJ_DIR)/json
 
 # install
 # $(OBJ_DIR)%.o: $(SRC_DIR)%.c

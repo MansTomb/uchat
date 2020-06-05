@@ -29,6 +29,7 @@ t_sock *mx_sockets_create_struct(int port) {
     if (new) {
         new->opt = TRUE;
         mx_initialize_zero_int_arr(new->client_sockets, MAX_CLIENTS);
+        new->valread = 0;
     }
     return new;
 }
