@@ -16,8 +16,6 @@ static t_login *login_constructor() {
     return new;
 }
 
-
-
 static void attach_layout(t_info *info, t_login *log) {
     gtk_layout_put(GTK_LAYOUT(info->layout), log->username_label, WIDTH / 2 - 100, HEIGHT / 2 - 115);
     gtk_layout_put(GTK_LAYOUT(info->layout), log->username_entry, WIDTH / 2 - 100, HEIGHT / 2 - 100);
