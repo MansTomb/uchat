@@ -10,7 +10,7 @@ static void handle_disconnect(t_sock *sock, int *sd, int i) {
             
     //Close the socket and mark as 0 in list for reuse  
     close(*sd);   
-    sock->client_sockets[i] = 0;   
+    sock->client_sockets[i] = 0; 
 }
 
 void mx_handle_incoming_data(t_info *info) {
@@ -25,7 +25,7 @@ void mx_handle_incoming_data(t_info *info) {
                     handle_disconnect(sock, &sd, i);
                 else
                 {   
-                        // handle_data();
+                    // handle_data();
                     sock->buffer[sock->valread] = '\0';
                     printf("%s\n", sock->buffer);
                     // send(sd , buffer , strlen(buffer) , 0 );   

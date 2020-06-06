@@ -1,7 +1,7 @@
 #include "client.h"
 
 json_value *mx_login_build_json(t_info *info) {
-    t_login *log = info->current_window;
+    t_login *log = info->windows->log;
     json_value *json = json_object_new(0);
 
     // printf("%s\n", gtk_entry_get_text(GTK_ENTRY(log->username_entry)));

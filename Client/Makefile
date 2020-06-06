@@ -2,11 +2,16 @@ CC = clang
 LIB = libmx.a
 NAME = uchatclient
 
-base = main socket info window
+base = main socket info main_window windows_constructor
 
-login = login callbacks
+login = login callbacks errors constructor
+
+register = register callbacks errors constructor
+
+chat = chat callbacks errors constructor
 
 utils = background_images buttons grids input_labels layouts css labels widget \
+	dialog scrollable
 
 
 json-build-login = build
@@ -14,7 +19,8 @@ json-build-login = build
 #$(addprefix parse/, $(parse))
 RAW = $(addprefix base/, $(base)) 	\
 	  $(addprefix login/, $(login)) $(addprefix utils/, $(utils)) \
-	  $(addprefix json-build-login/, $(json-build-login))
+	  $(addprefix json-build-login/, $(json-build-login)) \
+	  $(addprefix register/, $(register)) $(addprefix chat/, $(chat))
 
 SRC_DIR = ./src/
 OBJ_DIR = ./obj/
@@ -35,7 +41,8 @@ all: install
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR) $(OBJ_DIR)/base $(OBJ_DIR)/login \
-				$(OBJ_DIR)/utils $(OBJ_DIR)/json-build-login
+				$(OBJ_DIR)/utils $(OBJ_DIR)/json-build-login \
+				$(OBJ_DIR)/register $(OBJ_DIR)/chat
 #$(OBJ_DIR)/parse
 # $(LIB):
 # 	@make -sC $(LIB_DIR) -f Makefile install

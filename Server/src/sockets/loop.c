@@ -8,5 +8,6 @@ void mx_sockets_loop(t_info *info) {
         select(info->sock->max_sd + 1, &info->sock->readfds, NULL, NULL, NULL);
         mx_handle_new_connection(info);
         mx_handle_incoming_data(info);
+        sleep(1);
     }
 }
