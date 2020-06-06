@@ -5,7 +5,7 @@ NAME = uchatserver
 base = main
 
 sockets = create_and_init init_2 loop sockets loop_utils handle_new_connection \
-		handle_incoming_data
+		handle_incoming_data signals
 
 utils = initialize_zero
 

@@ -10,6 +10,8 @@ typedef struct s_sock {
     int client_sockets[MAX_CLIENTS];
 
     fd_set readfds;
+    fd_set writefds;
+    fd_set errorfds;
     t_saddr address;
     int opt;
 
@@ -44,3 +46,7 @@ void mx_handle_incoming_data(t_info *info);
 void mx_socketset_clear(t_sock *sock);
 void mx_socket_add_master_to_set(t_sock *sock);
 void mx_socket_add_child_to_set(t_sock *sock);
+
+/* Signals */
+
+int mx_setup_signals();
