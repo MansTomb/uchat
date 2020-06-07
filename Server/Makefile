@@ -5,9 +5,9 @@ NAME = uchatserver
 base = main
 
 sockets = create_and_init init_2 loop sockets loop_utils handle_new_connection \
-		handle_incoming_data signals
+		handle_incoming_data shutdown loop_handler
 
-utils = initialize_zero
+utils = initialize_zero message_queue message peer
 
 #$(addprefix parse/, $(parse))
 RAW = $(addprefix base/, $(base)) 	\
