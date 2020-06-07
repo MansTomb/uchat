@@ -10,8 +10,12 @@ register = register callbacks errors constructor
 
 chat = chat callbacks errors constructor
 
+chat_switcher = chat_switcher callbacks errors constructor
+
+message = message callbacks errors constructor
+
 utils = background_images buttons grids input_labels layouts css labels widget \
-	dialog scrollable
+	dialog scrollable stack stack_switcher fixed frame box
 
 
 json-build-login = build
@@ -20,7 +24,9 @@ json-build-login = build
 RAW = $(addprefix base/, $(base)) 	\
 	  $(addprefix login/, $(login)) $(addprefix utils/, $(utils)) \
 	  $(addprefix json-build-login/, $(json-build-login)) \
-	  $(addprefix register/, $(register)) $(addprefix chat/, $(chat))
+	  $(addprefix register/, $(register)) $(addprefix chat/, $(chat)) \
+	  $(addprefix message/, $(message)) \
+	  $(addprefix chat_switcher/, $(chat_switcher))
 
 SRC_DIR = ./src/
 OBJ_DIR = ./obj/
@@ -42,7 +48,8 @@ all: install
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR) $(OBJ_DIR)/base $(OBJ_DIR)/login \
 				$(OBJ_DIR)/utils $(OBJ_DIR)/json-build-login \
-				$(OBJ_DIR)/register $(OBJ_DIR)/chat
+				$(OBJ_DIR)/register $(OBJ_DIR)/chat $(OBJ_DIR)/message \
+				$(OBJ_DIR)/chat_switcher
 #$(OBJ_DIR)/parse
 # $(LIB):
 # 	@make -sC $(LIB_DIR) -f Makefile install

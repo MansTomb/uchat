@@ -6,7 +6,7 @@ static t_windows *create_windows() {
     if (new) {
         new->log = NULL;
         new->reg = NULL;
-        new->chat = NULL;
+        new->chat_switcher = NULL;
     }
     return new;
 }
@@ -21,6 +21,7 @@ t_info *create_info(GtkApplication *app) {
     new->main_window = create_main_window(app);
     new->windows = create_windows();
     new->layout = mx_layout_constructor("main_layout", WIDTH, HEIGHT);
+    new->chat_list = mx_create_list();
     gtk_container_add(GTK_CONTAINER(new->main_window), new->layout);
     new->css = gtk_css_provider_new();
     gtk_style_context_add_provider_for_screen(screen, GTK_STYLE_PROVIDER(new->css), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);

@@ -12,10 +12,18 @@ typedef struct s_sock {
     t_saddr serv_addr;
 } t_sock;
 typedef struct s_background_image {
-    GtkWidget *window;
     GtkWidget *image;
     GdkPixbuf *pixbuf;
 } t_background_image;
+
+typedef struct s_messsage {
+    GtkWidget *button;
+    GtkWidget *lable;
+    GtkWidget *layout;
+    GtkWidget *frame;
+
+    GtkWidget *event;
+} t_message;
 
 typedef struct s_login {
     GtkWidget *loginbt;
@@ -47,18 +55,21 @@ typedef struct s_register {
 } t_register;
 
 typedef struct s_chat {
+    GtkWidget *layout;
+    GtkWidget *box;
+    GtkWidget *scroll;
+} t_chat;
+
+typedef struct s_chat_switcher {
     GtkWidget *stack;
     GtkWidget *stack_controller;
-    GtkWidget *layout;
-    GtkWidget *scroll;
-
-    t_background_image *back_image;
-} t_chat;
+    t_chat *chat;
+} t_switcher;
 
 typedef struct s_windows {
     t_login *log;
     t_register *reg;
-    t_chat *chat;
+    t_switcher *chat_switcher;
 } t_windows;
 
 
@@ -70,6 +81,7 @@ typedef struct s_info {
 
     t_sock *sock;
     t_windows *windows;
+    t_list *chat_list;
     gpointer current_window;
 } t_info;
 
@@ -109,7 +121,7 @@ GtkWidget *mx_grid_constructor(char *name, int width, int height);
 
     /* Work with layouts */
 GtkWidget *mx_layout_constructor(char *name, int width, int height);
-void mx_layout_put(GtkWidget *layout, GtkWidget *obj, int width, int height);
+void mx_layout_put(GtkWidget *layout, GtkWidget *obj, guint width, guint height);
 
     /* Work with css */
 void mx_css_from_file(t_info *info, char *filename);
@@ -122,8 +134,25 @@ GtkWidget *mx_label_constructor(char *name, char *text);
 void mx_dialog_warning_create(GtkWidget *parent, char *message);
 
     /* Work with scrollable */
-GtkWidget *mx_scrollable_constructor(char *name, GtkAdjustment *hadj, GtkAdjustment *vadj);
+GtkWidget *mx_scrollable_constructor(char *name, gint width, gint height);
+void mx_scrollable_container_add(GtkWidget *scroll, GtkWidget *child);
 
+    /* Work with stack switcher */
+GtkWidget *mx_stack_switcher_constructor(char *name, GtkWidget *stack);
+
+    /* Work with stack */
+GtkWidget *mx_stack_constructor(char *name);
+void mx_stack_add(GtkWidget *stack, GtkWidget *child, char *name, char *title);
+
+    /* Work with fixed */
+GtkWidget *mx_fixed_constructor(char *name, gint widht, gint height);
+void mx_fixed_put(GtkWidget *fixed, GtkWidget *widget, gint x, gint y);
+
+    /* Work with frames */
+GtkWidget *mx_frame_constructor(char *name, char *label, gint w, gint h);
+
+    /* Work with box */
+GtkWidget *mx_box_constructor(char *name, gint widht, gint height, GtkOrientation orientaion);
 
 /* Windows */
 
@@ -154,10 +183,18 @@ void reg_user_on_click(GtkApplication *app, gpointer user_data);
 
 /*                             CHAT SCREEN */
 t_chat *mx_chat_constructor(t_info *info);
-void mx_chat_screen_show(t_info *info);
-void mx_chat_screen_hide(t_info *info);
+void mx_chat_screen_show(t_chat *chat);
+void mx_chat_screen_hide(t_chat *chat);
+void mx_chat_show_message(t_chat *chat, char *sender, char *text);
 
     /* Chat callbacks */
 
 
     /* Chat error dialogs */
+
+    /* Chat switcher */
+t_switcher *mx_chat_switcher_constructor(t_info *info);
+void mx_chat_switcher_add_chat(t_info *info, t_chat *chat, char *chat_name, char *chat_title );
+
+/*                              Messages Class */
+t_message *mx_message_construct(char *message, char *username);
