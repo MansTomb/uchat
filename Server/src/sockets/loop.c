@@ -15,7 +15,6 @@ static void build_fd_sets(t_sock *sock) {
         if (sd > sock->max_sd)
             sock->max_sd = sd;
     }
-
     FD_ZERO(&sock->writefds);
     for (i = 0; i < MAX_CLIENTS; i++)
         // if (sock->connection_list[i].socket > MX_NO_SOCKET
