@@ -14,8 +14,9 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
     info = info_create();
-    if (mx_setup_signals(info) != 0)
-        exit(EXIT_FAILURE);
+
+    // if (mx_setup_signals(info) != 0)
+    //     exit(EXIT_FAILURE);
 
     info->sock = mx_sockets_create_struct(atoi(argv[1]));
     mx_sockets_initialize(info->sock, atoi(argv[1]));

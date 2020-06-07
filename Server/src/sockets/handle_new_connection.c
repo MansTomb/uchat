@@ -13,8 +13,8 @@ static void socket_new_accept(int *new_sock, t_sock *sock) {
 static void socket_new_add_to_arr_of_sockets(t_sock *sock, int *new_socket) {
     for (int i = 0; i < MAX_CLIENTS; i++) {
         //if position is empty
-        if (sock->client_sockets[i] == 0 ) {
-            sock->client_sockets[i] = *new_socket;
+        if (sock->connection_list[i].socket == MX_NO_SOCKET) {
+            sock->connection_list[i].socket = *new_socket;
             printf("Adding to list of sockets as %d\n", i);
             break;
         }
