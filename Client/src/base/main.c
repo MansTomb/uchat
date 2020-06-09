@@ -6,6 +6,31 @@ static void wrong_usage(GtkApplication *app, gpointer data) {
     if (app && data) {};
 }
 
+// static void *read_from_server(void *info) {
+//     t_info *info1 = (t_info *)info;
+//     int n;
+//     char buff[1024];
+
+//     while (1) {
+//         if ((n = read(info1->sock->sock, buff, sizeof(buff))) < 0) {
+//             // perror(MX_ERR_CL_RE);
+//             puts("\nGood bye, see you soon...\n");
+//             pthread_exit(0);
+//         }
+//         else if (n > 0) {
+//             // mx_perror_and_exit(MX_ERR_CL_RE);
+//             t_message *one = mx_message_construct(buff, "loh");
+            
+//             mx_chat_message_put((t_chat *)mx_get_index(info1->chat_list, 0)->data, one);
+//         }
+//         bzero(buff, sizeof(buff));
+//     }
+//     pthread_exit(0);
+// }
+
+#define text ".messageframe label {\n    color: white;\n    text-shadow: 10px 10px 10px black, 1px 1px 1px turquoise;\n    font-size: 40px;\n}"
+#define text2 ".messageframe label {\n    color: white;"
+
 static void open_app(GtkApplication *app, GFile **files, gint n_file, gchar *hint, gpointer sock) {
     if (n_file != 2) {
         wrong_usage(app, sock);
@@ -20,12 +45,19 @@ static void open_app(GtkApplication *app, GFile **files, gint n_file, gchar *hin
     mx_push_front(info->chat_list, mx_chat_constructor(info));
     mx_push_front(info->chat_list, mx_chat_constructor(info));
 
-    mx_chat_switcher_add_chat(info, (t_chat *)mx_get_index(info->chat_list, 0)->data, "general", "General");
-    mx_chat_switcher_add_chat(info, (t_chat *)mx_get_index(info->chat_list, 1)->data, "new", "new");
-    mx_chat_screen_show((t_chat *)mx_get_index(info->chat_list, 0)->data);
-    mx_chat_screen_show((t_chat *)mx_get_index(info->chat_list, 1)->data);
-    mx_chat_show_message((t_chat *)mx_get_index(info->chat_list, 0)->data, "Lo", "privet koshara privet koshara privet koshara privet koshara privet koshara privet koshara privet koshara privet koshara privet koshara privet koshara privet koshara privet koshara privet koshara privet koshara privet koshara privet koshara privet koshara privet koshara privet koshara privet koshara privet koshara");
-    mx_chat_show_message((t_chat *)mx_get_index(info->chat_list, 1)->data, "Lo", ".messageframe label {\n    color: white;\n    text-shadow: 10px 10px 10px black, 1px 1px 1px turquoise;\n    font-size: 40px;\n}");
+    mx_chat_switcher_add_chat(info, (t_chat *)mx_get_index(info->chat_list, 0)->data, "general");
+    mx_chat_switcher_add_chat(info, (t_chat *)mx_get_index(info->chat_list, 1)->data, "new");
+
+    // t_message *one = mx_message_construct(text, "Loh");
+    // t_message *one2 = mx_message_construct(text2, "Loh1");
+
+    // mx_chat_screen_show((t_chat *)mx_get_index(info->chat_list, 1)->data);
+    // pthread_t read_thread;
+    // pthread_create(&read_thread, NULL, &read_from_server, (void *)info);
+        // pthread_join(read_thread, NULL);
+
+    // mx_chat_message_put((t_chat *)mx_get_index(info->chat_list, 0)->data, one);
+    // mx_chat_message_put((t_chat *)mx_get_index(info->chat_list, 1)->data, one2);
 
     if(sock && files && n_file && hint) {};
 }

@@ -53,6 +53,10 @@ button:hover * {
     font-size: 35px;
 }
 
+.message_list {
+    background-color: grey;
+}
+
 .messageframe {
     color: grey;
 }

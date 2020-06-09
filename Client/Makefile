@@ -15,7 +15,7 @@ chat_switcher = chat_switcher callbacks errors constructor
 message = message callbacks errors constructor
 
 utils = background_images buttons grids input_labels layouts css labels widget \
-	dialog scrollable stack stack_switcher fixed frame box
+	dialog scrollable stack stack_switcher fixed frame box listbox
 
 
 json-build-login = build

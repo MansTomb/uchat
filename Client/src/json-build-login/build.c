@@ -12,7 +12,7 @@ json_value *mx_login_build_json(t_info *info) {
     char buffer[1024];
 
     json_serialize(buffer, json);
-    
+
     if (buffer[0])
         send(info->sock->sock, buffer, strlen(buffer), 0);
     return json;
