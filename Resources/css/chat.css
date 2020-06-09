@@ -8,55 +8,32 @@
     /* background-image: url('./Resources/images/back.jpg'); */
 }
 
-/* .stack-switcher {
-    background-color: rebeccapurple;
-} */
-
-button * {
-    color: rebeccapurple;
-    border-radius: 2px;
-    border-width: 2px 2px 2px 2px;
-    background-color: transparent;
-    border-color: green;
-}
-
-button:active * {
-    color: rebeccapurple;
-    border-radius: 2px;
-    border-width: 2px 2px 2px 2px;
-    background-color: transparent;
-    border-color: green;
-}
-
-button:hover * {
-    color: rebeccapurple;
-    border-radius: 2px;
-    border-width: 2px 2px 2px 2px;
-    background-color: transparent;
-    border-color: green;
-}
-
-.usernamelb {
-    color: blue;
-    font-size: larger;
-}
-
-.messageframe border {
-    /* color: transparent; */
-    border-color: white;
-    border-width: 4px 4px 4px 4px;
-}
-
-.messageframe label {
-    color: white;
-    text-shadow: 10px 10px 10px black, 1px 1px 1px turquoise;
-    font-size: 35px;
-}
-
 .message_list {
     background-color: grey;
 }
 
-.messageframe {
-    color: grey;
+#message_text:hover {
+    border-radius: 30px;
+    border-color: black;
+    background-color: white;
 }
+
+#message_text:active {
+    border-radius: 30px;
+    background-color: white;
+    border-color: black;
+}
+
+#message_text {
+    border-radius: 30px;
+    background-color: white;
+    font-size: 20px;
+    border-color: black;
+}
+
+.username_inmsg {
+    font-size: 20px;
+}
+
+
+

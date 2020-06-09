@@ -29,7 +29,8 @@ static void wrong_usage(GtkApplication *app, gpointer data) {
 // }
 
 #define text ".messageframe label {\n    color: white;\n    text-shadow: 10px 10px 10px black, 1px 1px 1px turquoise;\n    font-size: 40px;\n}"
-#define text2 ".messageframe label {\n    color: white;"
+#define text2 ".messagemessageframe label {    color: white; oahfoihfinqlfnih wi hrighwg higheipgqhe gpqehg eoghewgehgwepighwgewkghweigwmessageframe label {    color: white; oahfoihfinqlfnih wi hrighwg higheipgqhe gpqehg eoghewgehgwepighwgewkghweigwframe label {    color: white; oahfoihfinqlfnih wi hrighwg higheipgqhe gpqehg eoghewgehgwepighwgewkghweigw"
+#define text3 " kak soobweniya viglyadat"
 
 static void open_app(GtkApplication *app, GFile **files, gint n_file, gchar *hint, gpointer sock) {
     if (n_file != 2) {
@@ -48,16 +49,18 @@ static void open_app(GtkApplication *app, GFile **files, gint n_file, gchar *hin
     mx_chat_switcher_add_chat(info, (t_chat *)mx_get_index(info->chat_list, 0)->data, "general");
     mx_chat_switcher_add_chat(info, (t_chat *)mx_get_index(info->chat_list, 1)->data, "new");
 
-    // t_message *one = mx_message_construct(text, "Loh");
-    // t_message *one2 = mx_message_construct(text2, "Loh1");
+    t_message *one = mx_message_construct(info, text, "Loh1");
+    t_message *one2 = mx_message_construct(info, text2, "Loh1");
+    t_message *one3 = mx_message_construct(info, text3, "Heh");
 
     // mx_chat_screen_show((t_chat *)mx_get_index(info->chat_list, 1)->data);
     // pthread_t read_thread;
     // pthread_create(&read_thread, NULL, &read_from_server, (void *)info);
         // pthread_join(read_thread, NULL);
 
-    // mx_chat_message_put((t_chat *)mx_get_index(info->chat_list, 0)->data, one);
-    // mx_chat_message_put((t_chat *)mx_get_index(info->chat_list, 1)->data, one2);
+    mx_chat_message_put((t_chat *)mx_get_index(info->chat_list, 0)->data, one);
+    mx_chat_message_put((t_chat *)mx_get_index(info->chat_list, 1)->data, one2);
+    mx_chat_message_put((t_chat *)mx_get_index(info->chat_list, 0)->data, one3);
 
     if(sock && files && n_file && hint) {};
 }

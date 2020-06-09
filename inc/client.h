@@ -3,6 +3,8 @@
 #include "uchat.h"
 #include "defines_client.h"
 
+#define MX_MSGHEIGHT(msg) (strlen(msg) + 10 + mx_count_substr(message, "\n") * 20)
+
 typedef struct sockaddr_in t_saddr;
 typedef struct s_sock t_sock;
 typedef struct s_background_image t_background_image;
@@ -28,10 +30,13 @@ struct s_background_image {
 struct s_message {
     GtkWidget *button;
     GtkWidget *lable;
-    GtkWidget *layout;
+    // GtkWidget *layout;
     GtkWidget *frame;
+    GtkWidget *menu;
 
-    GtkWidget *event;
+    t_info *info;
+
+    // GtkWidget *event;
 };
 
 struct s_login {
@@ -64,7 +69,6 @@ struct s_register {
 };
 
 struct s_chat {
-    GtkWidget *layout;
     GtkWidget *scroll;
     GtkWidget *box;
 
@@ -72,7 +76,6 @@ struct s_chat {
     GtkWidget *msgentry;
 
     t_list *messages;
-
 
     t_info *info;
     bool showed_chat;
@@ -220,4 +223,10 @@ t_chat_switcher *mx_chat_switcher_constructor(t_info *info);
 void mx_chat_switcher_add_chat(t_info *info, t_chat *chat, char *chat_name);
 
 /*                              Messages Class */
-t_message *mx_message_construct(char *message, char *username);
+t_message *mx_message_construct(t_info *info, char *message, char *username);
+
+    /* Message callbacks */
+void mx_callback_reply(GtkWidget *widget, gpointer data);
+void mx_callback_forward(GtkWidget *widget, gpointer data);
+void mx_callback_delete(GtkWidget *widget, gpointer data);
+void mx_callback_menu_show(GtkWidget *widget, GdkEvent *event, gpointer data);

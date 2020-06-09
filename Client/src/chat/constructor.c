@@ -23,7 +23,6 @@ t_chat *mx_chat_constructor(t_info *info) {
 
     if (new) {
         new->scroll = mx_scrollable_constructor("scrollable", 880, 520);
-        new->layout = mx_layout_constructor("chat_window", 880, 520);
         new->sendbt = mx_button_constuctor("Send", "send_button");
         new->msgentry = mx_entry_constructor("msg_entry");
         new->messages = mx_create_list();
