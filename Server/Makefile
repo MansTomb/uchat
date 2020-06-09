@@ -4,9 +4,7 @@ NAME = uchatserver
 
 base = main
 
-sockets = create_and_init init_2 loop sockets loop_utils handle_new_connection \
-		handle_incoming_data shutdown loop_handler handle_read_from_stdin \
-		peer_receive_message peer_send_message
+sockets = create_and_init handle_incoming_data handle_new_connection handle_read_from_stdin init_2 loop_handler loop peer_receive_message peer_send_message shutdown signals 
 
 utils = initialize_zero message_queue message peer
 

@@ -59,9 +59,7 @@ static void open_app(GtkApplication *app, GFile **files, gint n_file, gchar *hin
     // mx_chat_message_put((t_chat *)mx_get_index(info->chat_list, 0)->data, one);
     // mx_chat_message_put((t_chat *)mx_get_index(info->chat_list, 1)->data, one2);
 
-    // mx_login_screen_create(info);
-
-    if(sock && files && n_file && hint) {}
+    if(sock && files && n_file && hint) {};
 }
 
 int main(int argc, char *argv[]) {
@@ -73,6 +71,7 @@ int main(int argc, char *argv[]) {
     g_signal_connect(app, "activate", G_CALLBACK(wrong_usage), NULL);
     status = g_application_run(G_APPLICATION(app), argc, argv);
     g_object_unref (app);
+
     return status;
 }
 
