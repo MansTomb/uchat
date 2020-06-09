@@ -44,7 +44,7 @@ void mx_sockets_initialize(t_sock *sock, int port) {
     socket_type_set(&sock->address, port);
     mx_socket_bind_to_port(sock);
     mx_socket_specify_maximum_connections_to_master(sock->master_socket, 128);
-    // mx_set_nonblock_for_stdin();
+    mx_set_nonblock_for_stdin();
     sock->max_sd = sock->master_socket;
     sock->addrlen = sizeof(sock->address);
     printf("Waiting for incoming connections.\n");

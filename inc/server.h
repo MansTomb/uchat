@@ -118,7 +118,7 @@ void mx_handle_incoming_data(t_info *info);
     /* Message handeling */
 int mx_receive_from_peer(t_info *info, t_peer *peer,
                          int (*message_handler)(t_info *, t_message *));
-int mx_send_to_peer(t_peer *peer);
+int mx_send_to_peer(t_info *info, t_peer *peer);
 
 /* Signals */
 

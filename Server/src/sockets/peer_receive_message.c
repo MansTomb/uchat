@@ -7,8 +7,6 @@ int mx_receive_from_peer(t_info *info, t_peer *peer,
     // size_t received_total = 0;
 
     t_message *message = malloc(sizeof(t_message));
-    // mx_prepare_message("s", "hello", message);
-    // message_handler(info, message);
 
     if ((info->sock->valread = read(peer->socket, info->sock->buffer, 1024)) == 0)
         mx_handle_disconnect(info->sock, peer);
@@ -24,10 +22,12 @@ int mx_receive_from_peer(t_info *info, t_peer *peer,
             // handle_data();
         info->sock->buffer[info->sock->valread] = '\0';
         mx_strip_newline(info->sock->buffer);
+        sprintf(info->sock->buffer, mx_peer_get_addres_str(peer), info->sock->buffer);
+        // send(peer->socket, info->sock->buffer, strlen(info->sock->buffer), 0);
         mx_prepare_message(mx_peer_get_addres_str(peer), info->sock->buffer, message);
         message_handler(info, message);
         // printf("%s", info->sock->buffer);
-        send(peer->socket, info->sock->buffer, strlen(info->sock->buffer), 0);
+
     }
 
     // printf("Ready for recv() from %s.\n", mx_peer_get_addres_str(peer));

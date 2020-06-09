@@ -49,9 +49,9 @@ void mx_handle_incoming_data(t_info *info) {
             if (mx_receive_from_peer(info, &sock->connection_list[i],
                                      &mx_handle_received_message) != 0)
                 mx_handle_disconnect(sock, &sock->connection_list[i]);
-        // if (sd != MX_NO_SOCKET && FD_ISSET(sd, &info->sock->writefds))
-        //     if (mx_send_to_peer(&sock->connection_list[i]) != 0)
-        //         mx_handle_disconnect(sock, &sock->connection_list[i]);
+        if (sd != MX_NO_SOCKET && FD_ISSET(sd, &info->sock->writefds))
+            if (mx_send_to_peer(info, &sock->connection_list[i]) != 0)
+                mx_handle_disconnect(sock, &sock->connection_list[i]);
 
         if (sd != MX_NO_SOCKET && FD_ISSET(sd, &info->sock->exceptfds)) {
             printf("Exception client fd.\n");
