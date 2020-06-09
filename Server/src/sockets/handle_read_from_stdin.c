@@ -54,8 +54,10 @@ int mx_handle_read_from_stdin(t_info *info) {
             //     printf("Send buffer was overflowed, we lost this message!\n");
             //     continue;
             // }
+        char newbuf[1024];
 
-        send(info->sock->connection_list[i].socket, read_buffer, strlen(read_buffer), 0);
+        sprintf(newbuf, "server_admin: %s", read_buffer);
+        send(info->sock->connection_list[i].socket, newbuf, strlen(newbuf), 0);
         // printf("New message to send was enqueued right now.\n");
         }
     }

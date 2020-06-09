@@ -22,7 +22,7 @@ int mx_receive_from_peer(t_info *info, t_peer *peer,
             // handle_data();
         info->sock->buffer[info->sock->valread] = '\0';
         mx_strip_newline(info->sock->buffer);
-        sprintf(info->sock->buffer, mx_peer_get_addres_str(peer), info->sock->buffer);
+        // sprintf(info->sock->buffer, mx_peer_get_addres_str(peer), info->sock->buffer);
         // send(peer->socket, info->sock->buffer, strlen(info->sock->buffer), 0);
         mx_prepare_message(mx_peer_get_addres_str(peer), info->sock->buffer, message);
         message_handler(info, message);
