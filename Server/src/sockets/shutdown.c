@@ -1,6 +1,6 @@
 #include "server.h"
 
-void mx_shutdown_properly(t_info *info) {
+void mx_shutdown_properly(t_info *info, int code) {
 
     close(info->sock->master_socket);
     for (int i = 0; i < MAX_CLIENTS; i++)
@@ -8,5 +8,5 @@ void mx_shutdown_properly(t_info *info) {
              close(info->sock->connection_list[i].socket);
 
     printf("Shutdown server properly.\n");
-    exit(EXIT_SUCCESS);
+    exit(code);
 }

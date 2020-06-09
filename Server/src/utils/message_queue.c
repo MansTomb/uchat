@@ -8,37 +8,28 @@ int mx_create_message_queue(int queue_size, t_message_queue *queue) {
     return 0;
 }
 
-// void delete_message_queue(message_queue_t *queue)
-// {
-//   free(queue->data);
-//   queue->data = NULL;
-// }
+void mx_delete_message_queue(t_message_queue *queue) {
+    free(queue->data);
+    queue->data = NULL;
+}
 
-// int enqueue(message_queue_t *queue, message_t *message)
-// {
-//   if (queue->current == queue->size)
-//     return -1;
+int mx_enqueue(t_message_queue *queue, t_message *message) {
+    if (queue->current == queue->size)
+        return -1;
+    memcpy(&queue->data[queue->current], message, sizeof(t_message));
+    queue->current++;
+    return 0;
+}
 
-//   memcpy(&queue->data[queue->current], message, sizeof(message_t));
-//   queue->current++;
+int mx_dequeue(t_message_queue *queue, t_message *message) {
+    if (queue->current == 0)
+        return -1;
+    memcpy(message, &queue->data[queue->current - 1], sizeof(t_message));
+    queue->current--;
+    return 0;
+}
 
-//   return 0;
-// }
-
-// int dequeue(message_queue_t *queue, message_t *message)
-// {
-//   if (queue->current == 0)
-//     return -1;
-
-//   memcpy(message, &queue->data[queue->current - 1], sizeof(message_t));
-//   queue->current--;
-
-//   return 0;
-// }
-
-// int dequeue_all(message_queue_t *queue)
-// {
-//   queue->current = 0;
-
-//   return 0;
-// }
+int mx_dequeue_all(t_message_queue *queue) {
+    queue->current = 0;
+    return 0;
+}

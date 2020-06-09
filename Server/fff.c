@@ -26,43 +26,43 @@ char read_buffer[1024]; // buffer for stdin
 
 void shutdown_properly(int code);
 
-// void handle_signal_action(int sig_number)
-// {
-//   if (sig_number == SIGINT) {
-//     printf("SIGINT was catched!\n");
-//     shutdown_properly(EXIT_SUCCESS);
-//   }
-//   else if (sig_number == SIGPIPE) {
-//     printf("SIGPIPE was catched!\n");
-//     shutdown_properly(EXIT_SUCCESS);
-//   }
-// }
+void handle_signal_action(int sig_number)
+{
+  if (sig_number == SIGINT) {
+    printf("SIGINT was catched!\n");
+    shutdown_properly(EXIT_SUCCESS);
+  }
+  else if (sig_number == SIGPIPE) {
+    printf("SIGPIPE was catched!\n");
+    shutdown_properly(EXIT_SUCCESS);
+  }
+}
 
-// int setup_signals()
-// {
-//   struct sigaction sa;
-//   sa.sa_handler = handle_signal_action;
-//   if (sigaction(SIGINT, &sa, 0) != 0) {
-//     perror("sigaction()");
-//     return -1;
-//   }
-//   if (sigaction(SIGPIPE, &sa, 0) != 0) {
-//     perror("sigaction()");
-//     return -1;
-//   }
+int setup_signals()
+{
+  struct sigaction sa;
+  sa.sa_handler = handle_signal_action;
+  if (sigaction(SIGINT, &sa, 0) != 0) {
+    perror("sigaction()");
+    return -1;
+  }
+  if (sigaction(SIGPIPE, &sa, 0) != 0) {
+    perror("sigaction()");
+    return -1;
+  }
 
-//   return 0;
-// }
+  return 0;
+}
 
 /* Start listening socket listen_sock. */
-// int start_listen_socket(int *listen_sock)
-// {
-//   // Obtain a file descriptor for our "listening" socket.
-//   *listen_sock = socket(AF_INET, SOCK_STREAM, 0);
-//   if (*listen_sock < 0) {
-//     perror("socket");
-//     return -1;
-//   }
+int start_listen_socket(int *listen_sock)
+{
+  // Obtain a file descriptor for our "listening" socket.
+  *listen_sock = socket(AF_INET, SOCK_STREAM, 0);
+  if (*listen_sock < 0) {
+    perror("socket");
+    return -1;
+  }
 
   int reuse = 1;
   if (setsockopt(*listen_sock, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse)) != 0) {
@@ -91,45 +91,45 @@ void shutdown_properly(int code);
   return 0;
 }
 
-// void shutdown_properly(int code)
-// {
-//   int i;
+void shutdown_properly(int code)
+{
+  int i;
 
-//   close(listen_sock);
+  close(listen_sock);
 
-//   for (i = 0; i < MAX_CLIENTS; ++i)
-//     if (connection_list[i].socket != NO_SOCKET)
-//       close(connection_list[i].socket);
+  for (i = 0; i < MAX_CLIENTS; ++i)
+    if (connection_list[i].socket != NO_SOCKET)
+      close(connection_list[i].socket);
 
-//   printf("Shutdown server properly.\n");
-//   exit(code);
-// }
+  printf("Shutdown server properly.\n");
+  exit(code);
+}
 
-// int build_fd_sets(fd_set *read_fds, fd_set *write_fds, fd_set *except_fds)
-// {
-//   int i;
+int build_fd_sets(fd_set *read_fds, fd_set *write_fds, fd_set *except_fds)
+{
+  int i;
 
-//   FD_ZERO(read_fds);
-//   FD_SET(STDIN_FILENO, read_fds);
-//   FD_SET(listen_sock, read_fds);
-//   for (i = 0; i < MAX_CLIENTS; ++i)
-//     if (connection_list[i].socket != NO_SOCKET)
-//       FD_SET(connection_list[i].socket, read_fds);
+  FD_ZERO(read_fds);
+  FD_SET(STDIN_FILENO, read_fds);
+  FD_SET(listen_sock, read_fds);
+  for (i = 0; i < MAX_CLIENTS; ++i)
+    if (connection_list[i].socket != NO_SOCKET)
+      FD_SET(connection_list[i].socket, read_fds);
 
-//   FD_ZERO(write_fds);
-//   for (i = 0; i < MAX_CLIENTS; ++i)
-//     if (connection_list[i].socket != NO_SOCKET && connection_list[i].send_buffer.current > 0)
-//       FD_SET(connection_list[i].socket, write_fds);
+  FD_ZERO(write_fds);
+  for (i = 0; i < MAX_CLIENTS; ++i)
+    if (connection_list[i].socket != NO_SOCKET && connection_list[i].send_buffer.current > 0)
+      FD_SET(connection_list[i].socket, write_fds);
 
-//   FD_ZERO(except_fds);
-//   FD_SET(STDIN_FILENO, except_fds);
-//   FD_SET(listen_sock, except_fds);
-//   for (i = 0; i < MAX_CLIENTS; ++i)
-//     if (connection_list[i].socket != NO_SOCKET)
-//       FD_SET(connection_list[i].socket, except_fds);
+  FD_ZERO(except_fds);
+  FD_SET(STDIN_FILENO, except_fds);
+  FD_SET(listen_sock, except_fds);
+  for (i = 0; i < MAX_CLIENTS; ++i)
+    if (connection_list[i].socket != NO_SOCKET)
+      FD_SET(connection_list[i].socket, except_fds);
 
-//   return 0;
-// }
+  return 0;
+}
 
 int handle_new_connection()
 {
@@ -145,7 +145,8 @@ int handle_new_connection()
   char client_ipv4_str[INET_ADDRSTRLEN];
   inet_ntop(AF_INET, &client_addr.sin_addr, client_ipv4_str, INET_ADDRSTRLEN);
 
-  printf("Incoming connection from %s:%d.\n", client_ipv4_str, client_addr.sin_port);
+  printf("Incoming connection from %s:%d.\n",
+        client_ipv4_str, client_addr.sin_port);
 
   int i;
   for (i = 0; i < MAX_CLIENTS; ++i) {
@@ -165,7 +166,8 @@ int handle_new_connection()
 
 int close_client_connection(peer_t *client)
 {
-  printf("Close client socket for %s.\n", peer_get_addres_str(client));
+  printf("Close client socket for %s.\n",
+    peer_get_addres_str(client));
 
   close(client->socket);
   client->socket = NO_SOCKET;

@@ -31,8 +31,9 @@ t_sock *mx_sockets_create_struct(int port) {
         new->opt = TRUE;
         for (int i = 0; i < MAX_CLIENTS; ++i) {
             new->connection_list[i].socket = MX_NO_SOCKET;
-            mx_create_peer(&new->connection_list[i]);
+            // mx_create_peer(&new->connection_list[i]);
         }
+        // mx_initialize_zero_int_arr(new->client_sockets, MAX_CLIENTS);
         new->valread = 0;
     }
     return new;
@@ -44,7 +45,6 @@ void mx_sockets_initialize(t_sock *sock, int port) {
     socket_type_set(&sock->address, port);
     mx_socket_bind_to_port(sock);
     mx_socket_specify_maximum_connections_to_master(sock->master_socket, 128);
-    // mx_set_nonblock_for_stdin();
     sock->max_sd = sock->master_socket;
     sock->addrlen = sizeof(sock->address);
     printf("Waiting for incoming connections.\n");

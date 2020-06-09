@@ -2,12 +2,12 @@
 
 int mx_delete_peer(t_peer *peer) {
     close(peer->socket);
-    // delete_message_queue(&peer->send_buffer);
+    mx_delete_message_queue(&peer->send_buffer);
     return 0;
 }
 
 int mx_create_peer(t_peer *peer) {
-    mx_create_message_queue(MAX_MESSAGES_BUFFER_SIZE, &peer->send_buffer);
+    mx_create_message_queue(MX_MAX_MESSAGES_BUFFER_SIZE, &peer->send_buffer);
 
     peer->current_sending_byte = -1;
     peer->current_receiving_byte = 0;
@@ -15,17 +15,18 @@ int mx_create_peer(t_peer *peer) {
     return 0;
 }
 
-// char *peer_get_addres_str(peer_t *peer)
-// {
-//   static char ret[INET_ADDRSTRLEN + 10];
-//   char peer_ipv4_str[INET_ADDRSTRLEN];
-//   inet_ntop(AF_INET, &peer->addres.sin_addr, peer_ipv4_str, INET_ADDRSTRLEN);
-//   sprintf(ret, "%s:%d", peer_ipv4_str, peer->addres.sin_port);
+char *mx_peer_get_addres_str(t_peer *peer) {
+    static char res[INET_ADDRSTRLEN + 10];
+    socklen_t *addrlen = NULL;
 
-//   return ret;
-// }
+    getpeername(peer->socket, (struct sockaddr *)&peer->addres,
+                (socklen_t *)addrlen);
+    sprintf(res, "%s:%d",
+            inet_ntoa(peer->addres.sin_addr), ntohs(peer->addres.sin_port));
 
-// int peer_add_to_send(peer_t *peer, message_t *message)
-// {
-//   return enqueue(&peer->send_buffer, message);
-// }
+    return res;
+}
+
+int mx_peer_add_to_send(t_peer *peer, t_message *message) {
+    return mx_enqueue(&peer->send_buffer, message);
+}

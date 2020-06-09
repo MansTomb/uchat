@@ -26,40 +26,40 @@ char read_buffer[1024]; // buffer for stdin
 
 
 int main(int argc, char **argv)
-// {
-//   if (setup_signals() != 0)
-//     exit(EXIT_FAILURE);
+{
+  if (setup_signals() != 0)
+    exit(EXIT_FAILURE);
 
-//   if (start_listen_socket(&listen_sock) != 0)
-//     exit(EXIT_FAILURE);
+  if (start_listen_socket(&listen_sock) != 0)
+    exit(EXIT_FAILURE);
 
   /* Set nonblock for stdin. */
   int flag = fcntl(STDIN_FILENO, F_GETFL, 0);
   flag |= O_NONBLOCK;
   fcntl(STDIN_FILENO, F_SETFL, flag);
 
-  // int i;
-  // for (i = 0; i < MAX_CLIENTS; ++i) {
-  //   connection_list[i].socket = NO_SOCKET;
-  //   create_peer(&connection_list[i]);
-  // }
+  int i;
+  for (i = 0; i < MAX_CLIENTS; ++i) {
+    connection_list[i].socket = NO_SOCKET;
+    create_peer(&connection_list[i]);
+  }
 
-  // fd_set read_fds;
-  // fd_set write_fds;
-  // fd_set except_fds;
+  fd_set read_fds;
+  fd_set write_fds;
+  fd_set except_fds;
 
-  // int high_sock = listen_sock;
+  int high_sock = listen_sock;
 
-  // printf("Waiting for incoming connections.\n");
+  printf("Waiting for incoming connections.\n");
 
   while (1) {
-    // build_fd_sets(&read_fds, &write_fds, &except_fds);
+    build_fd_sets(&read_fds, &write_fds, &except_fds);
 
-    // high_sock = listen_sock;
-    // for (i = 0; i < MAX_CLIENTS; ++i) {
-    //   if (connection_list[i].socket > high_sock)
-    //     high_sock = connection_list[i].socket;
-    // }
+    high_sock = listen_sock;
+    for (i = 0; i < MAX_CLIENTS; ++i) {
+      if (connection_list[i].socket > high_sock)
+        high_sock = connection_list[i].socket;
+    }
 
     int activity = select(high_sock + 1, &read_fds, &write_fds, &except_fds, NULL);
 
