@@ -1,48 +1,40 @@
 #include "client.h"
 
-static void attach_layout(t_info *info, t_chat *chat) {
-    mx_layout_put(info->layout, chat->stack, 300, 100);
-    mx_layout_put(info->layout, chat->stack_controller, 300, 50);
-    // mx_layout_put(info->layout, chat->, 300, 50);
+static void attach_layout(t_info *info, t_chat *new) {
+    mx_layout_put(info->layout, new->scroll, 300, 100);
+    mx_layout_put(info->layout, new->msgentry, 300, 640);
+    mx_layout_put(info->layout, new->sendbt, 1080, 640);
+    mx_scrollable_container_add(new->scroll, new->box);
 }
 
-// static t_background_image *msx_background_image_constructor(t_info *info,
-//                                                     char *image_path, GtkWidget *layout) {
-//     t_background_image *new = malloc(sizeof(t_background_image));
+static void attach_signals(t_chat *new) {
+    g_signal_connect(new->msgentry, "activate", G_CALLBACK(mx_send_message), new);
+    g_signal_connect(new->sendbt, "clicked", G_CALLBACK(mx_send_message), new);
+}
 
-//     if (new != NULL) {
-//         new->window = info->main_window;
-//         new->pixbuf = gdk_pixbuf_new_from_file_at_scale(image_path, 1280, 720, FALSE, NULL);
-//         new->image = gtk_image_new_from_pixbuf(new->pixbuf);
-//         gtk_layout_put(GTK_LAYOUT(layout), new->image, 0, 0);
-//     }
-//     return new;
-// }
+static void set_properties(t_chat *new) {
+    gtk_widget_set_size_request(new->msgentry, 780, 40);
+    gtk_entry_set_max_length(GTK_ENTRY(new->msgentry), 660);
+    gtk_list_box_set_selection_mode(GTK_LIST_BOX(new->box), GTK_SELECTION_NONE);
+}
 
 t_chat *mx_chat_constructor(t_info *info) {
     t_chat *new = malloc(sizeof(t_chat));
 
-    if (info) {};
     if (new) {
-        new->scroll = mx_scrollable_constructor("scrollable", NULL, NULL);
-        new->layout = mx_layout_constructor("chat_window", 880, 1020);
-        new->stack = gtk_stack_new();
-        new->stack_controller = gtk_stack_switcher_new();
-        gtk_stack_switcher_set_stack(GTK_STACK_SWITCHER(new->stack_controller), GTK_STACK(new->stack));
-        gtk_stack_add_titled(GTK_STACK(new->stack), new->scroll, "stack", "Chat");
-        gtk_container_add(GTK_CONTAINER(new->scroll), new->layout);
-        gtk_widget_set_size_request(new->scroll, 880, 520);
-        // new->scroll = gtk_scrolled_window_new(NULL, NULL);
-        // gtk_widget_set_hexpand(new->scroll, TRUE);
-        // gtk_widget_set_vexpand(new->scroll, TRUE);
-        // new->layout = mx_layout_constructor("chat_window", 1280, 720);
-        // gtk_layout_put(GTK_LAYOUT(info->layout), new->layout, 0, 0);
-        // gtk_layout_put(GTK_LAYOUT(new->layout), bt, 320, 320);
-        // gtk_widget_set_name(new->scroll, "alo");
-        // new->back_image = msx_background_image_constructor(info, BACKIMAGE_PATH, new->layout);   
-        new->back_image = mx_background_image_constructor(info, BACKIMAGE_PATH);
-        mx_css_from_file(info, "./Resources/css/chat.css");
+        new->scroll = mx_scrollable_constructor("scrollable", 880, 520);
+        new->layout = mx_layout_constructor("chat_window", 880, 520);
+        new->sendbt = mx_button_constuctor("Send", "send_button");
+        new->msgentry = mx_entry_constructor("msg_entry");
+        new->messages = mx_create_list();
+        new->box = mx_listbox_constructor("message_list");
+        new->showed_chat = 0;
+        new->info = info;
+        
+        set_properties(new);
+        attach_signals(new);
         attach_layout(info, new);
+        mx_css_from_file(info, "./Resources/css/chat.css");
     }
     return new;
 }

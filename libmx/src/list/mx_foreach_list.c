@@ -1,7 +1,12 @@
 #include "libmx.h"
 
 void mx_foreach_list(t_list *list, void (*f)(t_list_node *)) {
-    t_list_node *node = f && list ? list->head : NULL;
+    // t_list_node *node = f && list ? list->head : NULL;
+    t_list_node *node = NULL;
+
+    if (f)
+        if (list)
+            node = list->head;
 
     for (; node; node = node->next)
         f(node);
