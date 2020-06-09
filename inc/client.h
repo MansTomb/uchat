@@ -1,6 +1,7 @@
 #pragma once
 
 #include "uchat.h"
+#include "defines_client.h"
 
 typedef struct sockaddr_in t_saddr;
 
@@ -16,6 +17,51 @@ typedef struct s_background_image {
     GdkPixbuf *pixbuf;
 } t_background_image;
 
+typedef struct s_login {
+    GtkWidget *loginbt;
+    GtkWidget *registerbt;
+
+    GtkWidget *username_label;
+    GtkWidget *username_entry;
+
+    GtkWidget *password_label;
+    GtkWidget *password_entry;
+
+    t_background_image *back_image;
+} t_login;
+
+typedef struct s_register {
+    GtkWidget *registerbt;
+    GtkWidget *backbt;
+
+    GtkWidget *username_label;
+    GtkWidget *username_entry;
+
+    GtkWidget *password_label;
+    GtkWidget *password_entry;
+
+    GtkWidget *password2_label;
+    GtkWidget *password2_entry;
+
+    t_background_image *back_image;
+} t_register;
+
+typedef struct s_chat {
+    GtkWidget *stack;
+    GtkWidget *stack_controller;
+    GtkWidget *layout;
+    GtkWidget *scroll;
+
+    t_background_image *back_image;
+} t_chat;
+
+typedef struct s_windows {
+    t_login *log;
+    t_register *reg;
+    t_chat *chat;
+} t_windows;
+
+
 typedef struct s_info {
     GtkWidget *main_window;
     GtkWidget *layout;
@@ -23,21 +69,9 @@ typedef struct s_info {
     GtkCssProvider *css;
 
     t_sock *sock;
+    t_windows *windows;
     gpointer current_window;
 } t_info;
-
-typedef struct s_login {
-    GtkWidget *loginbt;
-    GtkWidget *registerbt;
-
-    GtkWidget *username_label;
-    GtkWidget *password_label;
-
-    GtkWidget *username_entry;
-    GtkWidget *password_entry;
-
-    t_background_image *back_image;
-} t_login;
 
 /* Main */
 GtkWidget *create_main_window(GtkApplication *app);
@@ -56,8 +90,9 @@ t_sock *mx_client_socket_create(char *ip, int port);
 void mx_widget_destroy(GtkWidget *widget);
 
     /* Work with background images */
-t_background_image *mx_background_image_constructor(GtkWidget *window, char *image_path);
-void mx_background_image_show(GtkWidget *layout, t_background_image *image);
+t_background_image *mx_background_image_constructor(t_info *info, char *image_path);
+void mx_background_image_show(t_background_image *backimg);
+void mx_background_image_hide(t_background_image *backimg);
 void mx_background_image_delete(t_background_image *back_image);
 
     /* Work with buttons */
@@ -74,6 +109,7 @@ GtkWidget *mx_grid_constructor(char *name, int width, int height);
 
     /* Work with layouts */
 GtkWidget *mx_layout_constructor(char *name, int width, int height);
+void mx_layout_put(GtkWidget *layout, GtkWidget *obj, int width, int height);
 
     /* Work with css */
 void mx_css_from_file(t_info *info, char *filename);
@@ -82,10 +118,46 @@ void mx_css_from_data(t_info *info, char *data);
     /* Work with labels */
 GtkWidget *mx_label_constructor(char *name, char *text);
 
-/* LOGIN SCREEN */
-void mx_login_screen_create(t_info *info);
-void mx_login_screen_delete(t_info *info);
+    /* Work with dialog windows */
+void mx_dialog_warning_create(GtkWidget *parent, char *message);
+
+    /* Work with scrollable */
+GtkWidget *mx_scrollable_constructor(char *name, GtkAdjustment *hadj, GtkAdjustment *vadj);
+
+
+/* Windows */
+
+
+/*                             LOGIN SCREEN */
+t_login *mx_login_constructor(t_info *info);
+void mx_login_screen_show(t_info *info);
+void mx_login_screen_hide(t_info *info);
 
     /* Login callbacks */
 void login_on_click(GtkApplication *app, gpointer user_data);
 void register_on_click(GtkApplication *app, gpointer user_data);
+
+    /* Login error dialogs */
+void mx_login_entry_empty(t_info *info);
+
+/*                             REGISTER SCREEN */
+t_register *mx_register_constructor(t_info *info);
+void mx_register_screen_show(t_info *info);
+void mx_register_screen_hide(t_info *info);
+
+    /* Register callbacks */
+void back_to_login_on_click(GtkApplication *app, gpointer user_data);
+void reg_user_on_click(GtkApplication *app, gpointer user_data);
+
+    /* Register error dialogs */
+
+
+/*                             CHAT SCREEN */
+t_chat *mx_chat_constructor(t_info *info);
+void mx_chat_screen_show(t_info *info);
+void mx_chat_screen_hide(t_info *info);
+
+    /* Chat callbacks */
+
+
+    /* Chat error dialogs */

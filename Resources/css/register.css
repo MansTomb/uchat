@@ -1,0 +1,38 @@
+#backbt {
+    background-color: white;
+}
+
+#backbt:hover {
+    background-color: white;
+}
+
+#backbt:active {
+    background-color: white;
+}
+
+#registerbt {
+    background-color: white;
+}
+
+#registerbt:hover {
+    background-color: white;
+}
+
+#registerbt:active {
+    color: black;
+}
+
+#username_label {
+    color: black;
+    font-size: large;
+}
+
+#password_label {
+    color: black;
+    font-size: large;
+}
+
+#password2_label {
+    color: black;
+    font-size: large;
+}
