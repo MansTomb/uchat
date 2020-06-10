@@ -20,14 +20,10 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "macroses.h"
 
+#include "cvector.h"
 #include "list.h"
-#include "tree.h"
-#include "vector.h"
-#include "tstring.h"
-#include "json.h"
-#include "json-builder.h"
+#include "macroses.h"
 #include "sqlite3.h"
 
 /*
