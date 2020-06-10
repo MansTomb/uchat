@@ -25,7 +25,6 @@ $(SERVER):
 	@cp $(SERVER_PATH) .
 
 clean:
-	@$(RM) $(CLIENT) $(SERVER)
 	@$(EXEC_LD) $(LIB_DIR) clean
 	@$(EXEC_LD) $(CLIENT_DIR) clean
 	@$(EXEC_LD) $(SERVER_DIR) clean
