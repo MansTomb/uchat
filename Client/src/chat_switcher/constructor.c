@@ -20,12 +20,11 @@ t_chat_switcher *mx_chat_switcher_constructor(t_info *info) {
     t_chat_switcher *new = malloc(sizeof(t_chat));
 
     if (new) {
-        new->box = mx_box_constructor("box_of_chat_buttons", 40, 40, GTK_ORIENTATION_HORIZONTAL);
+        new->box = mx_box_constructor("box_of_chat_buttons", 60, 40, GTK_ORIENTATION_VERTICAL);
 
-        mx_layout_put(info->layout, new->box, 300, 50);
+        mx_layout_put(info->layout, new->box, 1180, 100);
         
         mx_css_from_file(info, "./Resources/css/chat_switcher.css");
-        gtk_widget_show(new->box);
     }
     return new;
 }
