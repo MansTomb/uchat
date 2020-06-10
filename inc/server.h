@@ -126,3 +126,6 @@ int mx_send_to_peer(t_info *info, t_peer *peer);
 
 
 void mx_shutdown_properly(t_info *info, int code);
+
+
+//-----------------------
