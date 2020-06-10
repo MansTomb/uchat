@@ -3,7 +3,7 @@
 static void attach_layout(t_info *info, t_chat *new) {
     mx_layout_put(info->layout, new->scroll, 300, 100);
     mx_layout_put(info->layout, new->msgentry, 300, 640);
-    mx_layout_put(info->layout, new->sendbt, 1080, 640);
+    mx_layout_put(info->layout, new->sendbt, 1100, 640);
     mx_scrollable_container_add(new->scroll, new->box);
 }
 

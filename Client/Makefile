@@ -10,9 +10,20 @@ register = register callbacks errors constructor
 
 chat = chat callbacks errors constructor
 
-chat_switcher = chat_switcher callbacks errors constructor
+chat_switcher = chat_switcher chat_switcher_hide callbacks errors constructor \
+				chat_switcher_show
 
 message = message callbacks errors constructor
+
+main_menu = main_menu callbacks callbacks2 errors constructor
+
+profile = profile callbacks errors constructor
+
+contacts = contacts callbacks errors constructor
+
+room_creation = room_creation callbacks errors constructor
+
+mainchatscreen = main_chat_screen
 
 utils = background_images buttons grids input_labels layouts css labels widget \
 	dialog scrollable stack stack_switcher fixed frame box listbox
@@ -26,7 +37,11 @@ RAW = $(addprefix base/, $(base)) 	\
 	  $(addprefix json-build-login/, $(json-build-login)) \
 	  $(addprefix register/, $(register)) $(addprefix chat/, $(chat)) \
 	  $(addprefix message/, $(message)) \
-	  $(addprefix chat_switcher/, $(chat_switcher))
+	  $(addprefix chat_switcher/, $(chat_switcher)) \
+	  $(addprefix main_chat_screen/, $(mainchatscreen)) \
+	  $(addprefix main_menu/, $(main_menu)) \
+	  $(addprefix profile/, $(profile)) $(addprefix contacts/, $(contacts)) \
+	  $(addprefix room_creation/, $(room_creation))
 
 SRC_DIR = ./src/
 OBJ_DIR = ./obj/
@@ -49,7 +64,9 @@ $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR) $(OBJ_DIR)/base $(OBJ_DIR)/login \
 				$(OBJ_DIR)/utils $(OBJ_DIR)/json-build-login \
 				$(OBJ_DIR)/register $(OBJ_DIR)/chat $(OBJ_DIR)/message \
-				$(OBJ_DIR)/chat_switcher
+				$(OBJ_DIR)/chat_switcher $(OBJ_DIR)/main_chat_screen \
+				$(OBJ_DIR)/main_menu $(OBJ_DIR)/profile $(OBJ_DIR)/contacts \
+				$(OBJ_DIR)/room_creation
 #$(OBJ_DIR)/parse
 # $(LIB):
 # 	@make -sC $(LIB_DIR) -f Makefile install

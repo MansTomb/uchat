@@ -8,6 +8,7 @@ GtkWidget *create_main_window(GtkApplication *app) {
     gtk_widget_set_name(window, "main_window");
     gtk_window_set_title(GTK_WINDOW (window), "uchat");
     gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
+    gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
     gtk_window_set_default_size(GTK_WINDOW (window), WIDTH, HEIGHT);
     return window;
 }

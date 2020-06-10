@@ -14,6 +14,10 @@ typedef struct s_register t_register;
 typedef struct s_chat t_chat;
 typedef struct s_chat_switcher t_chat_switcher;
 typedef struct s_windows t_windows;
+typedef struct s_main_menu t_main_menu;
+typedef struct s_profile t_profile;
+typedef struct s_contacts t_contacts;
+typedef struct s_room_creation t_room_creation;
 typedef struct s_info t_info;
 
 struct s_sock {
@@ -86,12 +90,58 @@ struct s_chat_switcher {
     t_chat *chat;
 };
 
+struct s_main_menu {
+    GtkWidget *box;
+
+    GtkWidget *profile;
+    GtkWidget *contancts;
+    GtkWidget *create_room;
+    GtkWidget *preferences;
+    GtkWidget *exit;
+
+    GtkWidget *back;
+};
+
 struct s_windows {
     t_login *log;
     t_register *reg;
     t_chat_switcher *chat_switcher;
+    t_profile *profile;
+    t_contacts *contacts;
+    t_room_creation *room_creation;
+    t_main_menu *main_menu;
 };
 
+struct s_profile {
+    GtkWidget *image;
+    GtkWidget *namelabel;
+    GtkWidget *name;
+    GtkWidget *idlabel;
+    GtkWidget *id;
+
+    GtkWidget *edit;
+    GtkWidget *save;
+    GtkWidget *cancel;
+
+    GtkWidget *scrollable;
+    GtkWidget *layout;
+};
+
+struct s_contacts {
+    GtkWidget *treeview;
+};
+
+struct s_room_creation {
+    GtkWidget *dialog;
+    GtkWidget *groupbt;
+    GtkWidget *channelbt;
+
+    GtkWidget *create;
+    GtkWidget *cancel;
+
+    GtkWidget *type;
+    GtkWidget *entry;
+};
 
 struct s_info {
     GtkWidget *main_window;
@@ -205,6 +255,47 @@ void reg_user_on_click(GtkApplication *app, gpointer user_data);
     /* Register error dialogs */
 
 
+
+/*                             Main Chat Screen */
+void mx_main_chat_screen_show(t_info *info);
+void mx_main_chat_screen_hide(t_info *info);
+
+
+/*                              Main Menu */
+t_main_menu *mx_main_menu_constructor(t_info *info);
+void mx_main_menu_show(t_info *info);
+void mx_main_menu_hide(t_info *info);
+
+void mx_find_and_hide_screen(t_info *info);
+
+    /* Callbacks */
+void mx_on_click_profile(GtkWidget *widget, gpointer data);
+void mx_on_click_contacts(GtkWidget *widget, gpointer data);
+void mx_on_click_create_room(GtkWidget *widget, gpointer data);
+void mx_on_click_preferences(GtkWidget *widget, gpointer data);
+void mx_on_click_exit(GtkWidget *widget, gpointer data);
+void mx_on_click_back(GtkWidget *widget, gpointer data);
+
+/*                              Profile Screen */
+t_profile *mx_profile_constructor(t_info *info);
+void mx_profile_show(t_info *info);
+void mx_profile_hide(t_info *info);
+
+    /* Callbacks */
+void mx_on_click_profile_edit(GtkWidget *widget, gpointer *data);
+void mx_on_click_profile_save(GtkWidget *widget, gpointer *data);
+void mx_on_click_profile_cancel(GtkWidget *widget, gpointer *data);
+
+/*                              Room Creation */
+t_room_creation *mx_room_creation_constructor(t_info *info);
+void mx_room_creation_destructor(t_info *info);
+
+    /* Callbacks */
+void mx_on_click_create_room_channel(GtkWidget *widget, gpointer data);
+void mx_on_click_create_room_group(GtkWidget *widget, gpointer data);
+void mx_on_click_create_room_create(GtkWidget *widget, gpointer data);
+void mx_on_click_create_room_cancel(GtkWidget *widget, gpointer data);
+
 /*                             CHAT SCREEN */
 t_chat *mx_chat_constructor(t_info *info);
 void mx_chat_screen_show(t_chat *chat);
@@ -221,6 +312,11 @@ void mx_send_message(GtkWidget *widget, gpointer data);
     /* Chat switcher */
 t_chat_switcher *mx_chat_switcher_constructor(t_info *info);
 void mx_chat_switcher_add_chat(t_info *info, t_chat *chat, char *chat_name);
+void mx_chat_switcher_show(t_info *info);
+void mx_chat_switcher_hide(t_info *info);
+
+void mx_hide_chat(GtkWidget *widget, gpointer data); // Show chat in switcher. Не перепутать с show_chat_screen
+void mx_show_chat(GtkWidget *widget, gpointer data); // Show chat in switcher. Не перепутать с show_chat_screen
 
 /*                              Messages Class */
 t_message *mx_message_construct(t_info *info, char *message, char *username);
