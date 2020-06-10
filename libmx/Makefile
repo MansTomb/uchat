@@ -55,7 +55,7 @@ D = \033[0m
 F = \033[5m
 K = \033[K
 
-all: build
+all: debug
 
 debug: CFLAGS = $(DFLAGS)
 debug: TARGET = debug

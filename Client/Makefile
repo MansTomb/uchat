@@ -64,7 +64,7 @@ F = \033[5m
 A = \033[A
 K = \033[K
 
-all: build
+all: debug
 
 # recursion call this make with initialized variables
 debug:
@@ -107,7 +107,7 @@ $(NAME): $(OBJ_DIR) $(OBJ)
 	@$(COMPILE) $(CFLAGS) $(PKGCONFIG) $(LIB_PATH) $(OBJ) -o $(NAME)
 	@$(PRINT) "$K"
 
-# silent mode without printing LOGO
+# silent installing
 install: check
 	@$(EXEC_LD) $@
 	@$(EXEC_IT) $(NAME)
@@ -120,7 +120,7 @@ uninstall:
 	@$(EXEC_LD) $@
 	@$(RM) $(OBJ_DIR) $(NAME)
 
-# silent rebuild project
+# silent rebuilding
 reinstall: uninstall install
 
 .PHONY: all build debug check clean install uninstall reinstall
