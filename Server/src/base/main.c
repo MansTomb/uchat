@@ -1,56 +1,33 @@
 #include "server.h"
 
+static t_info *info_create() {
+    t_info *new = malloc(sizeof(t_info));
+
+    return new;
+}
 
 int main(int argc, char *argv[]) {
-    t_all *a;
+    t_info *info;
     int portNumber;
 
     if (argc != 2)
-        return (printf(MX_ERR_SE_US) * 0 + 1);
+        return(fprintf(stderr, "To many arguments!\n usage: ./uchatserver <port>") * 0 + 1);
+
     portNumber = atoi(argv[1]);
     if ( portNumber <= 0 )
         return(fprintf(stderr, "Usage: %s PortNumber\n", argv[0]) * 0 + 1);
 
-    a = mx_init_all();
-    // mx_daemonize();
-    // mx_printint(getpid());
-    mx_sockets_initialize(a, portNumber);
+    info = info_create();
 
-    signal(SIGPIPE, SIG_IGN);  // Ignore pipe signals.
+    // if (mx_setup_signals(info) != 0)
+    //     exit(EXIT_FAILURE);
 
-    // if (acceptConnections(a->listenfd) == -1 )
-    //     mx_perror_and_exit("[ERROR] Server exit with an error\n");
-    mx_accept_clients(a);
+    info->sock = mx_sockets_create_struct(atoi(argv[1]));
+    mx_sockets_initialize(info->sock, atoi(argv[1]));
+    mx_sockets_loop(info);
 
-    close(a->listenfd);
-    return EXIT_SUCCESS;
+    return 0;
 }
-
-
-// static t_info *info_create() {
-//     t_info *new = malloc(sizeof(t_info));
-
-//     return new;
-// }
-
-// int main(int argc, char *argv[]) {
-//     t_info *info;
-
-//     if (argc != 2) {
-//         perror("To many arguments!\n usage: ./uchatserver <port>");
-//         exit(EXIT_FAILURE);
-//     }
-//     info = info_create();
-
-//     // if (mx_setup_signals(info) != 0)
-//     //     exit(EXIT_FAILURE);
-
-//     info->sock = mx_sockets_create_struct(atoi(argv[1]));
-//     mx_sockets_initialize(info->sock, atoi(argv[1]));
-//     mx_sockets_loop(info);
-
-//     return 0;
-// }
 
 // // multiple connected users
 // int main(int argc , char *argv[])

@@ -47,20 +47,25 @@ int mx_handle_read_from_stdin(t_info *info) {
     mx_prepare_message("server_admin", read_buffer, &new_message);
     mx_print_message(&new_message);
 
-    /* enqueue message for all clients */
-    for (int i = 0; i < MAX_CLIENTS; ++i) {
-        if (info->sock->connection_list[i].socket != MX_NO_SOCKET) {
-            if (mx_peer_add_to_send(&info->sock->connection_list[i], &new_message) != 0) {
-                printf("Send buffer was overflowed, we lost this message!\n");
-                continue;
-            }
-        // char newbuf[1024];
 
-        // sprintf(newbuf, "server_admin: %s", read_buffer);
-        // send(info->sock->connection_list[i].socket, newbuf, strlen(newbuf), 0);
-        printf("New message to send was enqueued right now.\n");
-        }
-    }
+    /* enqueue message for all clients */
+    mx_message_to_str(&new_message, read_buffer);
+    mx_send_message_all(info, read_buffer, 0);
+
+
+    // for (int i = 0; i < MAX_CLIENTS; ++i) {
+    //     if (info->sock->connection_list[i].socket != MX_NO_SOCKET) {
+    //         if (mx_peer_add_to_send(&info->sock->connection_list[i], &new_message) != 0) {
+    //             printf("Send buffer was overflowed, we lost this message!\n");
+    //             continue;
+    //         }
+    //     // char newbuf[1024];
+
+    //     // sprintf(newbuf, "server_admin: %s", read_buffer);
+    //     // send(info->sock->connection_list[i].socket, newbuf, strlen(newbuf), 0);
+    //     printf("New message to send was enqueued right now.\n");
+    //     }
+    // }
 
     return 0;
 }

@@ -51,15 +51,15 @@ void mx_handle_incoming_data(t_info *info) {
                 mx_handle_disconnect(sock, &sock->connection_list[i]);
     }
 
-    for (int i = 0; i < MAX_CLIENTS; ++i) {
-        sd = info->sock->connection_list[i].socket;
-        if (sd != MX_NO_SOCKET && FD_ISSET(sd, &info->sock->writefds))
-            if (mx_send_to_peer(info, &sock->connection_list[i]) != 0)
-                mx_handle_disconnect(sock, &sock->connection_list[i]);
+    // for (int i = 0; i < MAX_CLIENTS; ++i) {
+    //     sd = info->sock->connection_list[i].socket;
+    //     if (sd != MX_NO_SOCKET && FD_ISSET(sd, &info->sock->writefds))
+    //         if (mx_send_to_peer(info, &sock->connection_list[i]) != 0)
+    //             mx_handle_disconnect(sock, &sock->connection_list[i]);
 
-        if (sd != MX_NO_SOCKET && FD_ISSET(sd, &info->sock->exceptfds)) {
-            printf("Exception client fd.\n");
-            mx_handle_disconnect(sock, &sock->connection_list[i]);
-        }
-    }
+    //     if (sd != MX_NO_SOCKET && FD_ISSET(sd, &info->sock->exceptfds)) {
+    //         printf("Exception client fd.\n");
+    //         mx_handle_disconnect(sock, &sock->connection_list[i]);
+    //     }
+    // }
 }

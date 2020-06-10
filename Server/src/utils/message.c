@@ -11,6 +11,10 @@ int mx_print_message(t_message *message) {
     return 0;
 }
 
+void mx_message_to_str(t_message *message, char *buff) {
+    sprintf(buff, "%s: %s", message->sender, message->data);
+}
+
 int mx_handle_received_message(t_info *info, t_message *new_message) {
     mx_print_message(new_message);
     for (int i = 0; i < MAX_CLIENTS; ++i) {
@@ -19,7 +23,7 @@ int mx_handle_received_message(t_info *info, t_message *new_message) {
                 printf("Send buffer was overflowed, we lost this message!\n");
                 continue;
             }
-        // printf("New message to send was enqueued right now.\n");
+        printf("New message to send was enqueued right now.\n");
         }
     }
     return 0;
