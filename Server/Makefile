@@ -4,9 +4,11 @@ NAME = uchatserver
 
 base = main
 
-sockets = create_and_init handle_incoming_data handle_new_connection handle_read_from_stdin init_2 loop_handler loop peer_receive_message peer_send_message shutdown signals
+sockets = 	mx_init mx_init_2 mx_accept_clients mx_handle_client \
+			mx_queue mx_send_msg mx_print_stuff \
+			# mx_special_options.c mx_daemonize
 
-utils = initialize_zero message_queue message peer
+utils =
 
 #$(addprefix parse/, $(parse))
 RAW = $(addprefix base/, $(base)) 	\
@@ -48,7 +50,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@$(CC) -pipe $(WFLAGS) $(LFLAGS) $(PGKCONFIGFLAGS) $(DFLAGS) -o $@ -c $<
 
 $(NAME): $(OBJ_DIR) $(OBJ)
-	@$(CC) -pipe $(WFLAGS) $(LFLAGS) $(PKGCONFIG) $(DFLAGS) $(OBJ) -o $(NAME) $(LIB_PATH)
+	@$(CC) -pipe $(WFLAGS) $(LFLAGS) $(PKGCONFIG) $(DFLAGS) $(OBJ) -lpthread -o $(NAME) $(LIB_PATH)
 
 install: $(NAME)
 

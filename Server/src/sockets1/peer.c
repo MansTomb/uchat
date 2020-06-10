@@ -17,10 +17,10 @@ int mx_create_peer(t_peer *peer) {
 
 char *mx_peer_get_addres_str(t_peer *peer) {
     static char res[INET_ADDRSTRLEN + 10];
-    socklen_t *addrlen = NULL;
+    // socklen_t *addrlen = NULL;
 
-    getpeername(peer->socket, (struct sockaddr *)&peer->addres,
-                (socklen_t *)addrlen);
+    // getpeername(peer->socket, (struct sockaddr *)&peer->addres,
+    //             (socklen_t *)addrlen);
     sprintf(res, "%s:%d",
             inet_ntoa(peer->addres.sin_addr), ntohs(peer->addres.sin_port));
 
