@@ -1,7 +1,9 @@
-NAME = libmx.a
 CC = clang
+NAME = libmx.a
 
 file = get_file_length file_to_str read_line
+
+json = cJSON_Utils cJSON
 
 list = clear_list create_list create_node delete_list foreach_list_reverse    \
 	foreach_list get_index list_to_array pop_back pop_front pop_index         \
@@ -12,67 +14,75 @@ memory = memdup memrchr
 print = print_strarr print_unicode printchar printnum printstr printstrlen    \
 	printunum
 
+sql = sqlite3
+
 string = count_substr count_words del_extra_spaces del_strarr get_char_index  \
 	get_substr_index lltoa_s lltoa replace_substr str_reverse strdel strdup   \
 	strjoin strndup strnew strsplit strtrim ulltoa_s ulltoa ulltoh_s ulltoh
 
-tstring = copy_str create_string delete_str tdel_extra_spaces treplace_substr \
-	tstr_insert tstr_remove tstrcat tstrtrim
-
-tree = create_tree clear_tree delete_tree foreach_in foreach_post foreach_pre  \
-	new_node
-
 utils = factorial foreach isprime numlen sigma sum_digits swap unumlen
 
-vector = assign_vector at clear_vector copy_vector create_vector              \
-	delete_vector end erase foreach_vector foreach_vector_reverse get_back    \
-	get_front insert pop_backward push_backward reverse_vector
+dirs = file json list memory print sql string utils
+FILES = $(foreach dir, $(dirs), $($(dir):%=$(dir)/mx_%))
 
-json = json json-builder
+SRC_DIR = src/
+OBJ_DIR = obj/
 
-sql = sqlite3
+SRC = $(FILES:%=$(SRC_DIR)%.c)
+OBJ = $(FILES:%=$(OBJ_DIR)%.o)
 
-RAW = $(addprefix file/mx_, $(file)) $(addprefix list/mx_, $(list))           \
-	$(addprefix memory/mx_, $(memory)) $(addprefix print/mx_, $(print))       \
-	$(addprefix string/mx_, $(string)) $(addprefix tree/mx_, $(tree))         \
-	$(addprefix utils/mx_, $(utils)) $(addprefix vector/mx_, $(vector))       \
-	$(addprefix tstring/mx_, $(tstring)) $(addprefix json/, $(json))          \
-	$(addprefix sql/, $(sql))
-
-SRC_DIR = ./src/
-OBJ_DIR = ./obj/
-
-SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(RAW)))
-OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(RAW)))
-
-WFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic
+WFLAGS = -Wall -Wextra -Werror -Wpedantic
 LFLAGS = -Iinc
 CFLAGS = -Ofast -march=native -fomit-frame-pointer -flto
-DFLAGS = -O0 -g3 -glldb -fsanitize=address
+DFLAGS = -O0 -g3 -glldb -ftrapv -fno-omit-frame-pointer -fsanitize=address    \
+	-fsanitize=undefined
 
-all: install
+COMPILE = $(CC) -std=c11 -pipe $(WFLAGS) $(LFLAGS)
+PRINT = printf
+MKDIR = mkdir -p
+AR = ar rcs
+RM = /bin/rm -rf
+TARGET = build
+
+R = \033[1;91m
+G = \033[1;92m
+Y = \033[1;93m
+B = \033[1;94m
+M = \033[1;95m
+C = \033[1;96m
+S = \033[38;5;45;1m
+D = \033[0m
+F = \033[5m
+K = \033[K
+
+all: build
+
+debug: CFLAGS = $(DFLAGS)
+debug: TARGET = debug
+debug: install
+
+build: install
 
 $(OBJ_DIR):
-	@mkdir -p $(OBJ_DIR) $(OBJ_DIR)/file $(OBJ_DIR)/list $(OBJ_DIR)/memory    \
-	$(OBJ_DIR)/print $(OBJ_DIR)/string $(OBJ_DIR)/tree $(OBJ_DIR)/utils       \
-	$(OBJ_DIR)/vector $(OBJ_DIR)/tstring $(OBJ_DIR)/json $(OBJ_DIR)/sql
+	@$(MKDIR) $@ $(foreach dir, $(dirs), $@/$(dir))
 
-# install
-# $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-# 	@$(CC) -pipe $(WFLAGS) $(LFLAGS) $(CFLAGS) -o $@ -c $<
-
-# debug
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	@$(CC) -pipe $(WFLAGS) $(LFLAGS) $(DFLAGS) -o $@ -c $<
+	@$(PRINT) "$K$G COMPILING $Y[$M$(TARGET)$Y] $B$(<:$(SRC_DIR)%=%)$D\r"
+	@$(COMPILE) $(CFLAGS) -o $@ -c $<
 
-install: $(OBJ_DIR) $(OBJ)
-	@ar rcs $(NAME) $(OBJ)
+$(NAME): $(OBJ_DIR) $(OBJ)
+	@$(PRINT) "$K$G ARCHIVING $Y[$M$(TARGET)$Y] $R$(NAME)$D\r"
+	@$(AR) $(NAME) $(OBJ)
+	@$(PRINT) "$K"
+
+install: $(NAME)
 
 clean:
-	@rm -rf $(OBJ_DIR)
+	@$(RM) $(OBJ_DIR)
 
 uninstall:
-	@rm -rf $(NAME)
-	@rm -rf $(OBJ_DIR)
+	@$(RM) $(OBJ_DIR) $(NAME)
 
 reinstall: uninstall install
+
+.PHONY: all build debug clean install uninstall reinstall
