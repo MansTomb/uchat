@@ -19,12 +19,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-
+#include <sqlite3.h>
 
 #include "cvector.h"
 #include "list.h"
 #include "macroses.h"
-#include "sqlite3.h"
 
 /*
  * file

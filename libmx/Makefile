@@ -14,7 +14,7 @@ memory = memdup memrchr
 print = print_strarr print_unicode printchar printnum printstr printstrlen    \
 	printunum
 
-sql = sqlite3
+# sql = sqlite3
 
 string = count_substr count_words del_extra_spaces del_strarr get_char_index  \
 	get_substr_index lltoa_s lltoa replace_substr str_reverse strdel strdup   \
@@ -22,7 +22,7 @@ string = count_substr count_words del_extra_spaces del_strarr get_char_index  \
 
 utils = factorial foreach isprime numlen sigma sum_digits swap unumlen
 
-dirs = file json list memory print sql string utils
+dirs = file json list memory print string utils
 FILES = $(foreach dir, $(dirs), $($(dir):%=$(dir)/mx_%))
 
 SRC_DIR = src/
