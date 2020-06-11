@@ -7,28 +7,22 @@ int mx_receive_from_peer(t_info *info, t_peer *peer,
     // size_t received_total = 0;
 
     t_message *message = malloc(sizeof(t_message));
-    char newbuf[1024];
+    // char newbuf[1024];
 
-    if ((info->sock->valread = read(peer->socket, info->sock->buffer, 1024)) == 0)
-        mx_handle_disconnect(info->sock, peer);
-    else if (info->sock->valread < 0) {
-        if (errno == EAGAIN || errno == EWOULDBLOCK)
-            printf("peer is not ready right now, try again later.\n");
-        else {
-            perror("recv() from peer error");
-            return -1;
-        }
-    }
+
+    if ((info->sock->valread = read(peer->socket, info->sock->buffer, 1024)) <= 0)
+        mx_recv_check(info->sock, peer, info->sock->valread);
     else {
             // handle_data();
         info->sock->buffer[info->sock->valread] = '\0';
         mx_strip_newline(info->sock->buffer);
-        sprintf(newbuf, "%s: %s", mx_peer_get_addres_str(peer), info->sock->buffer);
+        // sprintf(newbuf, "%s: %s", mx_peer_get_addres_str(peer), info->sock->buffer);
 
-        // send(peer->socket, newbuf, strlen(newbuf), 0);
-        mx_send_message_all(info, newbuf, peer->uid);
+        mx_prepare_message(mx_peer_get_addres_str(peer), info->sock->buffer, message);
 
-        mx_prepare_message(mx_peer_get_addres_str(peer), newbuf, message);
+        // mx_message_to_str(message, info->sock->buffer);
+        mx_send_message_all(info->sock, message->data, peer->uid);
+
         message_handler(info, message);
         // printf("%s", info->sock->buffer);
 

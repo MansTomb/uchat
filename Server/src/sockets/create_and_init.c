@@ -23,14 +23,14 @@ static void socket_type_set(t_saddr *sock, int port) {
     sock->sin_port = htons(port);
 }
 
-t_sock *mx_sockets_create_struct(int port) {
+t_sock *mx_sockets_create_struct(void) {
     t_sock *new = malloc(sizeof(t_sock));
 
-    if (port) {};
     if (new) {
         new->opt = TRUE;
         for (int i = 0; i < MAX_CLIENTS; ++i) {
             new->connection_list[i].socket = MX_NO_SOCKET;
+            new->curr_uid = 10;
             mx_create_peer(&new->connection_list[i]);
         }
         new->valread = 0;
@@ -45,6 +45,7 @@ void mx_sockets_initialize(t_sock *sock, int port) {
     mx_socket_bind_to_port(sock);
     mx_socket_specify_maximum_connections_to_master(sock->master_socket, 128);
     mx_set_nonblock_for_stdin();
+    // printf("listen = %d\n", );
     sock->max_sd = sock->master_socket;
     sock->addrlen = sizeof(sock->address);
     printf("Waiting for incoming connections.\n");

@@ -8,23 +8,22 @@ static t_info *info_create() {
 
 int main(int argc, char *argv[]) {
     t_info *info;
-    int portNumber;
+    int portNumber = atoi(argv[1]);
 
-    if (argc != 2)
-        return(fprintf(stderr, "To many arguments!\n usage: ./uchatserver <port>") * 0 + 1);
-
-    portNumber = atoi(argv[1]);
-    if ( portNumber <= 0 )
-        return(fprintf(stderr, "Usage: %s PortNumber\n", argv[0]) * 0 + 1);
-
-    info = info_create();
+    if (argc != 2 || portNumber <= 0 )
+        return(fprintf(stderr, "Usage: %s <port>", argv[0]) * 0 + 1);
 
     // if (mx_setup_signals(info) != 0)
     //     exit(EXIT_FAILURE);
 
-    info->sock = mx_sockets_create_struct(atoi(argv[1]));
+    info = info_create();
+    info->sock = mx_sockets_create_struct();
+    mx_init_db(info->sock);
     mx_sockets_initialize(info->sock, atoi(argv[1]));
+
     mx_sockets_loop(info);
+
+    mx_shutdown_properly(info, 0);
 
     return 0;
 }

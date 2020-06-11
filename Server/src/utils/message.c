@@ -23,7 +23,7 @@ int mx_handle_received_message(t_info *info, t_message *new_message) {
                 printf("Send buffer was overflowed, we lost this message!\n");
                 continue;
             }
-        printf("New message to send was enqueued right now.\n");
+        // printf("New message to send was enqueued right now.\n");
         }
     }
     return 0;
