@@ -16,18 +16,18 @@
 
 typedef struct sockaddr_in t_saddr;
 
-typedef struct  s_message {                         // t_message
+typedef struct s_message {                         // t_message
     char sender[128];
     char data[512];
-}               t_message;
+}              t_message;
 
 typedef struct s_message_queue {                    // t_message_queue
     int size;
     t_message *data;
     int current;
-}               t_message_queue;
+}              t_message_queue;
 
-typedef struct  s_peer {                            // t_peer
+typedef struct s_peer {                            // t_peer
     int socket;
     int uid;
     struct sockaddr_in addres;
@@ -46,9 +46,9 @@ typedef struct  s_peer {                            // t_peer
     /* The same for the receiving message. */
     t_message receiving_buffer;
     size_t current_receiving_byte;
-}               t_peer;
+}              t_peer;
 
-typedef struct  s_sock {                            // t_sock
+typedef struct s_sock {                            // t_sock
     int master_socket;
     int addrlen;
     t_saddr address;
@@ -67,11 +67,11 @@ typedef struct  s_sock {                            // t_sock
 
     char buffer[1024];
     int valread;
-}               t_sock;
+}              t_sock;
 
-typedef struct  s_info {
+typedef struct s_info {
     t_sock *sock;
-}               t_info;
+}              t_info;
 
 
 /* Utils */
