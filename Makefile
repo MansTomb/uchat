@@ -35,4 +35,4 @@ uninstall:
 	@$(EXEC_LD) $(CLIENT_DIR) uninstall
 	@$(EXEC_LD) $(SERVER_DIR) uninstall
 
-reinstall: uninstall install
+reinstall: uninstall all

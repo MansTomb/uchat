@@ -42,7 +42,9 @@ PRINT = printf
 MKDIR = mkdir -p
 AR = ar rcs
 RM = /bin/rm -rf
-TARGET = build
+# TARGET = build
+TARGET = debug
+CFLAGS = $(DFLAGS)
 
 R = \033[1;91m
 G = \033[1;92m
