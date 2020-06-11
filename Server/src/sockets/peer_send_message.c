@@ -5,9 +5,14 @@ int mx_send_to_peer(t_info *info, t_peer *peer) {
     ssize_t send_count;
     // size_t send_total = 0;
 
-    send_count = send(peer->socket, info->sock->buffer, strlen(info->sock->buffer), 0);
+    char newbuf[1024];
+
+    sprintf(newbuf, "%s: %s", mx_peer_get_addres_str(peer), info->sock->buffer);
+    send_count = send(peer->socket, newbuf, strlen(newbuf), 0);
+
     info->sock->buffer[0] = '\0';
     info->sock->valread = 0;
+
     if (send_count < 0) {
         if (errno == EAGAIN || errno == EWOULDBLOCK)
             printf("peer is not ready right now, try again later.\n");
@@ -20,6 +25,11 @@ int mx_send_to_peer(t_info *info, t_peer *peer) {
         printf("send()'ed 0 bytes. It seems that peer can't accept data right now. Try again later.\n");
     }
 
+
+
+
+
+    // if (info) {}
     // printf("Ready for send() to %s.\n", mx_peer_get_addres_str(peer));
     // do {
     //     // If sending message has completely sent and there are messages in queue, why not send them?

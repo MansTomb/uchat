@@ -22,3 +22,14 @@ void mx_set_nonblock_for_stdin(void) {
     flag |= O_NONBLOCK;
     fcntl(STDIN_FILENO, F_SETFL, flag);
 }
+
+void mx_init_db(t_sock *sock) {
+    int rc;
+
+    if ((rc = sqlite3_open(MX_DB_PATH, &sock->db))) {
+        fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(sock->db));
+        exit(EXIT_FAILURE);
+    }
+    else
+        printf("Opened database successfully\n");
+}

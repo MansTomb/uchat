@@ -2,11 +2,11 @@
 
 /* Reads from stdin and create new message. This message enqueues to send queueu. */
 static int read_from_stdin(char *read_buffer, size_t max_len) {
-    size_t read_count = 0;
+    size_t read_count = 1;
     size_t total_read = 0;
 
     memset(read_buffer, 0, max_len);
-    do {
+    while (read_count > 0) {
         read_count = read(STDIN_FILENO, read_buffer, max_len);
         if (read_count < 0 && errno != EAGAIN && errno != EWOULDBLOCK) {
             perror("read()");
@@ -18,20 +18,20 @@ static int read_from_stdin(char *read_buffer, size_t max_len) {
         else if (read_count > 0) {
             total_read += read_count;
             if (total_read > max_len) {
-                printf("Message too large and will be chopped. Please try to be shorter next time.\n");
+                // printf("Message too large and will be chopped. \
+                //         Please try to be shorter next time.\n");
                 fflush(STDIN_FILENO);
             break;
             }
         }
-    } while (read_count > 0);
+    }
 
     size_t len = strlen(read_buffer);
 
     if (len > 0 && read_buffer[len - 1] == '\n')
         read_buffer[len - 1] = '\0';
-
-    printf("Read from stdin %zu bytes. Let's prepare message to send.\n", strlen(read_buffer));
-
+    // printf("Read from stdin %zu bytes. Let's prepare message to send.\n",
+            // strlen(read_buffer));
     return 0;
 }
 
@@ -47,18 +47,20 @@ int mx_handle_read_from_stdin(t_info *info) {
     mx_prepare_message("server_admin", read_buffer, &new_message);
     mx_print_message(&new_message);
 
-    /* enqueue message for all clients */
-    for (int i = 0; i < MAX_CLIENTS; ++i) {
-        if (info->sock->connection_list[i].socket != MX_NO_SOCKET) {
-            // if (mx_peer_add_to_send(&info->sock->connection_list[i], &new_message) != 0) {
-            //     printf("Send buffer was overflowed, we lost this message!\n");
-            //     continue;
-            // }
 
-        send(info->sock->connection_list[i].socket, read_buffer, strlen(read_buffer), 0);
-        // printf("New message to send was enqueued right now.\n");
-        }
-    }
+    /* enqueue message for all clients */
+    mx_message_to_str(&new_message, read_buffer);
+    mx_send_message_all(info->sock, read_buffer, 0);
+
+    // for (int i = 0; i < MAX_CLIENTS; ++i) {
+    //     if (info->sock->connection_list[i].socket != MX_NO_SOCKET) {
+    //         if (mx_peer_add_to_send(&info->sock->connection_list[i], &new_message) != 0) {
+    //             printf("Send buffer was overflowed, we lost this message!\n");
+    //             continue;
+    //         }
+    //     printf("New message to send was enqueued right now.\n");
+    //     }
+    // }
 
     return 0;
 }
