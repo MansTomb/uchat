@@ -92,8 +92,9 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 
 $(NAME): $(OBJ_DIR) $(OBJ)
 	@$(PRINT) "$K$G COMPILING $Y[$M$(TARGET)$Y] $R$(NAME)$D\r"
-	@$(COMPILE) $(CFLAGS) $(LIB_PATH) $(OBJ) -o $(NAME)
+	@$(COMPILE) $(CFLAGS) $(LIB_PATH) -lsqlite3 $(OBJ) -o $(NAME)
 	@$(PRINT) "$K"
+	@cp $(NAME) ..
 
 # silent installing
 install: check

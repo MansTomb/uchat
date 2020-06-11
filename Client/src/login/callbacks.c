@@ -5,9 +5,9 @@ void login_on_click(GtkApplication *app, gpointer user_data) {
     t_login *log = info->windows->log;
 
     if(app && info){};
-    if (mx_entry_text_exist(log->username_entry) && mx_entry_text_exist(log->password_entry))
-        mx_login_build_json(info);
-    else
+    if (mx_entry_text_exist(log->username_entry) && mx_entry_text_exist(log->password_entry)) {
+        // mx_login_build_json(info);
+    } else
         mx_login_entry_empty(info);
     printf("clicked button Login\n");
 }

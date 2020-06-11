@@ -11,7 +11,7 @@ register = register callbacks errors constructor
 chat = chat callbacks errors constructor
 
 chat_switcher = chat_switcher chat_switcher_hide callbacks errors constructor \
-				chat_switcher_show
+	chat_switcher_show
 
 message = message callbacks errors constructor
 
@@ -20,18 +20,19 @@ main_menu = main_menu callbacks callbacks2 errors constructor
 profile = profile callbacks errors constructor
 
 contacts = contacts callbacks errors constructor tree add_contact \
-	 		add_callbacks
+	add_callbacks
 
 room_creation = room_creation callbacks errors constructor
 
-mainchatscreen = main_chat_screen
+main_chat_screen = main_chat_screen
 
-utils = background_images buttons grids input_labels layouts css labels widget \
-	dialog scrollable stack stack_switcher fixed frame box listbox
+utils = background_images buttons grids input_labels layouts css labels       \
+	widget dialog scrollable stack stack_switcher fixed frame box listbox
 
 json =
 
-dirs = base login register chat chat_switcher message utils json
+dirs = base login register chat chat_switcher message main_menu profile       \
+	contacts room_creation main_chat_screen utils json
 FILES = $(foreach dir, $(dirs), $($(dir):%=$(dir)/%))
 
 SRC_DIR = src/
@@ -118,6 +119,7 @@ $(NAME): $(OBJ_DIR) $(OBJ)
 	@$(PRINT) "$K$G COMPILING $Y[$M$(TARGET)$Y] $R$(NAME)$D\r"
 	@$(COMPILE) $(CFLAGS) $(PKGCONFIG) $(LIB_PATH) $(OBJ) -o $(NAME)
 	@$(PRINT) "$K"
+	@cp $(NAME) ..
 
 # silent installing
 install: check
