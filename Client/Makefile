@@ -10,12 +10,24 @@ register = register callbacks errors constructor
 
 chat = chat callbacks errors constructor
 
-chat_switcher = chat_switcher callbacks errors constructor
+chat_switcher = chat_switcher chat_switcher_hide callbacks errors constructor \
+				chat_switcher_show
 
 message = message callbacks errors constructor
 
-utils = background_images buttons grids input_labels layouts css labels       \
-	widget dialog scrollable stack stack_switcher fixed frame box listbox
+main_menu = main_menu callbacks callbacks2 errors constructor
+
+profile = profile callbacks errors constructor
+
+contacts = contacts callbacks errors constructor tree add_contact \
+	 		add_callbacks
+
+room_creation = room_creation callbacks errors constructor
+
+mainchatscreen = main_chat_screen
+
+utils = background_images buttons grids input_labels layouts css labels widget \
+	dialog scrollable stack stack_switcher fixed frame box listbox
 
 json =
 
