@@ -131,3 +131,31 @@
     background-color: red;
     border-radius: 20px;
 }
+
+.contacts_button_add {
+    background-color: white;
+    border-radius: 20px;
+    font-size: 20px;
+}
+
+.contacts_button_add:hover:active {
+    background-color: whitesmoke;
+    border-radius: 20px;
+    font-size: 20px;
+}
+
+.contacts_button_cancel {
+    background-color: white;
+    border-radius: 20px;
+    font-size: 20px;
+}
+
+.contacts_button_cancel:hover:active {
+    background-color: whitesmoke;
+    border-radius: 20px;
+    font-size: 20px;
+}
+
+.treeview.view {
+    font-size: 40px;
+}

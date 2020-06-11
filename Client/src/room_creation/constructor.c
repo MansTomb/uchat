@@ -13,7 +13,6 @@ static void attach_signals(t_info *info, t_room_creation *new) {
 
 static void attach_layout(t_room_creation *new, GtkWidget *fixed) {
     gtk_fixed_put(GTK_FIXED(fixed), new->groupbt, 20, 40);
-    // gtk_box_pack_start(GTK_BOX(action_area), fixed, TRUE, TRUE, 0);
     gtk_fixed_put(GTK_FIXED(fixed), new->channelbt, 120, 40);
     gtk_fixed_put(GTK_FIXED(fixed), new->entry, 10, 80);
     gtk_fixed_put(GTK_FIXED(fixed), new->type, 10, 20);

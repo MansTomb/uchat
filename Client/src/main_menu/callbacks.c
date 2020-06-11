@@ -9,6 +9,10 @@ void mx_on_click_profile(GtkWidget *widget, gpointer data) {
 }
 
 void mx_on_click_contacts(GtkWidget *widget, gpointer data) {
+    t_info *info = data;
+    
+    mx_find_and_hide_screen(info);
+    mx_contacts_show(info);
     if(widget && data) {};
 }
 

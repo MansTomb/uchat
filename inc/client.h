@@ -16,6 +16,7 @@ typedef struct s_chat_switcher t_chat_switcher;
 typedef struct s_windows t_windows;
 typedef struct s_main_menu t_main_menu;
 typedef struct s_profile t_profile;
+typedef struct s_contact_add t_contact_add;
 typedef struct s_contacts t_contacts;
 typedef struct s_room_creation t_room_creation;
 typedef struct s_info t_info;
@@ -127,8 +128,27 @@ struct s_profile {
     GtkWidget *layout;
 };
 
+struct s_contact_add {
+    GtkWidget *dialog;
+    GtkWidget *fixed;
+    GtkWidget *combobox;
+    GtkWidget *entry;
+    GtkWidget *dialog_addbt;
+    GtkWidget *dialog_cancelbt;
+};
+
 struct s_contacts {
     GtkWidget *treeview;
+    GtkWidget *treemodel;
+    GtkWidget *menu;
+
+    GtkWidget *addbt;
+
+    t_contact_add *dialog;
+
+    t_info *info;
+
+    GtkTreeIter choosen_contact;
 };
 
 struct s_room_creation {
@@ -285,6 +305,23 @@ void mx_profile_hide(t_info *info);
 void mx_on_click_profile_edit(GtkWidget *widget, gpointer *data);
 void mx_on_click_profile_save(GtkWidget *widget, gpointer *data);
 void mx_on_click_profile_cancel(GtkWidget *widget, gpointer *data);
+
+/*                              Contacts screen */
+t_contacts *mx_contacts_constructor(t_info *info);
+GtkWidget *mx_contacts_tree_constructor(t_info *info);
+void mx_contacts_show(t_info *info);
+void mx_contacts_hide(t_info *info);
+
+t_contact_add *mx_contacts_add_dialog_constructor(t_info *info, t_contacts *contacts);
+void mx_contacts_add_dialog_destructor(t_contact_add *dialog);
+
+    /* Callbacks */
+void mx_contacts_tree_on_click(GtkTreeView *tree_view, GtkTreePath *path, GtkTreeViewColumn *column, gpointer user_data);
+void mx_contacts_send_message(GtkWidget *widget, gpointer data);
+void mx_contacts_delete(GtkWidget *widget, gpointer data);
+void mx_conctacts_add_dialog(GtkWidget *widget, gpointer data);
+void mx_contact_add(GtkWidget *widget, gpointer data);
+void mx_contact_add_cancel(GtkWidget *widget, gpointer data);
 
 /*                              Room Creation */
 t_room_creation *mx_room_creation_constructor(t_info *info);

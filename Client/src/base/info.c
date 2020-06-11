@@ -9,6 +9,7 @@ static t_windows *create_windows() {
         new->chat_switcher = NULL;
         new->main_menu = NULL;
         new->profile = NULL;
+        new->contacts = NULL;
         new->room_creation = NULL;
     }
     return new;

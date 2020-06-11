@@ -6,8 +6,8 @@ void mx_find_and_hide_screen(t_info *info) {
 
     if (window && window == (void *)windows->chat_switcher)
         mx_chat_switcher_hide(info);
-    if (window && window == (void *)windows->log)
-        mx_login_screen_hide(info);
+    if (window && window == (void *)windows->contacts)
+        mx_contacts_hide(info);
     if (window && window == (void *)windows->main_menu)
         mx_main_menu_hide(info);
     if (window && window == (void *)windows->reg)
