@@ -67,8 +67,8 @@ static void create_menu_items(t_contacts *contacts, GtkWidget *menu) {
     gtk_widget_show(items[0]);
     gtk_widget_show(items[1]);
 
-    g_signal_connect(items[0], "activate", MX_CB(mx_contacts_send_message), contacts);
-    g_signal_connect(items[1], "activate", MX_CB(mx_contacts_delete), contacts);
+    MX_GSIG_CON(items[0], "activate", MX_CB(mx_contacts_send_message), contacts);
+    MX_GSIG_CON(items[1], "activate", MX_CB(mx_contacts_delete), contacts);
 }
 
 static GtkWidget *create_menu(t_info *info) {
@@ -98,9 +98,9 @@ t_contacts *mx_contacts_constructor(t_info *info) {
 
         gtk_tree_view_set_model(GTK_TREE_VIEW(new->treeview), GTK_TREE_MODEL(list_store));
 
-        g_signal_connect(new->treeview, "row-activated",
+        MX_GSIG_CON(new->treeview, "row-activated",
                                  MX_CB(mx_contacts_tree_on_click), new);
-        g_signal_connect(new->addbt, "clicked", MX_CB(mx_conctacts_add_dialog), new);
+        MX_GSIG_CON(new->addbt, "clicked", MX_CB(mx_conctacts_add_dialog), new);
         gtk_widget_set_size_request(new->addbt, 280, 50);
         mx_layout_put(info->layout, new->addbt, 700, 40);
         mx_layout_put(info->layout, new->treeview, 300, 100);

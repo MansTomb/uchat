@@ -12,12 +12,12 @@ static void attach_layout(t_info *info, t_main_menu *menu) {
 }
 
 static void attach_signals(t_info *info, t_main_menu *menu) {
-    g_signal_connect(menu->profile, "clicked", MX_CB(mx_on_click_profile), info);
-    g_signal_connect(menu->contancts, "clicked", MX_CB(mx_on_click_contacts), info);
-    g_signal_connect(menu->create_room, "clicked", MX_CB(mx_on_click_create_room), info);
-    g_signal_connect(menu->preferences, "clicked", MX_CB(mx_on_click_preferences), info);
-    g_signal_connect(menu->exit, "clicked", MX_CB(mx_on_click_exit), info);
-    g_signal_connect(menu->back, "clicked", MX_CB(mx_on_click_back), info);
+    MX_GSIG_CON(menu->profile, "clicked", MX_CB(mx_on_click_profile), info);
+    MX_GSIG_CON(menu->contancts, "clicked", MX_CB(mx_on_click_contacts), info);
+    MX_GSIG_CON(menu->create_room, "clicked", MX_CB(mx_on_click_create_room), info);
+    MX_GSIG_CON(menu->preferences, "clicked", MX_CB(mx_on_click_preferences), info);
+    MX_GSIG_CON(menu->exit, "clicked", MX_CB(mx_on_click_exit), info);
+    MX_GSIG_CON(menu->back, "clicked", MX_CB(mx_on_click_back), info);
 }
 
 static void set_preferences(t_main_menu *menu) {
@@ -33,7 +33,7 @@ t_main_menu *mx_main_menu_constructor(t_info *info) {
     t_main_menu *new = malloc(sizeof(t_main_menu));
 
     if (new && info) {
-        new->box = mx_box_constructor("menu_box", 80, 40, BOX_V);
+        new->box = mx_box_constructor("menu_box", 80, 40, MX_BOX_V);
         new->profile = mx_button_constuctor("Profile", "main_menu_buttons");
         new->contancts = mx_button_constuctor("Contacts", "main_menu_buttons");
         new->create_room = mx_button_constuctor("Create Room", "main_menu_buttons");

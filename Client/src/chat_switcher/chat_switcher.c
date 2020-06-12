@@ -23,8 +23,8 @@ void mx_show_chat(GtkWidget *widget, gpointer data) {
 void mx_chat_switcher_add_chat(t_info *info, t_chat *chat, char *chat_name) {
     GtkWidget *newbt = mx_button_constuctor(chat_name, "chat_chooser_button");
 
-    g_signal_connect(newbt, "clicked", MX_CB(mx_hide_chat), info);
-    g_signal_connect(newbt, "clicked", MX_CB(mx_show_chat), chat);
+    MX_GSIG_CON(newbt, "clicked", MX_CB(mx_hide_chat), info);
+    MX_GSIG_CON(newbt, "clicked", MX_CB(mx_show_chat), chat);
     gtk_box_pack_start(GTK_BOX(info->windows->chat_switcher->box), newbt, TRUE, FALSE, 1);
     // gtk_widget_show(newbt);
 }

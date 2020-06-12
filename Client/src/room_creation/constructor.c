@@ -1,13 +1,13 @@
 #include "client.h"
 
 static void attach_signals(t_info *info, t_room_creation *new) {
-    g_signal_connect(GTK_TOGGLE_BUTTON(new->channelbt), "toggled",
+    MX_GSIG_CON(GTK_TOGGLE_BUTTON(new->channelbt), "toggled",
                      MX_CB(mx_on_click_create_room_channel), info);
-    g_signal_connect(GTK_TOGGLE_BUTTON(new->groupbt), "toggled",
+    MX_GSIG_CON(GTK_TOGGLE_BUTTON(new->groupbt), "toggled",
                      MX_CB(mx_on_click_create_room_group), info);
-    g_signal_connect(new->create, "clicked",
+    MX_GSIG_CON(new->create, "clicked",
                      MX_CB(mx_on_click_create_room_create), info);
-    g_signal_connect(new->cancel, "clicked",
+    MX_GSIG_CON(new->cancel, "clicked",
                      MX_CB(mx_on_click_create_room_cancel), info);
 }
 

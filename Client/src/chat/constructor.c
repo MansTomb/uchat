@@ -8,8 +8,8 @@ static void attach_layout(t_info *info, t_chat *new) {
 }
 
 static void attach_signals(t_chat *new) {
-    g_signal_connect(new->msgentry, "activate", MX_CB(mx_send_message), new);
-    g_signal_connect(new->sendbt, "clicked", MX_CB(mx_send_message), new);
+    MX_GSIG_CON(new->msgentry, "activate", MX_CB(mx_send_message), new);
+    MX_GSIG_CON(new->sendbt, "clicked", MX_CB(mx_send_message), new);
 }
 
 static void set_properties(t_chat *new) {

@@ -69,8 +69,8 @@ int main(int argc, char *argv[]) {
     int status;
 
     app = gtk_application_new("uchat.org", G_APPLICATION_HANDLES_OPEN);
-    g_signal_connect(app, "open", MX_CB(open_app), NULL);
-    g_signal_connect(app, "activate", MX_CB(wrong_usage), NULL);
+    MX_GSIG_CON(app, "open", MX_CB(open_app), NULL);
+    MX_GSIG_CON(app, "activate", MX_CB(wrong_usage), NULL);
     status = g_application_run(G_APPLICATION(app), argc, argv);
     g_object_unref (app);
 

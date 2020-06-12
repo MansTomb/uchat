@@ -15,9 +15,9 @@ static void attach_layout(t_info *info, t_profile *profile) {
 }
 
 static void attach_signals(t_info *info, t_profile *profile) {
-    g_signal_connect(profile->edit, "clicked", MX_CB(mx_on_click_profile_edit), info);
-    g_signal_connect(profile->save, "clicked", MX_CB(mx_on_click_profile_save), info);
-    g_signal_connect(profile->cancel, "clicked", MX_CB(mx_on_click_profile_cancel), info);
+    MX_GSIG_CON(profile->edit, "clicked", MX_CB(mx_on_click_profile_edit), info);
+    MX_GSIG_CON(profile->save, "clicked", MX_CB(mx_on_click_profile_save), info);
+    MX_GSIG_CON(profile->cancel, "clicked", MX_CB(mx_on_click_profile_cancel), info);
 }
 
 static void set_preferences(t_profile *profile) {

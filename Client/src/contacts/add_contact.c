@@ -1,9 +1,9 @@
 #include "client.h"
 
 static void attach_signals(t_contacts *contacts, t_contact_add *dialog) {
-    g_signal_connect(dialog->dialog_addbt, "clicked",
+    MX_GSIG_CON(dialog->dialog_addbt, "clicked",
                      MX_CB(mx_contact_add), contacts);
-    g_signal_connect(dialog->dialog_cancelbt, "clicked",
+    MX_GSIG_CON(dialog->dialog_cancelbt, "clicked",
                      MX_CB(mx_contact_add_cancel), contacts);
 }
 
