@@ -1,4 +1,5 @@
 #include "uchat.h"
+#include "macroses.h"
 
 /* Maximum bytes that can be send() or recv() via net by one call.
  * It's a good idea to test sending one byte by one.
@@ -114,7 +115,6 @@ int mx_recv_check(t_sock *sock, t_peer *client, int n);
 void mx_socket_bind_to_port(t_sock *sock);
 void mx_socket_specify_maximum_connections_to_master(int sock, int con_num);
 void mx_set_nonblock_for_stdin(void);
-void mx_init_db(t_sock *sock);
 t_sock *mx_sockets_create_struct(void);
 void mx_sockets_initialize(t_sock *sock, int port);
 
@@ -144,4 +144,7 @@ int mx_send_to_peer(t_info *info, t_peer *peer);
 void mx_shutdown_properly(t_info *info, int code);
 
 
-//-----------------------
+/* SQL */
+int mx_create_db(sqlite3 *db);
+void mx_init_db(sqlite3 *db);
+void mx_close_db(sqlite3 *db);

@@ -8,9 +8,11 @@ sockets = create_and_init init_2 handle_incoming_data handle_new_connection \
 		handle_read_from_stdin loop_handler loop peer_receive_message \
 		peer_send_message shutdown signals
 
+sql = close_db create_tables init_db
+
 utils = initialize_zero message_queue message peer send_message check_recv_send
 
-dirs = base sockets utils
+dirs = base sockets sql utils
 FILES = $(foreach dir, $(dirs), $($(dir):%=$(dir)/%))
 
 SRC_DIR = src/
