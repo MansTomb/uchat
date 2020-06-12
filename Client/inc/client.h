@@ -173,6 +173,13 @@ struct s_windows {
 };
 
 struct s_info {
+    GtkApplication *app;
+
+    struct {
+        pthread_t timer;
+        pthread_t data;
+    } thread;
+
     GtkWidget *main_window;
     GtkWidget *layout;
 
@@ -182,6 +189,8 @@ struct s_info {
     t_windows *windows;
     t_list *chat_list;
     gpointer current_window;
+
+    GTimer *timer;
 };
 
 /* Main */

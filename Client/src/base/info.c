@@ -23,6 +23,8 @@ t_info *mx_create_info(GtkApplication *app) {
 
     display = gdk_display_get_default();
     screen = gdk_display_get_default_screen(display);
+    new->timer = NULL;
+    // new->app = app;
     new->main_window = mx_create_main_window(app);
     new->windows = create_windows();
     new->layout = mx_layout_constructor("main_layout", WIDTH, HEIGHT);

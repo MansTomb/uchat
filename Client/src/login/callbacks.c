@@ -7,6 +7,8 @@ void mx_login_on_click(GtkApplication *app, gpointer user_data) {
     if(app && info){};
     if (mx_entry_text_exist(log->username_entry) && mx_entry_text_exist(log->password_entry)) {
         // mx_login_build_json(info);
+        g_timer_stop(info->timer);
+        pthread_join(info->thread.timer, NULL);
         mx_login_screen_hide(info);
         mx_main_chat_screen_show(info);
     } else

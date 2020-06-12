@@ -28,15 +28,37 @@ static void wrong_usage(GtkApplication *app, gpointer data) {
 //     pthread_exit(0);
 // }
 
+static void destor_all(t_info *info) {
+    gtk_widget_destroy(info->layout);
+    gtk_window_close(GTK_WINDOW(info->main_window));
+}
+
+static void *login_timeout(void *data) {
+    t_info *info = data;
+    info->timer = g_timer_new();
+
+    while (1) {
+        printf("Time left for timeout: %d\n", 60 - (int)g_timer_elapsed(info->timer, NULL));
+        if (g_timer_elapsed(info->timer, NULL) > 60) {
+            printf("leave\n");
+            destor_all(info);
+        }
+        if (!g_timer_is_active(info->timer))
+            pthread_exit(0);
+        sleep(1);
+    }
+}
+
 static void open_app(GtkApplication *app, GFile **files, gint n_file, gchar *hint, gpointer sock) {
     if (n_file != 2) {
         wrong_usage(app, sock);
         exit(EXIT_FAILURE); // nado bude funka uni4tozitel
     }
     t_info *info = mx_create_info(app);
-
     info->sock = mx_client_socket_create(g_file_get_basename(files[0]), atoi(g_file_get_basename(files[1])));
     mx_login_screen_show(info);
+    pthread_create(&info->thread.timer, NULL, &login_timeout, (void *)info);
+    
     if(sock && files && n_file && hint) {};
 }
 
