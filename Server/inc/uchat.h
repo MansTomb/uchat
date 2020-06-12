@@ -14,6 +14,11 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+#include <syslog.h>
+#include <signal.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
 #include "libmx.h"
 
 #define PORT 8888
