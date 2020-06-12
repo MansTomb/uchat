@@ -13,7 +13,9 @@
 #define MX_DATA_MAXSIZE 512
 
 #define MX_NO_SOCKET -1
+
 #define MX_DB_PATH "Server/db/uchat.db"
+#define SERVER_LOG_PATH "Server/servlogs"
 
 typedef struct sockaddr_in t_saddr;
 
@@ -41,11 +43,13 @@ typedef struct s_peer {                            // t_peer
     * And current_sending_byte is a pointer to the part of data
     * that will be send next call.
     */
-    t_message sending_buffer;
+    // t_message sending_buffer;
+    char sending_buffer[MX_MAX_SEND_SIZE];
     size_t current_sending_byte;
 
     /* The same for the receiving message. */
-    t_message receiving_buffer;
+    // t_message receiving_buffer;
+    char receiving_buffer[MX_MAX_SEND_SIZE];
     size_t current_receiving_byte;
 }              t_peer;
 
@@ -57,6 +61,7 @@ typedef struct s_sock {                            // t_sock
     int opt;
     int max_sd;
 
+    int logs_fd;
     sqlite3 *db;
 
     t_peer connection_list[MAX_CLIENTS];
@@ -73,6 +78,35 @@ typedef struct s_sock {                            // t_sock
 typedef struct s_info {
     t_sock *sock;
 }              t_info;
+
+/* Utils */
+
+    /* daemonize.c */
+void mx_daemonize(t_sock *sock);
+
+    /* init_info.c */
+t_info *mx_init_info();
+
+    /* sockets_initialize.c sockets_initialize_2.c */
+void mx_sockets_initialize(t_sock *sock, int port);
+
+void mx_socket_bind_to_port(t_sock *sock);
+void mx_socket_specify_maximum_connections_to_master(int sock, int con_num);
+// void mx_init_db(t_sock *sock);
+
+/* Sockets */
+
+    /* Loop func */
+void mx_sockets_loop(t_info *info);
+void mx_loop_handler(t_info *info);
+int mx_handle_read_from_stdin(t_info *info);
+void mx_handle_new_connection(t_info *info);
+void mx_handle_disconnect(t_sock *sock, t_peer *client);
+void mx_handle_incoming_data(t_info *info);
+
+    /* Message handeling */
+int mx_receive_from_peer(t_info *info, t_peer *peer);
+int mx_send_to_peer(t_info *info, t_peer *peer);
 
 
 /* Utils */
@@ -104,36 +138,6 @@ int mx_handle_received_message(t_info *info, t_message *message);
 void mx_send_message_all(t_sock *sock, char *buff, int uid);
 void mx_send_msg_self(t_sock *sock, t_peer *peer, const char *buff);
 void mx_send_msg_client(t_sock *sock, char *buff, int uid);
-
-    /* Check.c*/
-int mx_send_check(t_sock *sock, t_peer *client, int n);
-int mx_recv_check(t_sock *sock, t_peer *client, int n);
-
-/* Sockets */
-
-    /* Create and initialazing -> create_and_init.c init_2.c */
-void mx_socket_bind_to_port(t_sock *sock);
-void mx_socket_specify_maximum_connections_to_master(int sock, int con_num);
-void mx_set_nonblock_for_stdin(void);
-t_sock *mx_sockets_create_struct(void);
-void mx_sockets_initialize(t_sock *sock, int port);
-
-void mx_socket_bind_to_port(t_sock *sock);
-void mx_socket_specify_maximum_connections_to_master(int sock, int con_num);
-
-    /* Loop func */
-void mx_sockets_loop(t_info *info);
-void mx_loop_handler(t_info *info);
-int mx_handle_read_from_stdin(t_info *info);
-void mx_handle_new_connection(t_info *info);
-void mx_handle_disconnect(t_sock *sock, t_peer *client);
-void mx_handle_incoming_data(t_info *info);
-
-    /* Message handeling */
-int mx_receive_from_peer(t_info *info, t_peer *peer,
-                         int (*message_handler)(t_info *, t_message *));
-int mx_send_to_peer(t_info *info, t_peer *peer);
-
 
 
 /* Signals */

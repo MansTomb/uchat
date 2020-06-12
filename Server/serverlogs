@@ -1,0 +1,12 @@
+./uchat_server: daemonize success
+Opened database successfully
+Waiting for incoming connections.
+New connection, socket fd is 5, ip is 127.0.0.1:49861
+sock id = Adding to list of sockets as 0
+jhagdhagbfg
+jhfdjsbfsgb
+New connection, socket fd is 6, ip is 127.0.0.1:49875
+sock id = Adding to list of sockets as 1
+dadh
+Host disconnected, ip 127.0.0.1:49875
+Host disconnected, ip 127.0.0.1:49861

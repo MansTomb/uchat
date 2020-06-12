@@ -28,9 +28,8 @@ void mx_handle_incoming_data(t_info *info) {
         sd = info->sock->connection_list[i].socket;
         // *client = info->sock->connection_list[i];
         if (sd != MX_NO_SOCKET && FD_ISSET(sd, &info->sock->readfds))
-            if (mx_receive_from_peer(info, &sock->connection_list[i],
-                                     &mx_handle_received_message) != 0)
-                mx_handle_disconnect(sock, &sock->connection_list[i]);
+            if (mx_receive_from_peer(info, &sock->connection_list[i]) != 0)
+                mx_handle_disconnect(info->sock, &info->sock->connection_list[i]);
     }
 
     // for (int i = 0; i < MAX_CLIENTS; ++i) {

@@ -1,11 +1,5 @@
 #include "server.h"
 
-static t_info *info_create() {
-    t_info *new = malloc(sizeof(t_info));
-
-    return new;
-}
-
 int main(int argc, char *argv[]) {
     t_info *info;
     int portNumber = atoi(argv[1]);
@@ -16,13 +10,15 @@ int main(int argc, char *argv[]) {
     // if (mx_setup_signals(info) != 0)
     //     exit(EXIT_FAILURE);
 
-    info = info_create();
-    info->sock = mx_sockets_create_struct();
-    mx_init_db(info->sock);
+    // info = info_create();
+    // info->sock = mx_sockets_create_struct();
+    // mx_init_db(info->sock);
+
+    info = mx_init_info();
+    mx_daemonize(info->sock);
+
     mx_sockets_initialize(info->sock, atoi(argv[1]));
-
     mx_sockets_loop(info);
-
     mx_shutdown_properly(info, 0);
 
     return 0;

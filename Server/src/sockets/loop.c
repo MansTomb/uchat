@@ -5,7 +5,7 @@ static void build_fd_sets(t_sock *sock) {
     int sd;
 
     FD_ZERO(&sock->readfds);
-    FD_SET(STDIN_FILENO, &sock->readfds);
+    // FD_SET(STDIN_FILENO, &sock->readfds);
     FD_SET(sock->master_socket, &sock->readfds);
     sock->max_sd = sock->master_socket;
     for (i = 0; i < MAX_CLIENTS; ++i) {
@@ -17,15 +17,17 @@ static void build_fd_sets(t_sock *sock) {
     }
     FD_ZERO(&sock->writefds);
     for (i = 0; i < MAX_CLIENTS; ++i)
-        if (sock->connection_list[i].socket > MX_NO_SOCKET
-            && sock->connection_list[i].send_buffer.current > 0)
-            FD_SET(sock->connection_list[i].socket, &sock->writefds);
+        // if (sock->connection_list[i].socket > MX_NO_SOCKET
+        //     && sock->connection_list[i].send_buffer.current > 0)
+        //     FD_SET(sock->connection_list[i].socket, &sock->writefds);
         // if (sock->connection_list[i].socket > MX_NO_SOCKET
         //         && sock->valread > 0)
         //     FD_SET(sock->connection_list[i].socket, &sock->writefds);
+        if (sock->connection_list[i].socket > MX_NO_SOCKET)
+            FD_SET(sock->connection_list[i].socket, &sock->writefds);
 
     FD_ZERO(&sock->exceptfds);
-    FD_SET(STDIN_FILENO, &sock->exceptfds);
+    // FD_SET(STDIN_FILENO, &sock->exceptfds);
     FD_SET(sock->master_socket, &sock->exceptfds);
     for (i = 0; i < MAX_CLIENTS; ++i)
         if (sock->connection_list[i].socket > MX_NO_SOCKET)
