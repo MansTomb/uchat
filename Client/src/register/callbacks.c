@@ -1,6 +1,6 @@
 #include "client.h"
 
-void back_to_login_on_click(GtkApplication *app, gpointer user_data) {
+void mx_back_to_login_on_click(GtkApplication *app, gpointer user_data) {
     t_info *info = (t_info *)user_data;
     
     if(app && info){};
@@ -10,7 +10,7 @@ void back_to_login_on_click(GtkApplication *app, gpointer user_data) {
     printf("clicked button Back on reg window\n");
 }
 
-void reg_user_on_click(GtkApplication *app, gpointer user_data) {
+void mx_reg_user_on_click(GtkApplication *app, gpointer user_data) {
     t_info *info = (t_info *)user_data;
 
     if(app && info){};

@@ -1,6 +1,6 @@
 #include "client.h"
 
-void login_on_click(GtkApplication *app, gpointer user_data) {
+void mx_login_on_click(GtkApplication *app, gpointer user_data) {
     t_info *info = (t_info *)user_data;
     t_login *log = info->windows->log;
 
@@ -12,7 +12,7 @@ void login_on_click(GtkApplication *app, gpointer user_data) {
     printf("clicked button Login\n");
 }
 
-void register_on_click(GtkApplication *app, gpointer user_data) {
+void mx_register_on_click(GtkApplication *app, gpointer user_data) {
     t_info *info = (t_info *)user_data;
     
     mx_login_screen_hide(info);

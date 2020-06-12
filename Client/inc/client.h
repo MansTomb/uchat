@@ -185,8 +185,8 @@ struct s_info {
 };
 
 /* Main */
-GtkWidget *create_main_window(GtkApplication *app);
-t_info *create_info(GtkApplication *app);
+GtkWidget *mx_create_main_window(GtkApplication *app);
+t_info *mx_create_info(GtkApplication *app);
 
 /* Jsons */
 // json_value *mx_login_build_json(t_info *info);
@@ -266,8 +266,8 @@ void mx_login_screen_show(t_info *info);
 void mx_login_screen_hide(t_info *info);
 
     /* Login callbacks */
-void login_on_click(GtkApplication *app, gpointer user_data);
-void register_on_click(GtkApplication *app, gpointer user_data);
+void mx_login_on_click(GtkApplication *app, gpointer user_data);
+void mx_register_on_click(GtkApplication *app, gpointer user_data);
 
     /* Login error dialogs */
 void mx_login_entry_empty(t_info *info);
@@ -278,8 +278,8 @@ void mx_register_screen_show(t_info *info);
 void mx_register_screen_hide(t_info *info);
 
     /* Register callbacks */
-void back_to_login_on_click(GtkApplication *app, gpointer user_data);
-void reg_user_on_click(GtkApplication *app, gpointer user_data);
+void mx_back_to_login_on_click(GtkApplication *app, gpointer user_data);
+void mx_reg_user_on_click(GtkApplication *app, gpointer user_data);
 
     /* Register error dialogs */
 

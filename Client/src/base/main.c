@@ -33,7 +33,7 @@ static void open_app(GtkApplication *app, GFile **files, gint n_file, gchar *hin
         wrong_usage(app, sock);
         exit(EXIT_FAILURE); // nado bude funka uni4tozitel
     }
-    t_info *info = create_info(app);
+    t_info *info = mx_create_info(app);
 
     info->sock = mx_client_socket_create(g_file_get_basename(files[0]), atoi(g_file_get_basename(files[1])));
     // mx_login_screen_show(info);
