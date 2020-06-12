@@ -10,17 +10,20 @@ SERVER_DIR = server/
 CLIENT_PATH = $(CLIENT_DIR)$(CLIENT)
 SERVER_PATH = $(SERVER_DIR)$(SERVER)
 
+CLIENT_SRC = $(wildcard $(CLIENT_DIR)src/**/*.c)
+SERVER_SRC = $(wildcard $(SERVER_DIR)src/**/*.c)
+
 EXEC_IT = make -sf Makefile
 EXEC_LD = $(EXEC_IT) -C
 RM = /bin/rm -rf
 
 all: $(CLIENT) $(SERVER)
 
-$(CLIENT):
+$(CLIENT): $(CLIENT_SRC)
 	@$(EXEC_LD) $(CLIENT_DIR)
 	@cp $(CLIENT_PATH) .
 
-$(SERVER):
+$(SERVER): $(SERVER_SRC)
 	@$(EXEC_LD) $(SERVER_DIR)
 	@cp $(SERVER_PATH) .
 
