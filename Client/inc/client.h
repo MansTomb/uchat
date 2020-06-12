@@ -3,7 +3,7 @@
 #include "uchat.h"
 #include "defines_client.h"
 
-#define MX_MSGHEIGHT(msg) (strlen(msg) + 10 + mx_count_substr(message, "\n") * 20)
+#define MX_MSGHEIGHT(msg) (strlen(msg) + 10 + mx_count_substr(msg, "\n") * 20)
 
 typedef struct sockaddr_in t_saddr;
 typedef struct s_sock t_sock;
