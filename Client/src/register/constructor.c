@@ -12,8 +12,8 @@ static void attach_layout(t_info *info, t_register *reg) {
 }
 
 static void attach_signals(t_info *info, t_register *reg) {
-    g_signal_connect(reg->backbt, "clicked", G_CALLBACK(back_to_login_on_click), info);
-    g_signal_connect(reg->registerbt, "clicked", G_CALLBACK(reg_user_on_click), info);
+    g_signal_connect(reg->backbt, "clicked", MX_CB(back_to_login_on_click), info);
+    g_signal_connect(reg->registerbt, "clicked", MX_CB(reg_user_on_click), info);
 }
 
 t_register *mx_register_constructor(t_info *info) {

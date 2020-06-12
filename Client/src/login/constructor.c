@@ -10,8 +10,8 @@ static void attach_layout(t_info *info, t_login *log) {
 }
 
 static void attach_signals(t_info *info, t_login *log) {
-    g_signal_connect(log->loginbt, "clicked", G_CALLBACK(login_on_click), info);
-    g_signal_connect(log->registerbt, "clicked", G_CALLBACK(register_on_click), info);
+    g_signal_connect(log->loginbt, "clicked", MX_CB(login_on_click), info);
+    g_signal_connect(log->registerbt, "clicked", MX_CB(register_on_click), info);
 }
 
 t_login *mx_login_constructor(t_info *info) {

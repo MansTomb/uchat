@@ -15,9 +15,9 @@ static void create_menu_items(t_message *message, GtkWidget *menu) {
     gtk_widget_show(items[1]);
     gtk_widget_show(items[2]);
 
-    g_signal_connect(items[0], "activate", G_CALLBACK(mx_callback_reply), message);
-    g_signal_connect(items[1], "activate", G_CALLBACK(mx_callback_forward), message);
-    g_signal_connect(items[2], "activate", G_CALLBACK(mx_callback_delete), message);
+    g_signal_connect(items[0], "activate", MX_CB(mx_callback_reply), message);
+    g_signal_connect(items[1], "activate", MX_CB(mx_callback_forward), message);
+    g_signal_connect(items[2], "activate", MX_CB(mx_callback_delete), message);
 }
 
 static GtkWidget *create_menu(t_info *info) {
@@ -59,7 +59,7 @@ t_message *mx_message_construct(t_info *info, char *message, char *username) {
         gtk_label_set_max_width_chars(GTK_LABEL(lable), 50);
         gtk_label_set_justify(GTK_LABEL(lable), GTK_JUSTIFY_LEFT);
         
-        g_signal_connect(new->button, "button-press-event", G_CALLBACK(mx_callback_menu_show), new);
+        g_signal_connect(new->button, "button-press-event", MX_CB(mx_callback_menu_show), new);
         mx_fixed_put(new->frame, new->lable, 50, 0);
         mx_fixed_put(new->frame, new->button, 10, 20);
         // new->event = gtk_event_box_new();
@@ -85,7 +85,7 @@ t_message *mx_message_construct(t_info *info, char *message, char *username) {
         // label_settings(new->lable, message);
 
         // gtk_widget_set_events(new->event, GDK_BUTTON_PRESS_MASK);
-        // g_signal_connect(G_OBJECT(new->event), "button-press-event", G_CALLBACK(mx_callback_menu_show), new);
+        // g_signal_connect(G_OBJECT(new->event), "button-press-event", MX_CB(mx_callback_menu_show), new);
         // mx_fixed_put(new->layout, new->event, 50, 0);
     }
     return new;

@@ -1,8 +1,14 @@
 #pragma once
 
+#include "uchat.h"
+
 /*    Defines for widgets placement */
 #define WIDTH 1280
 #define HEIGHT 720
+
+/*    Define for укорачивания(не нашёл англ слова в голове) */
+#define BOX_V GTK_ORIENTATION_VERTICAL
+#define MX_CB G_CALLBACK
 
 /* Login screen widgets placements */
 #define L_LOGBT_W (WIDTH / 2)
