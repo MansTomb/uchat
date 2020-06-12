@@ -28,5 +28,6 @@
 # current project
 uchat
 uchat_server
+*serverlogs
 *.db
 *.sql
