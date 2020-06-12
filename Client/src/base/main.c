@@ -36,31 +36,7 @@ static void open_app(GtkApplication *app, GFile **files, gint n_file, gchar *hin
     t_info *info = mx_create_info(app);
 
     info->sock = mx_client_socket_create(g_file_get_basename(files[0]), atoi(g_file_get_basename(files[1])));
-    // mx_login_screen_show(info);
-    info->windows->chat_switcher = mx_chat_switcher_constructor(info);
-
-    // mx_push_front(info->chat_list, mx_chat_constructor(info));
-    // mx_push_front(info->chat_list, mx_chat_constructor(info));
-
-    // mx_chat_switcher_add_chat(info, (t_chat *)mx_get_index(info->chat_list, 0)->data, "general");
-    // mx_chat_switcher_add_chat(info, (t_chat *)mx_get_index(info->chat_list, 1)->data, "new");
-
-    // t_message *one = mx_message_construct(info, text, "Loh1");
-    // t_message *one2 = mx_message_construct(info, text2, "Loh1");
-    // t_message *one3 = mx_message_construct(info, text3, "Heh");
-
-    // mx_chat_screen_show((t_chat *)mx_get_index(info->chat_list, 1)->data);
-    // pthread_t read_thread;
-    // pthread_create(&read_thread, NULL, &read_from_server, (void *)info);
-        // pthread_join(read_thread, NULL);
-
-    // mx_chat_message_put((t_chat *)mx_get_index(info->chat_list, 0)->data, one);
-    // mx_chat_message_put((t_chat *)mx_get_index(info->chat_list, 1)->data, one2);
-    // mx_chat_message_put((t_chat *)mx_get_index(info->chat_list, 0)->data, one3);
-
-    mx_main_chat_screen_show(info);
-    // mx_show_main_hide_screen(info);
-
+    mx_login_screen_show(info);
     if(sock && files && n_file && hint) {};
 }
 

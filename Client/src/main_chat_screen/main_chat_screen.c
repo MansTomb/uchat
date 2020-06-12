@@ -25,10 +25,8 @@ void mx_main_chat_screen_show(t_info *info) {
     mx_chat_message_put((t_chat *)mx_get_index(info->chat_list, 1)->data, one2);
     mx_chat_message_put((t_chat *)mx_get_index(info->chat_list, 0)->data, one3);
     // ---------------------------------------------------------------------------- это всё заглушка
-    // mx_login_screen_show(info);
     mx_main_menu_show(info);
     mx_chat_switcher_show(info);
-    // mx_contacts_constructor(info); 
 }
 
 void mx_main_chat_screen_hide(t_info *info) {
