@@ -28,5 +28,6 @@ void mx_on_click_preferences(GtkWidget *widget, gpointer data) {
 }
 
 void mx_on_click_exit(GtkWidget *widget, gpointer data) {
+    mx_exit_constructor(data);
     if(widget && data) {};
 }

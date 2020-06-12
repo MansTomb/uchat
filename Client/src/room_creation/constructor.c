@@ -35,7 +35,7 @@ static void show(t_info *info, t_room_creation *new, GtkWidget *fixed) {
     gtk_widget_show(fixed);
 }
 
-t_room_creation *mx_room_creation_constructor(t_info *info) {
+void mx_room_creation_constructor(t_info *info) {
     t_room_creation *new = malloc(sizeof(t_room_creation));
     GtkWidget *action_area;
     GtkWidget *fixed;
@@ -54,7 +54,6 @@ t_room_creation *mx_room_creation_constructor(t_info *info) {
         gtk_window_set_position (GTK_WINDOW(new->dialog), GTK_WIN_POS_CENTER);
         show(info, new, fixed);
     }
-    return new;
 }
 
 void mx_room_creation_destructor(t_info *info) {

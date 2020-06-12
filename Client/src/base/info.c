@@ -10,6 +10,7 @@ static t_windows *create_windows() {
         new->main_menu = NULL;
         new->profile = NULL;
         new->contacts = NULL;
+        new->exit = NULL;
         new->room_creation = NULL;
     }
     return new;

@@ -19,6 +19,7 @@ typedef struct s_profile t_profile;
 typedef struct s_contact_add t_contact_add;
 typedef struct s_contacts t_contacts;
 typedef struct s_room_creation t_room_creation;
+typedef struct s_exit t_exit;
 typedef struct s_info t_info;
 
 struct s_sock {
@@ -103,16 +104,6 @@ struct s_main_menu {
     GtkWidget *back;
 };
 
-struct s_windows {
-    t_login *log;
-    t_register *reg;
-    t_chat_switcher *chat_switcher;
-    t_profile *profile;
-    t_contacts *contacts;
-    t_room_creation *room_creation;
-    t_main_menu *main_menu;
-};
-
 struct s_profile {
     GtkWidget *image;
     GtkWidget *namelabel;
@@ -151,6 +142,13 @@ struct s_contacts {
     GtkTreeIter choosen_contact;
 };
 
+struct s_exit {
+    GtkWidget *dialog;
+    GtkWidget *fixed;
+    GtkWidget *logout;
+    GtkWidget *close;
+};
+
 struct s_room_creation {
     GtkWidget *dialog;
     GtkWidget *groupbt;
@@ -161,6 +159,17 @@ struct s_room_creation {
 
     GtkWidget *type;
     GtkWidget *entry;
+};
+
+struct s_windows {
+    t_login *log;
+    t_register *reg;
+    t_chat_switcher *chat_switcher;
+    t_profile *profile;
+    t_contacts *contacts;
+    t_room_creation *room_creation;
+    t_exit *exit;
+    t_main_menu *main_menu;
 };
 
 struct s_info {
@@ -324,7 +333,7 @@ void mx_contact_add(GtkWidget *widget, gpointer data);
 void mx_contact_add_cancel(GtkWidget *widget, gpointer data);
 
 /*                              Room Creation */
-t_room_creation *mx_room_creation_constructor(t_info *info);
+void mx_room_creation_constructor(t_info *info);
 void mx_room_creation_destructor(t_info *info);
 
     /* Callbacks */
@@ -332,6 +341,14 @@ void mx_on_click_create_room_channel(GtkWidget *widget, gpointer data);
 void mx_on_click_create_room_group(GtkWidget *widget, gpointer data);
 void mx_on_click_create_room_create(GtkWidget *widget, gpointer data);
 void mx_on_click_create_room_cancel(GtkWidget *widget, gpointer data);
+
+/*                              Exit Dialog */
+void mx_exit_constructor(t_info *info);
+void mx_exit_destructor(t_info *info);
+
+    /* Callbacks */
+void mx_on_click_logout(GtkWidget *widget, gpointer data);
+void mx_on_click_close(GtkWidget *widget, gpointer data);
 
 /*                             CHAT SCREEN */
 t_chat *mx_chat_constructor(t_info *info);

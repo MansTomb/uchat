@@ -26,13 +26,15 @@ room_creation = room_creation callbacks errors constructor
 
 main_chat_screen = main_chat_screen
 
+exit = exit callbacks constructor
+
 utils = background_images buttons grids input_labels layouts css labels       \
 	widget dialog scrollable stack stack_switcher fixed frame box listbox
 
 json =
 
 dirs = base login register chat chat_switcher message main_menu profile       \
-	contacts room_creation main_chat_screen utils json
+	contacts room_creation main_chat_screen utils json exit
 FILES = $(foreach dir, $(dirs), $($(dir):%=$(dir)/%))
 
 SRC_DIR = src/
