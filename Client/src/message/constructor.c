@@ -32,9 +32,20 @@ static GtkWidget *create_menu(t_info *info) {
     return menu;
 }
 
+static void set_prefernces(t_message *new, int msgheight) {
+    GtkWidget *lable;
+
+    lable = gtk_bin_get_child(GTK_BIN(new->button));
+    gtk_widget_set_size_request(new->button, 300, msgheight);
+    gtk_label_set_line_wrap(GTK_LABEL(lable), TRUE);
+    gtk_label_set_line_wrap_mode(GTK_LABEL(lable), PANGO_WRAP_CHAR);
+    gtk_label_set_max_width_chars(GTK_LABEL(lable), 50);
+    gtk_label_set_justify(GTK_LABEL(lable), GTK_JUSTIFY_LEFT);
+}
+
 t_message *mx_message_construct(t_info *info, char *message, char *username) {
     t_message *new = malloc(sizeof(t_message));
-    GtkWidget *lable;
+    
 
     if (new) {
         new->button = mx_button_constuctor(message, "message_text");
@@ -44,14 +55,9 @@ t_message *mx_message_construct(t_info *info, char *message, char *username) {
         new->info = info;
 
         create_menu_items(new, new->menu);
-
-        lable = gtk_bin_get_child(GTK_BIN(new->button));
-        gtk_widget_set_size_request(new->button, 300, MX_MSGHEIGHT(message));
-        gtk_label_set_line_wrap(GTK_LABEL(lable), TRUE);
-        gtk_label_set_line_wrap_mode(GTK_LABEL(lable), PANGO_WRAP_CHAR);
-        gtk_label_set_max_width_chars(GTK_LABEL(lable), 50);
-        gtk_label_set_justify(GTK_LABEL(lable), GTK_JUSTIFY_LEFT);
         
+        set_prefernces(new, MX_MSGHEIGHT(message));
+
         MX_GSIG_CON(new->button, "button-press-event", MX_CB(mx_callback_menu_show), new);
         mx_fixed_put(new->frame, new->lable, 50, 0);
         mx_fixed_put(new->frame, new->button, 10, 20);
