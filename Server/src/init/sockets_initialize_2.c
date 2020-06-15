@@ -15,14 +15,10 @@ void mx_socket_specify_maximum_connections_to_master(int sock, int con_num) {
     }
 }
 
-void mx_init_db(t_sock *sock) {
-    int rc;
+void mx_set_nonblock_for_stdin(void) {
+    int flag;
 
-    if ((rc = sqlite3_open("Server/db/uchat.db", &sock->db))) {
-        fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(sock->db));
-        exit(EXIT_FAILURE);
-    }
-    else
-        printf("Opened database successfully\n");
-
+    flag = fcntl(STDIN_FILENO, F_GETFL, 0);
+    flag |= O_NONBLOCK;
+    fcntl(STDIN_FILENO, F_SETFL, flag);
 }
