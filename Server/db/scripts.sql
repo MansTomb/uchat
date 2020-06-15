@@ -10,19 +10,29 @@ CREATE TABLE IF NOT EXISTS users_profiles (
     user_id INTEGER PRIMARY KEY NOT NULL,
     first_name VARCHAR(64),
     second_name VARCHAR(64),
+    email VARCHAR(64),
     status VARCHAR(32)
 );
 
-CREATE TRIGGER IF NOT EXISTS add_profile AFTER INSERT
-    ON users
+CREATE TABLE IF NOT EXISTS users_notify_settings (
+    user_id INTEGER PRIMARY KEY NOT NULL,
+    sound INTEGER NOT NULL,
+    visual INTEGER NOT NULL,
+    email INTEGER NOT NULL
+);
+
+CREATE TRIGGER IF NOT EXISTS add_profile
+    AFTER INSERT ON users
 BEGIN
     INSERT INTO users_profiles (user_id) VALUES (NEW.id);
+    INSERT INTO users_notify_settings VALUES (NEW.id, 1, 1, 0);
 END;
 
-CREATE TRIGGER IF NOT EXISTS del_profile AFTER DELETE
-    ON users
+CREATE TRIGGER IF NOT EXISTS del_profile
+    AFTER DELETE ON users
 BEGIN
     DELETE FROM users_profiles WHERE user_id = OLD.id;
+    DELETE FROM users_notify_settings WHERE user_id = OLD.id;
 END;
 
 -- user contacts block
@@ -68,7 +78,8 @@ CREATE TABLE IF NOT EXISTS messages (
 
 -- проверка работы триггеров
 SELECT * FROM users;
-SELECT * FROM users JOIN users_profiles ON id = user_id;
+SELECT * FROM users JOIN users_profiles AS up ON id = up.user_id JOIN users_notify_settings AS uns ON id = uns.user_id;
+
 DELETE FROM users;
 
 INSERT INTO users VALUES
@@ -95,6 +106,7 @@ SELECT * FROM users_profiles WHERE user_id = USER_ID;
 -- обновление профиля
 UPDATE users_profiles SET first_name = 'NEW_FIRST_NAME' WHERE user_id = USER_ID;
 UPDATE users_profiles SET second_name = 'NEW_SECOND_NAME' WHERE user_id = USER_ID;
+UPDATE users_profiles SET email = 'NEW_EMAIL' WHERE user_id = USER_ID;
 UPDATE users_profiles SET status = 'NEW_STATUS' WHERE user_id = USER_ID;
 
 -- создание новой группы контактов
@@ -132,6 +144,16 @@ DELETE FROM messages WHERE id = MESSAGE_ID;
 
 -- -- -- -- -- -- -- -- -- -- комплексные запросы -- -- -- -- -- -- -- -- -- --
 
+-- загрузка информации о клиенте
+SELECT u.id, u.login,
+    up.first_name, up.second_name, up.email, up.status,
+    uns.sound, uns.visual, uns.email
+FROM users AS u
+    JOIN users_profiles AS up
+        ON u.id = up.user_id AND u.id = ID
+    JOIN users_notify_settings AS uns
+        ON u.id = uns.user_id;
+
 -- создание личной переписки
 INSERT INTO chats VALUES (NULL, 1, '');
 INSERT INTO users_chats VALUES (USER_ID1, last_insert_rowid(), 1);
@@ -142,11 +164,14 @@ INSERT INTO chats VALUES (NULL, CHAT_TYPE, 'NEW_CHAT_NAME');
 INSERT INTO users_chats VALUES (USER_ID, last_insert_rowid(), 3);
 
 -- выборка контактов юзера при загрузке клиента
-SELECT contact_id, login, first_name, second_name, status, group_id, name
+SELECT cl.contact_id, u.login, up.first_name, up.second_name, up.email, up.status, cl.group_id, cg.name
 FROM contacts_lists AS cl
-    JOIN users AS u ON cl.contact_id = u.id AND cl.user_id = USER_ID
-    JOIN users_profiles AS up ON cl.contact_id = up.user_id
-    LEFT JOIN contacts_groups AS cg ON cl.group_id = cg.id;
+    JOIN users AS u
+        ON cl.contact_id = u.id AND cl.user_id = USER_ID
+    JOIN users_profiles AS up
+        ON cl.contact_id = up.user_id
+    LEFT JOIN contacts_groups AS cg
+        ON cl.group_id = cg.id;
 
 -- выборка чатов юзера при загрузке клиента
 SELECT chat_id, role, type, name

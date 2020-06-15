@@ -15,9 +15,9 @@ static int callback(void *data, int argc, char **argv, char **azColName) {
 void print_db(sqlite3 *db) {
     char *err = 0;
     char *q[] = {
-        H "users", H "users_profiles", H "contact_groups",
-        H "contact_lists", H "chats", H "user_chats",
-        H "messages", H"block_lists"
+        H "users", H "users_profiles", H "contacts_groups",
+        H "contacts_lists", H "chats", H "users_chats",
+        H "messages"
     };
 
     for (uint32_t i = 0; i < sizeof(q) / sizeof(q[0]); ++i) {

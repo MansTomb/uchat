@@ -4,9 +4,9 @@ NAME = uchat_server
 
 base = main
 
-init = 	sockets_initialize sockets_initialize_2 init_info daemonize
+init = sockets_initialize sockets_initialize_2 init_info daemonize
 
-sql = close_db create_tables init_db
+sql = close_db create_tables init_db receive_message
 
 sockets = handle_incoming_data handle_new_connection \
 	loop peer_receive_message \

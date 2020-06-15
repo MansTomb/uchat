@@ -1,5 +1,7 @@
+#pragma once
 #include "uchat.h"
 #include "macroses.h"
+#include "db.h"
 
 /* Maximum bytes that can be send() or recv() via net by one call.
  * It's a good idea to test sending one byte by one.
@@ -141,11 +143,4 @@ void mx_send_msg_client(t_sock *sock, char *buff, int uid);
 
 // int mx_setup_signals();
 
-
 void mx_shutdown_properly(t_info *info, int code);
-
-
-/* SQL */
-int mx_create_db(sqlite3 *db);
-void mx_init_db(sqlite3 *db);
-void mx_close_db(sqlite3 *db);
