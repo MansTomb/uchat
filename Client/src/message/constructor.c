@@ -32,13 +32,6 @@ static GtkWidget *create_menu(t_info *info) {
     return menu;
 }
 
-// static void label_settings(GtkWidget *lable, char *message) {
-//     gtk_widget_set_size_request(lable, strlen(message) > 860 ? 860 : strlen(message), 1);
-//     gtk_label_set_line_wrap(GTK_LABEL(lable), TRUE);
-//     gtk_label_set_selectable(GTK_LABEL(lable), TRUE);
-//     gtk_label_set_max_width_chars(GTK_LABEL(lable), 50);
-// }
-
 t_message *mx_message_construct(t_info *info, char *message, char *username) {
     t_message *new = malloc(sizeof(t_message));
     GtkWidget *lable;
@@ -62,31 +55,6 @@ t_message *mx_message_construct(t_info *info, char *message, char *username) {
         MX_GSIG_CON(new->button, "button-press-event", MX_CB(mx_callback_menu_show), new);
         mx_fixed_put(new->frame, new->lable, 50, 0);
         mx_fixed_put(new->frame, new->button, 10, 20);
-        // new->event = gtk_event_box_new();
-        // new->layout = mx_fixed_constructor("messagebox", 840, 1);
-        // new->frame = mx_frame_constructor("messageframe", username, 840, 1);
-        // new->lable = mx_label_constructor("message_text", message);
-        // new->menu = create_menu(info);
-        // new->info = info;
-
-        // gtk_widget_set_margin_start(new->frame, 10);
-        // gtk_widget_set_margin_end(new->frame, 10);
-        // gtk_widget_set_margin_top(new->frame, 5);
-        // gtk_label_set_justify(GTK_LABEL(new->lable), GTK_JUSTIFY_LEFT);
-
-        // create_menu_items(new, new->menu);
-
-        // gtk_widget_set_vexpand(new->lable, TRUE);
-        // gtk_widget_set_vexpand(new->frame, TRUE);
-
-        // gtk_container_add(GTK_CONTAINER(new->frame), new->layout);
-        // gtk_container_add(GTK_CONTAINER(new->event), new->lable);
-
-        // label_settings(new->lable, message);
-
-        // gtk_widget_set_events(new->event, GDK_BUTTON_PRESS_MASK);
-        // MX_GSIG_CON(G_OBJECT(new->event), "button-press-event", MX_CB(mx_callback_menu_show), new);
-        // mx_fixed_put(new->layout, new->event, 50, 0);
     }
     return new;
 }
