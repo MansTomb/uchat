@@ -63,7 +63,7 @@ typedef struct s_sock {                            // t_sock
 
     sqlite3 *db;
 
-    t_peer connection_list[MAX_CLIENTS];
+    struct s_peer connection_list[MAX_CLIENTS];
     int curr_uid;
 
     fd_set readfds;
