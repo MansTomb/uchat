@@ -75,11 +75,14 @@ struct s_register {
 };
 
 struct s_chat {
+    char *chat_name;
+
     GtkWidget *scroll;
     GtkWidget *box;
 
     GtkWidget *sendbt;
     GtkWidget *msgentry;
+    GtkWidget *chat_name_label;
 
     t_list *messages;
 

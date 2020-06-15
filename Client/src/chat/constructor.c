@@ -4,6 +4,7 @@ static void attach_layout(t_info *info, t_chat *new) {
     mx_layout_put(info->layout, new->scroll, 300, 100);
     mx_layout_put(info->layout, new->msgentry, 300, 640);
     mx_layout_put(info->layout, new->sendbt, 1100, 640);
+    mx_layout_put(info->layout, new->chat_name_label, 720, 60);
     mx_scrollable_container_add(new->scroll, new->box);
 }
 
@@ -27,9 +28,15 @@ t_chat *mx_chat_constructor(t_info *info) {
         new->msgentry = mx_entry_constructor("msg_entry");
         new->messages = mx_create_list();
         new->box = mx_listbox_constructor("message_list");
+        new->chat_name_label = mx_label_constructor("chat_name_label", "");
         new->showed_chat = 0;
         new->info = info;
         
+        // После подгрузки истории кидать опускать скролл вниз
+        // GtkAdjustment *adj = gtk_scrolled_window_get_vadjustment(
+        //                                     GTK_SCROLLED_WINDOW(chat->scroll));
+        // gtk_adjustment_set_value(adj, gtk_adjustment_get_upper(adj) - 100);
+
         set_properties(new);
         attach_signals(new);
         attach_layout(info, new);
