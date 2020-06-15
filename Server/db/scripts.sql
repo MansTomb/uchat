@@ -95,7 +95,7 @@ INSERT INTO users VALUES (NULL, 'NEW_USER_LOGIN', 'NEW_USER_PASSWORD');
 SELECT * FROM users WHERE login = 'NEW_USER_LOGIN';
 
 -- удаление юзера
-DELETE FROM users WHERE id = USER_ID;
+DELETE FROM users WHERE id = USER_ID AND hash = HASH;
 
 -- изменение пароля
 UPDATE users SET hash = 'STRONG_PASSWORD' WHERE id = USER_ID;
@@ -126,9 +126,6 @@ UPDATE contacts_lists SET group_id = NULL WHERE user_id = USER_ID AND contact_id
 
 -- создание чата
 INSERT INTO chats VALUES (NULL, CHAT_TYPE, 'NEW_CHAT_NAME');
-
--- переименование группового чата или канала
-UPDATE chats SET name = 'CHAT_NEW_NAME' WHERE id = CHAT_ID AND type > 1;
 
 -- добавление юзера в чат
 INSERT INTO users_chats VALUES (USER_ID, CHAT_ID);
@@ -163,7 +160,7 @@ INSERT INTO users_chats VALUES (USER_ID2, (SELECT max(id) FROM chats), 1);
 INSERT INTO chats VALUES (NULL, CHAT_TYPE, 'NEW_CHAT_NAME');
 INSERT INTO users_chats VALUES (USER_ID, last_insert_rowid(), 3);
 
--- выборка контактов юзера при загрузке клиента
+-- загрузка контактов юзера
 SELECT cl.contact_id, u.login, up.first_name, up.second_name, up.email, up.status, cl.group_id, cg.name
 FROM contacts_lists AS cl
     JOIN users AS u
@@ -173,12 +170,13 @@ FROM contacts_lists AS cl
     LEFT JOIN contacts_groups AS cg
         ON cl.group_id = cg.id;
 
--- выборка чатов юзера при загрузке клиента
-SELECT chat_id, role, type, name
+-- добавить имя контакта в лс CASE
+-- загрузка активных чатов юзера
+SELECT uc.chat_id, uc.role, c.type, c.name
 FROM users_chats AS uc
-    JOIN chats AS c ON uc.chat_id = c.id AND uc.user_id = USER_ID;
+    JOIN chats AS c ON uc.chat_id = c.id AND uc.user_id = USER_ID AND uc.role > 0;
 
--- выборка сообщений в чате при загрузке клиента
+-- загрузка сообщений в чате
 SELECT * FROM messages WHERE chat_id = CHAT_ID ORDER BY id DESC LIMIT 50;
 
 -- отправка сообщения
