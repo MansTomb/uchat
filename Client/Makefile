@@ -29,7 +29,8 @@ main_chat_screen = main_chat_screen
 exit = exit callbacks constructor
 
 utils = background_images buttons grids input_labels layouts css labels       \
-	widget dialog scrollable stack stack_switcher fixed frame box listbox
+	widget dialog scrollable stack stack_switcher fixed frame box listbox     \
+	toggle_button
 
 json =
 

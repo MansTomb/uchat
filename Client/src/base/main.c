@@ -58,7 +58,6 @@ static void open_app(GtkApplication *app, GFile **files, gint n_file, gchar *hin
     info->sock = mx_client_socket_create(g_file_get_basename(files[0]), atoi(g_file_get_basename(files[1])));
     mx_login_screen_show(info);
     pthread_create(&info->thread.timer, NULL, &login_timeout, (void *)info);
-    
     if(sock && files && n_file && hint) {};
 }
 

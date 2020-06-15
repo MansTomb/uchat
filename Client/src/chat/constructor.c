@@ -33,7 +33,6 @@ t_chat *mx_chat_constructor(t_info *info) {
         set_properties(new);
         attach_signals(new);
         attach_layout(info, new);
-        mx_css_from_file(info, "./Resources/css/chat.css");
     }
     return new;
 }

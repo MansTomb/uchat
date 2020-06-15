@@ -265,6 +265,9 @@ GtkWidget *mx_box_constructor(char *name, gint widht, gint height, GtkOrientatio
     /* Work with listbox */
 GtkWidget *mx_listbox_constructor(char *name);
 
+    /* Work with toggle button */
+gboolean mx_toggle_get_active(GtkWidget *widget);
+
 
 /* Windows */
 
@@ -279,7 +282,7 @@ void mx_login_on_click(GtkApplication *app, gpointer user_data);
 void mx_register_on_click(GtkApplication *app, gpointer user_data);
 
     /* Login error dialogs */
-void mx_login_entry_empty(t_info *info);
+gboolean mx_login_data_validate(t_login *log);
 
 /*                             REGISTER SCREEN */
 t_register *mx_register_constructor(t_info *info);
@@ -291,7 +294,7 @@ void mx_back_to_login_on_click(GtkApplication *app, gpointer user_data);
 void mx_reg_user_on_click(GtkApplication *app, gpointer user_data);
 
     /* Register error dialogs */
-
+gboolean mx_reg_data_validate(t_register *reg);
 
 
 /*                             Main Chat Screen */
@@ -350,6 +353,9 @@ void mx_on_click_create_room_channel(GtkWidget *widget, gpointer data);
 void mx_on_click_create_room_group(GtkWidget *widget, gpointer data);
 void mx_on_click_create_room_create(GtkWidget *widget, gpointer data);
 void mx_on_click_create_room_cancel(GtkWidget *widget, gpointer data);
+
+    /* Validate data */
+gboolean mx_room_creation_data_validation(t_room_creation *room);
 
 /*                              Exit Dialog */
 void mx_exit_constructor(t_info *info);

@@ -27,6 +27,7 @@ void mx_main_chat_screen_show(t_info *info) {
     // ---------------------------------------------------------------------------- это всё заглушка
     mx_main_menu_show(info);
     mx_chat_switcher_show(info);
+    mx_css_from_file(info, "./Resources/css/chat.css");
 }
 
 void mx_main_chat_screen_hide(t_info *info) {
