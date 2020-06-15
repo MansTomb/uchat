@@ -89,6 +89,7 @@ struct s_chat {
 
 struct s_chat_switcher {
     GtkWidget *box;
+    GtkWidget *scrollable;
     t_chat *chat;
 };
 
