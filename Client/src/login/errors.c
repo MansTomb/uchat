@@ -1,14 +1,12 @@
 #include "client.h"
 
 static gboolean validate_empty_entry(t_login *log) {
-    if ((!mx_entry_text_exist(log->username_entry) 
-     && mx_entry_text_exist(log->password_entry))
-     || (mx_entry_text_exist(log->username_entry) 
-     && !mx_entry_text_exist(log->password_entry))) {
+    if (mx_entry_text_exist(log->username_entry) 
+        && mx_entry_text_exist(log->password_entry)) {
         // mx_login_build_json(info);
-        return false;
+        return true;
     }
-    return true;
+    return false;
 }
 
 static gboolean validate_password_chars(t_login *log) {
