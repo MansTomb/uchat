@@ -32,6 +32,7 @@ int mx_receive_from_peer(t_info *info, t_peer *peer) {
     //     peer->current_receiving_byte = 0;
     // }
     // Count bytes to send.
+
     len_to_receive = sizeof(peer->receiving_buffer);
     if (len_to_receive > MX_MAX_SEND_SIZE)
         len_to_receive = MX_MAX_SEND_SIZE;
@@ -49,13 +50,28 @@ int mx_receive_from_peer(t_info *info, t_peer *peer) {
         // printf("recv() %zd bytes\n", received_count);
     }
     if (peer->current_receiving_byte >= sizeof(peer->receiving_buffer)) {
-        printf("%s", peer->receiving_buffer);
-        mx_strip_newline(peer->receiving_buffer);
+        // mx_strip_newline(peer->receiving_buffer);
         mx_send_message_all(info->sock, peer->receiving_buffer, peer->uid);
+        printf("%s", peer->receiving_buffer);
 
         // message_handler(info, &peer->receiving_buffer);
         peer->current_receiving_byte = 0;
     }
+
+// -----------------------------------
+
+//     uint8_t buf[1024];
+//     int i;
+
+//     if (info) {}
+
+//     while ( (read(peer->socket, buf, 1024)) > 0 ) {
+//       for ( i = 0; i < 1024; i++ )
+//          //printf("%s\n", json_object_to_json_string(jobj));
+//          //json_parse(jobj);
+//          printf("%d\n", buf[i]);
+//    }
+// -----------------------------------
 
     // while (received_count > 0) {
     //      // Is completely received?

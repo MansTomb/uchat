@@ -60,7 +60,6 @@ typedef struct s_sock {                            // t_sock
     int opt;
     int max_sd;
 
-    int logs_fd;
     sqlite3 *db;
 
     t_peer connection_list[MAX_CLIENTS];
@@ -97,8 +96,6 @@ void mx_init_db(t_sock *sock);
 
     /* Loop func */
 void mx_sockets_loop(t_info *info);
-void mx_loop_handler(t_info *info);
-int mx_handle_read_from_stdin(t_info *info);
 void mx_handle_new_connection(t_info *info);
 void mx_handle_disconnect(t_sock *sock, t_peer *client);
 void mx_handle_incoming_data(t_info *info);

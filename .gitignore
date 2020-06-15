@@ -30,4 +30,4 @@ uchat
 uchat_server
 *serverlogs
 *.db
-*.sql
+!*.sql

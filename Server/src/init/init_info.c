@@ -11,8 +11,6 @@ t_sock *sockets_create_struct(void) {
             mx_create_peer(&new->connection_list[i]);
         }
         new->valread = 0;
-        // init_server_logs(new);
-        // init_db(new);
     }
     else
         printf("sock malloc error\n");

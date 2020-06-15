@@ -3,7 +3,6 @@
 void mx_shutdown_properly(t_info *info, int code) {
 
     close(info->sock->master_socket);
-    close(info->sock->logs_fd);
     for (int i = 0; i < MAX_CLIENTS; i++)
         if (info->sock->connection_list[i].socket != MX_NO_SOCKET)
              close(info->sock->connection_list[i].socket);

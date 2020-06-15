@@ -15,7 +15,7 @@ void mx_handle_disconnect(t_sock *sock, t_peer *client) {
     sock->curr_uid--;
 
 
-    mx_dequeue_all(&client->send_buffer);
+    // mx_dequeue_all(&client->send_buffer);
     client->current_sending_byte   = -1;
     client->current_receiving_byte = 0;
 }
