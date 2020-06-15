@@ -6,13 +6,15 @@ base = main
 
 init = 	sockets_initialize sockets_initialize_2 init_info daemonize
 
-sockets =	handle_incoming_data handle_new_connection \
-			loop peer_receive_message \
-			peer_send_message shutdown signals \
+sql = close_db create_tables init_db
+
+sockets = handle_incoming_data handle_new_connection \
+	loop peer_receive_message \
+	peer_send_message shutdown signals \
 
 utils = initialize_zero message_queue message peer send_message
 
-dirs = base init sockets utils
+dirs = base init sockets sql utils
 FILES = $(foreach dir, $(dirs), $($(dir):%=$(dir)/%))
 
 SRC_DIR = src/
