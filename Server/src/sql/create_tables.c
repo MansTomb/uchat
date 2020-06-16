@@ -1,13 +1,5 @@
 #include "server.h"
 
-static int check(int rc, char *err) {
-    if (rc != SQLITE_OK) {
-        fprintf(stderr, "SQL error: %s\n", err);
-        sqlite3_free(err);
-    }
-    return rc;
-}
-
 static int create_db(sqlite3 *db) {
     char *query3 = MX_CREATE(contacts_groups) MX_INT_PK(id)
     "name VARCHAR(64) NOT NULL UNIQUE); " MX_CREATE(contacts_lists)
