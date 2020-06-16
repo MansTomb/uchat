@@ -17,7 +17,9 @@ EXEC_IT = make -sf Makefile
 EXEC_LD = $(EXEC_IT) -C
 RM = /bin/rm -rf
 
-all: $(CLIENT) $(SERVER)
+all:
+	@$(EXEC_IT) $(CLIENT)
+	@$(EXEC_IT) $(SERVER)
 
 $(CLIENT): $(CLIENT_SRC)
 	@$(EXEC_LD) $(CLIENT_DIR)
@@ -39,3 +41,5 @@ uninstall:
 	@$(EXEC_LD) $(SERVER_DIR) uninstall
 
 reinstall: uninstall all
+
+.PHONY: all clean uninstall reinstall
