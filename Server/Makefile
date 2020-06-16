@@ -26,7 +26,8 @@ OBJ = $(FILES:%=$(OBJ_DIR)%.o)
 LIB_PATH = $(LIB_DIR)$(LIB)
 
 WFLAGS = -Wall -Wextra -Werror -Wpedantic
-LFLAGS = -Iinc -I$(LIB_DIR)inc
+LFLAGS = -Iinc -I$(LIB_DIR)inc -I/usr/local/opt/openssl/include
+LFLAGS_TANYA = -L/usr/local/opt/openssl/lib -lssl -lcrypto -lsqlite3
 CFLAGS = -Ofast -march=native -fomit-frame-pointer -flto
 DFLAGS = -O0 -g3 -glldb -ftrapv -fno-omit-frame-pointer -fsanitize=address    \
 	-fsanitize=undefined
@@ -96,7 +97,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 
 $(NAME): $(OBJ_DIR) $(OBJ)
 	@$(PRINT) "$K$G COMPILING $Y[$M$(TARGET)$Y] $R$(NAME)$D\r"
-	@$(COMPILE) $(CFLAGS) $(LIB_PATH) -lsqlite3 $(OBJ) -o $(NAME)
+	@$(COMPILE) $(CFLAGS) $(LIB_PATH) $(LFLAGS_TANYA) $(OBJ) -o $(NAME)
 	@$(PRINT) "$K"
 	@cp $(NAME) ..
 

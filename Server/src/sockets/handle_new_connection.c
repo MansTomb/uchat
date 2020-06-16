@@ -7,6 +7,7 @@ static void socket_new_accept(int *new_sock, t_sock *sock) {
         perror("Accept new connection error!\n");
         exit(EXIT_FAILURE);
     }
+    // mx_accept_ssl(sock, new_sock);
     printf("New connection, socket fd is %d, ip is %s:%d\n",
            *new_sock, inet_ntoa(sock->address.sin_addr),
            ntohs(sock->address.sin_port));
