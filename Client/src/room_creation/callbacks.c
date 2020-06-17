@@ -22,7 +22,7 @@ void mx_on_click_create_room_create(GtkWidget *widget, gpointer data) {
 
     
     if (mx_room_creation_data_validation(dialog)) {
-        // create room json and send
+        // action "mx_make_new_chat" estimated return "mx_make_new_chat_success"(TODO)
         mx_room_creation_destructor(info);
     }
     if(widget && dialog) {};

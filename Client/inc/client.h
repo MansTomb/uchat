@@ -370,7 +370,7 @@ void mx_on_click_logout(GtkWidget *widget, gpointer data);
 void mx_on_click_close(GtkWidget *widget, gpointer data);
 
 /*                             CHAT SCREEN */
-t_chat *mx_chat_constructor(t_info *info);
+t_chat *mx_chat_constructor(t_info *info, char *chat_name);
 void mx_chat_screen_show(t_chat *chat);
 void mx_chat_screen_hide(t_chat *chat);
 void mx_chat_message_put(t_chat *chat, t_message *message);
@@ -384,7 +384,7 @@ void mx_send_message(GtkWidget *widget, gpointer data);
 
     /* Chat switcher */
 t_chat_switcher *mx_chat_switcher_constructor(t_info *info);
-void mx_chat_switcher_add_chat(t_info *info, t_chat *chat, char *chat_name);
+void mx_chat_switcher_add_chat(t_info *info, t_chat *chat);
 void mx_chat_switcher_show(t_info *info);
 void mx_chat_switcher_hide(t_info *info);
 

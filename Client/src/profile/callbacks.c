@@ -21,7 +21,7 @@ void mx_on_click_profile_edit(GtkWidget *widget, gpointer *data) {
 void mx_on_click_profile_save(GtkWidget *widget, gpointer *data) {
     t_profile *profile = ((t_info *)data)->windows->profile;
 
-    // Send data from server
+    // Send data to server mx_make_update_profile estimated return mx_success_update_profile
     gtk_widget_hide(profile->save);
     gtk_widget_hide(profile->cancel);
     gtk_widget_show(profile->edit);
@@ -32,7 +32,7 @@ void mx_on_click_profile_cancel(GtkWidget *widget, gpointer *data) {
     t_profile *profile = ((t_info *)data)->windows->profile;
 
     // Cancel changes data from server
-    // Load data again
+    // Load data again, data must be stored at profile structure
     gtk_widget_hide(profile->save);
     gtk_widget_hide(profile->cancel);
     gtk_widget_show(profile->edit);
