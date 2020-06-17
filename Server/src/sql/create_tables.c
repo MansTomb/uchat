@@ -16,9 +16,9 @@ static int create_db(sqlite3 *db) {
     char *err = NULL;
     int rc = sqlite3_exec(db, query3, NULL, NULL, &err);
 
-    if (check(rc, err) == SQLITE_OK)
+    if (check(rc, err, "create querry 3") == SQLITE_OK)
         rc = sqlite3_exec(db, query4, NULL, NULL, &err);
-    return check(rc, err);
+    return check(rc, err, "create querry 4");
 }
 
 int mx_create_db(sqlite3 *db) {
@@ -28,17 +28,17 @@ int mx_create_db(sqlite3 *db) {
     "second_name VARCHAR(64), email VARCHAR(64), status VARCHAR(32));"
     MX_CREATE(users_notify_settings) "user_id INTEGER PRIMARY KEY NOT NULL, "
     "sound INTEGER NOT NULL, visual INTEGER NOT NULL,email INTEGER NOT NULL);";
-    char *query2 = MX_TRIGGER(add_profile, INSERT) "users BEGIN "
-    MX_INSERT(users_profiles, user_id) "(NEW.id); "
-    "INSERT INTO users_notify_settings VALUES (NEW.id, 1, 1, 0); END; "
-    MX_TRIGGER(del_profile, DELETE) "users BEGIN "
-    MX_DEL_WH(users_profiles, user_id = OLD.id) 
+    char *query2 = MX_TRIGGER(add_profile, INSERT) "users BEGIN " MX_INSERT(
+    users_profiles, user_id) "(NEW.id); INSERT INTO users_notify_settings "
+    "VALUES (NEW.id, 1, 1, 0); END; " MX_TRIGGER(del_profile, DELETE)
+    "users BEGIN " MX_DEL_WH(users_profiles, user_id = OLD.id) 
     MX_DEL_WH(users_notify_settings, user_id = OLD.id) "END;";
     char *err = NULL;
     int rc = sqlite3_exec(db, query1, NULL, NULL, &err);
 
-    if (check(rc, err) == SQLITE_OK) {
-        if (check((rc = sqlite3_exec(db, query2, NULL, NULL, &err)), err) == 0)
+    if (check(rc, err, "create querry 1") == SQLITE_OK) {
+        if (check((rc = sqlite3_exec(db, query2, NULL, NULL, &err)), err,
+                                    "create querry 2") == 0)
             rc = create_db(db);
     }
     return rc;

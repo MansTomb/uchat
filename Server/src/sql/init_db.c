@@ -29,8 +29,8 @@ static void print_db(sqlite3 *db) {
     }
 }
 
-void mx_init_db(sqlite3 **db) {
-    int rc = sqlite3_open("test.db", db);
+int mx_init_db(sqlite3 **db) {
+    int rc = sqlite3_open(MX_DB_PATH, db);
 
     if (rc) {
         fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(*db));
@@ -47,4 +47,5 @@ void mx_init_db(sqlite3 **db) {
 
         // print_db(db);
     }
+    return rc;
 }
