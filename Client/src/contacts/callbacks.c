@@ -29,8 +29,6 @@ void mx_contacts_tree_on_click(GtkTreeView *tree_view, GtkTreePath *path,
         gtk_menu_popup_at_pointer(GTK_MENU(contacts->menu), NULL);
         // gtk_tree_store_remove(GTK_TREE_STORE(model), &iter);
     }
-
-    if(tree_view && path && column && user_data) {};
 }
 
 void mx_contacts_send_message(GtkWidget *widget, gpointer data) {
