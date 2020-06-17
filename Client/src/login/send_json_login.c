@@ -9,7 +9,7 @@ void mx_login_build_json_wrapper(t_info *info) {
 static void login_build_json(const char *login, const char *password, int s_sock) {
     cJSON *jlogin = cJSON_CreateObject();
 
-    cJSON_AddNumberToObject(jlogin, "json_type", MX_MAKE_REGISTER);
+    cJSON_AddNumberToObject(jlogin, "json_type", MX_MAKE_AUTORIZATION);
     cJSON_AddStringToObject(jlogin, "password", password);
     cJSON_AddStringToObject(jlogin, "login", login);
 
