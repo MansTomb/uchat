@@ -19,6 +19,11 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
+#include <openssl/ssl.h>
+#include <openssl/err.h>
+#include <openssl/md5.h>
+#include <openssl/rand.h>
+
 #include "libmx.h"
 
 #define PORT 8888

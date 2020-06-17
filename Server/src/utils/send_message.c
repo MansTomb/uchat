@@ -32,7 +32,7 @@ void mx_send_message_all(t_sock *sock, char *buff, int uid) {
         sd = sock->connection_list[i].socket;
         if (sd != MX_NO_SOCKET) {
             if (sock->connection_list[i].uid != uid || uid == 0) {
-                if ((n = send(sd, buff, strlen(buff), 0)) <= 0) {
+                if ((n = send(sd, buff, strlen(buff), MSG_DONTWAIT)) <= 0) {
                     send_check(sock, &sock->connection_list[i], n);
                 }
             }
@@ -50,7 +50,7 @@ void mx_send_msg_client(t_sock *sock, char *buff, int uid) {
         sd = sock->connection_list[i].socket;
         if (sd != MX_NO_SOCKET) {
             if (sock->connection_list[i].uid == uid) {
-                if ((n = send(sd, buff, strlen(buff), 0)) <= 0) {
+                if ((n = send(sd, buff, strlen(buff), MSG_DONTWAIT)) <= 0) {
                     send_check(sock, &sock->connection_list[i], n);
                 }
             }
@@ -63,7 +63,7 @@ void mx_send_msg_client(t_sock *sock, char *buff, int uid) {
 void mx_send_msg_self(t_sock *sock, t_peer *peer, const char *buff) {
     int n = 0;
 
-    if ((n = send(peer->socket, buff, strlen(buff), 0)) <= 0)
+    if ((n = send(peer->socket, buff, strlen(buff), MSG_DONTWAIT)) <= 0)
         send_check(sock, peer, n);
 
 }

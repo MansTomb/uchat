@@ -9,11 +9,12 @@ void mx_handle_disconnect(t_sock *sock, t_peer *client) {
     printf("Host disconnected, ip %s:%d\n" ,
             inet_ntoa(sock->address.sin_addr), ntohs(sock->address.sin_port));
 
+    // mx_shutdown_ssl();
+
     //Close the socket and mark as MX_NO_SOCKET in list for reuse
     close(client->socket);
     client->socket = MX_NO_SOCKET;
     sock->curr_uid--;
-
 
     // mx_dequeue_all(&client->send_buffer);
     client->current_sending_byte   = -1;

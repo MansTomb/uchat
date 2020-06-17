@@ -40,9 +40,9 @@ static void manage_fd(char *cmd, struct rlimit *rl, t_sock *sock) {
         rl->rlim_max = 1024;
     for (rlim_t i = 0; i < rl->rlim_max; i++)
         close(i);
-    fd0 = open("Server/serverlogs", O_RDWR);
+    fd0 = open(MX_SERVERLOG_PATH, O_RDWR);
     if (fd0 < 0) {
-        fd0 = open("Server/serverlogs", O_RDWR | O_CREAT);
+        fd0 = open(MX_SERVERLOG_PATH, O_RDWR | O_CREAT);
     }
     fd1 = dup(0);
     fd2 = dup(0);

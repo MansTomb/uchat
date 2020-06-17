@@ -1,5 +1,7 @@
+#pragma once
 #include "uchat.h"
 #include "macroses.h"
+#include "db.h"
 
 /* Maximum bytes that can be send() or recv() via net by one call.
  * It's a good idea to test sending one byte by one.
@@ -15,7 +17,8 @@
 #define MX_NO_SOCKET -1
 
 #define MX_DB_PATH "Server/db/uchat.db"
-#define SERVER_LOG_PATH "Server/servlogs"
+#define MX_SERVERLOG_PATH "Server/tmp/serverlogs"
+#define MX_EMAIL_PATH "Server/tmp/sendmail"
 
 typedef struct sockaddr_in t_saddr;
 
@@ -61,9 +64,12 @@ typedef struct s_sock {                            // t_sock
     int opt;
     int max_sd;
 
+    SSL_CTX *ctx;
+    SSL *ssl;
+
     sqlite3 *db;
 
-    t_peer connection_list[MAX_CLIENTS];
+    struct s_peer connection_list[MAX_CLIENTS];
     int curr_uid;
 
     fd_set readfds;
@@ -78,7 +84,7 @@ typedef struct s_info {
     t_sock *sock;
 }              t_info;
 
-/* Utils */
+/* Init */
 
     /* daemonize.c */
 void mx_daemonize(t_sock *sock);
@@ -100,6 +106,7 @@ void mx_sockets_loop(t_info *info);
 void mx_handle_new_connection(t_info *info);
 void mx_handle_disconnect(t_sock *sock, t_peer *client);
 void mx_handle_incoming_data(t_info *info);
+void mx_shutdown_properly(t_info *info, int code);
 
     /* Message handeling */
 int mx_receive_from_peer(t_info *info, t_peer *peer);
@@ -136,16 +143,10 @@ void mx_send_message_all(t_sock *sock, char *buff, int uid);
 void mx_send_msg_self(t_sock *sock, t_peer *peer, const char *buff);
 void mx_send_msg_client(t_sock *sock, char *buff, int uid);
 
+void message_on_mail(char *email);
 
 /* Signals */
 
 // int mx_setup_signals();
 
-
-void mx_shutdown_properly(t_info *info, int code);
-
-
-/* SQL */
-int mx_create_db(sqlite3 *db);
-void mx_init_db(sqlite3 *db);
-void mx_close_db(sqlite3 *db);
+// void mx_init_ssl(SSL_CTX *ctx);

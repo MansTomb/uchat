@@ -10,19 +10,29 @@ CREATE TABLE IF NOT EXISTS users_profiles (
     user_id INTEGER PRIMARY KEY NOT NULL,
     first_name VARCHAR(64),
     second_name VARCHAR(64),
+    email VARCHAR(64),
     status VARCHAR(32)
 );
 
-CREATE TRIGGER IF NOT EXISTS add_profile AFTER INSERT
-    ON users
+CREATE TABLE IF NOT EXISTS users_notify_settings (
+    user_id INTEGER PRIMARY KEY NOT NULL,
+    sound INTEGER NOT NULL,
+    visual INTEGER NOT NULL,
+    email INTEGER NOT NULL
+);
+
+CREATE TRIGGER IF NOT EXISTS add_profile
+    AFTER INSERT ON users
 BEGIN
     INSERT INTO users_profiles (user_id) VALUES (NEW.id);
+    INSERT INTO users_notify_settings VALUES (NEW.id, 1, 1, 0);
 END;
 
-CREATE TRIGGER IF NOT EXISTS del_profile AFTER DELETE
-    ON users
+CREATE TRIGGER IF NOT EXISTS del_profile
+    AFTER DELETE ON users
 BEGIN
     DELETE FROM users_profiles WHERE user_id = OLD.id;
+    DELETE FROM users_notify_settings WHERE user_id = OLD.id;
 END;
 
 -- user contacts block
@@ -68,7 +78,8 @@ CREATE TABLE IF NOT EXISTS messages (
 
 -- проверка работы триггеров
 SELECT * FROM users;
-SELECT * FROM users JOIN users_profiles ON id = user_id;
+SELECT * FROM users JOIN users_profiles AS up ON id = up.user_id JOIN users_notify_settings AS uns ON id = uns.user_id;
+
 DELETE FROM users;
 
 INSERT INTO users VALUES
@@ -84,7 +95,7 @@ INSERT INTO users VALUES (NULL, 'NEW_USER_LOGIN', 'NEW_USER_PASSWORD');
 SELECT * FROM users WHERE login = 'NEW_USER_LOGIN';
 
 -- удаление юзера
-DELETE FROM users WHERE id = USER_ID;
+DELETE FROM users WHERE id = USER_ID AND hash = HASH;
 
 -- изменение пароля
 UPDATE users SET hash = 'STRONG_PASSWORD' WHERE id = USER_ID;
@@ -95,6 +106,7 @@ SELECT * FROM users_profiles WHERE user_id = USER_ID;
 -- обновление профиля
 UPDATE users_profiles SET first_name = 'NEW_FIRST_NAME' WHERE user_id = USER_ID;
 UPDATE users_profiles SET second_name = 'NEW_SECOND_NAME' WHERE user_id = USER_ID;
+UPDATE users_profiles SET email = 'NEW_EMAIL' WHERE user_id = USER_ID;
 UPDATE users_profiles SET status = 'NEW_STATUS' WHERE user_id = USER_ID;
 
 -- создание новой группы контактов
@@ -115,9 +127,6 @@ UPDATE contacts_lists SET group_id = NULL WHERE user_id = USER_ID AND contact_id
 -- создание чата
 INSERT INTO chats VALUES (NULL, CHAT_TYPE, 'NEW_CHAT_NAME');
 
--- переименование группового чата или канала
-UPDATE chats SET name = 'CHAT_NEW_NAME' WHERE id = CHAT_ID AND type > 1;
-
 -- добавление юзера в чат
 INSERT INTO users_chats VALUES (USER_ID, CHAT_ID);
 
@@ -132,6 +141,16 @@ DELETE FROM messages WHERE id = MESSAGE_ID;
 
 -- -- -- -- -- -- -- -- -- -- комплексные запросы -- -- -- -- -- -- -- -- -- --
 
+-- загрузка информации о клиенте
+SELECT u.id, u.login,
+    up.first_name, up.second_name, up.email, up.status,
+    uns.sound, uns.visual, uns.email
+FROM users AS u
+    JOIN users_profiles AS up
+        ON u.id = up.user_id AND u.id = ID
+    JOIN users_notify_settings AS uns
+        ON u.id = uns.user_id;
+
 -- создание личной переписки
 INSERT INTO chats VALUES (NULL, 1, '');
 INSERT INTO users_chats VALUES (USER_ID1, last_insert_rowid(), 1);
@@ -141,19 +160,23 @@ INSERT INTO users_chats VALUES (USER_ID2, (SELECT max(id) FROM chats), 1);
 INSERT INTO chats VALUES (NULL, CHAT_TYPE, 'NEW_CHAT_NAME');
 INSERT INTO users_chats VALUES (USER_ID, last_insert_rowid(), 3);
 
--- выборка контактов юзера при загрузке клиента
-SELECT contact_id, login, first_name, second_name, status, group_id, name
+-- загрузка контактов юзера
+SELECT cl.contact_id, u.login, up.first_name, up.second_name, up.email, up.status, cl.group_id, cg.name
 FROM contacts_lists AS cl
-    JOIN users AS u ON cl.contact_id = u.id AND cl.user_id = USER_ID
-    JOIN users_profiles AS up ON cl.contact_id = up.user_id
-    LEFT JOIN contacts_groups AS cg ON cl.group_id = cg.id;
+    JOIN users AS u
+        ON cl.contact_id = u.id AND cl.user_id = USER_ID
+    JOIN users_profiles AS up
+        ON cl.contact_id = up.user_id
+    LEFT JOIN contacts_groups AS cg
+        ON cl.group_id = cg.id;
 
--- выборка чатов юзера при загрузке клиента
-SELECT chat_id, role, type, name
+-- добавить имя контакта в лс CASE
+-- загрузка активных чатов юзера
+SELECT uc.chat_id, uc.role, c.type, c.name
 FROM users_chats AS uc
-    JOIN chats AS c ON uc.chat_id = c.id AND uc.user_id = USER_ID;
+    JOIN chats AS c ON uc.chat_id = c.id AND uc.user_id = USER_ID AND uc.role > 0;
 
--- выборка сообщений в чате при загрузке клиента
+-- загрузка сообщений в чате
 SELECT * FROM messages WHERE chat_id = CHAT_ID ORDER BY id DESC LIMIT 50;
 
 -- отправка сообщения
