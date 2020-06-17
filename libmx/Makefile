@@ -3,21 +3,19 @@ NAME = libmx.a
 
 file = get_file_length file_to_str read_line
 
-json = cJSON_Utils cJSON
+json = cJSON
 
-list = clear_list create_list create_node delete_list foreach_list_reverse    \
-	foreach_list get_index list_to_array pop_back pop_front pop_index         \
+list = clear_list create_list create_node delete_list foreach_list_reverse \
+	foreach_list get_index list_to_array pop_back pop_front pop_index \
 	push_back push_front push_index
 
 memory = memdup memrchr
 
-print = print_strarr print_unicode printchar printnum printstr printstrlen    \
+print = print_strarr print_unicode printchar printnum printstr printstrlen \
 	printunum
 
-# sql = sqlite3
-
-string = count_substr count_words del_extra_spaces del_strarr get_char_index  \
-	get_substr_index lltoa_s lltoa replace_substr str_reverse strdel strdup   \
+string = count_substr count_words del_extra_spaces del_strarr get_char_index \
+	get_substr_index lltoa_s lltoa replace_substr str_reverse strdel strdup \
 	strjoin strndup strnew strsplit strtrim ulltoa_s ulltoa ulltoh_s ulltoh
 
 utils = factorial foreach isprime numlen sigma sum_digits swap unumlen
@@ -31,10 +29,14 @@ OBJ_DIR = obj/
 SRC = $(FILES:%=$(SRC_DIR)%.c)
 OBJ = $(FILES:%=$(OBJ_DIR)%.o)
 
-WFLAGS = -Wall -Wextra -Werror -Wpedantic
+WFLAGS = -Wall -Wextra -Werror -Wpedantic -Wno-unused-command-line-argument \
+	-Wno-unused-variable -Wno-unused-function -Wno-unused-parameter
+
 LFLAGS = -Iinc
-CFLAGS = -Ofast -march=native -fomit-frame-pointer -flto
-DFLAGS = -O0 -g3 -glldb -ftrapv -fno-omit-frame-pointer -fsanitize=address    \
+
+# CFLAGS = -Ofast -march=native -fomit-frame-pointer -flto
+
+CFLAGS = -O0 -g3 -glldb -ftrapv -fno-omit-frame-pointer -fsanitize=address \
 	-fsanitize=undefined
 
 COMPILE = $(CC) -std=c11 -pipe $(WFLAGS) $(LFLAGS)
@@ -42,9 +44,7 @@ PRINT = printf
 MKDIR = mkdir -p
 AR = ar rcs
 RM = /bin/rm -rf
-# TARGET = build
 TARGET = debug
-CFLAGS = $(DFLAGS)
 
 R = \033[1;91m
 G = \033[1;92m
@@ -57,13 +57,7 @@ D = \033[0m
 F = \033[5m
 K = \033[K
 
-all: debug
-
-debug: CFLAGS = $(DFLAGS)
-debug: TARGET = debug
-debug: install
-
-build: install
+all: $(NAME)
 
 $(OBJ_DIR):
 	@$(MKDIR) $@ $(foreach dir, $(dirs), $@/$(dir))
@@ -77,14 +71,12 @@ $(NAME): $(OBJ_DIR) $(OBJ)
 	@$(AR) $(NAME) $(OBJ)
 	@$(PRINT) "$K"
 
-install: $(NAME)
-
 clean:
 	@$(RM) $(OBJ_DIR)
 
 uninstall:
 	@$(RM) $(OBJ_DIR) $(NAME)
 
-reinstall: uninstall install
+reinstall: uninstall all
 
-.PHONY: all build debug clean install uninstall reinstall
+.PHONY: all clean uninstall reinstall
