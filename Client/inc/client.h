@@ -3,7 +3,7 @@
 #include "uchat.h"
 #include "defines_client.h"
 
-#define MX_MSGHEIGHT(msg) (strlen(msg) + 10 + mx_count_substr(message, "\n") * 20)
+#define MX_MSGHEIGHT(msg) (strlen(msg) + 10 + mx_count_substr(msg, "\n") * 20)
 
 typedef struct sockaddr_in t_saddr;
 typedef struct s_sock t_sock;
@@ -19,6 +19,7 @@ typedef struct s_profile t_profile;
 typedef struct s_contact_add t_contact_add;
 typedef struct s_contacts t_contacts;
 typedef struct s_room_creation t_room_creation;
+typedef struct s_exit t_exit;
 typedef struct s_info t_info;
 
 struct s_sock {
@@ -74,11 +75,14 @@ struct s_register {
 };
 
 struct s_chat {
+    char *chat_name;
+
     GtkWidget *scroll;
     GtkWidget *box;
 
     GtkWidget *sendbt;
     GtkWidget *msgentry;
+    GtkWidget *chat_name_label;
 
     t_list *messages;
 
@@ -88,6 +92,7 @@ struct s_chat {
 
 struct s_chat_switcher {
     GtkWidget *box;
+    GtkWidget *scrollable;
     t_chat *chat;
 };
 
@@ -101,16 +106,6 @@ struct s_main_menu {
     GtkWidget *exit;
 
     GtkWidget *back;
-};
-
-struct s_windows {
-    t_login *log;
-    t_register *reg;
-    t_chat_switcher *chat_switcher;
-    t_profile *profile;
-    t_contacts *contacts;
-    t_room_creation *room_creation;
-    t_main_menu *main_menu;
 };
 
 struct s_profile {
@@ -151,6 +146,13 @@ struct s_contacts {
     GtkTreeIter choosen_contact;
 };
 
+struct s_exit {
+    GtkWidget *dialog;
+    GtkWidget *fixed;
+    GtkWidget *logout;
+    GtkWidget *close;
+};
+
 struct s_room_creation {
     GtkWidget *dialog;
     GtkWidget *groupbt;
@@ -163,7 +165,25 @@ struct s_room_creation {
     GtkWidget *entry;
 };
 
+struct s_windows {
+    t_login *log;
+    t_register *reg;
+    t_chat_switcher *chat_switcher;
+    t_profile *profile;
+    t_contacts *contacts;
+    t_room_creation *room_creation;
+    t_exit *exit;
+    t_main_menu *main_menu;
+};
+
 struct s_info {
+    GtkApplication *app;
+
+    struct {
+        pthread_t timer;
+        pthread_t data;
+    } thread;
+
     GtkWidget *main_window;
     GtkWidget *layout;
 
@@ -173,11 +193,13 @@ struct s_info {
     t_windows *windows;
     t_list *chat_list;
     gpointer current_window;
+
+    GTimer *timer;
 };
 
 /* Main */
-GtkWidget *create_main_window(GtkApplication *app);
-t_info *create_info(GtkApplication *app);
+GtkWidget *mx_create_main_window(GtkApplication *app);
+t_info *mx_create_info(GtkApplication *app);
 
 /* Jsons */
 void mx_login_build_json_wrapper(t_info *info);
@@ -247,6 +269,9 @@ GtkWidget *mx_box_constructor(char *name, gint widht, gint height, GtkOrientatio
     /* Work with listbox */
 GtkWidget *mx_listbox_constructor(char *name);
 
+    /* Work with toggle button */
+gboolean mx_toggle_get_active(GtkWidget *widget);
+
 
 /* Windows */
 
@@ -257,11 +282,11 @@ void mx_login_screen_show(t_info *info);
 void mx_login_screen_hide(t_info *info);
 
     /* Login callbacks */
-void login_on_click(GtkApplication *app, gpointer user_data);
-void register_on_click(GtkApplication *app, gpointer user_data);
+void mx_login_on_click(GtkApplication *app, gpointer user_data);
+void mx_register_on_click(GtkApplication *app, gpointer user_data);
 
     /* Login error dialogs */
-void mx_login_entry_empty(t_info *info);
+gboolean mx_login_data_validate(t_login *log);
 
 /*                             REGISTER SCREEN */
 t_register *mx_register_constructor(t_info *info);
@@ -269,11 +294,11 @@ void mx_register_screen_show(t_info *info);
 void mx_register_screen_hide(t_info *info);
 
     /* Register callbacks */
-void back_to_login_on_click(GtkApplication *app, gpointer user_data);
-void reg_user_on_click(GtkApplication *app, gpointer user_data);
+void mx_back_to_login_on_click(GtkApplication *app, gpointer user_data);
+void mx_reg_user_on_click(GtkApplication *app, gpointer user_data);
 
     /* Register error dialogs */
-
+gboolean mx_reg_data_validate(t_register *reg);
 
 
 /*                             Main Chat Screen */
@@ -324,7 +349,7 @@ void mx_contact_add(GtkWidget *widget, gpointer data);
 void mx_contact_add_cancel(GtkWidget *widget, gpointer data);
 
 /*                              Room Creation */
-t_room_creation *mx_room_creation_constructor(t_info *info);
+void mx_room_creation_constructor(t_info *info);
 void mx_room_creation_destructor(t_info *info);
 
     /* Callbacks */
@@ -332,6 +357,17 @@ void mx_on_click_create_room_channel(GtkWidget *widget, gpointer data);
 void mx_on_click_create_room_group(GtkWidget *widget, gpointer data);
 void mx_on_click_create_room_create(GtkWidget *widget, gpointer data);
 void mx_on_click_create_room_cancel(GtkWidget *widget, gpointer data);
+
+    /* Validate data */
+gboolean mx_room_creation_data_validation(t_room_creation *room);
+
+/*                              Exit Dialog */
+void mx_exit_constructor(t_info *info);
+void mx_exit_destructor(t_info *info);
+
+    /* Callbacks */
+void mx_on_click_logout(GtkWidget *widget, gpointer data);
+void mx_on_click_close(GtkWidget *widget, gpointer data);
 
 /*                             CHAT SCREEN */
 t_chat *mx_chat_constructor(t_info *info);

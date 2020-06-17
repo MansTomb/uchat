@@ -1,14 +1,14 @@
 #include "client.h"
 
 static void attach_signals(t_info *info, t_room_creation *new) {
-    g_signal_connect(GTK_TOGGLE_BUTTON(new->channelbt), "toggled",
-                     G_CALLBACK(mx_on_click_create_room_channel), info);
-    g_signal_connect(GTK_TOGGLE_BUTTON(new->groupbt), "toggled",
-                     G_CALLBACK(mx_on_click_create_room_group), info);
-    g_signal_connect(new->create, "clicked",
-                     G_CALLBACK(mx_on_click_create_room_create), info);
-    g_signal_connect(new->cancel, "clicked",
-                     G_CALLBACK(mx_on_click_create_room_cancel), info);
+    MX_GSIG_CON(GTK_TOGGLE_BUTTON(new->channelbt), "toggled",
+                     MX_CB(mx_on_click_create_room_channel), info);
+    MX_GSIG_CON(GTK_TOGGLE_BUTTON(new->groupbt), "toggled",
+                     MX_CB(mx_on_click_create_room_group), info);
+    MX_GSIG_CON(new->create, "clicked",
+                     MX_CB(mx_on_click_create_room_create), info);
+    MX_GSIG_CON(new->cancel, "clicked",
+                     MX_CB(mx_on_click_create_room_cancel), info);
 }
 
 static void attach_layout(t_room_creation *new, GtkWidget *fixed) {
@@ -35,7 +35,7 @@ static void show(t_info *info, t_room_creation *new, GtkWidget *fixed) {
     gtk_widget_show(fixed);
 }
 
-t_room_creation *mx_room_creation_constructor(t_info *info) {
+void mx_room_creation_constructor(t_info *info) {
     t_room_creation *new = malloc(sizeof(t_room_creation));
     GtkWidget *action_area;
     GtkWidget *fixed;
@@ -54,7 +54,6 @@ t_room_creation *mx_room_creation_constructor(t_info *info) {
         gtk_window_set_position (GTK_WINDOW(new->dialog), GTK_WIN_POS_CENTER);
         show(info, new, fixed);
     }
-    return new;
 }
 
 void mx_room_creation_destructor(t_info *info) {

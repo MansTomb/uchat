@@ -9,6 +9,7 @@ void mx_chat_switcher_hide(t_info *info) {
     GtkCallback func = hide_switcher;
 
     gtk_container_foreach(GTK_CONTAINER(info->windows->chat_switcher->box), func, NULL);
+    gtk_widget_hide(info->windows->chat_switcher->scrollable);
     gtk_widget_hide(info->windows->chat_switcher->box);
     mx_hide_chat(NULL, info);
 }

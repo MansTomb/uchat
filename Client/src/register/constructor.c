@@ -1,19 +1,19 @@
 #include "client.h"
 
 static void attach_layout(t_info *info, t_register *reg) {
-    mx_layout_put(info->layout, reg->username_label, R_USRLB_W, R_USRLB_H);
-    mx_layout_put(info->layout, reg->username_entry, R_USRENT_W, R_USRENT_H);
-    mx_layout_put(info->layout, reg->password_label, R_PASLB_W, R_PASLB_H);
-    mx_layout_put(info->layout, reg->password_entry, R_PASENT_W, R_PASENT_H);
-    mx_layout_put(info->layout, reg->password2_label, R_PAS2LB_W, R_PAS2LB_H);
-    mx_layout_put(info->layout, reg->password2_entry, R_PAS2ENT_W, R_PAS2ENT_H);
-    mx_layout_put(info->layout, reg->backbt, R_BACKBT_W, R_BACKBT_H);
-    mx_layout_put(info->layout, reg->registerbt, R_REGBT_W, R_REGBT_H);
+    mx_layout_put(info->layout, reg->username_label, 540, 245);
+    mx_layout_put(info->layout, reg->username_entry, 540, 260);
+    mx_layout_put(info->layout, reg->password_label, 540, 295);
+    mx_layout_put(info->layout, reg->password_entry, 540, 310);
+    mx_layout_put(info->layout, reg->password2_label, 540, 345);
+    mx_layout_put(info->layout, reg->password2_entry, 540, 360);
+    mx_layout_put(info->layout, reg->backbt, 515, 410);
+    mx_layout_put(info->layout, reg->registerbt, 640, 410);
 }
 
 static void attach_signals(t_info *info, t_register *reg) {
-    g_signal_connect(reg->backbt, "clicked", G_CALLBACK(back_to_login_on_click), info);
-    g_signal_connect(reg->registerbt, "clicked", G_CALLBACK(reg_user_on_click), info);
+    MX_GSIG_CON(reg->backbt, "clicked", MX_CB(mx_back_to_login_on_click), info);
+    MX_GSIG_CON(reg->registerbt, "clicked", MX_CB(mx_reg_user_on_click), info);
 }
 
 t_register *mx_register_constructor(t_info *info) {

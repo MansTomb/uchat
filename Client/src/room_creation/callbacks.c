@@ -20,9 +20,11 @@ void mx_on_click_create_room_create(GtkWidget *widget, gpointer data) {
     t_info *info = data;
     t_room_creation *dialog = info->windows->room_creation;
 
-    // create room json and send
-
-    mx_room_creation_destructor(info);
+    
+    if (mx_room_creation_data_validation(dialog)) {
+        // create room json and send
+        mx_room_creation_destructor(info);
+    }
     if(widget && dialog) {};
 }
 

@@ -12,6 +12,11 @@
     background-color: grey;
 }
 
+.chat_name_label {
+    font-size: 35px;
+    color: whitesmoke;
+}
+
 #message_text:hover {
     border-radius: 30px;
     border-color: black;

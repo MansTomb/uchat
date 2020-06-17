@@ -1,6 +1,6 @@
 #include "client.h"
 
-GtkWidget *create_main_window(GtkApplication *app) {
+GtkWidget *mx_create_main_window(GtkApplication *app) {
     GtkWidget *window = gtk_application_window_new(app);
     GtkStyleContext *context = gtk_widget_get_style_context(window);
 

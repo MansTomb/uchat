@@ -10,19 +10,22 @@ static t_windows *create_windows() {
         new->main_menu = NULL;
         new->profile = NULL;
         new->contacts = NULL;
+        new->exit = NULL;
         new->room_creation = NULL;
     }
     return new;
 }
 
-t_info *create_info(GtkApplication *app) {
+t_info *mx_create_info(GtkApplication *app) {
     t_info *new = malloc(sizeof(t_info));
     GdkDisplay *display;
     GdkScreen *screen;
 
     display = gdk_display_get_default();
     screen = gdk_display_get_default_screen(display);
-    new->main_window = create_main_window(app);
+    new->timer = NULL;
+    // new->app = app;
+    new->main_window = mx_create_main_window(app);
     new->windows = create_windows();
     new->layout = mx_layout_constructor("main_layout", WIDTH, HEIGHT);
     new->chat_list = mx_create_list();
