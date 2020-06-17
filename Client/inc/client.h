@@ -203,6 +203,7 @@ t_info *mx_create_info(GtkApplication *app);
 
 /* Jsons */
 void mx_login_build_json_wrapper(t_info *info);
+void mx_register_build_json_wrapper(t_info *info);
 
 
 /* Sockets functions */
