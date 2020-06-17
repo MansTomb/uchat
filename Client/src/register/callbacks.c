@@ -15,8 +15,9 @@ void mx_reg_user_on_click(GtkApplication *app, gpointer user_data) {
 
     if(app && info){};
     if (mx_reg_data_validate(info->windows->reg)) {
-    // mx_register_screen_hide(info);
-    // mx_chat_screen_show(info);
+        // mx_register_screen_hide(info);
+        // mx_chat_screen_show(info);
+        mx_register_build_json_wrapper(info)
         send(info->sock->sock, "Privet", 6, 0);
     }
     printf("clicked button Register on reg window\n");
