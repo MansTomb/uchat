@@ -1,11 +1,5 @@
 #include "client.h"
 
-void mx_login_build_json_wrapper(t_info *info) {
-    mx_login_build_json(mx_entry_get_text(info->windows->log->password_entry),
-                        mx_entry_get_text(info->windows->log->username_entry),
-                        info->sock->sock);
-}
-
 static void login_build_json(const char *login, const char *password, int s_sock) {
     cJSON *jlogin = cJSON_CreateObject();
 
@@ -16,4 +10,10 @@ static void login_build_json(const char *login, const char *password, int s_sock
     char *string = cJSON_Print(jlogin);
     send(s_sock, string, sizeof(string), 0);
     cJSON_Delete(jlogin);
+}
+
+void mx_login_build_json_wrapper(t_info *info) {
+    mx_login_build_json(mx_entry_get_text(info->windows->log->password_entry),
+                        mx_entry_get_text(info->windows->log->username_entry),
+                        info->sock->sock);
 }

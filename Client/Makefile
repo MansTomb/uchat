@@ -34,7 +34,7 @@ utils = background_images buttons grids input_labels layouts css labels       \
 
 dirs = base login register chat chat_switcher message main_menu profile       \
 
-contacts room_creation main_chat_screen utils json exit
+contacts = room_creation main_chat_screen utils json exit
 
 FILES = $(foreach dir, $(dirs), $($(dir):%=$(dir)/%))
 
