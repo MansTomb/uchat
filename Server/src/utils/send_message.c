@@ -28,6 +28,10 @@ void mx_send_message_all(t_sock *sock, char *buff, int uid) {
     int sd = 0;
     int n;
 
+    if (uid < 0) {
+        printf("bad uid, cant send message");
+        return;
+    }
     for (int i = 0; i < MAX_CLIENTS; ++i) {
         sd = sock->connection_list[i].socket;
         if (sd != MX_NO_SOCKET) {
@@ -60,10 +64,11 @@ void mx_send_msg_client(t_sock *sock, char *buff, int uid) {
 /*
  * Send message to sender
  */
-void mx_send_msg_self(t_sock *sock, t_peer *peer, const char *buff) {
+void mx_send_msg_self(t_sock *sock, t_peer *peer) {
     int n = 0;
 
-    if ((n = send(peer->socket, buff, strlen(buff), MSG_DONTWAIT)) <= 0)
+    if ((n = send(peer->socket, peer->sending_buffer,
+        strlen(peer->sending_buffer), MSG_DONTWAIT)) <= 0)
         send_check(sock, peer, n);
 
 }

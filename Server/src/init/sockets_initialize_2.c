@@ -15,10 +15,10 @@ void mx_socket_specify_maximum_connections_to_master(int sock, int con_num) {
     }
 }
 
-void mx_set_nonblock_for_stdin(void) {
-    int flag;
+// void mx_set_nonblock_for_stdin(void) {
+//     int flag;
 
-    flag = fcntl(STDIN_FILENO, F_GETFL, 0);
-    flag |= O_NONBLOCK;
-    fcntl(STDIN_FILENO, F_SETFL, flag);
-}
+//     flag = fcntl(STDIN_FILENO, F_GETFL, 0);
+//     flag |= O_NONBLOCK;
+//     fcntl(STDIN_FILENO, F_SETFL, flag);
+// }

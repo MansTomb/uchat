@@ -1,26 +1,5 @@
 #include "server.h"
 
-static void message_handler(t_info *info, t_peer *peer) {
-    const char *error_ptr;
-    cJSON *new = cJSON_Parse(peer->receiving_buffer);
-
-    if (new == NULL){
-        if ((error_ptr = cJSON_GetErrorPtr()) != NULL)
-            fprintf(stderr, "cJSON_Parse error, before: %s", error_ptr);
-    }
-    else {
-        cJSON_AddNumberToObject(new, "socketfd", peer->socket);
-        char *root = cJSON_Print(new);
-        printf("%s", root);
-        printf("\n");
-        cJSON_Delete(new);
-        // mx_strip_newline(peer->receiving_buffer);
-        // printf("%s", peer->receiving_buffer);
-        sprintf(peer->receiving_buffer, "%s", root);
-        mx_send_message_all(info->sock, peer->receiving_buffer, peer->uid);
-    }
-}
-
 int recv_check(int n) {
     if (n < 0) {
         if (errno == EAGAIN || errno == EWOULDBLOCK)
@@ -71,7 +50,7 @@ int mx_receive_from_peer(t_info *info, t_peer *peer) {
         // printf("recv() %zd bytes\n", received_count);
     }
     if (peer->current_receiving_byte >= sizeof(peer->receiving_buffer)) {
-        message_handler(info, peer);
+        mx_message_handler(info, peer);
         peer->current_receiving_byte = 0;
     }
 

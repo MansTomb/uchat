@@ -7,7 +7,7 @@ int mx_delete_peer(t_peer *peer) {
 }
 
 int mx_create_peer(t_peer *peer) {
-    mx_create_message_queue(MX_MAX_MESSAGES_BUFFER_SIZE, &peer->send_buffer);
+    // mx_create_message_queue(MX_MAX_MESSAGES_BUFFER_SIZE, &peer->send_buffer);
 
     peer->current_sending_byte = -1;
     peer->current_receiving_byte = 0;

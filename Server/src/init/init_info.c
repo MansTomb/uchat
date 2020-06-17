@@ -7,10 +7,9 @@ t_sock *sockets_create_struct(void) {
         new->opt = TRUE;
         for (int i = 0; i < MAX_CLIENTS; ++i) {
             new->connection_list[i].socket = MX_NO_SOCKET;
-            new->curr_uid = 10;
-            mx_create_peer(&new->connection_list[i]);
+            new->connection_list[i].uid = -1;
+            // mx_create_peer(&new->connection_list[i]);
         }
-        new->valread = 0;
     }
     else
         printf("sock malloc error\n");
