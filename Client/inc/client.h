@@ -180,7 +180,7 @@ GtkWidget *create_main_window(GtkApplication *app);
 t_info *create_info(GtkApplication *app);
 
 /* Jsons */
-void mx_login_build_json(const char *login, const char *password, int s_sock);
+void mx_login_build_json_wrapper(t_info *info);
 
 
 /* Sockets functions */
