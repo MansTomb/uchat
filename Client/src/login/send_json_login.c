@@ -4,7 +4,7 @@ static void login_build_json(const char *login, const char *password, int s_sock
     cJSON *jlogin = cJSON_CreateObject();
     char *string = NULL;
 
-    cJSON_AddNumberToObject(jlogin, "json_type", mx_make_authorization);
+    cJSON_AddNumberToObject(jlogin, "json_type", make_authorization);
     cJSON_AddStringToObject(jlogin, "password", password);
     cJSON_AddStringToObject(jlogin, "login", login);
 

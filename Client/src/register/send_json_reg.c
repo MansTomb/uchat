@@ -4,7 +4,7 @@ static void reg_bld_json(const char *login, const char *password, int s_sock) {
     cJSON *jlogin = cJSON_CreateObject();
     char *string = NULL;
 
-    cJSON_AddNumberToObject(jlogin, "json_type", mx_make_register);
+    cJSON_AddNumberToObject(jlogin, "json_type", make_register);
     cJSON_AddStringToObject(jlogin, "password", password);
     cJSON_AddStringToObject(jlogin, "login", login);
 
