@@ -12,13 +12,29 @@
 #define MX_GSIG_CON g_signal_connect
 
 /* Types for sending jsons */
-#define MX_MAKE_REGISTER 0
-#define MX_MAKE_AUTORIZATION 3
-#define MX_MAKE_DELETION 6
-#define MX_MAKE_CHANGE_PASSWORD 9
-#define MX_MAKE_UPDATE_PROFILE 12
-#define MX_GET_CLIENT_DATA 14
-#define MX_GET_CLIENT_CONTACTS 16
-#define MX_GET_CLIENT_CHATS 18
-#define MX_GET_CLIENT_MESSAGES 20
-#define MX_MAKE_NEW_CHAT 22
+typedef enum {
+    mx_make_register,
+    mx_failed_register,
+    mx_success_register,
+    mx_make_authorization,
+    mx_failed_authorization,
+    mx_success_authorization,
+    mx_make_deletion,
+    mx_failed_deletion,
+    mx_success_deletion,
+    mx_make_change_password,
+    mx_failed_change_password,
+    mx_success_change_password,
+    mx_make_update_profile,
+    mx_success_update_profile,
+    mx_get_client_data,
+    mx_send_client_data,
+    mx_get_client_contacts,
+    mx_send_client_contacts,
+    mx_get_client_chats,
+    mx_send_client_chats,
+    mx_get_client_messages,
+    mx_send_client_messages,
+    mx_make_new_chat,
+    mx_send_message,
+} t_actions;

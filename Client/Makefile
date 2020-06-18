@@ -6,7 +6,7 @@ base = main socket info main_window windows_constructor
 
 login = login callbacks errors constructor send_json_login
 
-register = register callbacks errors constructor
+register = register callbacks errors constructor send_json_reg
 
 chat = chat callbacks errors constructor
 
