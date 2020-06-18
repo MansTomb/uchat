@@ -9,7 +9,8 @@ init = daemonize init_info sockets_initialize sockets_initialize_2
 sockets = handle_incoming_data handle_new_connection loop \
 	receive_message send_message shutdown signals message_handler
 
-sql = check_error close_db create_tables init_db receive_message registration
+sql = authorization check_error close_db create_tables init_db \
+	receive_message registration
 
 utils = initialize_zero
 
