@@ -2,7 +2,7 @@
 
 static int callback(void *data, int argc, char **argv, char **azColName) {
     for (int i = 0; i < argc; ++i) {
-        printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+        printf("%s = %s\n", azColName[i], argv[i]);
     }
 
     printf("\n");
@@ -30,7 +30,11 @@ static void print_db(sqlite3 *db) {
 }
 
 int mx_init_db(sqlite3 **db) {
+#ifdef TEST
+    int rc = sqlite3_open("test.db", db);
+#else
     int rc = sqlite3_open(MX_DB_PATH, db);
+#endif
 
     if (rc) {
         fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(*db));
@@ -45,7 +49,7 @@ int mx_init_db(sqlite3 **db) {
             exit(EXIT_FAILURE);
         }
 
-        // print_db(db);
+        print_db(*db);
     }
     return rc;
 }

@@ -35,3 +35,4 @@ int mx_init_db(sqlite3 **db);
 void mx_close_db(sqlite3 *db);
 
 cJSON *mx_registration(sqlite3 *db, cJSON *reg);
+cJSON *mx_authorization(sqlite3 *db, cJSON *reg);
