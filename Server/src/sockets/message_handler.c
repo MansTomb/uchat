@@ -23,20 +23,28 @@ void mx_message_handler(t_info *info, t_peer *peer) {
     printf("%d\n", type);
 
     mx_response_db(info, peer, type, get);
+    // cJSON_Delete(get);
 }
 
 
 static void registraion(t_info *info, t_peer *peer, int type, cJSON *get) {
-    cJSON *responce_bd;
+    cJSON *bd;
 
-    responce_bd = mx_registration(info->sock->db, get);
-    mx_json_to_sending_buffer(peer, responce_bd);
+    bd = mx_registration(info->sock->db, get);
+    if (cJSON_GetObjectItem(bd, "id")->valueint == mx_success_register)
+        peer->uid = cJSON_GetObjectItem(bd, "id")->valueint;
+    printf("peer uid = %d", peer->uid);
+    mx_json_to_sending_buffer(peer, bd);
     mx_send_msg_self(info->sock, peer);
+
+    // cJSON_Delete(bd);
 }
 
 static void authorization(t_info *info, t_peer *peer, int type, cJSON *get) {
     cJSON *responce_bd;
 
+    if (peer->uid == -1)
+        printf("client registration fail, reject authorization\n");
     // responce_bd = mx_registration(info->sock->db, get);
     // mx_json_to_sending_buffer(peer, responce_bd);
     // mx_send_msg_self(info->sock, peer);

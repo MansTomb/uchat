@@ -7,11 +7,11 @@ base = main
 init = daemonize init_info sockets_initialize sockets_initialize_2
 
 sockets = handle_incoming_data handle_new_connection loop \
-	peer_receive_message shutdown signals message_handler
+	receive_message send_message shutdown signals message_handler
 
 sql = check_error close_db create_tables init_db receive_message registration
 
-utils = initialize_zero send_message
+utils = initialize_zero
 
 dirs = base init sockets sql utils
 FILES = $(foreach dir, $(dirs), $($(dir):%=$(dir)/%))
