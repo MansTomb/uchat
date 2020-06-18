@@ -22,7 +22,7 @@ static void accept_register(sqlite3 *db, cJSON *reg) {
     rc = sqlite3_exec(db, querry, get_id, reg, &err);
     if (check(rc, err, "accepted registration") != SQLITE_OK) {
         cJSON_SetNumberValue(cJSON_GetObjectItem(reg, "json_type"),
-                            mx_failed_register);
+                            failed_register);
     }
     free(querry);
 }
@@ -38,11 +38,11 @@ cJSON *mx_registration(sqlite3 *db, cJSON *reg) {
 
     if (check(rc, err, "registration") != SQLITE_OK) {
         cJSON_SetNumberValue(cJSON_GetObjectItem(reg, "json_type"),
-                            mx_failed_register);
+                            failed_register);
     }
     else {
         cJSON_SetNumberValue(cJSON_GetObjectItem(reg, "json_type"),
-                            mx_success_register);
+                            success_register);
         accept_register(db, reg);
     }
     free(querry);

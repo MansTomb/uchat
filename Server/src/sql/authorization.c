@@ -21,7 +21,7 @@ static void accept_authorization(sqlite3 *db, cJSON *reg) {
     rc = sqlite3_exec(db, querry, get_id, reg, &err);
     if (check(rc, err, "accepted authorization") != SQLITE_OK) {
         cJSON_SetNumberValue(cJSON_GetObjectItem(reg, "json_type"),
-                            mx_failed_authorization);
+                            failed_authorization);
     }
     free(querry);
 }
@@ -38,11 +38,11 @@ cJSON *mx_authorization(sqlite3 *db, cJSON *reg) {
 
     if (check(rc, err, "authorization") != SQLITE_OK) {
         cJSON_SetNumberValue(cJSON_GetObjectItem(reg, "json_type"),
-                            mx_failed_authorization);
+                            failed_authorization);
     }
     else {
         cJSON_SetNumberValue(cJSON_GetObjectItem(reg, "json_type"),
-                            mx_success_authorization);
+                            success_authorization);
         accept_authorization(db, reg);
     }
     free(querry);

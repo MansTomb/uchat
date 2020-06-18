@@ -2,7 +2,7 @@
 
 static void test_register(sqlite3 *db) {
     cJSON *obj = cJSON_CreateObject();
-    cJSON_AddNumberToObject(obj, "json_type", mx_make_register);
+    cJSON_AddNumberToObject(obj, "json_type", make_register);
     cJSON_AddStringToObject(obj, "login", "LOGIN");
     cJSON_AddStringToObject(obj, "hash", "HASH");
 
@@ -11,7 +11,7 @@ static void test_register(sqlite3 *db) {
 
     printf("%i\n", type);
 
-    if (type == mx_success_register) {
+    if (type == success_register) {
         printf("SUCCESS = %i!!!\n", cJSON_GetObjectItem(obj, "id")->valueint);
     } else {
         printf("FAILED!!!\n");
@@ -21,7 +21,7 @@ static void test_register(sqlite3 *db) {
 
 static void test_autorization(sqlite3 *db) {
     cJSON *obj = cJSON_CreateObject();
-    cJSON_AddNumberToObject(obj, "json_type", mx_make_authorization);
+    cJSON_AddNumberToObject(obj, "json_type", make_authorization);
     cJSON_AddStringToObject(obj, "login", "LOGIN");
     cJSON_AddStringToObject(obj, "hash", "HASH");
 
@@ -30,7 +30,7 @@ static void test_autorization(sqlite3 *db) {
 
     printf("%i\n", type);
 
-    if (type == mx_success_authorization) {
+    if (type == success_authorization) {
         printf("SUCCESS = %i!!!\n", cJSON_GetObjectItem(obj, "id")->valueint);
     } else {
         printf("FAILED!!!\n");

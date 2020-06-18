@@ -49,7 +49,7 @@ int mx_init_db(sqlite3 **db) {
             exit(EXIT_FAILURE);
         }
 
-        print_db(*db);
+        // print_db(*db);
     }
     return rc;
 }
