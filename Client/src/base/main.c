@@ -28,40 +28,36 @@ static void wrong_usage(GtkApplication *app, gpointer data) {
 //     pthread_exit(0);
 // }
 
+static void destor_all(t_info *info) {
+    gtk_widget_destroy(info->layout);
+    gtk_window_close(GTK_WINDOW(info->main_window));
+}
+
+static void *login_timeout(void *data) {
+    t_info *info = data;
+    info->timer = g_timer_new();
+
+    while (1) {
+        printf("Time left for timeout: %d\n", 60 - (int)g_timer_elapsed(info->timer, NULL));
+        if (g_timer_elapsed(info->timer, NULL) > 60) {
+            printf("leave\n");
+            destor_all(info);
+        }
+        if (!g_timer_is_active(info->timer))
+            pthread_exit(0);
+        sleep(1);
+    }
+}
+
 static void open_app(GtkApplication *app, GFile **files, gint n_file, gchar *hint, gpointer sock) {
     if (n_file != 2) {
         wrong_usage(app, sock);
         exit(EXIT_FAILURE); // nado bude funka uni4tozitel
     }
-    t_info *info = create_info(app);
-
+    t_info *info = mx_create_info(app);
     info->sock = mx_client_socket_create(g_file_get_basename(files[0]), atoi(g_file_get_basename(files[1])));
-    // mx_login_screen_show(info);
-    info->windows->chat_switcher = mx_chat_switcher_constructor(info);
-
-    // mx_push_front(info->chat_list, mx_chat_constructor(info));
-    // mx_push_front(info->chat_list, mx_chat_constructor(info));
-
-    // mx_chat_switcher_add_chat(info, (t_chat *)mx_get_index(info->chat_list, 0)->data, "general");
-    // mx_chat_switcher_add_chat(info, (t_chat *)mx_get_index(info->chat_list, 1)->data, "new");
-
-    // t_message *one = mx_message_construct(info, text, "Loh1");
-    // t_message *one2 = mx_message_construct(info, text2, "Loh1");
-    // t_message *one3 = mx_message_construct(info, text3, "Heh");
-
-    // mx_chat_screen_show((t_chat *)mx_get_index(info->chat_list, 1)->data);
-    // pthread_t read_thread;
-    // pthread_create(&read_thread, NULL, &read_from_server, (void *)info);
-        // pthread_join(read_thread, NULL);
-
-    // mx_chat_message_put((t_chat *)mx_get_index(info->chat_list, 0)->data, one);
-    // mx_chat_message_put((t_chat *)mx_get_index(info->chat_list, 1)->data, one2);
-    // mx_chat_message_put((t_chat *)mx_get_index(info->chat_list, 0)->data, one3);
-
-    mx_main_chat_screen_show(info);
-    // mx_show_main_hide_screen(info);
-
-    if(sock && files && n_file && hint) {};
+    mx_login_screen_show(info);
+    pthread_create(&info->thread.timer, NULL, &login_timeout, (void *)info);
 }
 
 int main(int argc, char *argv[]) {
@@ -69,8 +65,8 @@ int main(int argc, char *argv[]) {
     int status;
 
     app = gtk_application_new("uchat.org", G_APPLICATION_HANDLES_OPEN);
-    g_signal_connect(app, "open", G_CALLBACK(open_app), NULL);
-    g_signal_connect(app, "activate", G_CALLBACK(wrong_usage), NULL);
+    MX_GSIG_CON(app, "open", MX_CB(open_app), NULL);
+    MX_GSIG_CON(app, "activate", MX_CB(wrong_usage), NULL);
     status = g_application_run(G_APPLICATION(app), argc, argv);
     g_object_unref (app);
 

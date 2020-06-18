@@ -29,12 +29,10 @@ void mx_contacts_tree_on_click(GtkTreeView *tree_view, GtkTreePath *path,
         gtk_menu_popup_at_pointer(GTK_MENU(contacts->menu), NULL);
         // gtk_tree_store_remove(GTK_TREE_STORE(model), &iter);
     }
-
-    if(tree_view && path && column && user_data) {};
 }
 
 void mx_contacts_send_message(GtkWidget *widget, gpointer data) {
-    if (widget && data) {};
+
 }
 
 void mx_contacts_delete(GtkWidget *widget, gpointer data) {
@@ -42,5 +40,4 @@ void mx_contacts_delete(GtkWidget *widget, gpointer data) {
     GtkTreeModel *model = gtk_tree_view_get_model(GTK_TREE_VIEW(contacts->treeview));
 
     gtk_tree_store_remove(GTK_TREE_STORE(model), &contacts->choosen_contact);
-    if (widget && data) {};
 }

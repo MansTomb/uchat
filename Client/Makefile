@@ -4,7 +4,7 @@ NAME = uchat
 
 base = main socket info main_window windows_constructor
 
-login = login callbacks errors constructor
+login = login callbacks errors constructor send_json_login
 
 register = register callbacks errors constructor
 
@@ -26,11 +26,15 @@ room_creation = room_creation callbacks errors constructor
 
 main_chat_screen = main_chat_screen
 
+exit = exit callbacks constructor
+
 utils = background_images buttons grids input_labels layouts css labels       \
-	widget dialog scrollable stack stack_switcher fixed frame box listbox
+	widget dialog scrollable stack stack_switcher fixed frame box listbox     \
+	toggle_button
 
 dirs = base login register chat chat_switcher message main_menu profile       \
-	contacts room_creation main_chat_screen utils
+	contacts room_creation main_chat_screen utils exit
+
 FILES = $(foreach dir, $(dirs), $($(dir):%=$(dir)/%))
 
 SRC_DIR = src/

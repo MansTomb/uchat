@@ -36,21 +36,21 @@ static GtkTreeStore *create_store(t_info *info) {
     GtkTreeIter iter_childs;
 
     tree_store = gtk_tree_store_new(2, G_TYPE_STRING, G_TYPE_STRING);
-        gtk_tree_store_append(tree_store, &iter, NULL);
-        gtk_tree_store_set(tree_store, &iter, 0, NULL, 1, "Друзья", -1);
-        iter_childs = iter;
-        gtk_tree_store_append(tree_store, &iter, &iter_childs);
-        gtk_tree_store_set(tree_store, &iter, 0, "1", 1, "Heh", -1);
-        gtk_tree_store_append(tree_store, &iter, NULL);
-        gtk_tree_store_set(tree_store, &iter, 0, NULL, 1, "Не в группах", -1);
-        iter_childs = iter;
-        gtk_tree_store_append(tree_store, &iter, &iter_childs);
-        gtk_tree_store_set(tree_store, &iter, 0, "2", 1, "hah", -1);
-        gtk_tree_store_append(tree_store, &iter, &iter_childs);
-        gtk_tree_store_set(tree_store, &iter, 0, "3", 1, "lohec", -1);
-        gtk_tree_store_append(tree_store, &iter, &iter_childs);
-        gtk_tree_store_set(tree_store, &iter, 0, "4", 1, "lya", -1);
-    
+    gtk_tree_store_append(tree_store, &iter, NULL);
+    gtk_tree_store_set(tree_store, &iter, 0, NULL, 1, "Друзья", -1);
+    iter_childs = iter;
+    gtk_tree_store_append(tree_store, &iter, &iter_childs);
+    gtk_tree_store_set(tree_store, &iter, 0, "1", 1, "Heh", -1);
+    gtk_tree_store_append(tree_store, &iter, NULL);
+    gtk_tree_store_set(tree_store, &iter, 0, NULL, 1, "Не в группах", -1);
+    iter_childs = iter;
+    gtk_tree_store_append(tree_store, &iter, &iter_childs);
+    gtk_tree_store_set(tree_store, &iter, 0, "2", 1, "hah", -1);
+    gtk_tree_store_append(tree_store, &iter, &iter_childs);
+    gtk_tree_store_set(tree_store, &iter, 0, "3", 1, "lohec", -1);
+    gtk_tree_store_append(tree_store, &iter, &iter_childs);
+    gtk_tree_store_set(tree_store, &iter, 0, "4", 1, "lya", -1);
+
     return tree_store;
     if (info) {};
 }
@@ -67,8 +67,8 @@ static void create_menu_items(t_contacts *contacts, GtkWidget *menu) {
     gtk_widget_show(items[0]);
     gtk_widget_show(items[1]);
 
-    g_signal_connect(items[0], "activate", G_CALLBACK(mx_contacts_send_message), contacts);
-    g_signal_connect(items[1], "activate", G_CALLBACK(mx_contacts_delete), contacts);
+    MX_GSIG_CON(items[0], "activate", MX_CB(mx_contacts_send_message), contacts);
+    MX_GSIG_CON(items[1], "activate", MX_CB(mx_contacts_delete), contacts);
 }
 
 static GtkWidget *create_menu(t_info *info) {
@@ -98,9 +98,9 @@ t_contacts *mx_contacts_constructor(t_info *info) {
 
         gtk_tree_view_set_model(GTK_TREE_VIEW(new->treeview), GTK_TREE_MODEL(list_store));
 
-        g_signal_connect(new->treeview, "row-activated",
-                                 G_CALLBACK(mx_contacts_tree_on_click), new);
-        g_signal_connect(new->addbt, "clicked", G_CALLBACK(mx_conctacts_add_dialog), new);
+        MX_GSIG_CON(new->treeview, "row-activated",
+                                 MX_CB(mx_contacts_tree_on_click), new);
+        MX_GSIG_CON(new->addbt, "clicked", MX_CB(mx_conctacts_add_dialog), new);
         gtk_widget_set_size_request(new->addbt, 280, 50);
         mx_layout_put(info->layout, new->addbt, 700, 40);
         mx_layout_put(info->layout, new->treeview, 300, 100);
