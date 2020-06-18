@@ -9,42 +9,42 @@ static int get_id(void *data, int argc, char **argv, char **cols) {
     return 0;
 }
 
-static void accept_authorization(sqlite3 *db, cJSON *reg) {
+static void accept_authorization(sqlite3 *db, cJSON *jsn) {
     char *querry = NULL;
     char *err = NULL;
     int rc = 0;
 
     asprintf(&querry, "SELECT id FROM users WHERE login='%s' AND hash='%s';",
-            cJSON_GetObjectItem(reg, "login")->valuestring,
-            cJSON_GetObjectItem(reg, "hash")->valuestring);
+            cJSON_GetObjectItem(jsn, "login")->valuestring,
+            cJSON_GetObjectItem(jsn, "hash")->valuestring);
 
-    rc = sqlite3_exec(db, querry, get_id, reg, &err);
+    rc = sqlite3_exec(db, querry, get_id, jsn, &err);
     if (check(rc, err, "accepted authorization") != SQLITE_OK) {
-        cJSON_SetNumberValue(cJSON_GetObjectItem(reg, "json_type"),
+        cJSON_SetNumberValue(cJSON_GetObjectItem(jsn, "json_type"),
                             failed_authorization);
     }
     free(querry);
 }
 
-cJSON *mx_authorization(sqlite3 *db, cJSON *reg) {
+cJSON *mx_authorization(sqlite3 *db, cJSON *jsn) {
     char *querry = NULL;
     char *err = NULL;
     int rc = 0;
 
-    asprintf(&querry, "SELECT COUNT(*) FROM users WHERE login = '%s' "
-    "AND hash = '%s';", cJSON_GetObjectItem(reg, "login")->valuestring,
-    cJSON_GetObjectItem(reg, "hash")->valuestring);
-    rc = sqlite3_exec(db, querry, callback, reg, &err);
+    asprintf(&querry, "SELECT count(*) FROM users WHERE login = '%s' "
+    "AND hash = '%s';", cJSON_GetObjectItem(jsn, "login")->valuestring,
+    cJSON_GetObjectItem(jsn, "hash")->valuestring);
+    rc = sqlite3_exec(db, querry, callback, jsn, &err);
 
     if (check(rc, err, "authorization") != SQLITE_OK) {
-        cJSON_SetNumberValue(cJSON_GetObjectItem(reg, "json_type"),
+        cJSON_SetNumberValue(cJSON_GetObjectItem(jsn, "json_type"),
                             failed_authorization);
     }
     else {
-        cJSON_SetNumberValue(cJSON_GetObjectItem(reg, "json_type"),
+        cJSON_SetNumberValue(cJSON_GetObjectItem(jsn, "json_type"),
                             success_authorization);
-        accept_authorization(db, reg);
+        accept_authorization(db, jsn);
     }
     free(querry);
-    return reg;
+    return jsn;
 }

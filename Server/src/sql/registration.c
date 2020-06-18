@@ -9,42 +9,42 @@ static int get_id(void *data, int argc, char **argv, char **cols) {
     return 0;
 }
 
-static void accept_register(sqlite3 *db, cJSON *reg) {
+static void accept_register(sqlite3 *db, cJSON *jsn) {
     char *querry = NULL;
     char *err = NULL;
     int rc = 0;
 
     asprintf(&querry, "INSERT INTO users VALUES (NULL, '%s', '%s'); "
             "SELECT last_insert_rowid();",
-            cJSON_GetObjectItem(reg, "login")->valuestring,
-            cJSON_GetObjectItem(reg, "hash")->valuestring);
+            cJSON_GetObjectItem(jsn, "login")->valuestring,
+            cJSON_GetObjectItem(jsn, "hash")->valuestring);
 
-    rc = sqlite3_exec(db, querry, get_id, reg, &err);
+    rc = sqlite3_exec(db, querry, get_id, jsn, &err);
     if (check(rc, err, "accepted registration") != SQLITE_OK) {
-        cJSON_SetNumberValue(cJSON_GetObjectItem(reg, "json_type"),
+        cJSON_SetNumberValue(cJSON_GetObjectItem(jsn, "json_type"),
                             failed_register);
     }
     free(querry);
 }
 
-cJSON *mx_registration(sqlite3 *db, cJSON *reg) {
+cJSON *mx_registration(sqlite3 *db, cJSON *jsn) {
     char *querry = NULL;
     char *err = NULL;
     int rc = 0;
 
-    asprintf(&querry, "SELECT COUNT(*) FROM users WHERE login = '%s';",
-            cJSON_GetObjectItem(reg, "login")->valuestring);
-    rc = sqlite3_exec(db, querry, callback, reg, &err);
+    asprintf(&querry, "SELECT count(*) FROM users WHERE login = '%s';",
+            cJSON_GetObjectItem(jsn, "login")->valuestring);
+    rc = sqlite3_exec(db, querry, callback, jsn, &err);
 
     if (check(rc, err, "registration") != SQLITE_OK) {
-        cJSON_SetNumberValue(cJSON_GetObjectItem(reg, "json_type"),
+        cJSON_SetNumberValue(cJSON_GetObjectItem(jsn, "json_type"),
                             failed_register);
     }
     else {
-        cJSON_SetNumberValue(cJSON_GetObjectItem(reg, "json_type"),
+        cJSON_SetNumberValue(cJSON_GetObjectItem(jsn, "json_type"),
                             success_register);
-        accept_register(db, reg);
+        accept_register(db, jsn);
     }
     free(querry);
-    return reg;
+    return jsn;
 }
