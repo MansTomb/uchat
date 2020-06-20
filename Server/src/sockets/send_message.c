@@ -46,18 +46,21 @@ void mx_send_message_all(t_sock *sock, char *buff, int uid) {
 /*
  * Send message to client
  */
-void mx_send_msg_client(t_sock *sock, char *buff, int uid) {
+void mx_send_msg_client(t_sock *sock, char *buff, int *uid) {
     int sd = 0;
     int n;
+    int len = sizeof(uid)/sizeof(uid[0]);
 
     for (int i = 0; i < MAX_CLIENTS; ++i) {
         sd = sock->connection_list[i].socket;
         if (sd != MX_NO_SOCKET) {
-            if (sock->connection_list[i].uid == uid) {
-                if ((n = send(sd, buff, strlen(buff), MSG_DONTWAIT)) <= 0) {
-                    send_check(sock, &sock->connection_list[i], n);
+            for (int j = 0; j < len; ++j)
+                if (sock->connection_list[i].uid == uid[j]) {
+                    if ((n = send(sd, buff, strlen(buff), MSG_DONTWAIT)) <= 0) {
+                        send_check(sock, &sock->connection_list[i], n);
+                    }
+                    printf("111\n");
                 }
-            }
         }
     }
 }

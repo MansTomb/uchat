@@ -47,7 +47,7 @@ void mx_sockets_loop(t_info *info) {
 
     while (TRUE) {
         build_fd_sets(info->sock);
-        activity = select(info->sock->max_sd + 2, &info->sock->readfds,
+        activity = select(info->sock->max_sd + 1, &info->sock->readfds,
                           &info->sock->writefds, &info->sock->exceptfds, NULL);
         switch (activity) {
         case -1:
