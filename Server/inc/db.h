@@ -46,7 +46,7 @@ typedef enum {
     send_message,
 } t_actions;
 
-int check(int rc, char *err, char *desc);
+int mx_check(int rc, char *err, char *desc);
 
 int mx_create_db(sqlite3 *db);
 int mx_init_db(sqlite3 **db);
