@@ -5,7 +5,7 @@ static void reg_bld_json(const char *login, const char *password, int s_sock) {
     char *string = NULL;
 
     cJSON_AddNumberToObject(jlogin, "json_type", make_register);
-    cJSON_AddStringToObject(jlogin, "password", password);
+    cJSON_AddStringToObject(jlogin, "hash", password);
     cJSON_AddStringToObject(jlogin, "login", login);
 
     string = cJSON_Print(jlogin);
