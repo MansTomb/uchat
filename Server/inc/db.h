@@ -44,6 +44,8 @@ typedef enum {
     get_new_chanel,
 
     send_message,                      // зробити
+
+    logout,
 } t_actions;
 
 int mx_check(int rc, char *err, char *desc);

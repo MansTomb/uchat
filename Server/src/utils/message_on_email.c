@@ -17,5 +17,4 @@ void mx_message_on_mail(char *email) {
     printf("%s", cmd);
     system(cmd);     // execute it.
 
-    return 0;
 }

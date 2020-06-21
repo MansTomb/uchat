@@ -2,17 +2,41 @@
 
 void mx_db_send_message(t_info *info, t_peer *peer, int type, cJSON *get) {
     cJSON *bd;
-    // int *cli = malloc(2 * sizeof(int));
-    // cli[0] = cJSON_GetObjectItem(get, "uid1")->valueint;
-    // cli[1] = cJSON_GetObjectItem(get, "uid2")->valueint;
-    // printf("peer1 = %d, peer2 = %d\n", cli[0], cli[1]);
+    char *email = NULL;
+    int *uid;
+    int err;
 
     bd = mx_send_message(info->sock->db, get);
+    // printf("%s\n", cJSON_Print(bd));
 
-    // if (cJSON_GetObjectItem(bd, "json_type")->valueint == success_authorization)
-    //     peer->uid = cJSON_GetObjectItem(bd, "id")->valueint;
-    // printf("peer uid = %d\n", peer->uid);
+    int len = cJSON_GetArraySize(cJSON_GetObjectItem(bd, "clients_id"));
+    uid = malloc(len * sizeof(int));
+
+    for (int i = 0; i < len; ++i) {
+        uid[i] = cJSON_GetNumberValue
+                (cJSON_GetArrayItem(cJSON_GetObjectItem(bd, "clients_id"), i));
+        printf("uid = %d\n", uid[i]);
+    }
 
     mx_json_to_sending_buffer(peer, bd);
+
+    if (len == 1) {
+        err = mx_send_msg_client(info->sock, peer->sending_buffer, uid[0]);
+        if (err == -1) {
+            // email = cJSON_GetObjectItem(bd, "email")->valuestring;
+            // mx_message_on_mail(email);
+        }
+    }
+    else {
+        for (int i = 0; i < len; ++i) {
+            mx_send_msg_client(info->sock, peer->sending_buffer, uid[i]);
+            printf("111\n");
+        }
+    }
+
+
+
+    // mx_send_msg_number_of_clients(info->sock, peer->sending_buffer, cli);
     // mx_send_msg_client(info->sock, peer->sending_buffer, cli);
+    cJSON_Delete(bd);
 }

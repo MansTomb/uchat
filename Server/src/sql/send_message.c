@@ -6,7 +6,16 @@
 
 static int get_id(void *data, int argc, char **argv, char **cols) {
     // cJSON_AddNumberToObject(data, "id", atoi(argv[0]));
-    printf("user id = %d\n", atoi(argv[0]));
+    // printf("user id = %d\n", atoi(argv[0]));
+    // printf("user email = %s\n", argv[1]);
+
+    int *cli = data;
+    for (int i = 0; i < MAX_CLIENTS; ++i) {
+        if (cli[i] == 0) {
+            cli[i] = atoi(argv[0]);
+            break;
+        }
+    }
     return 0;
 }
 
@@ -15,14 +24,39 @@ static void get_all_users(sqlite3 *db, cJSON *jsn) {
     char *err = NULL;
     int rc = 0;
 
-    asprintf(&query, "SELECT user_id FROM users_chats WHERE chat_id = '%i' AND user_id != '%i';",
+    int *uid = malloc(MAX_CLIENTS * sizeof(int));
+    bzero(uid, MAX_CLIENTS);
+
+    // cJSON *arr = cJSON_CreateArray();
+// cJSON *x_json = cJSON_CreateNumber(x);
+// cJSON_AddItemToArray(arr, x_json);
+
+    asprintf(&query, "SELECT uc.user_id, up.email FROM users_chats AS uc "
+            "JOIN users_profiles AS up ON uc.user_id = up.user_id "
+            "AND uc.chat_id = '%i' AND uc.user_id != '%i';",
             cJSON_GetObjectItem(jsn, "chat_id")->valueint,
             cJSON_GetObjectItem(jsn, "uid")->valueint);
 
-    rc = sqlite3_exec(db, query, get_id, jsn, &err);
+    rc = sqlite3_exec(db, query, get_id, uid, &err);
     if (mx_check(rc, err, "get all users") != SQLITE_OK) {
         // cJSON_SetNumberValue(cJSON_GetObjectItem(jsn, "json_type"),
         //                     failed_change_password);
+    }
+    else {
+        int count = 0;
+        for (int i = 0; uid[i] != 0; ++i) {
+            count++;
+        }
+        int *new_uid = malloc(count * sizeof(int));
+        for (int i = 0; i < count; ++i) {
+            new_uid[i] = uid[i];
+        }
+        free(uid);
+        cJSON_AddItemToObject(jsn, "clients_id", cJSON_CreateIntArray(new_uid, count));
+
+        if (count == 1) {
+            cJSON_AddStringToObject(jsn, "email", "get email from db");
+        }
     }
     free(query);
 }

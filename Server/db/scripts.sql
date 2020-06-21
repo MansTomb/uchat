@@ -200,3 +200,10 @@ SELECT uc1.chat_id FROM users_chats AS uc1
 --             AND uc1.chat_id = uc2.chat_id
 --     JOIN chats AS c
 --         ON c.type = 1;
+
+
+-- вибрати дані для відправки повідомлень
+SELECT uc.user_id, up.email
+FROM users_chats AS uc
+    JOIN users_profiles AS up
+        ON uc.user_id = up.user_id AND uc.chat_id = '%i' AND uc.user_id != '%i';
