@@ -2,36 +2,61 @@
 #include "server.h"
 
 typedef enum {
-    mx_make_register,
-    mx_failed_register,
-    mx_success_register,
-    mx_make_authorization,
-    mx_failed_authorization,
-    mx_success_authorization,
-    mx_make_deletion,
-    mx_failed_deletion,
-    mx_success_deletion,
-    mx_make_change_password,
-    mx_failed_change_password,
-    mx_success_change_password,
-    mx_make_update_profile,
-    mx_success_update_profile,
-    mx_get_client_data,
-    mx_send_client_data,
-    mx_get_client_contacts,
-    mx_send_client_contacts,
-    mx_get_client_chats,
-    mx_send_client_chats,
-    mx_get_client_messages,
-    mx_send_client_messages,
-    mx_make_new_chat,
-    mx_send_message,
+    make_register,
+    failed_register,
+    success_register,
+
+    make_authorization,
+    failed_authorization,
+    success_authorization,
+
+    make_deletion,                      // зробити
+    failed_deletion,
+    success_deletion,
+
+    make_change_password,
+    failed_change_password,
+    success_change_password,
+
+    make_update_profile,                      // зробити
+    success_update_profile,
+
+    get_client_data,                      // зробити
+    send_client_data,
+
+    get_client_contacts,                      // зробити
+    send_client_contacts,
+
+    get_client_chats,                      // зробити
+    send_client_chats,
+
+    get_client_messages,                      // зробити
+    send_client_messages,
+
+    make_new_personal_chat,
+    failed_new_personal_chat,
+    success_new_personal_chat,
+
+    make_new_group_chat,                      // зробити
+    get_new_group_chat,
+
+    make_new_chanel,                      // зробити
+    get_new_chanel,
+
+    send_message,                      // зробити
 } t_actions;
 
-int check(int rc, char *err, char *desc);
+int mx_check(int rc, char *err, char *desc);
 
 int mx_create_db(sqlite3 *db);
 int mx_init_db(sqlite3 **db);
 void mx_close_db(sqlite3 *db);
 
-cJSON *mx_registration(sqlite3 *db, cJSON *reg);
+cJSON *mx_registration(sqlite3 *db, cJSON *jsn);
+cJSON *mx_authorization(sqlite3 *db, cJSON *jsn);
+cJSON *mx_change_password(sqlite3 *db, cJSON *jsn);
+
+cJSON *mx_send_message(sqlite3 *db, cJSON *jsn);
+
+cJSON *mx_create_personal_chat(sqlite3 *db, cJSON *jsn);
+void mx_get_present_chat(sqlite3 *db, cJSON *jsn);

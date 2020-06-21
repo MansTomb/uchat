@@ -14,6 +14,7 @@ void mx_reg_user_on_click(GtkApplication *app, gpointer user_data) {
     t_info *info = (t_info *)user_data;
 
     if(app && info){};
+    // action "mx_make_register" estimated return mx_success_register
     if (mx_reg_data_validate(info->windows->reg)) {
         // mx_register_screen_hide(info);
         // mx_chat_screen_show(info);

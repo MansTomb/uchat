@@ -7,11 +7,14 @@ base = main
 init = daemonize init_info sockets_initialize sockets_initialize_2
 
 sockets = handle_incoming_data handle_new_connection loop \
-	peer_receive_message peer_send_message shutdown signals
+	receive_message send_message shutdown signals message_handler \
+	func_response_db_1 func_response_db_2
 
-sql = check_error close_db create_tables init_db receive_message registration
+sql = authorization check_error close_db create_tables init_db \
+	receive_message registration create_personal_chat get_present_chat \
+	change_password send_message
 
-utils = initialize_zero message message_queue peer send_message
+utils = initialize_zero
 
 dirs = base init sockets sql utils
 FILES = $(foreach dir, $(dirs), $($(dir):%=$(dir)/%))

@@ -183,5 +183,20 @@ SELECT * FROM messages WHERE chat_id = CHAT_ID ORDER BY id DESC LIMIT 50;
 INSERT INTO messages VALUES (NULL, USER_ID, CHAT_ID, TYPE, datetime('now', 'localtime'), CONTENT);
 SELECT user_id FROM users_chats WHERE chat_id = CHAT_ID AND user_id != USER_ID;
 
+-- найти id чата между двумя юзерами
+SELECT uc1.chat_id FROM users_chats AS uc1
+    JOIN users_chats AS uc2
+        ON uc1.user_id = USER_ID1 AND uc2.user_id = USER_ID2
+            AND uc1.chat_id = uc2.chat_id
+    JOIN chats AS c
+        ON c.type = 1;
+
 -- .headers on
 -- .mode column
+
+-- SELECT c.id, uc1.role FROM users_chats AS uc1
+--     JOIN users_chats AS uc2
+--         ON uc1.user_id = 2 AND uc2.user_id = 3
+--             AND uc1.chat_id = uc2.chat_id
+--     JOIN chats AS c
+--         ON c.type = 1;

@@ -22,23 +22,12 @@
 
 typedef struct sockaddr_in t_saddr;
 
-typedef struct s_message {                         // t_message
-    char sender[128];
-    char data[512];
-}              t_message;
-
-typedef struct s_message_queue {                    // t_message_queue
-    int size;
-    t_message *data;
-    int current;
-}              t_message_queue;
-
 typedef struct s_peer {                            // t_peer
     int socket;
     int uid;
     struct sockaddr_in addres;
 
-    t_message_queue send_buffer;  // Messages that waiting for send.
+    // t_message_queue send_buffer;  // Messages that waiting for send.
 
     /* Buffered sending message.
     *
@@ -70,14 +59,10 @@ typedef struct s_sock {                            // t_sock
     sqlite3 *db;
 
     struct s_peer connection_list[MAX_CLIENTS];
-    int curr_uid;
 
     fd_set readfds;
     fd_set writefds;
     fd_set exceptfds;
-
-    char buffer[1024];
-    int valread;
 }              t_sock;
 
 typedef struct s_info {
@@ -108,40 +93,33 @@ void mx_handle_disconnect(t_sock *sock, t_peer *client);
 void mx_handle_incoming_data(t_info *info);
 void mx_shutdown_properly(t_info *info, int code);
 
-    /* Message handeling */
+    /* Receive_message.c */
 int mx_receive_from_peer(t_info *info, t_peer *peer);
-int mx_send_to_peer(t_info *info, t_peer *peer);
 
+    /* Send_message.c */
+void mx_send_message_all(t_sock *sock, char *buff, int uid);
+void mx_send_msg_self(t_sock *sock, t_peer *peer);
+void mx_send_msg_client(t_sock *sock, char *buff, int *id);
+
+    /* message_handler.c */
+void mx_message_handler(t_info *info, t_peer *peer);
+void mx_response_db(t_info *info, t_peer *peer, int type, cJSON *get);
+
+    /* func_response_db.c */
+void mx_db_registration(t_info *info, t_peer *peer, int type, cJSON *get);
+void mx_db_authorization(t_info *info, t_peer *peer, int type, cJSON *get);
+void mx_db_delete(t_info *info, t_peer *peer, int type, cJSON *get);
+void mx_db_change_password(t_info *info, t_peer *peer, int type, cJSON *get);
+void mx_db_create_personal_chat(t_info *info, t_peer *peer, int type, cJSON *get);
+
+void mx_db_send_message(t_info *info, t_peer *peer, int type, cJSON *get);
 
 /* Utils */
 
     /* True utils for easy init */
 void mx_initialize_zero_int_arr(int *arr, int size);
 void mx_strip_newline(char *s);
-
-    /* Peer.c */
-int mx_delete_peer(t_peer *peer);
-int mx_create_peer(t_peer *peer);
-char *mx_peer_get_addres_str(t_peer *peer);
-int mx_peer_add_to_send(t_peer *peer, t_message *message);
-
-    /* Message_queue.c */
-int mx_create_message_queue(int queue_size, t_message_queue *queue);
-void mx_delete_message_queue(t_message_queue *queue);
-int mx_enqueue(t_message_queue *queue, t_message *message);
-int mx_dequeue(t_message_queue *queue, t_message *message);
-int mx_dequeue_all(t_message_queue *queue);
-
-    /* Message.c */
-int mx_prepare_message(char *sender, char *data, t_message *message);
-int mx_print_message(t_message *message);
-void mx_message_to_str(t_message *message, char *buff);
-int mx_handle_received_message(t_info *info, t_message *message);
-
-    /* Send_message.c */
-void mx_send_message_all(t_sock *sock, char *buff, int uid);
-void mx_send_msg_self(t_sock *sock, t_peer *peer, const char *buff);
-void mx_send_msg_client(t_sock *sock, char *buff, int uid);
+void mx_json_to_sending_buffer(t_peer *peer, cJSON *json);
 
 void message_on_mail(char *email);
 

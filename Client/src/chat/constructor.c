@@ -19,7 +19,7 @@ static void set_properties(t_chat *new) {
     gtk_list_box_set_selection_mode(GTK_LIST_BOX(new->box), GTK_SELECTION_NONE);
 }
 
-t_chat *mx_chat_constructor(t_info *info) {
+t_chat *mx_chat_constructor(t_info *info, char *chat_name) {
     t_chat *new = malloc(sizeof(t_chat));
 
     if (new) {
@@ -29,9 +29,11 @@ t_chat *mx_chat_constructor(t_info *info) {
         new->messages = mx_create_list();
         new->box = mx_listbox_constructor("message_list");
         new->chat_name_label = mx_label_constructor("chat_name_label", "");
+        new->chat_name = chat_name;
         new->showed_chat = 0;
         new->info = info;
         
+        // action "mx_get_client_messages" estimated return true(chat history)
         // После подгрузки истории кидать опускать скролл вниз
         // GtkAdjustment *adj = gtk_scrolled_window_get_vadjustment(
         //                                     GTK_SCROLLED_WINDOW(chat->scroll));

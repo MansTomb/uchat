@@ -1,6 +1,6 @@
 #include "server.h"
 
-void message_on_mail(char *email) {
+void mx_message_on_mail(char *email) {
 
     char cmd[1024];  // To hold the command.
     // char to[] = "trogalska2208@gmail.com"; // email id of the recepient.
