@@ -194,6 +194,9 @@ struct s_info {
     t_list *chat_list;
     gpointer current_window;
 
+    char *response;
+    cJSON *json;
+
     GTimer *timer;
 };
 
@@ -272,6 +275,12 @@ GtkWidget *mx_listbox_constructor(char *name);
 
     /* Work with toggle button */
 gboolean mx_toggle_get_active(GtkWidget *widget);
+
+    /* Dont look at funcitons below or you gonna die! */
+void mx_wait_for_json(t_info *info, int type1, int type2);
+
+    /* Json wrappers */
+bool mx_get_jtype(t_info *info, int type);
 
 
 /* Windows */
