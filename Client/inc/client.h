@@ -283,6 +283,9 @@ gboolean mx_toggle_get_active(GtkWidget *widget);
 void mx_wait_for_json(t_info *info, int type1, int type2);
 
 
+    /* Hash */
+char *mx_create_hash(char *pass);
+
 /* Windows */
 
 
