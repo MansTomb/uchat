@@ -43,7 +43,7 @@ typedef enum {
     make_new_chanel,                      // зробити
     get_new_chanel,
 
-    send_message,                      // зробити
+    send_message,
 
     logout,
 } t_actions;
@@ -59,6 +59,7 @@ cJSON *mx_authorization(sqlite3 *db, cJSON *jsn);
 cJSON *mx_change_password(sqlite3 *db, cJSON *jsn);
 
 cJSON *mx_send_message(sqlite3 *db, cJSON *jsn);
+cJSON *mx_add_new_contact(sqlite3 *db, cJSON *jsn);
 
 cJSON *mx_create_personal_chat(sqlite3 *db, cJSON *jsn);
 void mx_get_present_chat(sqlite3 *db, cJSON *jsn);

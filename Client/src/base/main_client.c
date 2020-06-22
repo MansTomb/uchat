@@ -2,16 +2,30 @@
 
 static void *read_from_server(void *sock) {
     int sockfd = *(int *)sock;
-    int n;
+    int n, i;
     char buff[1024];
+    struct sockaddr addr;
+    socklen_t clientlen;
 
     while (1) {
-        if ((n = read(sockfd, buff, sizeof(buff))) < 0) {
-            // perror(MX_ERR_CL_RE);
-            puts("\nGood bye, see you soon...\n");
-            pthread_exit(0);
+        if ((n = read(sockfd, buff, sizeof(buff))) <= 0) {
+            printf("%s","Lost connection to the server\n");
+            getpeername(sockfd, (struct sockaddr*)&addr, (socklen_t *)&clientlen);
+            for (i = 0; i < 2; ++i) {
+                if (connect(sockfd, (struct sockaddr*)&addr, sizeof(addr)) < 0) {
+                    printf("%s", "Reconnecting...\n");
+                    sleep(3);
+                }
+                else
+                    break;
+            }
+            if (i == 2) {
+                puts("\nGood bye, see you soon...\n");
+                close(sockfd);
+                exit(0);
+            }
         }
-            // mx_perror_and_exit(MX_ERR_CL_RE);
+        // mx_perror_and_exit(MX_ERR_CL_RE);
         puts(buff);
         bzero(buff, sizeof(buff));
     }
@@ -23,21 +37,21 @@ static void *write_to_server(void *sock) {
     int n;
     char buff[1024];
 
-    cJSON *root = cJSON_CreateObject();
-    cJSON_AddNumberToObject(root, "type", 1);
-    cJSON_AddStringToObject(root, "login", "trohalska");
-    cJSON_AddStringToObject(root, "password", "444");
+    // cJSON *obj = cJSON_CreateObject();
+    // cJSON_AddNumberToObject(obj, "json_type", 22);
+    // cJSON_AddNumberToObject(obj, "uid1", 1);
+    // cJSON_AddNumberToObject(obj, "uid2", 2);
 
-    char *string = cJSON_Print(root);
+    // char *string = cJSON_Print(obj);
 
-    if (string == NULL)
-        fprintf(stderr, "Failed to print.\n");
-    else {
-        sprintf(buff, "%s", string);
-        printf("%s", buff);
-        write(sockfd, buff, sizeof(buff));
-    }
-    cJSON_Delete(root);
+    // if (string == NULL)
+    //     fprintf(stderr, "Failed to print.\n");
+    // else {
+    //     sprintf(buff, "%s", string);
+    //     printf("%s", buff);
+    //     write(sockfd, buff, sizeof(buff));
+    // }
+    // cJSON_Delete(obj);
 
     while (1) {
         fgets(buff, sizeof(buff), stdin);
@@ -45,7 +59,7 @@ static void *write_to_server(void *sock) {
             close(sockfd);
             break;
         }
-        if ((n = write(sockfd, buff, sizeof(buff))) < 0) {
+        if ((n = write(sockfd, buff, sizeof(buff))) <= 0) {
             perror("write");
             pthread_exit((void *)EXIT_FAILURE);
         }
@@ -107,7 +121,7 @@ int main(int argc, char *argv[]) {
     pthread_create(&read_thread, NULL, &read_from_server, (void *)&sockfd);
     pthread_create(&write_thread, NULL, &write_to_server, (void *)&sockfd);
     pthread_join(read_thread, NULL);
-    pthread_join(write_thread, NULL);
+    // pthread_join(write_thread, NULL);
     // if (!(pthread_join(write_thread, NULL)))
     //     pthread_cancel(read_thread);
     // else

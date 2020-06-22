@@ -13,8 +13,8 @@ void mx_message_on_mail(char *email) {
     // fclose(fp);             // close it.
 
     sprintf(cmd, "cat < %s | mail -s %s %s", MX_EMAIL_PATH,
-            "\"Test email\"", email);   // Prepare command.
-    printf("%s", cmd);
+            "\"Uchat info\"", email);   // Prepare command.
+    printf("%s\n", cmd);
     system(cmd);     // execute it.
 
 }
