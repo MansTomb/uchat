@@ -16,7 +16,7 @@ static void *read_from_server(void *info) {
         if ((n = read(info1->sock->sock, buff, sizeof(buff))) < 0) {
             // perror(MX_ERR_CL_RE);
             puts("\nGood bye, see you soon...\n");
-            // pthread_exit(0);
+            pthread_exit(0);
         }
         else if (n > 0) {
             info1->response = strdup(buff);
@@ -29,7 +29,7 @@ static void *read_from_server(void *info) {
 }
 
 static void destor_all(t_info *info) {
-    pthread_join(info->thread.data, NULL);
+    pthread_kill(info->thread.data, 0);
     gtk_widget_destroy(info->layout);
     gtk_window_close(GTK_WINDOW(info->main_window));
 }
@@ -39,7 +39,7 @@ static void *login_timeout(void *data) {
     info->timer = g_timer_new();
 
     while (1) {
-        printf("Time left for timeout: %d\n", 60 - (int)g_timer_elapsed(info->timer, NULL));
+        // printf("Time left for timeout: %d\n", 60 - (int)g_timer_elapsed(info->timer, NULL));
         if (g_timer_elapsed(info->timer, NULL) > 60) {
             printf("leave\n");
             destor_all(info);

@@ -21,6 +21,7 @@ t_info *mx_create_info(GtkApplication *app) {
     GdkDisplay *display;
     GdkScreen *screen;
 
+    new->exit = 0;
     display = gdk_display_get_default();
     screen = gdk_display_get_default_screen(display);
     new->timer = NULL;

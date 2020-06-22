@@ -198,6 +198,7 @@ struct s_info {
     cJSON *json;
 
     GTimer *timer;
+    bool exit;
 };
 
 /* Main */
