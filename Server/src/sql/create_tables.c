@@ -16,9 +16,9 @@ static int create_db(sqlite3 *db) {
     char *err = NULL;
     int rc = sqlite3_exec(db, query3, NULL, NULL, &err);
 
-    if (check(rc, err, "create querry 3") == SQLITE_OK)
+    if (mx_check(rc, err, "create query 3") == SQLITE_OK)
         rc = sqlite3_exec(db, query4, NULL, NULL, &err);
-    return check(rc, err, "create querry 4");
+    return mx_check(rc, err, "create query 4");
 }
 
 int mx_create_db(sqlite3 *db) {
@@ -36,9 +36,9 @@ int mx_create_db(sqlite3 *db) {
     char *err = NULL;
     int rc = sqlite3_exec(db, query1, NULL, NULL, &err);
 
-    if (check(rc, err, "create querry 1") == SQLITE_OK) {
-        if (check((rc = sqlite3_exec(db, query2, NULL, NULL, &err)), err,
-                                    "create querry 2") == 0)
+    if (mx_check(rc, err, "create query 1") == SQLITE_OK) {
+        if (mx_check((rc = sqlite3_exec(db, query2, NULL, NULL, &err)), err,
+                                    "create query 2") == 0)
             rc = create_db(db);
     }
     return rc;

@@ -1,6 +1,6 @@
 #include "server.h"
 
-void message_on_mail(char *email) {
+void mx_message_on_mail(char *email) {
 
     char cmd[1024];  // To hold the command.
     // char to[] = "trogalska2208@gmail.com"; // email id of the recepient.
@@ -13,9 +13,8 @@ void message_on_mail(char *email) {
     // fclose(fp);             // close it.
 
     sprintf(cmd, "cat < %s | mail -s %s %s", MX_EMAIL_PATH,
-            "\"Test email\"", email);   // Prepare command.
-    printf("%s", cmd);
+            "\"Uchat info\"", email);   // Prepare command.
+    printf("%s\n", cmd);
     system(cmd);     // execute it.
 
-    return 0;
 }
