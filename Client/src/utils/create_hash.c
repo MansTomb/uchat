@@ -17,7 +17,7 @@ static char *hash_to_str(unsigned char *hash) {
     return str;
 }
 
-char *mx_create_hash(char *pass) {
+char *mx_create_hash(const char *pass) {
     unsigned char sha512[SHA512_DIGEST_LENGTH];
     char *hash;
 

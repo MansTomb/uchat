@@ -201,19 +201,22 @@ struct s_info {
     bool exit;
 };
 
-/* Main */
+    /* Main */
 GtkWidget *mx_create_main_window(GtkApplication *app);
 t_info *mx_create_info(GtkApplication *app);
 
-/* Jsons */
+    /* Jsons */
+
+    /* Json wrappers */
+bool mx_get_jtype(t_info *info, int type);
 void mx_login_build_json_wrapper(t_info *info);
 void mx_register_build_json_wrapper(t_info *info);
+void mx_add_contact_build_json_wrapper(t_contacts *contacts);
 
-
-/* Sockets functions */
+    /* Sockets functions */
 t_sock *mx_client_socket_create(char *ip, int port);
 
-/* UTILS FUNCTIONS */
+    /* UTILS FUNCTIONS */
 
     /* Work with widgets */
 void mx_widget_destroy(GtkWidget *widget);
@@ -280,11 +283,9 @@ gboolean mx_toggle_get_active(GtkWidget *widget);
     /* Dont look at funcitons below or you gonna die! */
 void mx_wait_for_json(t_info *info, int type1, int type2);
 
-    /* Json wrappers */
-bool mx_get_jtype(t_info *info, int type);
 
     /* Hash */
-char *mx_create_hash(char *pass);
+char *mx_create_hash(const char *pass);
 
 /* Windows */
 

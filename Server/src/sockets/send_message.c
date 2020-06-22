@@ -80,7 +80,7 @@ void mx_send_msg_self(t_sock *sock, t_peer *peer) {
 void mx_send_msg_number_of_clients(t_sock *sock, char *buff, int *uid) {
     int sd = 0;
     int n;
-    int len = sizeof(uid)/sizeof(uid[0]);
+    int len = sizeof(&uid)/sizeof(uid[0]);
 
     for (int i = 0; i < len; ++i) {
         mx_send_msg_client(sock, buff, uid[i]);
