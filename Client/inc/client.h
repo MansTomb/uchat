@@ -204,7 +204,7 @@ t_info *mx_create_info(GtkApplication *app);
 /* Jsons */
 void mx_login_build_json_wrapper(t_info *info);
 void mx_register_build_json_wrapper(t_info *info);
-
+void mx_add_contact_build_json_wrapper(t_contacts *contacts);
 
 /* Sockets functions */
 t_sock *mx_client_socket_create(char *ip, int port);

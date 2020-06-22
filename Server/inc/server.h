@@ -69,6 +69,11 @@ typedef struct s_info {
     t_sock *sock;
 }              t_info;
 
+typedef struct s_db_cli {
+    int uid[128];
+    int count;
+}              t_db_cli;
+
 /* Init */
 
     /* daemonize.c */
@@ -99,7 +104,8 @@ int mx_receive_from_peer(t_info *info, t_peer *peer);
     /* Send_message.c */
 void mx_send_message_all(t_sock *sock, char *buff, int uid);
 void mx_send_msg_self(t_sock *sock, t_peer *peer);
-void mx_send_msg_client(t_sock *sock, char *buff, int *id);
+int mx_send_msg_client(t_sock *sock, char *buff, int uid);
+void mx_send_msg_number_of_clients(t_sock *sock, char *buff, int *uid);
 
     /* message_handler.c */
 void mx_message_handler(t_info *info, t_peer *peer);
@@ -121,7 +127,7 @@ void mx_initialize_zero_int_arr(int *arr, int size);
 void mx_strip_newline(char *s);
 void mx_json_to_sending_buffer(t_peer *peer, cJSON *json);
 
-void message_on_mail(char *email);
+void mx_message_on_mail(char *email);
 
 /* Signals */
 

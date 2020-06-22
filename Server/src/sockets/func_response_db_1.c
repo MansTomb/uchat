@@ -9,7 +9,7 @@ void mx_db_registration(t_info *info, t_peer *peer, int type, cJSON *get) {
     mx_json_to_sending_buffer(peer, bd);
     mx_send_msg_self(info->sock, peer);
 
-    // cJSON_Delete(bd);
+    cJSON_Delete(bd);
 }
 
 void mx_db_authorization(t_info *info, t_peer *peer, int type, cJSON *get) {
@@ -20,6 +20,7 @@ void mx_db_authorization(t_info *info, t_peer *peer, int type, cJSON *get) {
         peer->uid = cJSON_GetObjectItem(bd, "id")->valueint;
     mx_json_to_sending_buffer(peer, bd);
     mx_send_msg_self(info->sock, peer);
+    cJSON_Delete(bd);
 }
 
 void mx_db_delete(t_info *info, t_peer *peer, int type, cJSON *get) {
@@ -29,6 +30,7 @@ void mx_db_delete(t_info *info, t_peer *peer, int type, cJSON *get) {
     // mx_json_to_sending_buffer(peer, responce_bd);
     // mx_send_msg_self(info->sock, peer);
     printf("authorization\n");
+    // cJSON_Delete(bd);
 }
 
 void mx_db_change_password(t_info *info, t_peer *peer, int type, cJSON *get) {
@@ -37,6 +39,7 @@ void mx_db_change_password(t_info *info, t_peer *peer, int type, cJSON *get) {
     bd = mx_change_password(info->sock->db, get);
     mx_json_to_sending_buffer(peer, bd);
     mx_send_msg_self(info->sock, peer);
+    cJSON_Delete(bd);
 }
 
 void mx_db_create_personal_chat(t_info *info, t_peer *peer, int type, cJSON *get) {
@@ -53,5 +56,7 @@ void mx_db_create_personal_chat(t_info *info, t_peer *peer, int type, cJSON *get
     // printf("peer uid = %d\n", peer->uid);
 
     mx_json_to_sending_buffer(peer, bd);
-    mx_send_msg_client(info->sock, peer->sending_buffer, cli);  // послать на 2х
+    mx_send_msg_number_of_clients(info->sock, peer->sending_buffer, cli);
+    cJSON_Delete(bd);
+    free(cli);
 }
