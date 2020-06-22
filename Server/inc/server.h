@@ -119,6 +119,8 @@ void mx_db_change_password(t_info *info, t_peer *peer, int type, cJSON *get);
 void mx_db_create_personal_chat(t_info *info, t_peer *peer, int type, cJSON *get);
 
 void mx_db_send_message(t_info *info, t_peer *peer, int type, cJSON *get);
+void mx_db_add_new_contact(t_info *info, t_peer *peer, int type, cJSON *get);
+void mx_db_del_contact(t_info *info, t_peer *peer, int type, cJSON *get);
 
 /* Utils */
 
@@ -131,6 +133,6 @@ void mx_message_on_mail(char *email);
 
 /* Signals */
 
-// int mx_setup_signals();
+int mx_setup_signals(void);
 
 // void mx_init_ssl(SSL_CTX *ctx);

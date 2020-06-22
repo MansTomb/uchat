@@ -12,15 +12,16 @@
 { "json_type": 9, "login": "trohalska", "hash": "444", "new_hash": "7777"}
 
 -- create personal chat
-{ "json_type": 22, "uid1": 1, "uid2": 2 }
+{ "json_type": 25, "uid1": 1, "uid2": 2 }
 
 -- send message
-{ "json_type": 29, "uid": 1, "chat_id": 1, "type": 1, "content": "Hello, dear friend!"}
+{ "json_type": 32, "uid": 1, "chat_id": 1, "type": 1, "content": "Hello, dear friend!"}
 
 -- add new contact
+{ "json_type": 22, "uid": 3, "friend_login": "tatat"}
 
-
-
+-- del contact
+{ "json_type": 25, "uid1": 2, "uid2": 1}
 
 
 

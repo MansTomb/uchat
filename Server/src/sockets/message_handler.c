@@ -43,6 +43,12 @@ void mx_response_db(t_info *info, t_peer *peer, int type, cJSON *get) {
     case make_change_password:
         mx_db_change_password(info, peer, type, get);
         break;
+    case make_add_new_contact:
+        mx_db_add_new_contact(info, peer, type, get);
+        break;
+    case make_del_contact:
+        mx_db_del_contact(info, peer, type, get);
+        break;
     case make_new_personal_chat:
         mx_db_create_personal_chat(info, peer, type, get);
         break;

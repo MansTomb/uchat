@@ -53,7 +53,8 @@ int mx_send_msg_client(t_sock *sock, char *buff, int uid) {
 
     for (i = 0; i < MAX_CLIENTS; ++i) {
         sd = sock->connection_list[i].socket;
-        if (sd != MX_NO_SOCKET && sock->connection_list[i].uid == uid) {
+        if (sd != MX_NO_SOCKET && FD_ISSET(sd, &sock->readfds)
+            && sock->connection_list[i].uid == uid) {
             if ((n = send(sd, buff, strlen(buff), MSG_DONTWAIT)) <= 0) {
                 send_check(sock, &sock->connection_list[i], n);
             }
@@ -70,12 +71,12 @@ int mx_send_msg_client(t_sock *sock, char *buff, int uid) {
 void mx_send_msg_self(t_sock *sock, t_peer *peer) {
     int n = 0;
 
-    if ((n = send(peer->socket, peer->sending_buffer,
-        strlen(peer->sending_buffer), MSG_DONTWAIT)) <= 0)
-        send_check(sock, peer, n);
+    if (FD_ISSET(peer->socket, &sock->readfds))
+        if ((n = send(peer->socket, peer->sending_buffer,
+            strlen(peer->sending_buffer), MSG_DONTWAIT)) <= 0)
+            send_check(sock, peer, n);
 
 }
-
 
 void mx_send_msg_number_of_clients(t_sock *sock, char *buff, int *uid) {
     int sd = 0;

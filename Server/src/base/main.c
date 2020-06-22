@@ -10,8 +10,8 @@ int main(int argc, char *argv[]) {
     if (portnumber <= 0 || portnumber >= 65535)
         return(fprintf(stderr, "error: <port> can't be > 65534\n") * 0 + 1);
 
-    // if (mx_setup_signals(info) != 0)
-    //     exit(EXIT_FAILURE);
+    if (mx_setup_signals() != 0)
+        exit(EXIT_FAILURE);
 
     info = mx_init_info();
     // mx_daemonize(info->sock);
