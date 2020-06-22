@@ -78,7 +78,11 @@ CREATE TABLE IF NOT EXISTS messages (
 
 -- проверка работы триггеров
 SELECT * FROM users;
-SELECT * FROM users JOIN users_profiles AS up ON id = up.user_id JOIN users_notify_settings AS uns ON id = uns.user_id;
+SELECT * FROM users
+    JOIN users_profiles AS up
+        ON id = up.user_id
+    JOIN users_notify_settings AS uns
+        ON id = uns.user_id;
 
 DELETE FROM users;
 
@@ -158,7 +162,7 @@ INSERT INTO users_chats VALUES (USER_ID2, (SELECT max(id) FROM chats), 1);
 
 -- создание нового группового чата / канала
 INSERT INTO chats VALUES (NULL, CHAT_TYPE, 'NEW_CHAT_NAME');
-INSERT INTO users_chats VALUES (USER_ID, last_insert_rowid(), 3);
+INSERT INTO users_chats VALUES (USER_ID, last_insert_rowid(), 2);
 
 -- загрузка контактов юзера
 SELECT cl.contact_id, u.login, up.first_name, up.second_name, up.email, up.status, cl.group_id, cg.name
@@ -170,11 +174,24 @@ FROM contacts_lists AS cl
     LEFT JOIN contacts_groups AS cg
         ON cl.group_id = cg.id;
 
--- добавить имя контакта в лс CASE
 -- загрузка активных чатов юзера
 SELECT uc.chat_id, uc.role, c.type, c.name
 FROM users_chats AS uc
-    JOIN chats AS c ON uc.chat_id = c.id AND uc.user_id = USER_ID AND uc.role > 0;
+    JOIN chats AS c
+        ON uc.chat_id = c.id AND uc.user_id = USER_ID AND uc.role > 0;
+
+-- тоже самое, но подтягивает логин собеседника в название чатика
+SELECT uc.chat_id, uc.role, c.type,
+CASE
+    WHEN c.type = 1
+        THEN (SELECT u.login FROM users AS u
+                JOIN users_chats AS uc
+                    ON uc.chat_id = c.id AND uc.user_id != USER_ID AND uc.user_id = u.id)
+    ELSE c.name
+END name
+FROM users_chats AS uc
+    JOIN chats AS c
+        ON uc.chat_id = c.id AND uc.user_id = USER_ID AND uc.role > 0;
 
 -- загрузка сообщений в чате
 SELECT * FROM messages WHERE chat_id = CHAT_ID ORDER BY id DESC LIMIT 50;
