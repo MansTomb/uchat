@@ -16,7 +16,7 @@ static void login_build_json(const char *login, const char *password, int s_sock
 }
 
 void mx_login_build_json_wrapper(t_info *info) {
-    login_build_json(mx_entry_get_text(info->windows->log->password_entry),
-                        mx_entry_get_text(info->windows->log->username_entry),
+    login_build_json(mx_entry_get_text(info->windows->log->username_entry),
+                        mx_entry_get_text(info->windows->log->password_entry),
                         info->sock->sock);
 }

@@ -30,7 +30,7 @@ exit = exit callbacks constructor
 
 utils = background_images buttons grids input_labels layouts css labels       \
 	widget dialog scrollable stack stack_switcher fixed frame box listbox     \
-	toggle_button
+	toggle_button json_get_type wait_for_json
 
 dirs = base login register chat chat_switcher message main_menu profile       \
 	contacts room_creation main_chat_screen utils json exit

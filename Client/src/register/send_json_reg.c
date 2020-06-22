@@ -17,7 +17,7 @@ static void reg_bld_json(const char *login, const char *password, int s_sock) {
 }
 
 void mx_register_build_json_wrapper(t_info *info) {
-    reg_bld_json(mx_entry_get_text(info->windows->reg->password_entry),
-                 mx_entry_get_text(info->windows->reg->username_entry),
+    reg_bld_json(mx_entry_get_text(info->windows->reg->username_entry),
+                 mx_entry_get_text(info->windows->reg->password_entry),
                  info->sock->sock);
 }

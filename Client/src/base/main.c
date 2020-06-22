@@ -6,29 +6,30 @@ static void wrong_usage(GtkApplication *app, gpointer data) {
     if (app && data) {};
 }
 
-// static void *read_from_server(void *info) {
-//     t_info *info1 = (t_info *)info;
-//     int n;
-//     char buff[1024];
+static void *read_from_server(void *info) {
+    t_info *info1 = (t_info *)info;
+    int n;
+    char buff[1024];
 
-//     while (1) {
-//         if ((n = read(info1->sock->sock, buff, sizeof(buff))) < 0) {
-//             // perror(MX_ERR_CL_RE);
-//             puts("\nGood bye, see you soon...\n");
-//             pthread_exit(0);
-//         }
-//         else if (n > 0) {
-//             // mx_perror_and_exit(MX_ERR_CL_RE);
-//             t_message *one = mx_message_construct(buff, "loh");
-            
-//             mx_chat_message_put((t_chat *)mx_get_index(info1->chat_list, 0)->data, one);
-//         }
-//         bzero(buff, sizeof(buff));
-//     }
-//     pthread_exit(0);
-// }
+    while (1) {
+        printf("test\n");
+        if ((n = read(info1->sock->sock, buff, sizeof(buff))) < 0) {
+            // perror(MX_ERR_CL_RE);
+            puts("\nGood bye, see you soon...\n");
+            // pthread_exit(0);
+        }
+        else if (n > 0) {
+            info1->response = strdup(buff);
+            info1->json = cJSON_Parse(buff);
+            printf("Responce: %s\n", info1->response);
+        }
+        bzero(buff, sizeof(buff));
+    }
+    pthread_exit(0);
+}
 
 static void destor_all(t_info *info) {
+    pthread_join(info->thread.data, NULL);
     gtk_widget_destroy(info->layout);
     gtk_window_close(GTK_WINDOW(info->main_window));
 }
@@ -57,6 +58,7 @@ static void open_app(GtkApplication *app, GFile **files, gint n_file, gchar *hin
     t_info *info = mx_create_info(app);
     info->sock = mx_client_socket_create(g_file_get_basename(files[0]), atoi(g_file_get_basename(files[1])));
     mx_login_screen_show(info);
+    pthread_create(&info->thread.data, NULL, &read_from_server, (void *)info);
     pthread_create(&info->thread.timer, NULL, &login_timeout, (void *)info);
 }
 
