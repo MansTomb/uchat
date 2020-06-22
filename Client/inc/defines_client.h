@@ -16,25 +16,43 @@ typedef enum {
     make_register,
     failed_register,
     success_register,
+
     make_authorization,
     failed_authorization,
     success_authorization,
-    make_deletion,
+
+    make_deletion,                      // зробити
     failed_deletion,
     success_deletion,
+
     make_change_password,
     failed_change_password,
     success_change_password,
-    make_update_profile,
+
+    make_update_profile,                      // зробити
     success_update_profile,
-    get_client_data,
+
+    get_client_data,                      // зробити
     send_client_data,
-    get_client_contacts,
+
+    get_client_contacts,                      // зробити
     send_client_contacts,
-    get_client_chats,
+
+    get_client_chats,                      // зробити
     send_client_chats,
-    get_client_messages,
+
+    get_client_messages,                      // зробити
     send_client_messages,
-    make_new_chat,
-    send_message,
+
+    make_new_personal_chat,
+    failed_new_personal_chat,
+    success_new_personal_chat,
+
+    make_new_group_chat,                      // зробити
+    get_new_group_chat,
+
+    make_new_chanel,                      // зробити
+    get_new_chanel,
+
+    send_message,                      // зробити
 } t_actions;

@@ -5,12 +5,15 @@ static void reg_bld_json(const char *login, const char *password, int s_sock) {
     char *string = NULL;
 
     cJSON_AddNumberToObject(jlogin, "json_type", make_register);
-    cJSON_AddStringToObject(jlogin, "password", password);
     cJSON_AddStringToObject(jlogin, "login", login);
+    cJSON_AddStringToObject(jlogin, "hash", password);
 
     string = cJSON_Print(jlogin);
-    send(s_sock, string, sizeof(string), 0);
+    if (send(s_sock, string, sizeof(string), 0) == -1)
+        fprintf(stderr, "register: 'send' error occured\n");
     cJSON_Delete(jlogin);
+    if (MX_MALLOC_SIZE(string))
+        free(string);
 }
 
 void mx_register_build_json_wrapper(t_info *info) {

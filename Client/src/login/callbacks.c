@@ -20,6 +20,7 @@ void mx_register_on_click(GtkApplication *app, gpointer user_data) {
     mx_login_screen_hide(info);
     mx_register_screen_show(info);
 
+    if(app && info){};
     send(info->sock->sock, "Privet", 6, 0);
     printf("clicked button Register\n");
 }
