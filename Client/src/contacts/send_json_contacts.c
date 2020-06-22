@@ -19,6 +19,6 @@ static void add_bld_json(const char *id, const char *log_to_srv, int s_sock) {
 
 void mx_add_contact_build_json_wrapper(t_contacts *contacts) {
     add_bld_json(mx_entry_get_text(contacts->dialog->entry),
-                 mx_entry_get_text(contacts->info->windows->profile->id),
+                 mx_entry_get_text(contacts->dialog->entry),
                  contacts->info->sock->sock);
 }
