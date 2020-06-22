@@ -282,6 +282,8 @@ void mx_wait_for_json(t_info *info, int type1, int type2);
     /* Json wrappers */
 bool mx_get_jtype(t_info *info, int type);
 
+    /* Hash */
+char *mx_create_hash(char *pass);
 
 /* Windows */
 

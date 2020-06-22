@@ -15,6 +15,11 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+#include <openssl/ssl.h>
+#include <openssl/err.h>
+#include <openssl/md5.h>
+#include <openssl/rand.h>
+
 #include "libmx.h"
 
 #define BACKIMAGE_PATH "./Resources/images/back.jpg"
