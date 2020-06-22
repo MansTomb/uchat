@@ -12,7 +12,6 @@ static void *read_from_server(void *info) {
     char buff[1024];
 
     while (1) {
-        printf("test\n");
         if ((n = read(info1->sock->sock, buff, sizeof(buff))) < 0) {
             // perror(MX_ERR_CL_RE);
             puts("\nGood bye, see you soon...\n");
