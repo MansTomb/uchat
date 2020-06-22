@@ -9,7 +9,7 @@ static void reg_bld_json(const char *login, const char *password, int s_sock) {
     cJSON_AddStringToObject(jlogin, "hash", password);
 
     string = cJSON_Print(jlogin);
-    if (send(s_sock, string, sizeof(string), 0) == -1)
+    if (send(s_sock, string, strlen(string), 0) == -1)
         fprintf(stderr, "register: 'send' error occured\n");
     cJSON_Delete(jlogin);
     if (MX_MALLOC_SIZE(string))
