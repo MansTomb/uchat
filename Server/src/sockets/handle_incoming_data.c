@@ -14,7 +14,7 @@ void mx_handle_disconnect(t_sock *sock, t_peer *client) {
     //Close the socket and mark as MX_NO_SOCKET in list for reuse
     close(client->socket);
     client->socket = MX_NO_SOCKET;
-    sock->curr_uid--;
+    client->uid = -1;
 
     // mx_dequeue_all(&client->send_buffer);
     client->current_sending_byte   = -1;
