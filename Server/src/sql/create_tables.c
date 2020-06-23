@@ -23,9 +23,10 @@ static int create_db(sqlite3 *db) {
 
 int mx_create_db(sqlite3 *db) {
     char *query1 = MX_CREATE(users) MX_INT_PK(id) "login VARCHAR(32) NOT NULL "
-    "UNIQUE, hash VARCHAR(64) NOT NULL); " MX_CREATE(users_profiles)
-    "user_id INTEGER PRIMARY KEY NOT NULL, first_name VARCHAR(64), "
-    "second_name VARCHAR(64), email VARCHAR(64), status VARCHAR(32));"
+    "UNIQUE, hash VARCHAR(64) NOT NULL); " MX_CREATE(users_profiles) "user_id "
+    "INTEGER PRIMARY KEY NOT NULL, first_name VARCHAR(64) DEFAULT '' NOT NULL,"
+    " second_name VARCHAR(64) DEFAULT '' NOT NULL, email VARCHAR(64) DEFAULT "
+    "'' NOT NULL, status VARCHAR(32) DEFAULT '' NOT NULL);"
     MX_CREATE(users_notify_settings) "user_id INTEGER PRIMARY KEY NOT NULL, "
     "sound INTEGER NOT NULL, visual INTEGER NOT NULL,email INTEGER NOT NULL);";
     char *query2 = MX_TRIGGER(add_profile, INSERT) "users BEGIN " MX_INSERT(

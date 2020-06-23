@@ -8,10 +8,10 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE IF NOT EXISTS users_profiles (
     user_id INTEGER PRIMARY KEY NOT NULL,
-    first_name VARCHAR(64),
-    second_name VARCHAR(64),
-    email VARCHAR(64),
-    status VARCHAR(32)
+    first_name VARCHAR(64) DEFAULT '' NOT NULL,
+    second_name VARCHAR(64) DEFAULT '' NOT NULL,
+    email VARCHAR(64) DEFAULT '' NOT NULL,
+    status VARCHAR(32) DEFAULT '' NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS users_notify_settings (
