@@ -14,7 +14,6 @@ void mx_db_send_message(t_info *info, t_peer *peer, int type, cJSON *get) {
     for (int i = 0; i < len; ++i) {
         uid[i] = cJSON_GetNumberValue
                 (cJSON_GetArrayItem(cJSON_GetObjectItem(bd, "clients_id"), i));
-        // printf("uid = %d\n", uid[i]);
     }
 
     mx_json_to_sending_buffer(peer, bd);
@@ -22,8 +21,7 @@ void mx_db_send_message(t_info *info, t_peer *peer, int type, cJSON *get) {
     if (len == 1) {
         err = mx_send_msg_client(info->sock, peer->sending_buffer, uid[0]);
         if (err == -1) {
-            if ((email = cJSON_GetObjectItem(bd, "email")->valuestring)
-                    && *email)
+            if ((email = MX_VSTR(bd, "email")) && *email)
                 mx_message_on_mail(email);
         }
     }

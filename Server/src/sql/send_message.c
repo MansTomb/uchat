@@ -52,10 +52,9 @@ static void get_all_users(sqlite3 *db, cJSON *jsn) {
 
     bzero(uid, MAX_CLIENTS);
     asprintf(&query, "SELECT uc.user_id, up.email FROM users_chats AS uc "
-            "JOIN users_profiles AS up ON uc.user_id = up.user_id "
-            "AND uc.chat_id = '%i' AND uc.user_id != '%i';",
-            cJSON_GetObjectItem(jsn, "chat_id")->valueint,
-            cJSON_GetObjectItem(jsn, "uid")->valueint);
+             "JOIN users_profiles AS up ON uc.user_id = up.user_id "
+             "AND uc.chat_id = '%i' AND uc.user_id != '%i';",
+             MX_VINT(jsn, "chat_id"), MX_VINT(jsn, "uid"));
 
     rc = sqlite3_exec(db, query, get_id, uid, &err);
     if (mx_check(rc, err, "get all users") != SQLITE_OK) {
@@ -74,10 +73,8 @@ cJSON *mx_send_message(sqlite3 *db, cJSON *jsn) {
 
     asprintf(&query, "INSERT INTO messages VALUES (NULL, '%i', '%i', '%i', "
             "datetime('now', 'localtime'), '%s');",
-            cJSON_GetObjectItem(jsn, "uid")->valueint,
-            cJSON_GetObjectItem(jsn, "chat_id")->valueint,
-            cJSON_GetObjectItem(jsn, "type")->valueint,
-            cJSON_GetObjectItem(jsn, "content")->valuestring);
+            MX_VINT(jsn, "uid"), MX_VINT(jsn, "chat_id"),
+            MX_VINT(jsn, "type"), MX_VSTR(jsn, "content"));
     rc = sqlite3_exec(db, query, NULL, jsn, &err);
 
     if (mx_check(rc, err, "send message") != SQLITE_OK) {

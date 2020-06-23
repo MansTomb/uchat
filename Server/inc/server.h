@@ -20,6 +20,12 @@
 #define MX_SERVERLOG_PATH "Server/tmp/serverlogs"
 #define MX_EMAIL_PATH "Server/tmp/sendmail"
 
+// Macros cJSON
+#define MX_TYPE(x)      (cJSON_GetObjectItem(x, "json_type")->valueint)
+#define MX_SET_TYPE(x, y) (cJSON_SetNumberValue(cJSON_GetObjectItem(x, "json_type"), y))
+#define MX_VINT(x, y)   (cJSON_GetObjectItem(x, y)->valueint)
+#define MX_VSTR(x, y)   (cJSON_GetObjectItem(x, y)->valuestring)
+
 typedef struct sockaddr_in t_saddr;
 
 typedef struct s_peer {                            // t_peer
@@ -130,6 +136,8 @@ void mx_strip_newline(char *s);
 void mx_json_to_sending_buffer(t_peer *peer, cJSON *json);
 
 void mx_message_on_mail(char *email);
+
+void mx_print_serv_out(cJSON *json, char *buff);
 
 /* Signals */
 

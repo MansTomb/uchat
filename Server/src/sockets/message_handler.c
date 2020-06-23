@@ -19,8 +19,7 @@ void mx_message_handler(t_info *info, t_peer *peer) {
     if (check_err_json(get))
         return;
 
-    type = (int)cJSON_GetNumberValue(cJSON_GetObjectItem(get, "json_type"));
-    // printf("%d\n", type);
+    type = MX_TYPE(get);
 
     mx_response_db(info, peer, type, get);
     // cJSON_Delete(get);

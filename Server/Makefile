@@ -14,7 +14,7 @@ sql = authorization check_error close_db create_tables init_db \
 	receive_message registration create_personal_chat get_present_chat \
 	change_password send_message add_new_contact del_contact
 
-utils = initialize_zero message_on_email
+utils = initialize_zero message_on_email print_serv_out
 
 dirs = base init sockets sql utils
 FILES = $(foreach dir, $(dirs), $($(dir):%=$(dir)/%))

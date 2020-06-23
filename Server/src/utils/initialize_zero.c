@@ -18,6 +18,7 @@ void mx_json_to_sending_buffer(t_peer *peer, cJSON *json) {
     char *root = cJSON_Print(json);
 
     sprintf(peer->sending_buffer, "%s", root);
-    printf("%s\n", peer->sending_buffer);
+
+    mx_print_serv_out(json, peer->sending_buffer);
     // cJSON_Delete(json);
 }
