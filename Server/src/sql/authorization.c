@@ -3,9 +3,9 @@
 static int callback(void *data, int argc, char **argv, char **cols) {
     if (!(strcmp(argv[0], "1"))) {
         cJSON_AddNumberToObject(data, "id", atoi(argv[1]));
-        return false;
+        return 0;
     }
-    return true;
+    return 1;
 }
 
 static int get_all(void *data, int argc, char **argv, char **cols) {
@@ -21,8 +21,8 @@ static void accept_authorization(sqlite3 *db, cJSON *jsn) {
     char *err = NULL;
     int rc = 0;
 
-    asprintf(&query, "SELECT * FROM users_profiles WHERE user_id='%i';",
-             MX_VINT(jsn, "id"));
+    asprintf(&query, "SELECT * FROM users_profiles WHERE user_id = %i;",
+            MX_VINT(jsn, "id"));
 
     rc = sqlite3_exec(db, query, get_all, jsn, &err);
     if (mx_check(rc, err, "accepted authorization") != SQLITE_OK) {
@@ -30,13 +30,14 @@ static void accept_authorization(sqlite3 *db, cJSON *jsn) {
     }
     free(query);
 }
+
 cJSON *mx_authorization(sqlite3 *db, cJSON *jsn) {
     char *query = NULL;
     char *err = NULL;
     int rc = 0;
 
     asprintf(&query, "SELECT count(*), id FROM users WHERE login = '%s' "
-    "AND hash = '%s';", MX_VSTR(jsn, "login"), MX_VSTR(jsn, "hash"));
+            "AND hash = '%s';", MX_VSTR(jsn, "login"), MX_VSTR(jsn, "hash"));
     rc = sqlite3_exec(db, query, callback, jsn, &err);
 
     MX_SET_TYPE(jsn, success_authorization);

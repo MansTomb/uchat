@@ -21,8 +21,7 @@ static void accept_register(sqlite3 *db, cJSON *jsn) {
 
     rc = sqlite3_exec(db, query, get_id, jsn, &err);
     if (mx_check(rc, err, "accepted registration") != SQLITE_OK) {
-        cJSON_SetNumberValue(cJSON_GetObjectItem(jsn, "json_type"),
-                            failed_register);
+        MX_SET_TYPE(jsn, failed_register);
     }
     free(query);
 }
@@ -33,7 +32,7 @@ cJSON *mx_registration(sqlite3 *db, cJSON *jsn) {
     int rc = 0;
 
     asprintf(&query, "SELECT count(*) FROM users WHERE login = '%s';",
-            cJSON_GetObjectItem(jsn, "login")->valuestring);
+            MX_VSTR(jsn, "login"));
     rc = sqlite3_exec(db, query, callback, jsn, &err);
 
     if (mx_check(rc, err, "registration") != SQLITE_OK)
