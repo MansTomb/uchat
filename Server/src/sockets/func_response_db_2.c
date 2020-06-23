@@ -34,6 +34,16 @@ void mx_db_send_message(t_info *info, t_peer *peer, int type, cJSON *get) {
     cJSON_Delete(bd);
 }
 
+void mx_db_update_profile(t_info *info, t_peer *peer, int type, cJSON *get) {
+    // cJSON *bd;
+
+    // bd = mx_update_profile(info->sock->db, get);
+    // mx_json_to_sending_buffer(peer, bd);
+    // mx_send_msg_self(info->sock, peer);
+
+    // cJSON_Delete(bd);
+}
+
 void mx_db_add_new_contact(t_info *info, t_peer *peer, int type, cJSON *get) {
     cJSON *bd;
 

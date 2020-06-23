@@ -13,7 +13,7 @@ static void add_new_contact(sqlite3 *db, cJSON *jsn) {
     char *err = NULL;
     int rc = 0;
 
-    asprintf(&query, "INSERT INTO contacts_lists VALUES ('%i', '%i', NULL);",
+    asprintf(&query, "INSERT INTO contacts_lists VALUES (%i, %i, NULL);",
             MX_VINT(jsn, "uid"), MX_VINT(jsn, "contact_id"));
 
     rc = sqlite3_exec(db, query, NULL, NULL, &err);

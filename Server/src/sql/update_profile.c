@@ -21,7 +21,7 @@ static void accept_authorization(sqlite3 *db, cJSON *jsn) {
     char *err = NULL;
     int rc = 0;
 
-    asprintf(&query, "SELECT * FROM users_profiles WHERE user_id='%i';",
+    asprintf(&query, "SELECT * FROM users_profiles WHERE user_id = %i;",
              MX_VINT(jsn, "id"));
 
     rc = sqlite3_exec(db, query, get_all, jsn, &err);
@@ -30,13 +30,14 @@ static void accept_authorization(sqlite3 *db, cJSON *jsn) {
     }
     free(query);
 }
-cJSON *mx_authorization(sqlite3 *db, cJSON *jsn) {
+
+cJSON *mx_update_profile(sqlite3 *db, cJSON *jsn) {
     char *query = NULL;
     char *err = NULL;
     int rc = 0;
 
-    asprintf(&query, "SELECT count(*), id FROM users WHERE login = '%s' "
-    "AND hash = '%s';", MX_VSTR(jsn, "login"), MX_VSTR(jsn, "hash"));
+    asprintf(&query, "SELECT * FROM users_profiles WHERE user_id = %i;",
+    MX_VSTR(jsn, "login"), MX_VSTR(jsn, "hash"));
     rc = sqlite3_exec(db, query, callback, jsn, &err);
 
     MX_SET_TYPE(jsn, success_authorization);
@@ -44,10 +45,6 @@ cJSON *mx_authorization(sqlite3 *db, cJSON *jsn) {
         MX_SET_TYPE(jsn, failed_authorization);
     else
         accept_authorization(db, jsn);
-    // if (!cJSON_IsNull(cJSON_GetObjectItem(jsn, "first_name")))
-    //     printf("first ----- NULL");
-    // if (!cJSON_IsNull(cJSON_GetObjectItem(jsn, "email")))
-    //     printf("email ----- not");
     cJSON_DeleteItemFromObject(jsn, "login");
     cJSON_DeleteItemFromObject(jsn, "hash");
     free(query);

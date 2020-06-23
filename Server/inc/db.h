@@ -52,6 +52,7 @@ typedef enum {
     get_new_chanel,
 
     send_message,
+    failed_send_message,                    // error db
 
     logout,
 } t_actions;

@@ -42,6 +42,9 @@ void mx_response_db(t_info *info, t_peer *peer, int type, cJSON *get) {
     case make_change_password:
         mx_db_change_password(info, peer, type, get);
         break;
+    case make_update_profile:
+        mx_db_update_profile(info, peer, type, get);
+        break;
     case make_add_new_contact:
         mx_db_add_new_contact(info, peer, type, get);
         break;
@@ -53,6 +56,11 @@ void mx_response_db(t_info *info, t_peer *peer, int type, cJSON *get) {
         break;
     case send_message:
         mx_db_send_message(info, peer, type, get);
+        break;
+    case logout:
+        peer->uid = MX_NO_PEER;
+        mx_json_to_sending_buffer(peer, get);
+        mx_print_serv_out(get, peer->sending_buffer);
         break;
     default:
         printf("unknown type of message\n");

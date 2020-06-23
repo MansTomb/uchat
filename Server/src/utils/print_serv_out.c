@@ -39,6 +39,9 @@ void mx_print_serv_out(cJSON *json, char *s) {
         case failed_new_personal_chat:
             print_red(s);
             break;
+        case failed_send_message:
+            print_red(s);
+            break;
 
 
         case success_register:
@@ -62,9 +65,15 @@ void mx_print_serv_out(cJSON *json, char *s) {
         case success_new_personal_chat:
             print_grn(s);
             break;
-        case (send_message):
+
+
+        case send_message:
             print_blue(s);
             break;
+        case logout:
+            print_blue(s);
+            break;
+
 
         default:
             print_blue("unknown type of message\n");

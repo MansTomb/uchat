@@ -36,15 +36,14 @@ cJSON *mx_registration(sqlite3 *db, cJSON *jsn) {
             cJSON_GetObjectItem(jsn, "login")->valuestring);
     rc = sqlite3_exec(db, query, callback, jsn, &err);
 
-    if (mx_check(rc, err, "registration") != SQLITE_OK) {
-        cJSON_SetNumberValue(cJSON_GetObjectItem(jsn, "json_type"),
-                            failed_register);
-    }
+    if (mx_check(rc, err, "registration") != SQLITE_OK)
+        MX_SET_TYPE(jsn, failed_register);
     else {
-        cJSON_SetNumberValue(cJSON_GetObjectItem(jsn, "json_type"),
-                            success_register);
+        MX_SET_TYPE(jsn, success_register);
         accept_register(db, jsn);
     }
+    cJSON_DeleteItemFromObject(jsn, "login");
+    cJSON_DeleteItemFromObject(jsn, "hash");
     free(query);
     return jsn;
 }
