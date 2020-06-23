@@ -20,7 +20,7 @@ main_menu = main_menu callbacks callbacks2 errors constructor
 profile = profile callbacks errors constructor
 
 contacts = contacts callbacks errors constructor tree add_contact \
-	add_callbacks
+	add_callbacks send_json_contacts
 
 room_creation = room_creation callbacks errors constructor
 
@@ -30,7 +30,7 @@ exit = exit callbacks constructor
 
 utils = background_images buttons grids input_labels layouts css labels       \
 	widget dialog scrollable stack stack_switcher fixed frame box listbox     \
-	toggle_button
+	toggle_button json_get_type wait_for_json create_hash
 
 dirs = base login register chat chat_switcher message main_menu profile       \
 	contacts room_creation main_chat_screen utils json exit
@@ -48,7 +48,8 @@ LIB_PATH = $(LIB_DIR)$(LIB)
 WFLAGS = -Wall -Wextra -Werror -Wpedantic -Wno-unused-command-line-argument \
 	-Wno-unused-variable -Wno-unused-function -Wno-unused-parameter
 
-LFLAGS = -Iinc -I$(LIB_DIR)inc
+LFLAGS = -Iinc -I$(LIB_DIR)inc -I/usr/local/opt/openssl/include \
+	-L/usr/local/opt/openssl/lib -lssl -lcrypto
 
 # CFLAGS = -Os -march=native -fomit-frame-pointer -flto
 
