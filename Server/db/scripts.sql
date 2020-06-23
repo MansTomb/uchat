@@ -25,7 +25,7 @@ CREATE TRIGGER IF NOT EXISTS add_profile
     AFTER INSERT ON users
 BEGIN
     INSERT INTO users_profiles (user_id) VALUES (NEW.id);
-    INSERT INTO users_notify_settings VALUES (NEW.id, 1, 1, 0);
+    INSERT INTO users_notify_settings VALUES (NEW.id, 1, 1, 1);
 END;
 
 CREATE TRIGGER IF NOT EXISTS del_profile
