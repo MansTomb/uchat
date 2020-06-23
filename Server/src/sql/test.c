@@ -58,12 +58,32 @@ static void test_new_pchat(sqlite3 *db) {
     cJSON_Delete(obj);
 }
 
+static void test_contact_list(sqlite3 *db) {
+    cJSON *obj = cJSON_CreateObject();
+    cJSON_AddNumberToObject(obj, "json_type", get_client_contacts);
+    cJSON_AddNumberToObject(obj, "uid", 1);
+
+    cJSON *res = get_contact_list(db, obj);
+    int type = cJSON_GetObjectItem(obj, "json_type")->valueint;
+
+    printf("TYPE = %i\n", type);
+
+    char *jsn = cJSON_Print(res);
+    printf("%s", jsn);
+
+    free(jsn);
+    cJSON_Delete(obj);
+}
+
 int main() {
     sqlite3 *db = NULL;
     mx_init_db(&db);
 
     // test_register(db);
-    // test_autorization(db);
-    test_new_pchat(db);
+    // test_authorization(db);
+    // test_new_pchat(db);
+
+    test_contact_list(db);
+
     mx_close_db(db);
 }

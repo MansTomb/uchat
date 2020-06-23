@@ -73,3 +73,5 @@ cJSON *mx_del_contact(sqlite3 *db, cJSON *jsn);
 
 cJSON *mx_create_personal_chat(sqlite3 *db, cJSON *jsn);
 void mx_get_present_chat(sqlite3 *db, cJSON *jsn);
+
+cJSON *get_contact_list(sqlite3 *db, cJSON *jsn);
