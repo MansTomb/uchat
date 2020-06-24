@@ -13,6 +13,8 @@ static int get_all(void *data, int argc, char **argv, char **cols) {
     cJSON_AddStringToObject(data, "second_name", argv[2]);
     cJSON_AddStringToObject(data, "email", argv[3]);
     cJSON_AddStringToObject(data, "status", argv[4]);
+    cJSON_AddStringToObject(data, "sound_notify", argv[6]);
+    cJSON_AddStringToObject(data, "visual_notify", argv[7]);
     return 0;
 }
 
@@ -21,7 +23,8 @@ static void accept_authorization(sqlite3 *db, cJSON *jsn) {
     char *err = NULL;
     int rc = 0;
 
-    asprintf(&query, "SELECT * FROM users_profiles WHERE user_id = %i;",
+    asprintf(&query, "SELECT * FROM users_profiles AS up JOIN users_notify_set"
+            "tings uns ON up.user_id = %i AND uns.user_id = up.user_id;",
             MX_VINT(jsn, "id"));
 
     rc = sqlite3_exec(db, query, get_all, jsn, &err);
@@ -49,7 +52,6 @@ cJSON *mx_authorization(sqlite3 *db, cJSON *jsn) {
     //     printf("first ----- NULL");
     // if (!cJSON_IsNull(cJSON_GetObjectItem(jsn, "email")))
     //     printf("email ----- not");
-    cJSON_DeleteItemFromObject(jsn, "login");
     cJSON_DeleteItemFromObject(jsn, "hash");
     free(query);
     return jsn;
