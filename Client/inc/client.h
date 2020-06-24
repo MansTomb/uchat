@@ -21,6 +21,27 @@ typedef struct s_contacts t_contacts;
 typedef struct s_room_creation t_room_creation;
 typedef struct s_exit t_exit;
 typedef struct s_info t_info;
+typedef struct s_profile_data t_profile_data;
+typedef struct s_data t_data;
+
+struct s_profile_data { 
+    int id;
+    char *login;
+    char *first_name;
+    char *sec_name;
+    char *user_email;
+    char *status;
+
+    int sound_noty;
+    int vs_noty;
+};
+
+struct s_data {
+    t_profile_data *profile;
+
+    t_list *contacts;
+    t_list *chats_list;
+};
 
 struct s_sock {
     int sock;
@@ -198,6 +219,8 @@ struct s_info {
     cJSON *json;
 
     GTimer *timer;
+
+    t_data *client;
 };
 
     /* Main */
@@ -205,6 +228,7 @@ GtkWidget *mx_create_main_window(GtkApplication *app);
 t_info *mx_create_info(GtkApplication *app);
 
     /* Jsons */
+void mx_save_login_data(t_info *info);
 
     /* Json wrappers */
 bool mx_get_jtype(t_info *info, int type);
