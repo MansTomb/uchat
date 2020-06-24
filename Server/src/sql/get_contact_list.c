@@ -15,7 +15,7 @@ static int callback(void *data, int argc, char **argv, char **cols) {
     return 0;
 }
 
-cJSON *get_contact_list(sqlite3 *db, cJSON *jsn) {
+cJSON *mx_get_contact_list(sqlite3 *db, cJSON *jsn) {
     char *query = NULL;
     char *err = NULL;
     int rc = 0;
@@ -33,7 +33,7 @@ cJSON *get_contact_list(sqlite3 *db, cJSON *jsn) {
         // ???????????????????????????????????????
     }
     else {
-        MX_SET_TYPE(jsn, success_new_personal_chat);
+        MX_SET_TYPE(jsn, send_client_chats);
     }
     free(query);
     return jsn;

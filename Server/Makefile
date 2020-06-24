@@ -8,11 +8,12 @@ init = daemonize init_info sockets_initialize sockets_initialize_2
 
 sockets = handle_incoming_data handle_new_connection loop \
 	receive_message send_message shutdown signals message_handler \
-	func_response_db_1 func_response_db_2
+	func_response_db_1 func_response_db_2 func_response_db_3
 
 sql = authorization check_error close_db create_tables init_db \
 	receive_message registration create_personal_chat get_present_chat \
-	change_password send_message add_new_contact del_contact
+	change_password send_message add_new_contact del_contact \
+	if_message_on_email get_contact_list update_profile
 
 utils = initialize_zero message_on_email print_serv_out
 

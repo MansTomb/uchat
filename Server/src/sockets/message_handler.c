@@ -42,6 +42,9 @@ void mx_response_db(t_info *info, t_peer *peer, int type, cJSON *get) {
     case make_change_password:
         mx_db_change_password(info, peer, type, get);
         break;
+    case get_client_contacts:
+        mx_db_get_client_contacts(info, peer, type, get);
+        break;
     case make_update_profile:
         mx_db_update_profile(info, peer, type, get);
         break;

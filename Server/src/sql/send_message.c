@@ -17,7 +17,7 @@ static int get_id(void *data, int argc, char **argv, char **cols) {
     return 0;
 }
 
-static void get_arr_users_and_email(sqlite3 *db, cJSON *jsn, int *uid) {
+static void get_arr_users(sqlite3 *db, cJSON *jsn, int *uid) {
     char *query = NULL;
     char *err = NULL;
     int rc = 0;
@@ -28,16 +28,11 @@ static void get_arr_users_and_email(sqlite3 *db, cJSON *jsn, int *uid) {
     int *new_uid = malloc(count * sizeof(int));
     for (int i = 0; i < count; ++i)
         new_uid[i] = uid[i];
-    free(uid);
+
     cJSON_AddItemToObject(jsn, "clients_id", cJSON_CreateIntArray(new_uid, count));
 
-    asprintf(&query, "SELECT email FROM users_profiles WHERE user_id == %i;",
-            (int)cJSON_GetNumberValue(cJSON_GetArrayItem(
-                cJSON_GetObjectItem(jsn, "clients_id"), 0)));
-
-    rc = sqlite3_exec(db, query, get_email, jsn, &err);
-    if (mx_check(rc, err, "get email") != SQLITE_OK)
-        MX_SET_TYPE(jsn, failed_send_message);
+    free(uid);
+    free(new_uid);
     free(query);
 }
 
@@ -48,16 +43,15 @@ static void get_all_users(sqlite3 *db, cJSON *jsn) {
     int *uid = malloc(MAX_CLIENTS * sizeof(int));
 
     bzero(uid, MAX_CLIENTS);
-    asprintf(&query, "SELECT uc.user_id, up.email FROM users_chats AS uc "
-             "JOIN users_profiles AS up ON uc.user_id = up.user_id "
-             "AND uc.chat_id = %i AND uc.user_id != %i;",
-             MX_VINT(jsn, "chat_id"), MX_VINT(jsn, "uid"));
+    asprintf(&query, "SELECT user_id FROM users_chats WHERE chat_id == %i "
+             "AND user_id != %i AND role > 0;",
+             MX_VINT(jsn, "uid"), MX_VINT(jsn, "chat_id"));
 
     rc = sqlite3_exec(db, query, get_id, uid, &err);
     if (mx_check(rc, err, "get all users") != SQLITE_OK)
         MX_SET_TYPE(jsn, failed_send_message);
     else
-        get_arr_users_and_email(db, jsn, uid);
+        get_arr_users(db, jsn, uid);
     free(query);
 }
 
@@ -70,7 +64,7 @@ cJSON *mx_send_message(sqlite3 *db, cJSON *jsn) {
             "datetime('now', 'localtime'), '%s');",
             MX_VINT(jsn, "uid"), MX_VINT(jsn, "chat_id"),
             MX_VINT(jsn, "type"), MX_VSTR(jsn, "content"));
-    rc = sqlite3_exec(db, query, NULL, jsn, &err);
+    rc = sqlite3_exec(db, query, NULL, NULL, &err);
 
     if (mx_check(rc, err, "send message") != SQLITE_OK)
         MX_SET_TYPE(jsn, failed_send_message);
