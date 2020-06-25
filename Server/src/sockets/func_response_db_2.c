@@ -21,8 +21,7 @@ void mx_db_send_message(t_info *info, t_peer *peer, int type, cJSON *get) {
     if (len == 1) {
         err = mx_send_msg_client(info->sock, peer->sending_buffer, uid[0]);
         if (err == -1) {
-            if ((email = MX_VSTR(bd, "email")) && *email)
-                mx_message_on_mail(email);
+            bd = mx_if_message_on_mail(info->sock->db, bd);
         }
     }
     else {
@@ -35,13 +34,13 @@ void mx_db_send_message(t_info *info, t_peer *peer, int type, cJSON *get) {
 }
 
 void mx_db_update_profile(t_info *info, t_peer *peer, int type, cJSON *get) {
-    // cJSON *bd;
+    cJSON *bd;
 
-    // bd = mx_update_profile(info->sock->db, get);
-    // mx_json_to_sending_buffer(peer, bd);
-    // mx_send_msg_self(info->sock, peer);
+    bd = mx_update_profile(info->sock->db, get);
+    mx_json_to_sending_buffer(peer, bd);
+    mx_send_msg_self(info->sock, peer);
 
-    // cJSON_Delete(bd);
+    cJSON_Delete(bd);
 }
 
 void mx_db_add_new_contact(t_info *info, t_peer *peer, int type, cJSON *get) {

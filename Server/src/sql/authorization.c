@@ -13,8 +13,9 @@ static int get_all(void *data, int argc, char **argv, char **cols) {
     cJSON_AddStringToObject(data, "second_name", argv[2]);
     cJSON_AddStringToObject(data, "email", argv[3]);
     cJSON_AddStringToObject(data, "status", argv[4]);
-    cJSON_AddStringToObject(data, "sound_notify", argv[6]);
-    cJSON_AddStringToObject(data, "visual_notify", argv[7]);
+    cJSON_AddNumberToObject(data, "sound_notify", atoi(argv[6]));
+    cJSON_AddNumberToObject(data, "visual_notify", atoi(argv[7]));
+    cJSON_AddNumberToObject(data, "email_notify", atoi(argv[8]));
     return 0;
 }
 

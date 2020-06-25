@@ -18,13 +18,13 @@ typedef enum {
     failed_change_password,         // --
     success_change_password,        // when login exists in db in 1 example, and login and hash valid
 
-    make_update_profile,                      // зробити
+    make_update_profile,
     success_update_profile,
 
     get_client_data,                      // зробити
     send_client_data,
 
-    get_client_contacts,                      // зробити
+    get_client_contacts,
     send_client_contacts,
 
     get_client_chats,                      // зробити
@@ -68,10 +68,13 @@ cJSON *mx_authorization(sqlite3 *db, cJSON *jsn);
 cJSON *mx_change_password(sqlite3 *db, cJSON *jsn);
 
 cJSON *mx_send_message(sqlite3 *db, cJSON *jsn);
+cJSON *mx_if_message_on_mail(sqlite3 *db, cJSON *jsn);
+
 cJSON *mx_add_new_contact(sqlite3 *db, cJSON *jsn);
 cJSON *mx_del_contact(sqlite3 *db, cJSON *jsn);
 
 cJSON *mx_create_personal_chat(sqlite3 *db, cJSON *jsn);
 void mx_get_present_chat(sqlite3 *db, cJSON *jsn);
 
-cJSON *get_contact_list(sqlite3 *db, cJSON *jsn);
+cJSON *mx_get_contact_list(sqlite3 *db, cJSON *jsn);
+cJSON *mx_update_profile(sqlite3 *db, cJSON *jsn);

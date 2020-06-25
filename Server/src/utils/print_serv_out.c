@@ -10,7 +10,7 @@ static void print_red(char *s) {
     printf("\x1B[31m%s\x1B[0m\n", s);
 }
 static void print_blue(char *s) {
-    printf("\x1B[33m%s\x1B[0m\n", s);
+    printf("\x1B[34m%s\x1B[0m\n", s);
 }
 
 void mx_print_serv_out(cJSON *json, char *s) {
@@ -76,7 +76,7 @@ void mx_print_serv_out(cJSON *json, char *s) {
 
 
         default:
-            print_blue("unknown type of message\n");
+            print_blue(s);
             break;
     }
 
