@@ -1,6 +1,6 @@
 #include "server.h"
 
-void mx_db_registration(t_info *info, t_peer *peer, int type, cJSON *get) {
+void mx_db_registration(t_info *info, t_peer *peer, cJSON *get) {
     cJSON *bd;
 
     bd = mx_registration(info->sock->db, get);
@@ -12,7 +12,7 @@ void mx_db_registration(t_info *info, t_peer *peer, int type, cJSON *get) {
     cJSON_Delete(bd);
 }
 
-void mx_db_authorization(t_info *info, t_peer *peer, int type, cJSON *get) {
+void mx_db_authorization(t_info *info, t_peer *peer, cJSON *get) {
     cJSON *bd;
 
     bd = mx_authorization(info->sock->db, get);
@@ -23,7 +23,7 @@ void mx_db_authorization(t_info *info, t_peer *peer, int type, cJSON *get) {
     cJSON_Delete(bd);
 }
 
-void mx_db_delete(t_info *info, t_peer *peer, int type, cJSON *get) {
+void mx_db_delete(t_info *info, t_peer *peer, cJSON *get) {
     cJSON *responce_bd;
 
     // responce_bd = mx_registration(info->sock->db, get);
@@ -33,16 +33,7 @@ void mx_db_delete(t_info *info, t_peer *peer, int type, cJSON *get) {
     // cJSON_Delete(bd);
 }
 
-void mx_db_change_password(t_info *info, t_peer *peer, int type, cJSON *get) {
-    cJSON *bd;
-
-    bd = mx_change_password(info->sock->db, get);
-    mx_json_to_sending_buffer(peer, bd);
-    mx_send_msg_self(info->sock, peer);
-    cJSON_Delete(bd);
-}
-
-void mx_db_create_personal_chat(t_info *info, t_peer *peer, int type, cJSON *get) {
+void mx_db_create_personal_chat(t_info *info, t_peer *peer, cJSON *get) {
     cJSON *bd;
     int *cli = malloc(2 * sizeof(int));
     cli[0] = MX_VINT(get, "uid1");
@@ -51,7 +42,7 @@ void mx_db_create_personal_chat(t_info *info, t_peer *peer, int type, cJSON *get
     bd = mx_create_personal_chat(info->sock->db, get);
 
     mx_json_to_sending_buffer(peer, bd);
-    mx_send_msg_number_of_clients(info->sock, peer->sending_buffer, cli);
+    mx_send_msg_clients(info->sock, peer->sending_buffer, cli, 2);
     cJSON_Delete(bd);
     free(cli);
 }

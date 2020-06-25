@@ -23,6 +23,10 @@ static void handle_signal_action(int sig_number) {
         printf("\nSIGPIPE was catched!\n");
         // shutdown_pr(EXIT_SUCCESS);
     }
+    else if (sig_number == SIGSEGV) {
+        printf("\nSIGSEGV was catched!\n");
+        shutdown_pr(EXIT_SUCCESS);
+    }
 }
 
 int mx_setup_signals(void) {
@@ -34,6 +38,10 @@ int mx_setup_signals(void) {
         return -1;
     }
     if (sigaction(SIGPIPE, &sa, 0) != 0) {
+        perror("sigaction()");
+        return -1;
+    }
+    if (sigaction(SIGSEGV, &sa, 0) != 0) {
         perror("sigaction()");
         return -1;
     }

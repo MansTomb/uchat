@@ -1,4 +1,5 @@
 -- registration
+{ "json_type": 0, "login": "tatat", "hash": ""}
 { "json_type": 0, "login": "ooo", "hash": "222"}
 { "json_type": 0, "login": "trohalska", "hash": "444"}
 { "json_type": 0, "login": "sasha1", "hash": "oibjktbkaslkbjgfk"}
@@ -16,7 +17,7 @@
 { "json_type": 28, "uid1": 1, "uid2": 2 }
 
 -- send message
-{ "json_type": 35, "uid": 1, "chat_id": 1, "type": 1, "content": "Hello, dear friend!"}
+{ "json_type": 35, "uid": 2, "chat_id": 1, "type": 1, "content": "Hello, dear friend!"}
 
 -- update profile
 {"json_type": 12, "uid": 3, "fname": "", "sname": "", "email": "", "status": "", "snot": 1, "vnot": 1, "enot": 1}
@@ -30,7 +31,11 @@
 -- get contact_list
 { "json_type": 16, "uid": 2}
 
+-- get client chats
+{ "json_type": 18, "uid": 2}
 
+-- get client chats messages
+{ "json_type": 20, "uid": 2, "cid": 1}
 
 
 
@@ -52,8 +57,6 @@ FROM users_chats WHERE chat_id = '%i' AND user_id != '%i';
 
 UPDATE users_profiles SET email='trogalska2208@gmail.com' WHERE user_id=2;
 
-
-
 SELECT uc.user_id, c.type
 FROM users_chats AS uc
     JOIN chats AS c
@@ -65,3 +68,17 @@ FROM users_notify_settings AS uns
     JOIN users_profiles AS up
         ON uns.user_id = up.user_id
         WHERE up.user_id == %i
+
+SELECT m.user_id, u.login, m.send_time, m.content
+FROM messages AS m
+    JOIN users AS u
+        ON m.user_id = u.id
+        WHERE m.chat_id == %i
+
+
+SELECT * FROM
+(SELECT m.user_id, u.login, m.send_time, m.content
+             FROM messages AS m JOIN users AS u ON m.user_id = u.id
+             ORDER BY m.send_time DESC LIMIT 5
+             WHERE m.chat_id = %i)
+ORDER BY send_time ASC;

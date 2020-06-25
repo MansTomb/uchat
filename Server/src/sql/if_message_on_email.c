@@ -10,6 +10,7 @@ static void get_notify_and_email(sqlite3 *db, cJSON *jsn) {
     char *query = NULL;
     char *err = NULL;
     int rc = 0;
+    char *email;
 
     asprintf(&query, "SELECT uns.email, up.email "
              "FROM users_notify_settings AS uns JOIN users_profiles AS up "
@@ -22,7 +23,8 @@ static void get_notify_and_email(sqlite3 *db, cJSON *jsn) {
         return;
     else {
         if (MX_VINT(jsn, "email_set") == 1)
-            mx_message_on_mail(MX_VSTR(jsn, "email"));
+            if ((email = MX_VSTR(jsn, "email")) && email[0])
+                mx_message_on_mail(MX_VSTR(jsn, "email"));
     }
     free(query);
 }
@@ -37,7 +39,7 @@ cJSON *mx_if_message_on_mail(sqlite3 *db, cJSON *jsn) {
     char *err = NULL;
     int rc = 0;
 
-    asprintf(&query, "SELECT type FROM chats WHERE id == %i",
+    asprintf(&query, "SELECT type FROM chats WHERE id = %i",
              MX_VINT(jsn, "chat_id"));
     rc = sqlite3_exec(db, query, callback, jsn, &err);
 

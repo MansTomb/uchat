@@ -53,12 +53,11 @@ int mx_send_msg_client(t_sock *sock, char *buff, int uid) {
 
     for (i = 0; i < MAX_CLIENTS; ++i) {
         sd = sock->connection_list[i].socket;
-        if (sd != MX_NO_SOCKET && FD_ISSET(sd, &sock->readfds)
-            && sock->connection_list[i].uid == uid) {
+        if (sd != MX_NO_SOCKET && sock->connection_list[i].uid == uid) {
             if ((n = send(sd, buff, strlen(buff), MSG_DONTWAIT)) <= 0) {
                 send_check(sock, &sock->connection_list[i], n);
             }
-            break;
+            return 0;
         }
     }
     if (i == MAX_CLIENTS)
@@ -78,13 +77,12 @@ void mx_send_msg_self(t_sock *sock, t_peer *peer) {
 
 }
 
-void mx_send_msg_number_of_clients(t_sock *sock, char *buff, int *uid) {
+void mx_send_msg_clients(t_sock *sock, char *buff, int *uid, int len) {
     int sd = 0;
     int n;
-    int len = sizeof(&uid)/sizeof(uid[0]);
 
     for (int i = 0; i < len; ++i) {
         mx_send_msg_client(sock, buff, uid[i]);
-        printf("111\n");
+        // printf("111\n");
     }
 }

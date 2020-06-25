@@ -45,7 +45,7 @@ static void get_all_users(sqlite3 *db, cJSON *jsn) {
     bzero(uid, MAX_CLIENTS);
     asprintf(&query, "SELECT user_id FROM users_chats WHERE chat_id == %i "
              "AND user_id != %i AND role > 0;",
-             MX_VINT(jsn, "uid"), MX_VINT(jsn, "chat_id"));
+             MX_VINT(jsn, "chat_id"), MX_VINT(jsn, "uid"));
 
     rc = sqlite3_exec(db, query, get_id, uid, &err);
     if (mx_check(rc, err, "get all users") != SQLITE_OK)
