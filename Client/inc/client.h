@@ -23,7 +23,21 @@ typedef struct s_exit t_exit;
 typedef struct s_info t_info;
 typedef struct s_profile_data t_profile_data;
 typedef struct s_data t_data;
+typedef struct s_contact t_contact;
 
+// list of contacts that client have
+struct s_contact {
+    int cid;
+    char *login;
+    char *f_name;
+    char *s_name;
+    char *email;
+    char *stat;
+    int grp_id;
+    char *grp_name;
+};
+
+// client profile data
 struct s_profile_data { 
     int id;
     char *login;
@@ -34,8 +48,10 @@ struct s_profile_data {
 
     int sound_noty;
     int vs_noty;
+    int email_noty;
 };
 
+// struct that have access to all client data
 struct s_data {
     t_profile_data *profile;
 
@@ -220,7 +236,7 @@ struct s_info {
 
     GTimer *timer;
 
-    t_data *client;
+    t_data *cl_data;
 };
 
     /* Main */
@@ -229,6 +245,7 @@ t_info *mx_create_info(GtkApplication *app);
 
     /* Jsons */
 void mx_save_login_data(t_info *info);
+void mx_get_json_contact(t_info *info);
 
     /* Json wrappers */
 bool mx_get_jtype(t_info *info, int type);

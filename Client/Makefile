@@ -20,7 +20,7 @@ main_menu = main_menu callbacks callbacks2 errors constructor
 profile = profile callbacks errors constructor
 
 contacts = contacts callbacks errors constructor tree add_contact \
-	add_callbacks send_json_contacts
+	add_callbacks send_json_contacts get_json_contacts
 
 room_creation = room_creation callbacks errors constructor
 

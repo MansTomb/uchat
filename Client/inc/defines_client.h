@@ -29,13 +29,13 @@ typedef enum {
     failed_change_password,         // --
     success_change_password,        // when login exists in db in 1 example, and login and hash valid
 
-    make_update_profile,                      // зробити
+    make_update_profile,
     success_update_profile,
 
     get_client_data,                      // зробити
     send_client_data,
 
-    get_client_contacts,                      // зробити
+    get_client_contacts,
     send_client_contacts,
 
     get_client_chats,                      // зробити

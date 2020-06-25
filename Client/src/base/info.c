@@ -31,6 +31,8 @@ t_info *mx_create_info(GtkApplication *app) {
     new->chat_list = mx_create_list();
     gtk_container_add(GTK_CONTAINER(new->main_window), new->layout);
     new->css = gtk_css_provider_new();
+    new->cl_data = (t_data *)malloc(sizeof(t_data));
+    new->cl_data->profile = (t_profile_data *)malloc(sizeof(t_profile_data));
     gtk_style_context_add_provider_for_screen(screen, GTK_STYLE_PROVIDER(new->css), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
     gtk_widget_show_all(new->main_window);
     return new;

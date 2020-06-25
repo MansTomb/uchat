@@ -11,6 +11,7 @@ void mx_login_on_click(GtkApplication *app, gpointer user_data) {
             g_timer_stop(info->timer);
             pthread_join(info->thread.timer, NULL);
             mx_save_login_data(info);
+            mx_get_json_contact(info);
             mx_login_screen_hide(info);
             mx_main_chat_screen_show(info);
         }
