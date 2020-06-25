@@ -38,7 +38,7 @@ void save_contacts(t_info *info) {
     for (int i = 0; i < cJSON_GetArraySize(cJSON_GetObjectItem(info->json, "contacts")); ++i) {
         cJSON *contacts = cJSON_GetArrayItem(cJSON_GetObjectItem(info->json, "contacts"), i);
         mx_push_back(info->cl_data->contacts, mx_contact_constructor(&contacts));
-        // free(contacts); может надо а может и не надо
+        free(contacts); // может надо а может и не надо
     }
 }
 
