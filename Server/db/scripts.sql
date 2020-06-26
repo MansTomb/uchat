@@ -77,20 +77,11 @@ CREATE TABLE IF NOT EXISTS messages (
 );
 
 -- проверка работы триггеров
-SELECT * FROM users;
 SELECT * FROM users
     JOIN users_profiles AS up
         ON id = up.user_id
     JOIN users_notify_settings AS uns
         ON id = uns.user_id;
-
-DELETE FROM users;
-
-INSERT INTO users VALUES
-    (NULL, 'abalabin', 'qwerty'),
-    (NULL, 'oafanasiev', 'asdfgh'),
-    (NULL, 'trohalska', 'zxcvbn'),
-    (NULL, 'yburienkov', 'lpmkoj');
 
 -- регистрация
 INSERT INTO users VALUES (NULL, 'NEW_USER_LOGIN', 'NEW_USER_PASSWORD');
@@ -186,7 +177,7 @@ CASE
     WHEN c.type = 1
         THEN (SELECT u.login FROM users AS u
                 JOIN users_chats AS uc
-                    ON uc.chat_id = c.id AND uc.user_id != USER_ID AND uc.user_id = u.id)
+                    ON uc.chat_id = c.id AND uc.user_id != 1 AND uc.user_id = u.id)
     ELSE c.name
 END name
 FROM users_chats AS uc
@@ -208,16 +199,13 @@ SELECT uc1.chat_id FROM users_chats AS uc1
     JOIN chats AS c
         ON c.type = 1;
 
--- .headers on
--- .mode column
-
--- SELECT c.id, uc1.role FROM users_chats AS uc1
---     JOIN users_chats AS uc2
---         ON uc1.user_id = 2 AND uc2.user_id = 3
---             AND uc1.chat_id = uc2.chat_id
---     JOIN chats AS c
---         ON c.type = 1;
-
+-- 
+SELECT c.id, uc1.role FROM users_chats AS uc1
+    JOIN users_chats AS uc2
+        ON uc1.user_id = USER_ID1 AND uc2.user_id = USER_ID2
+            AND uc1.chat_id = uc2.chat_id
+    JOIN chats AS c
+        ON c.type = 1 AND uc1.chat_id = c.id;
 
 -- вибрати дані для відправки повідомлень
 SELECT uc.user_id, up.email
