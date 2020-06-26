@@ -148,9 +148,17 @@ struct s_main_menu {
 struct s_profile {
     GtkWidget *image;
     GtkWidget *namelabel;
-    GtkWidget *name;
     GtkWidget *idlabel;
+
+    GtkWidget *name; // менять логин не планируется, так что может быть его надо удалить
     GtkWidget *id;
+    GtkWidget *fname;
+    GtkWidget *sname;
+    GtkWidget *email;
+    GtkWidget *status;
+    GtkWidget *snot;
+    GtkWidget *vnot;
+    GtkWidget *enot;
 
     GtkWidget *edit;
     GtkWidget *save;
@@ -252,6 +260,7 @@ bool mx_get_jtype(t_info *info, int type);
 void mx_login_build_json_wrapper(t_info *info);
 void mx_register_build_json_wrapper(t_info *info);
 void mx_add_contact_build_json_wrapper(t_contacts *contacts);
+void mx_upd_prof_build_json_wrapper(t_info *info);
 
     /* Sockets functions */
 t_sock *mx_client_socket_create(char *ip, int port);

@@ -1,5 +1,6 @@
 #include "client.h"
 
+// TODO make json send message
 void mx_send_message(GtkWidget *widget, gpointer data) {
     t_chat *chat = data;
 

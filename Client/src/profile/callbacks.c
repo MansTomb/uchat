@@ -22,6 +22,7 @@ void mx_on_click_profile_save(GtkWidget *widget, gpointer *data) {
 
     gtk_editable_set_editable(GTK_EDITABLE(profile->name), FALSE);
     gtk_editable_set_editable(GTK_EDITABLE(profile->id), FALSE);
+    mx_upd_prof_build_json_wrapper((t_info *)data);
     // Send data to server mx_make_update_profile estimated return mx_success_update_profile
     gtk_widget_hide(profile->save);
     gtk_widget_hide(profile->cancel);

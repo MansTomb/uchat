@@ -2,9 +2,9 @@
 
 static void free_wrapper(char **str, char **hash_pass, cJSON **jlogin) {
     cJSON_Delete(*jlogin);
-    if (MX_MALLOC_SIZE(str))
+    if (MX_MALLOC_SIZE(*str))
         free(*str);
-    if (MX_MALLOC_SIZE(hash_pass))
+    if (MX_MALLOC_SIZE(*hash_pass))
         free(*hash_pass);
 }
 

@@ -2,11 +2,11 @@
 
 void mx_conctacts_add_dialog(GtkWidget *widget, gpointer data) {
     t_contacts *contacts = data;
-    
+
     contacts->dialog = mx_contacts_add_dialog_constructor(contacts->info, contacts);
 }
 
-// make new personal chat
+// add contact to the list
 void mx_contact_add(GtkWidget *widget, gpointer data) {
     t_contacts *contacts = data;
 
