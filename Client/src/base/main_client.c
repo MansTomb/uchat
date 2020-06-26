@@ -1,5 +1,7 @@
 #include "client.h"
 
+struct sockaddr_in serv_addr;
+
 static void *read_from_server(void *sock) {
     int sockfd = *(int *)sock;
     int n, i;
@@ -11,15 +13,16 @@ static void *read_from_server(void *sock) {
         if ((n = read(sockfd, buff, sizeof(buff))) <= 0) {
             printf("%s","Lost connection to the server\n");
             getpeername(sockfd, (struct sockaddr*)&addr, (socklen_t *)&clientlen);
-            for (i = 0; i < 2; ++i) {
-                if (connect(sockfd, (struct sockaddr*)&addr, sizeof(addr)) < 0) {
+            for (i = 0; i < 10; ++i) {
+                if (connect(sockfd, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) < 0) {
                     printf("%s", "Reconnecting...\n");
                     sleep(3);
                 }
-                else
+                else {
                     break;
+                }
             }
-            if (i == 2) {
+            if (i == 10) {
                 puts("\nGood bye, see you soon...\n");
                 close(sockfd);
                 exit(0);
@@ -78,7 +81,6 @@ int main(int argc, char *argv[]) {
     int sockfd = 0;
     // int n = 0;
     char recvbuff[1024];
-    struct sockaddr_in serv_addr;
     pthread_t read_thread;
     pthread_t write_thread;
 

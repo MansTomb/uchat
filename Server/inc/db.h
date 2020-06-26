@@ -21,17 +21,17 @@ typedef enum {
     make_update_profile,
     success_update_profile,
 
-    get_client_data,                      // зробити
+    get_client_data,                      // це профіль? якщо так то уже не треба
     send_client_data,
 
     get_client_contacts,
     send_client_contacts,
 
-    get_client_chats,                      // зробити
+    get_client_chats,
     send_client_chats,
 
-    get_client_messages,                      // зробити
-    send_client_messages,
+    get_client_chat_messages,
+    send_client_chat_messages,
 
     make_add_new_contact,
     failed_add_new_contact,         // when contact doesn't exist in users
@@ -54,6 +54,12 @@ typedef enum {
     send_message,
     failed_send_message,                    // error db
 
+    edit_message,
+    delete_message,
+    success_edit_message,
+    success_delete_message,
+    failed_edit_delete_message,                    // error db
+
     logout,
 } t_actions;
 
@@ -66,8 +72,10 @@ void mx_close_db(sqlite3 *db);
 cJSON *mx_registration(sqlite3 *db, cJSON *jsn);
 cJSON *mx_authorization(sqlite3 *db, cJSON *jsn);
 cJSON *mx_change_password(sqlite3 *db, cJSON *jsn);
+cJSON *mx_update_profile(sqlite3 *db, cJSON *jsn);
 
 cJSON *mx_send_message(sqlite3 *db, cJSON *jsn);
+cJSON *mx_edit_message(sqlite3 *db, cJSON *jsn);
 cJSON *mx_if_message_on_mail(sqlite3 *db, cJSON *jsn);
 
 cJSON *mx_add_new_contact(sqlite3 *db, cJSON *jsn);
@@ -77,4 +85,5 @@ cJSON *mx_create_personal_chat(sqlite3 *db, cJSON *jsn);
 void mx_get_present_chat(sqlite3 *db, cJSON *jsn);
 
 cJSON *mx_get_contact_list(sqlite3 *db, cJSON *jsn);
-cJSON *mx_update_profile(sqlite3 *db, cJSON *jsn);
+cJSON *mx_get_clients_chats(sqlite3 *db, cJSON *jsn);
+cJSON *mx_get_client_chat_messages(sqlite3 *db, cJSON *jsn);

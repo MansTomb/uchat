@@ -106,25 +106,23 @@ int mx_receive_from_peer(t_info *info, t_peer *peer);
 void mx_send_message_all(t_sock *sock, char *buff, int uid);
 void mx_send_msg_self(t_sock *sock, t_peer *peer);
 int mx_send_msg_client(t_sock *sock, char *buff, int uid);
-void mx_send_msg_number_of_clients(t_sock *sock, char *buff, int *uid);
+void mx_send_msg_clients(t_sock *sock, char *buff, int *uid, int len);
 
     /* message_handler.c */
 void mx_message_handler(t_info *info, t_peer *peer);
 void mx_response_db(t_info *info, t_peer *peer, int type, cJSON *get);
 
     /* func_response_db.c */
-void mx_db_registration(t_info *info, t_peer *peer, int type, cJSON *get);
-void mx_db_authorization(t_info *info, t_peer *peer, int type, cJSON *get);
-void mx_db_delete(t_info *info, t_peer *peer, int type, cJSON *get);
-void mx_db_change_password(t_info *info, t_peer *peer, int type, cJSON *get);
-void mx_db_create_personal_chat(t_info *info, t_peer *peer, int type, cJSON *get);
+void mx_db_registration(t_info *info, t_peer *peer, cJSON *get);
+void mx_db_authorization(t_info *info, t_peer *peer, cJSON *get);
+void mx_db_delete(t_info *info, t_peer *peer, cJSON *get);
+void mx_db_create_personal_chat(t_info *info, t_peer *peer, cJSON *get);
 
-void mx_db_send_message(t_info *info, t_peer *peer, int type, cJSON *get);
-void mx_db_update_profile(t_info *info, t_peer *peer, int type, cJSON *get);
-void mx_db_add_new_contact(t_info *info, t_peer *peer, int type, cJSON *get);
-void mx_db_del_contact(t_info *info, t_peer *peer, int type, cJSON *get);
+void mx_db_send_message(t_info *info, t_peer *peer, cJSON *get);
+void mx_db_edit_message(t_info *info, t_peer *peer, cJSON *get);
 
-void mx_db_get_client_contacts(t_info *info, t_peer *peer, int type, cJSON *get);
+void mx_db_get_self_response(t_info *info, t_peer *peer, cJSON *get,
+                            cJSON *(*func)(sqlite3 *, cJSON *));
 
 /* Utils */
 

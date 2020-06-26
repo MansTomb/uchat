@@ -25,7 +25,6 @@ static void get_arr_users(sqlite3 *db, cJSON *jsn, int *uid) {
 
     cJSON_AddItemToObject(jsn, "clients_id", cJSON_CreateIntArray(new_uid, count));
 
-    free(uid);
     free(new_uid);
 }
 
@@ -44,29 +43,35 @@ static void get_all_users(sqlite3 *db, cJSON *jsn) {
         MX_SET_TYPE(jsn, failed_send_message);
     else
         get_arr_users(db, jsn, uid);
+    free(uid);
     free(query);
 }
 
-static int get_mid(void *data, int argc, char **argv, char **cols) {
-    cJSON_AddNumberToObject(data, "mid", atoi(argv[0]));
-    return 0;
-}
-
-cJSON *mx_send_message(sqlite3 *db, cJSON *jsn) {
+cJSON *mx_edit_message(sqlite3 *db, cJSON *jsn) {
     char *query = NULL;
     char *err = NULL;
     int rc = 0;
 
-    asprintf(&query, "INSERT INTO messages VALUES (NULL, %i, %i, %i, "
-            "datetime('now', 'localtime'), '%s'); SELECT last_insert_rowid();",
-            MX_VINT(jsn, "uid"), MX_VINT(jsn, "chat_id"),
-            MX_VINT(jsn, "type"), MX_VSTR(jsn, "content"));
-    rc = sqlite3_exec(db, query, get_mid, jsn, &err);
+    if (MX_TYPE(jsn) == edit_message) {
+        asprintf(&query, "UPDATE messages SET content='%s' WHERE id=%i;",
+                 MX_VSTR(jsn, "content"), MX_VINT(jsn, "mid"));
+        rc = sqlite3_exec(db, query, NULL, NULL, &err);
 
-    if (mx_check(rc, err, "send message") != SQLITE_OK)
-        MX_SET_TYPE(jsn, failed_send_message);
-    else
-        get_all_users(db, jsn);
+        if (mx_check(rc, err, "edit message") != SQLITE_OK)
+            MX_SET_TYPE(jsn, failed_edit_delete_message);
+        else
+            get_all_users(db, jsn);
+    }
+    else if (MX_TYPE(jsn) == delete_message) {
+        asprintf(&query, "DELETE FROM messages WHERE id=%i;",
+                 MX_VINT(jsn, "mid"));
+        rc = sqlite3_exec(db, query, NULL, NULL, &err);
+
+        if (mx_check(rc, err, "delete message") != SQLITE_OK)
+            MX_SET_TYPE(jsn, failed_edit_delete_message);
+        else
+            get_all_users(db, jsn);
+    }
     free(query);
     return jsn;
 }
