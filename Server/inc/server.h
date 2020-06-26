@@ -118,7 +118,8 @@ void mx_db_authorization(t_info *info, t_peer *peer, cJSON *get);
 void mx_db_delete(t_info *info, t_peer *peer, cJSON *get);
 void mx_db_create_personal_chat(t_info *info, t_peer *peer, cJSON *get);
 
-void mx_db_send_message(t_info *info, t_peer *peer, int type, cJSON *get);
+void mx_db_send_message(t_info *info, t_peer *peer, cJSON *get);
+void mx_db_edit_message(t_info *info, t_peer *peer, cJSON *get);
 
 void mx_db_get_self_response(t_info *info, t_peer *peer, cJSON *get,
                             cJSON *(*func)(sqlite3 *, cJSON *));

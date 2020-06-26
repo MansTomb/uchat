@@ -54,6 +54,12 @@ typedef enum {
     send_message,
     failed_send_message,                    // error db
 
+    edit_message,
+    delete_message,
+    success_edit_message,
+    success_delete_message,
+    failed_edit_delete_message,                    // error db
+
     logout,
 } t_actions;
 
@@ -69,6 +75,7 @@ cJSON *mx_change_password(sqlite3 *db, cJSON *jsn);
 cJSON *mx_update_profile(sqlite3 *db, cJSON *jsn);
 
 cJSON *mx_send_message(sqlite3 *db, cJSON *jsn);
+cJSON *mx_edit_message(sqlite3 *db, cJSON *jsn);
 cJSON *mx_if_message_on_mail(sqlite3 *db, cJSON *jsn);
 
 cJSON *mx_add_new_contact(sqlite3 *db, cJSON *jsn);

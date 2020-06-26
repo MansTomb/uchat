@@ -17,7 +17,12 @@
 { "json_type": 28, "uid1": 1, "uid2": 2 }
 
 -- send message
-{ "json_type": 35, "uid": 2, "chat_id": 1, "type": 1, "content": "Hello, dear friend!"}
+{ "json_type": 35, "uid": 2, "chat_id": 3, "type": 1, "content": "Hello, dear friend!"}
+-- edit message
+{ "json_type": 37, "uid": 2, "chat_id": 3, "mid": 30, "content": "Hello!"}
+-- delete message
+{ "json_type": 38, "uid": 2, "chat_id": 3, "mid": 30}
+
 
 -- update profile
 {"json_type": 12, "uid": 3, "fname": "", "sname": "", "email": "", "status": "", "snot": 1, "vnot": 1, "enot": 1}
@@ -82,3 +87,5 @@ SELECT * FROM
              ORDER BY m.send_time DESC LIMIT 5
              WHERE m.chat_id = %i)
 ORDER BY send_time ASC;
+
+UPDATE (SELECT * FROM messages WHERE id=%i) SET content='%s';

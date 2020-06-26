@@ -58,7 +58,9 @@ void mx_response_db(t_info *info, t_peer *peer, int type, cJSON *get) {
         mx_db_delete(info, peer, get);
 
     else if (type == send_message)
-        mx_db_send_message(info, peer, type, get);
+        mx_db_send_message(info, peer, get);
+    else if (type == edit_message || type == delete_message)
+        mx_db_edit_message(info, peer, get);
     else if (type == logout) {
         peer->uid = MX_NO_PEER;
         mx_json_to_sending_buffer(peer, get);
