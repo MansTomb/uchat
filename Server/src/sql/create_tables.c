@@ -31,7 +31,7 @@ int mx_create_db(sqlite3 *db) {
     "sound INTEGER NOT NULL, visual INTEGER NOT NULL,email INTEGER NOT NULL);";
     char *query2 = MX_TRIGGER(add_profile, INSERT) "users BEGIN " MX_INSERT(
     users_profiles, user_id) "(NEW.id); INSERT INTO users_notify_settings "
-    "VALUES (NEW.id, 1, 1, 0); END; " MX_TRIGGER(del_profile, DELETE)
+    "VALUES (NEW.id, 1, 1, 1); END; " MX_TRIGGER(del_profile, DELETE)
     "users BEGIN " MX_DEL_WH(users_profiles, user_id = OLD.id) 
     MX_DEL_WH(users_notify_settings, user_id = OLD.id) "END;";
     char *err = NULL;
