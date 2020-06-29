@@ -9,9 +9,9 @@ static void changing_password(sqlite3 *db, cJSON *jsn) {
     char *err = NULL;
     int rc = 0;
 
-    asprintf(&query, "UPDATE users SET hash='%s' "
-             "WHERE login='%s' AND hash='%s';", MX_VSTR(jsn, "new_hash"),
-             MX_VSTR(jsn, "login"), MX_VSTR(jsn, "hash"));
+    asprintf(&query, "UPDATE users SET hash = '%s' "
+            "WHERE login = '%s' AND hash = '%s';", MX_VSTR(jsn, "new_hash"),
+            MX_VSTR(jsn, "login"), MX_VSTR(jsn, "hash"));
 
     rc = sqlite3_exec(db, query, NULL, NULL, &err);
     if (mx_check(rc, err, "inserting new password") != SQLITE_OK) {
@@ -34,9 +34,11 @@ cJSON *mx_change_password(sqlite3 *db, cJSON *jsn) {
         MX_SET_TYPE(jsn, failed_change_password);
     else
         changing_password(db, jsn);
+
     cJSON_DeleteItemFromObject(jsn, "login");
     cJSON_DeleteItemFromObject(jsn, "hash");
     cJSON_DeleteItemFromObject(jsn, "new_hash");
+
     free(query);
     return jsn;
 }

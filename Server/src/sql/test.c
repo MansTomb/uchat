@@ -7,12 +7,12 @@ static void test_register(sqlite3 *db) {
     cJSON_AddStringToObject(obj, "hash", "HASH");
 
     cJSON *res = mx_registration(db, obj);
-    int type = cJSON_GetObjectItem(obj, "json_type")->valueint;
+    int type = MX_VINT(obj, "json_type");
 
     printf("TYPE = %i\n", type);
 
     if (type == success_register) {
-        printf("SUCCESS: id = %i\n", cJSON_GetObjectItem(obj, "id")->valueint);
+        printf("SUCCESS: id = %i\n", MX_VINT(obj, "id"));
     } else {
         printf("FAILED register\n");
     }
@@ -26,12 +26,12 @@ static void test_authorization(sqlite3 *db) {
     cJSON_AddStringToObject(obj, "hash", "HASH");
 
     cJSON *res = mx_authorization(db, obj);
-    int type = cJSON_GetObjectItem(obj, "json_type")->valueint;
+    int type = MX_VINT(obj, "json_type");
 
     printf("TYPE = %i\n", type);
 
     if (type == success_authorization) {
-        printf("SUCCESS: id = %i\n", cJSON_GetObjectItem(obj, "id")->valueint);
+        printf("SUCCESS: id = %i\n", MX_VINT(obj, "id"));
     } else {
         printf("FAILED authorization\n");
     }
@@ -45,12 +45,12 @@ static void test_new_pchat(sqlite3 *db) {
     cJSON_AddNumberToObject(obj, "uid2", 2);
 
     cJSON *res = mx_create_personal_chat(db, obj);
-    int type = cJSON_GetObjectItem(obj, "json_type")->valueint;
+    int type = MX_VINT(obj, "json_type");
 
     printf("TYPE = %i\n", type);
 
     if (type == success_new_personal_chat) {
-        printf("SUCCESS: id = %i\n", cJSON_GetObjectItem(obj, "id")->valueint);
+        printf("SUCCESS: id = %i\n", MX_VINT(obj, "id"));
     }
     else {
         printf("FAILED creating new chat\n");
@@ -64,7 +64,7 @@ static void test_contact_list(sqlite3 *db) {
     cJSON_AddNumberToObject(obj, "uid", 1);
 
     cJSON *res = get_contact_list(db, obj);
-    int type = cJSON_GetObjectItem(obj, "json_type")->valueint;
+    int type = MX_VINT(obj, "json_type");
 
     printf("TYPE = %i\n", type);
 
