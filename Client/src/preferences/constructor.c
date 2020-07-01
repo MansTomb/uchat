@@ -12,6 +12,7 @@ static void attach_layout(t_info *info, t_preferences *pref) {
     mx_layout_put(pref->layout, pref->e_notify_switch, 100, 320);
     mx_layout_put(pref->layout, pref->volume_label, 100, 400);
     mx_layout_put(pref->layout, pref->volume, 100, 420);
+    mx_layout_put(pref->layout, pref->change_pass_bt, 100, 470);
 }
 
 static void attach_signals(t_info *info, t_preferences *pref) {
@@ -19,6 +20,7 @@ static void attach_signals(t_info *info, t_preferences *pref) {
     MX_GSIG_CON(pref->s_notify_switch, "toggled", MX_CB(mx_on_click_snoti_switch), info);
     MX_GSIG_CON(pref->v_notify_switch, "toggled", MX_CB(mx_on_click_vnoti_switch), info);
     MX_GSIG_CON(pref->e_notify_switch, "toggled", MX_CB(mx_on_click_enoti_switch), info);
+    MX_GSIG_CON(pref->change_pass_bt, "clicked", MX_CB(mx_on_click_change_pass), info);
 }
 
 static void set_preferences(t_info *info, t_preferences *pref) {
@@ -43,6 +45,7 @@ t_preferences *mx_preferences_constructor(t_info *info) {
         new->s_notify_switch = mx_check_button_constuctor("sound_switch", "Wanna be notified by sound?");
         new->v_notify_switch = mx_check_button_constuctor("visual_switch", "Wanna be notified visually notified?");
         new->e_notify_switch = mx_check_button_constuctor("email_switch", "Wanna be notified by email?");
+        new->change_pass_bt = mx_button_constuctor("Change Password", "change_password");
 
         set_preferences(info, new);
         attach_signals(info, new);

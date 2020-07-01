@@ -25,6 +25,8 @@ typedef struct s_profile_data t_profile_data;
 typedef struct s_data t_data;
 typedef struct s_preferences t_preferences;
 typedef struct s_contact t_contact;
+typedef struct s_admin t_admin;
+typedef struct s_change_password t_change_password;
 
 // list of contacts that client have
 struct s_contact {
@@ -96,6 +98,12 @@ struct s_login {
     t_background_image *back_image;
 };
 
+struct s_admin {
+    GtkWidget *entry_field;
+    GtkWidget *send_button;
+    GtkWidget *unlog_button;
+};
+
 struct s_register {
     GtkWidget *registerbt;
     GtkWidget *backbt;
@@ -122,6 +130,17 @@ struct s_preferences {
     GtkWidget *v_notify_switch;
     GtkWidget *s_notify_switch;
     GtkWidget *e_notify_switch;
+
+    GtkWidget *change_pass_dialog;
+    GtkWidget *change_pass_bt;
+};
+
+struct s_change_password {
+    GtkWidget *dialog;
+    GtkWidget *old_pass;
+    GtkWidget *new_pass;
+    GtkWidget *changebt;
+    GtkWidget *cancelbt;
 };
 
 struct s_chat {
@@ -230,7 +249,9 @@ struct s_windows {
     t_profile *profile;
     t_contacts *contacts;
     t_room_creation *room_creation;
+    t_change_password *change_password;
     t_preferences *preferences;
+    t_admin *admin;
     t_exit *exit;
     t_main_menu *main_menu;
 };
@@ -392,6 +413,14 @@ void mx_reg_user_on_click(GtkApplication *app, gpointer user_data);
     /* Register error dialogs */
 gboolean mx_reg_data_validate(t_register *reg);
 
+/*                             Admin Screen */
+t_admin *mx_admin_constructor(t_info *info);
+void mx_admin_screen_show(t_info *info);
+void mx_admin_screen_hide(t_info *info);
+
+/*                             Callbacks */
+void mx_admine_send_on_click(GtkWidget *widget, gpointer data);
+void mx_admin_logout_on_click(GtkWidget *widget, gpointer data);
 
 /*                             Main Chat Screen */
 void mx_main_chat_screen_show(t_info *info);
@@ -463,10 +492,19 @@ void mx_preferences_show(t_info *info);
 void mx_preferences_hide(t_info *info);
 
     /* Callbacks */
+void mx_on_click_change_pass(GtkWidget *widget, gpointer data);
 void mx_on_click_theme_switch(GtkWidget *widget, gboolean state, gpointer data);
 void mx_on_click_snoti_switch(GtkWidget *widget, gpointer data);
 void mx_on_click_vnoti_switch(GtkWidget *widget, gpointer data);
 void mx_on_click_enoti_switch(GtkWidget *widget, gpointer data);
+
+/*                              Change Password Dialog */
+void mx_change_pass_constructor(t_info *info);
+void mx_change_pass_destructor(t_info *info);
+
+    /* Callbacks */
+void mx_on_click_change_pass_change(GtkWidget *widget, gpointer data);
+void mx_on_click_change_pass_cancel(GtkWidget *widget, gpointer data);
 
 /*                              Exit Dialog */
 void mx_exit_constructor(t_info *info);

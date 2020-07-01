@@ -8,6 +8,8 @@ login = login callbacks errors constructor send_json_login
 
 register = register callbacks errors constructor send_json_reg
 
+admin = admin callbacks errors constructor
+
 chat = chat callbacks errors constructor
 
 chat_switcher = chat_switcher chat_switcher_hide callbacks errors constructor \
@@ -27,6 +29,8 @@ room_creation = room_creation callbacks errors constructor
 
 preferences = callbacks constructor errors preferences
 
+change_password = change_password callbacks errors constructor
+
 main_chat_screen = main_chat_screen
 
 exit = exit callbacks constructor
@@ -37,7 +41,8 @@ utils = background_images buttons grids input_labels layouts css labels       \
 	volume_button check_button scale
 
 dirs = base login register chat chat_switcher message main_menu profile       \
-	contacts room_creation main_chat_screen utils json exit preferences
+	contacts room_creation main_chat_screen utils json exit preferences       \
+	admin change_password
 
 FILES = $(foreach dir, $(dirs), $($(dir):%=$(dir)/%))
 

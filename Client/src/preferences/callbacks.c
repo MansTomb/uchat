@@ -1,5 +1,11 @@
 #include "client.h"
 
+void mx_on_click_change_pass(GtkWidget *widget, gpointer data) {
+    t_info *info = data;
+
+    mx_change_pass_constructor(info);
+}
+
 void mx_on_click_theme_switch(GtkWidget *widget, gboolean state, gpointer data) {
     t_info *info = data;
     t_preferences *pref = info->windows->preferences;

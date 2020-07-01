@@ -1,0 +1,27 @@
+.main_window {
+    background-color: black;
+}
+
+.admin_send {
+    background-color: white;
+}
+
+.admin_send:hover {
+    background-color: white;
+}
+
+.admin_send:active {
+    background-color: white;
+}
+
+.admin_logout {
+    background-color: white;
+}
+
+.admin_logout:hover {
+    background-color: white;
+}
+
+.admin_logout:active {
+    background-color: white;
+}

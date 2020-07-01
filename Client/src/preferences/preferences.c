@@ -17,6 +17,7 @@ void mx_preferences_show(t_info *info) {
     gtk_widget_show(pref->s_notify_switch);
     gtk_widget_show(pref->v_notify_switch);
     gtk_widget_show(pref->e_notify_switch);
+    gtk_widget_show(pref->change_pass_bt);
 }
 
 void mx_preferences_hide(t_info *info) {
@@ -33,4 +34,5 @@ void mx_preferences_hide(t_info *info) {
     gtk_widget_hide(pref->s_notify_switch);
     gtk_widget_hide(pref->v_notify_switch);
     gtk_widget_hide(pref->e_notify_switch);
+    gtk_widget_hide(pref->change_pass_bt);
 }

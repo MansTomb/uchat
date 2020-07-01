@@ -5,7 +5,6 @@
 
 .main_window {
     background-color: rgba(0, 0, 0, 0.057);
-    /* background-image: url('./Resources/images/back.jpg'); */
 }
 
 .message_list {
@@ -154,4 +153,12 @@
 .preferences_scroll {
     background-color: grey;
     opacity: 1;
+}
+
+.change_password:hover:active {
+    background-color: whitesmoke;
+}
+
+.change_password {
+    background-color: whitesmoke;
 }
