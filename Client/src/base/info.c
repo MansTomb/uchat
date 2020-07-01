@@ -12,6 +12,7 @@ static t_windows *create_windows() {
         new->contacts = NULL;
         new->exit = NULL;
         new->room_creation = NULL;
+        new->preferences = NULL;
     }
     return new;
 }

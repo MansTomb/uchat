@@ -70,36 +70,22 @@
     font-size: 20px;
 }
 
-
 .profile_scrollable {
     background-color: grey;
     opacity: 1;
 }
 
-.profile_name {
-    font-size: 30px;
-    color: whitesmoke;
-    margin-left: 10px;
-    background-color: darkblue;
-    opacity: 0.5;
-}
-
-.profile_id {
-    font-size: 30px;
-    color: whitesmoke;
-    margin-left: 10px;
-    background-color: darkblue;
-    opacity: 0.5;
-}
-
-.profile_name_label {
+.profile_field {
     font-size: 20px;
-    color: whitesmoke;
+    /* background-color: darkblue; */
 }
 
-.profile_id_label {
+.profile_label {
     font-size: 20px;
-    color: whitesmoke;
+}
+
+.profile_status {
+    font-size: 20px;
 }
 
 .profile_button_edit {
@@ -163,4 +149,9 @@
 
 .treeview.view {
     font-size: 40px;
+}
+
+.preferences_scroll {
+    background-color: grey;
+    opacity: 1;
 }

@@ -21,7 +21,10 @@ void mx_on_click_create_room(GtkWidget *widget, gpointer data) {
 }
 
 void mx_on_click_preferences(GtkWidget *widget, gpointer data) {
+    t_info *info = data;
 
+    mx_find_and_hide_screen(info);
+    mx_preferences_show(info);
 }
 
 void mx_on_click_exit(GtkWidget *widget, gpointer data) {

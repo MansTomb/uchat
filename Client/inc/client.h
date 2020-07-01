@@ -23,6 +23,7 @@ typedef struct s_exit t_exit;
 typedef struct s_info t_info;
 typedef struct s_profile_data t_profile_data;
 typedef struct s_data t_data;
+typedef struct s_preferences t_preferences;
 typedef struct s_contact t_contact;
 
 // list of contacts that client have
@@ -111,6 +112,18 @@ struct s_register {
     t_background_image *back_image;
 };
 
+struct s_preferences {
+    GtkWidget *scroll;
+    GtkWidget *layout;
+    GtkWidget *volume_label;
+    GtkWidget *volume;
+    GtkWidget *theme_label;
+    GtkWidget *theme_switch;
+    GtkWidget *v_notify_switch;
+    GtkWidget *s_notify_switch;
+    GtkWidget *e_notify_switch;
+};
+
 struct s_chat {
     char *chat_name;
 
@@ -146,19 +159,19 @@ struct s_main_menu {
 };
 
 struct s_profile {
-    GtkWidget *image;
-    GtkWidget *namelabel;
-    GtkWidget *idlabel;
+    GtkWidget *avatar;
 
     GtkWidget *name; // менять логин не планируется, так что может быть его надо удалить
+    GtkWidget *namelb;
     GtkWidget *id;
     GtkWidget *fname;
+    GtkWidget *fnamelb;
     GtkWidget *sname;
+    GtkWidget *snamelb;
     GtkWidget *email;
+    GtkWidget *emaillb;
     GtkWidget *status;
-    GtkWidget *snot;
-    GtkWidget *vnot;
-    GtkWidget *enot;
+    GtkWidget *statuslb;
 
     GtkWidget *edit;
     GtkWidget *save;
@@ -217,6 +230,7 @@ struct s_windows {
     t_profile *profile;
     t_contacts *contacts;
     t_room_creation *room_creation;
+    t_preferences *preferences;
     t_exit *exit;
     t_main_menu *main_menu;
 };
@@ -332,6 +346,21 @@ gboolean mx_toggle_get_active(GtkWidget *widget);
     /* Dont look at funcitons below or you gonna die! */
 void mx_wait_for_json(t_info *info, int type1, int type2);
 
+    /* Work with volume button */
+GtkWidget *mx_vbutton_constuctor(char *button_name);
+void mx_vbutton_delete(GtkWidget *button);
+
+    /* Work with swtich button */
+GtkWidget *mx_switch_button_constuctor(char *button_name);
+void mx_switch_button_delete(GtkWidget *button);
+
+    /* Work with check button */
+GtkWidget *mx_check_button_constuctor(char *button_name, char *label);
+void mx_check_button_delete(GtkWidget *button);
+
+    /* Work with scale */
+GtkWidget *mx_scale_horizotal_constructor(char *name, gdouble min, gdouble max, gdouble step);
+GtkWidget *mx_scale_vertical_constructor(char *name, gdouble min, gdouble max, gdouble step);
 
     /* Hash */
 char *mx_create_hash(const char *pass);
@@ -386,6 +415,8 @@ void mx_on_click_back(GtkWidget *widget, gpointer data);
 
 /*                              Profile Screen */
 t_profile *mx_profile_constructor(t_info *info);
+void mx_profile_create_entrys(t_info *info, t_profile *new);
+void mx_profile_create_labels(t_info *info, t_profile *new);
 void mx_profile_show(t_info *info);
 void mx_profile_hide(t_info *info);
 
@@ -423,6 +454,19 @@ void mx_on_click_create_room_cancel(GtkWidget *widget, gpointer data);
 
     /* Validate data */
 gboolean mx_room_creation_data_validation(t_room_creation *room);
+
+/*                              Preferences Screen */
+
+t_preferences *mx_preferences_constructor(t_info *info);
+void mx_preferences_destructor(t_info *info);
+void mx_preferences_show(t_info *info);
+void mx_preferences_hide(t_info *info);
+
+    /* Callbacks */
+void mx_on_click_theme_switch(GtkWidget *widget, gboolean state, gpointer data);
+void mx_on_click_snoti_switch(GtkWidget *widget, gpointer data);
+void mx_on_click_vnoti_switch(GtkWidget *widget, gpointer data);
+void mx_on_click_enoti_switch(GtkWidget *widget, gpointer data);
 
 /*                              Exit Dialog */
 void mx_exit_constructor(t_info *info);

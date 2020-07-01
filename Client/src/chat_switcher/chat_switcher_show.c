@@ -8,6 +8,8 @@ static void show_switcher(GtkWidget *widget, gpointer data) {
 void mx_chat_switcher_show(t_info *info) {
     GtkCallback func = show_switcher;
 
+    info->current_window = info->windows->chat_switcher;
+
     gtk_container_foreach(GTK_CONTAINER(info->windows->chat_switcher->box), func, NULL);
     gtk_widget_show(info->windows->chat_switcher->scrollable);
     gtk_widget_show(info->windows->chat_switcher->box);

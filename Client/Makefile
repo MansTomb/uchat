@@ -17,12 +17,15 @@ message = message callbacks errors constructor
 
 main_menu = main_menu callbacks callbacks2 errors constructor
 
-profile = profile callbacks errors constructor send_json_upd_profile
+profile = profile callbacks errors constructor send_json_upd_profile          \
+	constructor2
 
 contacts = contacts callbacks errors constructor tree add_contact \
 	add_callbacks send_json_contacts get_json_contacts
 
 room_creation = room_creation callbacks errors constructor
+
+preferences = callbacks constructor errors preferences
 
 main_chat_screen = main_chat_screen
 
@@ -30,10 +33,11 @@ exit = exit callbacks constructor
 
 utils = background_images buttons grids input_labels layouts css labels       \
 	widget dialog scrollable stack stack_switcher fixed frame box listbox     \
-	toggle_button json_get_type wait_for_json create_hash
+	toggle_button json_get_type wait_for_json create_hash switch_button      \
+	volume_button check_button scale
 
 dirs = base login register chat chat_switcher message main_menu profile       \
-	contacts room_creation main_chat_screen utils json exit
+	contacts room_creation main_chat_screen utils json exit preferences
 
 FILES = $(foreach dir, $(dirs), $($(dir):%=$(dir)/%))
 

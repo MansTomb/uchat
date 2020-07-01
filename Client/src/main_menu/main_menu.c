@@ -14,6 +14,8 @@ void mx_find_and_hide_screen(t_info *info) {
         mx_register_screen_hide(info);
     if (window && window == (void *)windows->profile)
         mx_profile_hide(info);
+    if (window && window == (void *)windows->preferences)
+        mx_preferences_hide(info);
 }
 
 void mx_main_menu_show(t_info *info) {
