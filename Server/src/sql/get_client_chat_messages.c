@@ -18,9 +18,9 @@ cJSON *mx_get_client_chat_messages(sqlite3 *db, cJSON *jsn) {
     int rc = 0;
 
     asprintf(&query, "SELECT * FROM (SELECT m.user_id, u.login, m.send_time, "
-             "m.content FROM messages AS m JOIN users AS u ON m.user_id = u.id"
-             " WHERE m.chat_id = %i ORDER BY m.send_time DESC LIMIT 10) "
-             "ORDER BY send_time ASC;", MX_VINT(jsn, "cid"));
+            "m.content FROM messages AS m JOIN users AS u ON m.user_id = u.id"
+            " WHERE m.chat_id = %i ORDER BY m.send_time DESC LIMIT 10) "
+            "ORDER BY send_time ASC;", MX_VINT(jsn, "cid"));
     cJSON_AddArrayToObject(jsn, "messages");
     rc = sqlite3_exec(db, query, callback, jsn, &err);
     if (mx_check(rc, err, "get_client_chats_messages") != SQLITE_OK) {

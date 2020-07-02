@@ -12,7 +12,7 @@ static void test_register(sqlite3 *db) {
     printf("TYPE = %i\n", type);
 
     if (type == success_register) {
-        printf("SUCCESS: id = %i\n", MX_VINT(obj, "id"));
+        printf("SUCCESS: id = %i\n", MX_VINT(obj, "uid"));
     } else {
         printf("FAILED register\n");
     }
@@ -31,7 +31,7 @@ static void test_authorization(sqlite3 *db) {
     printf("TYPE = %i\n", type);
 
     if (type == success_authorization) {
-        printf("SUCCESS: id = %i\n", MX_VINT(obj, "id"));
+        printf("SUCCESS: id = %i\n", MX_VINT(obj, "uid"));
     } else {
         printf("FAILED authorization\n");
     }
@@ -50,7 +50,7 @@ static void test_new_pchat(sqlite3 *db) {
     printf("TYPE = %i\n", type);
 
     if (type == success_new_personal_chat) {
-        printf("SUCCESS: id = %i\n", MX_VINT(obj, "id"));
+        printf("SUCCESS: id = %i\n", MX_VINT(obj, "uid"));
     }
     else {
         printf("FAILED creating new chat\n");

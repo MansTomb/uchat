@@ -5,7 +5,7 @@ static int callback(void *data, int argc, char **argv, char **cols) {
 }
 
 static int get_id(void *data, int argc, char **argv, char **cols) {
-    cJSON_AddNumberToObject(data, "id", atoi(argv[0]));
+    cJSON_AddNumberToObject(data, "cid", atoi(argv[0]));
     cJSON_AddNumberToObject(data, "role", 1);
     return 0;
 }
