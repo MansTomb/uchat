@@ -7,7 +7,9 @@
 #define MX_DEL_WH(TABLE, COND) "DELETE FROM " #TABLE " WHERE " #COND ";"
 
 #define MX_TYPE(x) (cJSON_GetObjectItem(x, "json_type")->valueint)
+#define MX_PTYPE(x) (cJSON_GetObjectItem(x, "p_type")->valueint)
 #define MX_SET_TYPE(x, y) (cJSON_SetNumberValue(cJSON_GetObjectItem(x, "json_type"), y))
 #define MX_VINT(x, y) (cJSON_GetObjectItem(x, y)->valueint)
 #define MX_VSTR(x, y) (cJSON_GetObjectItem(x, y)->valuestring)
+#define MX_PIECE(x)   (cJSON_GetObjectItem(x, "piece")->valuestring)
 // #define MX_DEL(x, y)    (cJSON_DeleteItemFromObject(x, y))

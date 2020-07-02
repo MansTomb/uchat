@@ -50,7 +50,7 @@ int mx_receive_from_peer(t_info *info, t_peer *peer) {
         // printf("recv() %zd bytes\n", received_count);
     }
     // if (peer->current_receiving_byte >= sizeof(peer->receiving_buffer)) {
-        mx_message_handler(info, peer);
+        // mx_message_handler(info, peer);
         peer->current_receiving_byte = 0;
     // }
 

@@ -5,13 +5,14 @@
 { "json_type": 0, "login": "sasha1", "hash": "oibjktbkaslkbjgfk"}
 
 -- authorization
+
 { "json_type": 3, "login": "tatat", "hash": "jfhgkajdfhgkfdj"}
-{ "json_type": 3, "login": "trohalska", "hash": "444"}
+{ "json_type": 3, "login": "trohalska", "hash": "000"}
 { "json_type": 3, "login": "sasha1", "hash": "oibjktbkaslkbjgfk"}
 { "json_type": 3, "login": "ooo", "hash": "222"}
 
 -- change_password
-{ "json_type": 9, "login": "trohalska", "hash": "7", "new_hash": "444"}
+{ "json_type": 9, "login": "tatat", "hash": "", "new_hash": "444"}
 
 -- create personal chat
 { "json_type": 28, "uid1": 1, "uid2": 2 }
@@ -43,6 +44,14 @@
 { "json_type": 20, "uid": 2, "cid": 1}
 
 
+{"p_type": 0, "piece": "{\"json_type\": 3, \"login\": \"ooo\", \"hash\": \"222\"}"}
+
+{"p_type": 1, "piece": "{\"json_type\": 3, \"login\": \"ooo\", \"h"}
+{"p_type": 2, "piece": "ash\": \"222\"}"}
+
+ {"json_type": 3, "login": "ooo", "h
+ {"json_type": 3, "login": "ooo", "h
+ {"json_type": 3, "login": "ooo", "hash": "222"}
 
 
 

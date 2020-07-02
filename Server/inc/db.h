@@ -56,8 +56,6 @@ typedef enum {
 
     edit_message,
     delete_message,
-    success_edit_message,
-    success_delete_message,
     failed_edit_delete_message,                    // error db
 
     logout,

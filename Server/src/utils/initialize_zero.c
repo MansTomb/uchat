@@ -14,11 +14,20 @@ void mx_strip_newline(char *s) {
     }
 }
 
-void mx_json_to_sending_buffer(t_peer *peer, cJSON *json) {
-    char *root = cJSON_Print(json);
+char *mx_strjoin_free(const char *s1, const char *s2) {
+    char *result;
 
-    sprintf(peer->sending_buffer, "%s", root);
-
-    mx_print_serv_out(json, peer->sending_buffer);
-    // cJSON_Delete(json);
+    if (!s1 && !s2)
+        return NULL;
+    else if (!s1)
+        result = mx_strdup(s2);
+    else if (!s2)
+        result = mx_strdup(s1);
+    else if ((result = malloc(strlen(s1) + strlen(s2) + 1))) {
+        strcpy(result, s1);
+        strcat(result, s2);
+    }
+    if (s1)
+        mx_strdel((char **)&s1);
+    return result;
 }

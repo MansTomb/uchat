@@ -49,6 +49,7 @@ static void get_all_users(sqlite3 *db, cJSON *jsn) {
 
 static int get_mid(void *data, int argc, char **argv, char **cols) {
     cJSON_AddNumberToObject(data, "mid", atoi(argv[0]));
+    cJSON_AddStringToObject(data, "send_time", argv[1]);
     return 0;
 }
 
@@ -58,7 +59,8 @@ cJSON *mx_send_message(sqlite3 *db, cJSON *jsn) {
     int rc = 0;
 
     asprintf(&query, "INSERT INTO messages VALUES (NULL, %i, %i, %i, "
-            "datetime('now', 'localtime'), '%s'); SELECT last_insert_rowid();",
+            "datetime('now', 'localtime'), '%s'); "
+            "SELECT id, send_time FROM messages WHERE id=last_insert_rowid()",
             MX_VINT(jsn, "uid"), MX_VINT(jsn, "chat_id"),
             MX_VINT(jsn, "type"), MX_VSTR(jsn, "content"));
     rc = sqlite3_exec(db, query, get_mid, jsn, &err);

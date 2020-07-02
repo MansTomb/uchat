@@ -1,5 +1,16 @@
 #include "client.h"
 
+void mx_prepare_to_send(char *buff) {
+
+    cJSON *obj = cJSON_CreateObject();
+    cJSON_AddNumberToObject(obj, "p_type", 0);
+    cJSON_AddStringToObject(obj, "piece", buff);
+
+    char *root = cJSON_Print(obj);
+    sprintf(buff, "%s", root);
+
+}
+
 struct sockaddr_in serv_addr;
 
 static void *read_from_server(void *sock) {
@@ -41,20 +52,28 @@ static void *write_to_server(void *sock) {
     char buff[1024];
 
     // cJSON *obj = cJSON_CreateObject();
-    // cJSON_AddNumberToObject(obj, "json_type", 22);
-    // cJSON_AddNumberToObject(obj, "uid1", 1);
-    // cJSON_AddNumberToObject(obj, "uid2", 2);
+    // cJSON_AddNumberToObject(obj, "json_type", 3);
+    // cJSON_AddStringToObject(obj, "login", "trohalska");
+    // cJSON_AddStringToObject(obj, "hash", "000");
 
     // char *string = cJSON_Print(obj);
+    // cJSON_Delete(obj);
 
-    // if (string == NULL)
+    // cJSON *obj2 = cJSON_CreateObject();
+    // cJSON_AddNumberToObject(obj2, "p_type", 0);
+    // cJSON_AddStringToObject(obj2, "piece",
+    //     "{ \"json_type\": 3, \"login\": \"ooo\", \"hash\": \"222\"}");
+
+    // char *string2 = cJSON_Print(obj2);
+
+    // if (string2 == NULL)
     //     fprintf(stderr, "Failed to print.\n");
     // else {
-    //     sprintf(buff, "%s", string);
+    //     sprintf(buff, "%s", string2);
     //     printf("%s", buff);
     //     write(sockfd, buff, sizeof(buff));
     // }
-    // cJSON_Delete(obj);
+    // cJSON_Delete(obj2);
 
     while (1) {
         fgets(buff, sizeof(buff), stdin);
@@ -62,6 +81,9 @@ static void *write_to_server(void *sock) {
             close(sockfd);
             break;
         }
+
+        mx_prepare_to_send(buff);
+
         if ((n = write(sockfd, buff, sizeof(buff))) <= 0) {
             perror("write");
             pthread_exit((void *)EXIT_FAILURE);

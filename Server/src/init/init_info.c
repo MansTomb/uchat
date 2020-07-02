@@ -9,6 +9,8 @@ t_sock *sockets_create_struct(void) {
             new->connection_list[i].socket = MX_NO_SOCKET;
             new->connection_list[i].uid = MX_NO_PEER;
             // mx_create_peer(&new->connection_list[i]);
+            new->connection_list[i].large_message = NULL;
+            new->connection_list[i].m_type = 0;
         }
     }
     else

@@ -20,6 +20,7 @@
 #define MX_DB_PATH "Server/db/uchat.db"
 #define MX_SERVERLOG_PATH "Server/tmp/serverlogs"
 #define MX_EMAIL_PATH "Server/tmp/sendmail"
+#define MX_EMAIL_PATH_LOGIN "Server/tmp/sendmail_login"
 
 typedef struct sockaddr_in t_saddr;
 
@@ -27,6 +28,9 @@ typedef struct s_peer {                            // t_peer
     int socket;
     int uid;
     struct sockaddr_in addres;
+
+    char *large_message;
+    int m_type;
 
     // t_message_queue send_buffer;  // Messages that waiting for send.
 
@@ -104,13 +108,14 @@ int mx_receive_from_peer(t_info *info, t_peer *peer);
 
     /* Send_message.c */
 void mx_send_message_all(t_sock *sock, char *buff, int uid);
-void mx_send_msg_self(t_sock *sock, t_peer *peer);
-int mx_send_msg_client(t_sock *sock, char *buff, int uid);
-void mx_send_msg_clients(t_sock *sock, char *buff, int *uid, int len);
+int mx_send_msg_client(t_sock *sock, t_peer *peer, cJSON *bd, int uid);
+void mx_send_msg_clients(t_sock *sock, t_peer *peer, cJSON *bd, int *uid);
+
+void mx_send_message_handler(t_sock *sock, t_peer *peer, cJSON *bd, int sd);
 
     /* message_handler.c */
 void mx_message_handler(t_info *info, t_peer *peer);
-void mx_response_db(t_info *info, t_peer *peer, int type, cJSON *get);
+void mx_response_db(t_info *info, t_peer *peer, cJSON *get);
 
     /* func_response_db.c */
 void mx_db_registration(t_info *info, t_peer *peer, cJSON *get);
@@ -129,9 +134,12 @@ void mx_db_get_self_response(t_info *info, t_peer *peer, cJSON *get,
     /* True utils for easy init */
 void mx_initialize_zero_int_arr(int *arr, int size);
 void mx_strip_newline(char *s);
-void mx_json_to_sending_buffer(t_peer *peer, cJSON *json);
+char *mx_strjoin_free(const char *s1, const char *s2);
 
-void mx_message_on_mail(char *email);
+void mx_json_to_sending_buffer(char *buff, cJSON *json);
+int mx_check_err_json(cJSON *new);
+
+void mx_message_on_mail(char *email, char *path);
 
 void mx_print_serv_out(cJSON *json, char *buff);
 

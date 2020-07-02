@@ -24,7 +24,7 @@ static void get_notify_and_email(sqlite3 *db, cJSON *jsn) {
     else {
         if (MX_VINT(jsn, "email_set") == 1)
             if ((email = MX_VSTR(jsn, "email")) && email[0])
-                mx_message_on_mail(MX_VSTR(jsn, "email"));
+                mx_message_on_mail(MX_VSTR(jsn, "email"), MX_EMAIL_PATH);
     }
     free(query);
 }
