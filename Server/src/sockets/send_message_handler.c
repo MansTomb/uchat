@@ -41,23 +41,40 @@ static cJSON *create_peice(int type, char *str) {
 
 void mx_send_message_handler(t_sock *sock, t_peer *peer, cJSON *bd, int sd) {
     char *root = cJSON_Print(bd);
-    mx_print_serv_out(bd, root);
+    char *large_message;
+
+    // mx_print_serv_out(bd, root);
+
     char send_buff[1024];
+    // printf("root = %lu\n", strlen(root));
 
     if (strlen(root) < 1000) {
         mx_json_to_sending_buffer(send_buff, create_peice(0, root));
         send_one(sock, peer, sd, send_buff);
     }
     else {
-        peer->large_message = malloc((strlen(root) + 1) * sizeof(char));
-        sprintf(peer->large_message, "%s", root);
+        large_message = strdup(root);
+        printf("large_message size = %lu\n", strlen(large_message));
+        // printf("message = %s\n", large_message);
 
-        sprintf(peer->sending_buffer, "lalala");
-        send_one(sock, peer, sd, send_buff);
+        unsigned long i = 0;
+        while (large_message[i]) {
+            char str[512];
+            bzero(str, strlen(str));
+            strncpy(str, &large_message[i], 511);
 
-        // считувати з буфера і відправляти пакетами
-
-        // mx_print_serv_out(bd, peer->large_message);
-        mx_strdel(&peer->large_message);
+            i += strlen(str);
+            printf("i = %lu\n", i);
+            if (i == strlen(large_message)) {
+                mx_json_to_sending_buffer(send_buff, create_peice(2, str));
+                send_one(sock, peer, sd, send_buff);
+                break;
+            }
+            else {
+                mx_json_to_sending_buffer(send_buff, create_peice(1, str));
+                send_one(sock, peer, sd, send_buff);
+            }
+        }
+        mx_strdel(&large_message);
     }
 }

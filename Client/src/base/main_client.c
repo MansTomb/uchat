@@ -1,15 +1,128 @@
 #include "client.h"
 
-void mx_prepare_to_send(char *buff) {
+// ---------------------------------------------------------------------------- RECEIVE
 
-    cJSON *obj = cJSON_CreateObject();
-    cJSON_AddNumberToObject(obj, "p_type", 0);
-    cJSON_AddStringToObject(obj, "piece", buff);
+int mx_check_err_json(cJSON *new) {
+    const char *error_ptr;
 
-    char *root = cJSON_Print(obj);
-    sprintf(buff, "%s", root);
-
+    if (new == NULL)
+        if ((error_ptr = cJSON_GetErrorPtr()) != NULL) {
+            fprintf(stderr, "cJSON_Parse error, before: %s", error_ptr);
+            return 1;
+        }
+    return 0;
 }
+
+static void one_message_handler(char *receiving_buff) { // переробити під клієнт Антона
+    cJSON *json = cJSON_Parse(receiving_buff);
+    if (mx_check_err_json(json))
+        return;
+
+    puts(receiving_buff);         // вивід в термінал
+
+    bzero(receiving_buff, strlen(receiving_buff));
+}
+
+static void large_message_handler(cJSON *json, char *large_message) { // переробити під клієнт Антона
+    int ptype = cJSON_GetObjectItem(json, "p_type")->valueint;
+    char *piece;
+    cJSON *all_json;
+
+    if (ptype == 1 || ptype == 2) {
+        piece = cJSON_GetObjectItem(json, "piece")->valuestring;
+        large_message = mx_strjoin_free(large_message, piece);
+
+        if (ptype == 2) {
+            printf("large = %s\n", large_message);
+            all_json = cJSON_Parse(large_message);
+            if (mx_check_err_json(all_json))
+                return;
+
+            puts(large_message);  // вивід в термінал
+
+            mx_strdel(&large_message);
+            cJSON_Delete(all_json);
+        }
+    }
+    else
+        printf("ERROR large_message_handler\n");
+}
+
+void mx_receive_message_handler(char *receiving_buff, char *large_message) {
+    cJSON *json;
+    int type;
+
+    json = cJSON_Parse(receiving_buff);
+    if (mx_check_err_json(json)) {
+        puts(receiving_buff);     // вивід в термінал
+        return;
+    }
+    type = cJSON_GetObjectItem(json, "p_type")->valueint;
+    if (type == 0) {            // обробка одного повідомлення розміром до 1024
+        one_message_handler(cJSON_GetObjectItem(json, "piece")->valuestring);
+    }
+    else if (type == 1 || type == 2) {  // обробка одного повідомлення великого розміру
+        puts(receiving_buff);
+        puts("111\n");
+        large_message_handler(json, large_message);
+    }
+    else {
+        printf("ERROR type\n");
+    }
+    cJSON_Delete(json);
+}
+
+// ---------------------------------------------------------------------------- SEND
+
+
+static void json_to_sending_buffer(char *buff, cJSON *json) {
+    char *root;
+
+    root = cJSON_Print(json);
+    sprintf(buff, "%s", root);
+}
+
+static void send_one(int sd, char *buff) {
+    int n;
+
+    n = send(sd, buff, strlen(buff), MSG_DONTWAIT);
+    if (n <= 0) {
+        perror("write");
+        pthread_exit((void *)EXIT_FAILURE);
+    }
+}
+
+static cJSON *create_peice(int type, char *str) {
+    cJSON *obj = cJSON_CreateObject();
+
+    cJSON_AddNumberToObject(obj, "p_type", type);
+    cJSON_AddStringToObject(obj, "piece", str);
+
+    return obj;
+}
+
+void mx_send_message_handler(char *buff, int sd) {
+    char send_buff[1024];
+
+    if (strlen(buff) < 1000) {
+        json_to_sending_buffer(send_buff, create_peice(0, buff));
+        send_one(sd, send_buff);
+    }
+    else {
+
+        // peer->large_message = malloc((strlen(root) + 1) * sizeof(char));
+        // sprintf(peer->large_message, "%s", root);
+
+        // sprintf(send_buff, "lalala");
+        // send_one(sock, peer, sd, send_buff);
+
+        // // считувати з строки і відправляти пакетами через буфер
+
+        // mx_strdel(&peer->large_message);
+    }
+}
+
+// ---------------------------------------------------------------------------- MAIN
 
 struct sockaddr_in serv_addr;
 
@@ -17,6 +130,7 @@ static void *read_from_server(void *sock) {
     int sockfd = *(int *)sock;
     int n, i;
     char buff[1024];
+    char *large_message = NULL;
     struct sockaddr addr;
     socklen_t clientlen;
 
@@ -39,9 +153,10 @@ static void *read_from_server(void *sock) {
                 exit(0);
             }
         }
-        // mx_perror_and_exit(MX_ERR_CL_RE);
-        puts(buff);
-        bzero(buff, sizeof(buff));
+        else {
+            // puts(buff);
+            mx_receive_message_handler(buff, large_message);
+        }
     }
     pthread_exit(0);
 }
@@ -77,18 +192,8 @@ static void *write_to_server(void *sock) {
 
     while (1) {
         fgets(buff, sizeof(buff), stdin);
-        if (!strncmp(buff, "/quit", 5)) {
-            close(sockfd);
-            break;
-        }
-
-        mx_prepare_to_send(buff);
-
-        if ((n = write(sockfd, buff, sizeof(buff))) <= 0) {
-            perror("write");
-            pthread_exit((void *)EXIT_FAILURE);
-        }
-            // mx_perror_and_exit(MX_ERR_CL_WR);
+        mx_send_message_handler(buff, sockfd);
+        // mx_perror_and_exit(MX_ERR_CL_WR);
     }
     pthread_exit(0);
 }

@@ -77,6 +77,7 @@ void mx_strdel(char **str);
 char *mx_strdup(const char *str);
 
 char *mx_strjoin(const char *s1, const char *s2);
+char *mx_strjoin_free(const char *s1, const char *s2);
 char *mx_strndup(const char *str, size_t n);
 
 char *mx_strnew(const int size, char c);
