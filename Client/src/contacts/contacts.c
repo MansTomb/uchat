@@ -9,6 +9,7 @@ void mx_contacts_show(t_info *info) {
     info->current_window = info->windows->contacts;
     
     gtk_widget_show(contacts->treeview);
+    gtk_widget_show(contacts->crtgrp);
     gtk_widget_show(contacts->addbt);
 }
 
@@ -18,5 +19,6 @@ void mx_contacts_hide(t_info *info) {
     info->current_window = NULL;
 
     gtk_widget_hide(contacts->treeview);
+    gtk_widget_hide(contacts->crtgrp);
     gtk_widget_hide(contacts->addbt);
 }

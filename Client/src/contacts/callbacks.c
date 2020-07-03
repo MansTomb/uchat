@@ -27,7 +27,6 @@ void mx_contacts_tree_on_click(GtkTreeView *tree_view, GtkTreePath *path,
         printf("Nazata kolonka\n");
         contacts->choosen_contact = iter;
         gtk_menu_popup_at_pointer(GTK_MENU(contacts->menu), NULL);
-        // gtk_tree_store_remove(GTK_TREE_STORE(model), &iter);
     }
 }
 
@@ -39,5 +38,6 @@ void mx_contacts_delete(GtkWidget *widget, gpointer data) {
     t_contacts *contacts = data;
     GtkTreeModel *model = gtk_tree_view_get_model(GTK_TREE_VIEW(contacts->treeview));
 
+    // check if this is a grp_name if it is make request to delete like a grp;
     gtk_tree_store_remove(GTK_TREE_STORE(model), &contacts->choosen_contact);
 }

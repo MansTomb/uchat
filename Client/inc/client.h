@@ -17,6 +17,7 @@ typedef struct s_windows t_windows;
 typedef struct s_main_menu t_main_menu;
 typedef struct s_profile t_profile;
 typedef struct s_contact_add t_contact_add;
+typedef struct s_group_create t_group_create;
 typedef struct s_contacts t_contacts;
 typedef struct s_room_creation t_room_creation;
 typedef struct s_exit t_exit;
@@ -210,14 +211,24 @@ struct s_contact_add {
     GtkWidget *dialog_cancelbt;
 };
 
+struct s_group_create {
+    GtkWidget *dialog;
+    GtkWidget *fixed;
+    GtkWidget *entry;
+    GtkWidget *dialog_crtbt;
+    GtkWidget *dialog_cancelbt;
+};
+
 struct s_contacts {
     GtkWidget *treeview;
     GtkWidget *treemodel;
     GtkWidget *menu;
 
     GtkWidget *addbt;
+    GtkWidget *crtgrp;
 
     t_contact_add *dialog;
+    t_group_create *dialog2;
 
     t_info *info;
 
@@ -462,7 +473,9 @@ void mx_contacts_show(t_info *info);
 void mx_contacts_hide(t_info *info);
 
 t_contact_add *mx_contacts_add_dialog_constructor(t_info *info, t_contacts *contacts);
+t_group_create *mx_contacts_group_create_dialog_constructor(t_info *info, t_contacts *contacts);
 void mx_contacts_add_dialog_destructor(t_contact_add *dialog);
+void mx_contacts_group_create_dialog_destructor(t_group_create *dialog);
 
     /* Callbacks */
 void mx_contacts_tree_on_click(GtkTreeView *tree_view, GtkTreePath *path, GtkTreeViewColumn *column, gpointer user_data);
@@ -471,6 +484,9 @@ void mx_contacts_delete(GtkWidget *widget, gpointer data);
 void mx_conctacts_add_dialog(GtkWidget *widget, gpointer data);
 void mx_contact_add(GtkWidget *widget, gpointer data);
 void mx_contact_add_cancel(GtkWidget *widget, gpointer data);
+void mx_conctacts_creategrp_dialog(GtkWidget *widget, gpointer data);
+void mx_contact_group_create(GtkWidget *widget, gpointer data);
+void mx_contact_group_cancel(GtkWidget *widget, gpointer data);
 
 /*                              Room Creation */
 void mx_room_creation_constructor(t_info *info);

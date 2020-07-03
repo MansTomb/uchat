@@ -47,4 +47,5 @@ void mx_contacts_add_dialog_destructor(t_contact_add *dialog) {
     gtk_widget_destroy(dialog->combobox);
     gtk_widget_destroy(dialog->fixed);
     gtk_widget_destroy(dialog->dialog);
+    free(dialog);
 }

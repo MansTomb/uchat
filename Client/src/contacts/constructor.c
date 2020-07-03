@@ -91,6 +91,7 @@ t_contacts *mx_contacts_constructor(t_info *info) {
         list_store = create_store(info);
         new->treeview = mx_contacts_tree_constructor(info);
         new->addbt = mx_button_constuctor("Add Contact", "contacts_button_add");
+        new->crtgrp = mx_button_constuctor("Create Group", "contacts_create_group");
         new->menu = create_menu(info);
         new->info = info;
 
@@ -101,8 +102,11 @@ t_contacts *mx_contacts_constructor(t_info *info) {
         MX_GSIG_CON(new->treeview, "row-activated",
                                  MX_CB(mx_contacts_tree_on_click), new);
         MX_GSIG_CON(new->addbt, "clicked", MX_CB(mx_conctacts_add_dialog), new);
+        MX_GSIG_CON(new->crtgrp, "clicked", MX_CB(mx_conctacts_creategrp_dialog), new);
         gtk_widget_set_size_request(new->addbt, 280, 50);
+        gtk_widget_set_size_request(new->crtgrp, 280, 50);
         mx_layout_put(info->layout, new->addbt, 700, 40);
+        mx_layout_put(info->layout, new->crtgrp, 400, 40);
         mx_layout_put(info->layout, new->treeview, 300, 100);
         // gtk_widget_show(new->treeview);
         // gtk_tree_model_foreach(GTK_TREE_MODEL(list_store), foreach_func, NULL);

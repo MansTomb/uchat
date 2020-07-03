@@ -134,6 +134,18 @@
     font-size: 20px;
 }
 
+.contacts_create_group {
+    background-color: white;
+    border-radius: 20px;
+    font-size: 20px;
+}
+
+.contacts_create_group:hover:active {
+    background-color: white;
+    border-radius: 20px;
+    font-size: 20px;
+}
+
 .contacts_button_cancel {
     background-color: white;
     border-radius: 20px;
