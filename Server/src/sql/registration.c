@@ -5,7 +5,7 @@ static int callback(void *data, int argc, char **argv, char **cols) {
 }
 
 static int get_id(void *data, int argc, char **argv, char **cols) {
-    cJSON_AddNumberToObject(data, "id", atoi(argv[0]));
+    cJSON_AddNumberToObject(data, "uid", atoi(argv[0]));
     return 0;
 }
 
@@ -14,10 +14,8 @@ static void accept_register(sqlite3 *db, cJSON *jsn) {
     char *err = NULL;
     int rc = 0;
 
-    asprintf(&query, "INSERT INTO users VALUES (NULL, '%s', '%s'); "
-            "SELECT last_insert_rowid();",
-            cJSON_GetObjectItem(jsn, "login")->valuestring,
-            cJSON_GetObjectItem(jsn, "hash")->valuestring);
+    asprintf(&query, "INSERT INTO users VALUES (NULL, '%s', '%s'); SELECT last"
+            "_insert_rowid();", MX_VSTR(jsn, "login"), MX_VSTR(jsn, "hash"));
 
     rc = sqlite3_exec(db, query, get_id, jsn, &err);
     if (mx_check(rc, err, "accepted registration") != SQLITE_OK) {

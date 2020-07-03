@@ -14,7 +14,7 @@ static void changing_password(sqlite3 *db, cJSON *jsn) {
             MX_VSTR(jsn, "login"), MX_VSTR(jsn, "hash"));
 
     rc = sqlite3_exec(db, query, NULL, NULL, &err);
-    if (mx_check(rc, err, "inserting new password") != SQLITE_OK) {
+    if (mx_check(rc, err, "updating password") != SQLITE_OK) {
         MX_SET_TYPE(jsn, failed_change_password);
     }
     free(query);
@@ -26,7 +26,7 @@ cJSON *mx_change_password(sqlite3 *db, cJSON *jsn) {
     int rc = 0;
 
     asprintf(&query, "SELECT count(*) FROM users WHERE login = '%s' "
-    "AND hash = '%s';", MX_VSTR(jsn, "login"), MX_VSTR(jsn, "hash"));
+            "AND hash = '%s';", MX_VSTR(jsn, "login"), MX_VSTR(jsn, "hash"));
     rc = sqlite3_exec(db, query, callback, jsn, &err);
 
     MX_SET_TYPE(jsn, success_change_password);

@@ -36,8 +36,8 @@ static void get_all_users(sqlite3 *db, cJSON *jsn) {
     int *uid = malloc(MAX_CLIENTS * sizeof(int));
 
     bzero(uid, MAX_CLIENTS);
-    asprintf(&query, "SELECT user_id FROM users_chats WHERE chat_id == %i "
-             "AND role > 0;", MX_VINT(jsn, "chat_id"));
+    asprintf(&query, "SELECT user_id FROM users_chats WHERE chat_id = %i "
+            "AND role > 0;", MX_VINT(jsn, "cid"));
 
     rc = sqlite3_exec(db, query, get_id, uid, &err);
     if (mx_check(rc, err, "get all users") != SQLITE_OK)
@@ -49,7 +49,7 @@ static void get_all_users(sqlite3 *db, cJSON *jsn) {
 
 static int get_mid(void *data, int argc, char **argv, char **cols) {
     cJSON_AddNumberToObject(data, "mid", atoi(argv[0]));
-    cJSON_AddStringToObject(data, "send_time", argv[1]);
+    cJSON_AddStringToObject(data, "time", argv[1]);
     return 0;
 }
 

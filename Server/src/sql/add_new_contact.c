@@ -2,7 +2,7 @@
 
 static int callback(void *data, int argc, char **argv, char **cols) {
     if (!(strcmp(argv[0], "1"))) {
-        cJSON_AddNumberToObject(data, "contact_id", atoi(argv[1]));
+        cJSON_AddNumberToObject(data, "coid", atoi(argv[1]));
         return false;
     }
     return true;
@@ -14,7 +14,7 @@ static void add_new_contact(sqlite3 *db, cJSON *jsn) {
     int rc = 0;
 
     asprintf(&query, "INSERT INTO contacts_lists VALUES (%i, %i, NULL);",
-            MX_VINT(jsn, "uid"), MX_VINT(jsn, "contact_id"));
+            MX_VINT(jsn, "uid"), MX_VINT(jsn, "coid"));
 
     rc = sqlite3_exec(db, query, NULL, NULL, &err);
     if (mx_check(rc, err, "adding new contact") != SQLITE_OK) {
@@ -28,6 +28,7 @@ cJSON *mx_add_new_contact(sqlite3 *db, cJSON *jsn) {
     char *err = NULL;
     int rc = 0;
 
+    // should take coid = contact id
     asprintf(&query, "SELECT count(*), id FROM users WHERE login = '%s';",
             MX_VSTR(jsn, "friend_login"));
     rc = sqlite3_exec(db, query, callback, jsn, &err);
