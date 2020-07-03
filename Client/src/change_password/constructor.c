@@ -58,5 +58,6 @@ void mx_change_pass_destructor(t_info *info) {
     gtk_widget_destroy(change_password->changebt);
     gtk_widget_destroy(change_password->cancelbt);
     gtk_widget_destroy(change_password->dialog);
+    free(change_password);
     info->windows->change_password = NULL;
 }
