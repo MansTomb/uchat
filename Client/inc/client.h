@@ -59,6 +59,7 @@ struct s_data {
     t_profile_data *profile;
 
     t_list *contacts;
+    t_list *cont_grp_names;
     t_list *chats_list;
 };
 
