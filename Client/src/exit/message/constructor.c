@@ -35,7 +35,7 @@ static void set_prefernces(t_message *new, int msgheight) {
     GtkWidget *lable;
 
     lable = gtk_bin_get_child(GTK_BIN(new->button));
-    gtk_widget_set_size_request(new->button, 600, msgheight / 2);
+    gtk_widget_set_size_request(new->button, 300, msgheight);
     gtk_label_set_line_wrap(GTK_LABEL(lable), TRUE);
     gtk_label_set_line_wrap_mode(GTK_LABEL(lable), PANGO_WRAP_CHAR);
     gtk_label_set_max_width_chars(GTK_LABEL(lable), 50);
@@ -44,13 +44,13 @@ static void set_prefernces(t_message *new, int msgheight) {
 
 t_message *mx_message_construct(t_info *info, char *message, char *username) {
     t_message *new = malloc(sizeof(t_message));
-    
+    char *name_a_date = mx_strjoin("21:47 ", username);
 
     if (new) {
         new->icon = gtk_image_new_from_pixbuf(gdk_pixbuf_new_from_file_at_scale("./Resources/images/online.png", 40, 40, TRUE, NULL));
         new->button = mx_button_constuctor(message, "message_text");
-        new->lable = mx_label_constructor("username_inmsg", username);
-        new->frame = mx_fixed_constructor("message_container", 600, MX_MSGHEIGHT(message) / 2);
+        new->lable = mx_label_constructor("username_inmsg", name_a_date);
+        new->frame = mx_fixed_constructor("message_container", 300, MX_MSGHEIGHT(message));
         new->menu = create_menu(info);
         new->info = info;
 

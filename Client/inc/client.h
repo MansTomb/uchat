@@ -3,7 +3,7 @@
 #include "uchat.h"
 #include "defines_client.h"
 
-#define MX_MSGHEIGHT(msg) (strlen(msg) + 10 + mx_count_substr(msg, "\n") * 20)
+#define MX_MSGHEIGHT(msg) (strlen(msg) + 20 + mx_count_substr(msg, "\n") * 20)
 
 typedef struct sockaddr_in t_saddr;
 typedef struct s_sock t_sock;
@@ -78,13 +78,11 @@ struct s_background_image {
 struct s_message {
     GtkWidget *button;
     GtkWidget *lable;
-    // GtkWidget *layout;
     GtkWidget *frame;
+    GtkWidget *icon;
     GtkWidget *menu;
 
     t_info *info;
-
-    // GtkWidget *event;
 };
 
 struct s_login {
@@ -347,7 +345,7 @@ void mx_css_from_data(t_info *info, char *data);
 GtkWidget *mx_label_constructor(char *name, char *text);
 
     /* Work with dialog windows */
-void mx_dialog_warning_create(GtkWidget *parent, char *message);
+void mx_dialog_warning_create(GtkWidget *parent, char * );
 
     /* Work with scrollable */
 GtkWidget *mx_scrollable_constructor(char *name, gint width, gint height);

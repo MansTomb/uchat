@@ -8,7 +8,8 @@
 }
 
 .message_list {
-    background-color: grey;
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(74,167,171,1) 0%, rgba(154,152,200,1) 49%, rgba(38,171,193,1) 100%);
 }
 
 .chat_name_label {
@@ -17,19 +18,19 @@
 }
 
 #message_text:hover {
-    border-radius: 30px;
+    border-radius: 20px;
     border-color: black;
     background-color: white;
 }
 
 #message_text:active {
-    border-radius: 30px;
+    border-radius: 20px;
     background-color: white;
     border-color: black;
 }
 
 #message_text {
-    border-radius: 30px;
+    border-radius: 20px;
     background-color: white;
     font-size: 20px;
     border-color: black;
@@ -51,22 +52,22 @@
     font-size: 20px;
 }
 
-.main_menu_buttons:hover:active {
-    background-color: whitesmoke;
-    border-radius: 20px;
-    font-size: 20px;
-}
-
 .chat_chooser_button {
     background-color: white;
     border-radius: 20px;
     font-size: 20px;
 }
 
+.main_menu_buttons:hover:active {
+    background-color: whitesmoke;
+    border-radius: 20px;
+    font-size: 30px;
+}
+
 .main_menu_buttons {
     background-color: white;
     border-radius: 20px;
-    font-size: 20px;
+    font-size: 30px;
 }
 
 .profile_scrollable {
