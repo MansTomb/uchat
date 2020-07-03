@@ -10,27 +10,27 @@ static int one_message_handler(t_info *info, t_peer *peer, cJSON *get) {
     return 0;
 }
 
-void mx_large_message_handler(t_info *info, t_peer *peer, cJSON *get) {
+void mx_large_message_handler(t_info *info, t_peer *p, cJSON *get) {
     int ptype = MX_PTYPE(get);
     cJSON *json;
 
     if (ptype == 1 || ptype == 2) {
-        peer->m_type = ptype;
-        peer->large_message = mx_strjoin_free(peer->large_message, MX_PIECE(get));
+        p->m_type = ptype;
+        p->large_message = mx_strjoin_free(p->large_message, MX_PIECE(get));
         if (ptype == 2) {
-            json = cJSON_Parse(peer->large_message);
+            json = cJSON_Parse(p->large_message);
             if (mx_check_err_json(json))
                 return;
-            mx_response_db(info, peer, json);
-            peer->m_type = 0;
-            mx_strdel(&peer->large_message);
+            mx_response_db(info, p, json);
+            p->m_type = 0;
+            mx_strdel(&p->large_message);
         }
     }
     else
         printf("ERROR mx_large_message_handler\n");
 }
 
-void mx_message_handler(t_info *info, t_peer *peer) {
+void mx_receive_message_handler(t_info *info, t_peer *peer) {
     cJSON *get;
     int type;
 
@@ -41,7 +41,10 @@ void mx_message_handler(t_info *info, t_peer *peer) {
     type = MX_PTYPE(get);
     if (type == 0)
         one_message_handler(info, peer, get);
-    else
+    else if (type == 1 || type == 2)
         mx_large_message_handler(info, peer, get);
+    else
+        printf("ERROR p_type\n");
+
     cJSON_Delete(get);
 }

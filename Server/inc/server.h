@@ -114,7 +114,7 @@ void mx_send_msg_clients(t_sock *sock, t_peer *peer, cJSON *bd, int *uid);
 void mx_send_message_handler(t_sock *sock, t_peer *peer, cJSON *bd, int sd);
 
     /* message_handler.c */
-void mx_message_handler(t_info *info, t_peer *peer);
+void mx_receive_message_handler(t_info *info, t_peer *peer);
 void mx_response_db(t_info *info, t_peer *peer, cJSON *get);
 
     /* func_response_db.c */
@@ -134,7 +134,6 @@ void mx_db_get_self_response(t_info *info, t_peer *peer, cJSON *get,
     /* True utils for easy init */
 void mx_initialize_zero_int_arr(int *arr, int size);
 void mx_strip_newline(char *s);
-char *mx_strjoin_free(const char *s1, const char *s2);
 
 void mx_json_to_sending_buffer(char *buff, cJSON *json);
 int mx_check_err_json(cJSON *new);

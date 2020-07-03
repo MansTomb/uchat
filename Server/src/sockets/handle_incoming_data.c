@@ -35,7 +35,7 @@ void mx_handle_incoming_data(t_info *info) {
             if (mx_receive_from_peer(info, &sock->connection_list[i]) != 0)
                 mx_handle_disconnect(info->sock, &info->sock->connection_list[i]);
             else
-                mx_message_handler(info, &info->sock->connection_list[i]);
+                mx_receive_message_handler(info, &info->sock->connection_list[i]);
         }
     }
 
