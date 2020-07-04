@@ -1,4 +1,6 @@
-#include "server.h"
+#include "client.h"
+
+#define MX_MAX_SEND_SIZE 4096
 
 static void json_to_sending_buffer(char *buff, cJSON *json) {
     char *root;
@@ -26,23 +28,15 @@ static cJSON *create_peice(int type, char *str) {
     return obj;
 }
 
-void mx_send_message_handler(char *buff, int sd) {
-    char send_buff[1024];
+void mx_send_message_handler(cJSON *json, int sd) {
+    char send_buff[MX_MAX_SEND_SIZE];
+    char *buff = cJSON_Print(json);
 
-    if (strlen(buff) < 1000) {
+    if (strlen(buff) < 3 * MX_MAX_SEND_SIZE / 2) {
         json_to_sending_buffer(send_buff, create_peice(0, buff));
         send_one(sd, send_buff);
     }
     else {
-
-        // peer->large_message = malloc((strlen(root) + 1) * sizeof(char));
-        // sprintf(peer->large_message, "%s", root);
-
-        // sprintf(peer->sending_buffer, "lalala");
-        // send_one(sock, peer, sd, send_buff);
-
-        // // считувати з строки і відправляти пакетами через буфер
-
-        // mx_strdel(&peer->large_message);
+        printf("еще нет\n");
     }
 }

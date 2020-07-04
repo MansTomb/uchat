@@ -41,7 +41,7 @@
 { "json_type": 18, "uid": 2}
 
 -- get client chats messages
-{ "json_type": 20, "uid": 2, "cid": 1}
+{ "json_type": 18, "uid": 2, "cid": 1}
 
 
 {"p_type": 0, "piece": "{\"json_type\": 3, \"login\": \"ooo\", \"hash\": \"222\"}"}

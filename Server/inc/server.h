@@ -6,13 +6,7 @@
 /* Maximum bytes that can be send() or recv() via net by one call.
  * It's a good idea to test sending one byte by one.
  */
-#define MX_MAX_SEND_SIZE 1024
-
-/* Size of send queue (messages). */
-#define MX_MAX_MESSAGES_BUFFER_SIZE 10
-
-#define MX_SENDER_MAXSIZE 128
-#define MX_DATA_MAXSIZE 512
+#define MX_MAX_SEND_SIZE 4096
 
 #define MX_NO_SOCKET -1
 #define MX_NO_PEER -1
@@ -41,12 +35,12 @@ typedef struct s_peer {                            // t_peer
     * that will be send next call.
     */
     // t_message sending_buffer;
-    char sending_buffer[MX_MAX_SEND_SIZE];
+    char send_buff[MX_MAX_SEND_SIZE];
     size_t current_sending_byte;
 
     /* The same for the receiving message. */
     // t_message receiving_buffer;
-    char receiving_buffer[MX_MAX_SEND_SIZE];
+    char recv_buff[MX_MAX_SEND_SIZE];
     size_t current_receiving_byte;
 }              t_peer;
 

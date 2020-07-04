@@ -16,7 +16,7 @@ static int get_all(void *data, int argc, char **argv, char **cols) {
     for (size_t i = 0; i < size; ++i)
         cJSON_AddStringToObject(data, strs[i], argv[i]);
     for (size_t i = 0; i < sizeof(ints) / sizeof(ints[0]); ++i)
-        cJSON_AddStringToObject(data, strs[i], atoi(argv[i + size]));
+        cJSON_AddNumberToObject(data, strs[i], atoi(argv[i + size]));
 
     return 0;
 }

@@ -31,7 +31,7 @@ void mx_response_db(t_info *info, t_peer *peer, cJSON *get) {
         mx_db_registration(info, peer, get);  // + дописать его в канал general или нет ???
     else if (type == make_authorization)
         mx_db_authorization(info, peer, get);  // + подгрузка истории
-    else if (type == make_deletion)
+    else if (type == make_delete_user)
         mx_db_delete(info, peer, get);
 
     else if (type == send_message)
@@ -40,8 +40,8 @@ void mx_response_db(t_info *info, t_peer *peer, cJSON *get) {
         mx_db_edit_message(info, peer, get);
     else if (type == logout) {
         peer->uid = MX_NO_PEER;
-        mx_json_to_sending_buffer(peer->sending_buffer, get);
-        mx_print_serv_out(get, peer->sending_buffer);
+        mx_json_to_sending_buffer(peer->send_buff, get);
+        mx_print_serv_out(get, peer->send_buff);
     }
 
     else if (type == make_change_password)

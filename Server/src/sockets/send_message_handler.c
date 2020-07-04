@@ -21,10 +21,10 @@ static int send_check(t_sock *sock, t_peer *client, int n) {
     return 0;
 }
 
-static void send_one(t_sock *sock, t_peer *peer, int sd, char *buff) {
+static void send_one(t_sock *sock, t_peer *peer, int sd) {
     int n;
 
-    n = send(sd, buff, strlen(buff), MSG_DONTWAIT);
+    n = send(sd, peer->send_buff, strlen(peer->send_buff), MSG_DONTWAIT);
     if (n <= 0) {
         send_check(sock, peer, n);
     }
@@ -39,42 +39,51 @@ static cJSON *create_peice(int type, char *str) {
     return obj;
 }
 
+static void send_large(t_sock *sock, t_peer *p, int sd, char *large_message) {
+    unsigned long i = 0;
+    char str[MX_MAX_SEND_SIZE / 2];
+
+    // bzero(str, strlen(str));
+    while (large_message[i]) {
+        strncpy(str, &large_message[i], MX_MAX_SEND_SIZE / 2 - 1);
+        i += strlen(str);
+        // printf("i = %lu\n", i);                    //// for test
+
+        if (i == strlen(large_message)) {
+            mx_json_to_sending_buffer(p->send_buff, create_peice(2, str));
+            send_one(sock, p, sd);
+            // puts(send_buff);                       //// for test
+            break;
+        }
+        else {
+            mx_json_to_sending_buffer(p->send_buff, create_peice(1, str));
+            send_one(sock, p, sd);
+        }
+        sleep(1);
+        // puts(send_buff);                       //// for test
+    }
+}
+
 void mx_send_message_handler(t_sock *sock, t_peer *peer, cJSON *bd, int sd) {
     char *root = cJSON_Print(bd);
     char *large_message;
+    int len;
 
-    // mx_print_serv_out(bd, root);
+    mx_print_serv_out(bd, root);
+    // printf("root size = %lu\n", strlen(root));        //// for test
+    // printf("%s\n", root);                     //// for test
 
-    char send_buff[1024];
-    // printf("root = %lu\n", strlen(root));
-
-    if (strlen(root) < 1000) {
-        mx_json_to_sending_buffer(send_buff, create_peice(0, root));
-        send_one(sock, peer, sd, send_buff);
+    if (strlen(root) < 3 * MX_MAX_SEND_SIZE / 2) {
+        mx_json_to_sending_buffer(peer->send_buff, create_peice(0, root));
+        send_one(sock, peer, sd);
     }
     else {
         large_message = strdup(root);
-        printf("large_message size = %lu\n", strlen(large_message));
-        // printf("message = %s\n", large_message);
+        len = strlen(large_message);
+        // printf("message = %s\n", large_message);             //// for test
 
-        unsigned long i = 0;
-        while (large_message[i]) {
-            char str[512];
-            bzero(str, strlen(str));
-            strncpy(str, &large_message[i], 511);
+        send_large(sock, peer, sd, large_message);
 
-            i += strlen(str);
-            printf("i = %lu\n", i);
-            if (i == strlen(large_message)) {
-                mx_json_to_sending_buffer(send_buff, create_peice(2, str));
-                send_one(sock, peer, sd, send_buff);
-                break;
-            }
-            else {
-                mx_json_to_sending_buffer(send_buff, create_peice(1, str));
-                send_one(sock, peer, sd, send_buff);
-            }
-        }
         mx_strdel(&large_message);
     }
 }

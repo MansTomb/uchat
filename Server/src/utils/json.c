@@ -4,10 +4,7 @@ void mx_json_to_sending_buffer(char *buff, cJSON *json) {
     char *root;
 
     root = cJSON_Print(json);
-    // strncpy(buff, root, 1024);
     sprintf(buff, "%s", root);
-    // printf("%s\n", buff);
-    puts(buff);
 }
 
 int mx_check_err_json(cJSON *new) {

@@ -16,7 +16,7 @@ void mx_db_authorization(t_info *info, t_peer *peer, cJSON *get) {
 
     bd = mx_authorization(info->sock->db, get);
     if (MX_TYPE(bd) == success_authorization) {
-        peer->uid = MX_VINT(bd, "id");
+        peer->uid = MX_VINT(bd, "uid");
         mx_message_on_mail(MX_VSTR(bd, "email"), MX_EMAIL_PATH_LOGIN);
     }
     mx_send_message_handler(info->sock, peer, bd, peer->socket);
