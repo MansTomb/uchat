@@ -36,7 +36,7 @@ static void get_all_users(sqlite3 *db, cJSON *jsn) {
     int *uid = malloc(MAX_CLIENTS * sizeof(int));
 
     bzero(uid, MAX_CLIENTS);
-    asprintf(&query, "SELECT user_id FROM users_chats WHERE chat_id = %i "
+    asprintf(&query, "SELECT uid FROM users_chats WHERE cid = %i "
             "AND role > 0;", MX_VINT(jsn, "cid"));
 
     rc = sqlite3_exec(db, query, get_id, uid, &err);
@@ -61,7 +61,7 @@ cJSON *mx_send_message(sqlite3 *db, cJSON *jsn) {
     asprintf(&query, "INSERT INTO messages VALUES (NULL, %i, %i, %i, "
             "datetime('now', 'localtime'), '%s'); "
             "SELECT id, send_time FROM messages WHERE id=last_insert_rowid()",
-            MX_VINT(jsn, "uid"), MX_VINT(jsn, "chat_id"),
+            MX_VINT(jsn, "uid"), MX_VINT(jsn, "cid"),
             MX_VINT(jsn, "type"), MX_VSTR(jsn, "content"));
     rc = sqlite3_exec(db, query, get_mid, jsn, &err);
 

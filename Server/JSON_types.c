@@ -18,7 +18,7 @@
 { "json_type": 28, "uid1": 1, "uid2": 2 }
 
 -- send message
-{ "json_type": 35, "uid": 2, "chat_id": 3, "type": 1, "content": "Hello, dear friend!"}
+{ "json_type": 42, "uid": 2, "cid": 3, "type": 1, "content": "Hello, dear friend!"}
 -- edit message
 { "json_type": 37, "uid": 2, "chat_id": 3, "mid": 30, "content": "Hello!"}
 -- delete message

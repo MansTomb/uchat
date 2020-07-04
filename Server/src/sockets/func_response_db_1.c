@@ -13,14 +13,28 @@ void mx_db_registration(t_info *info, t_peer *peer, cJSON *get) {
 
 void mx_db_authorization(t_info *info, t_peer *peer, cJSON *get) {
     cJSON *bd;
+    cJSON *json;
 
     bd = mx_authorization(info->sock->db, get);
     if (MX_TYPE(bd) == success_authorization) {
         peer->uid = MX_VINT(bd, "uid");
         mx_message_on_mail(MX_VSTR(bd, "email"), MX_EMAIL_PATH_LOGIN);
+        json = mx_this_uid_login_or_logout(peer->uid, this_uid_login);
+        mx_send_message_all(info->sock, peer, json, peer->uid);
+        cJSON_Delete(json);
     }
     mx_send_message_handler(info->sock, peer, bd, peer->socket);
     cJSON_Delete(bd);
+}
+
+void mx_db_logout(t_info *info, t_peer *peer, cJSON *get) {
+    cJSON *json;
+
+    json = mx_this_uid_login_or_logout(peer->uid, this_uid_logout);
+    mx_send_message_all(info->sock, peer, json, peer->uid);
+    peer->uid = MX_NO_PEER;
+    mx_json_to_sending_buffer(peer->send_buff, get);
+    mx_print_serv_out(get, peer->send_buff);
 }
 
 void mx_db_delete(t_info *info, t_peer *peer, cJSON *get) {

@@ -17,3 +17,11 @@ int mx_check_err_json(cJSON *new) {
         }
     return 0;
 }
+
+cJSON *mx_this_uid_login_or_logout(int uid, int type) {
+    cJSON *json = cJSON_CreateObject();
+
+    cJSON_AddNumberToObject(json, "json_type", type);
+    cJSON_AddNumberToObject(json, "uid", uid);
+    return json;
+}

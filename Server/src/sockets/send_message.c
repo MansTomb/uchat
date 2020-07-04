@@ -25,25 +25,23 @@ static int send_check(t_sock *sock, t_peer *client, int n) {
  * Send message to all clients but the sender,
  * if uid == -1 - send_message_all
  */
-// void mx_send_message_all(t_sock *sock, char *buff, int uid) {
-//     int sd = 0;
-//     int n;
+void mx_send_message_all(t_sock *sock, t_peer *peer, cJSON *bd, int uid) {
+    int sd = 0;
+    int n;
 
-//     if (uid < 0) {
-//         printf("bad uid, cant send message");
-//         return;
-//     }
-//     for (int i = 0; i < MAX_CLIENTS; ++i) {
-//         sd = sock->connection_list[i].socket;
-//         if (sd != MX_NO_SOCKET) {
-//             if (sock->connection_list[i].uid != uid || uid == 0) {
-//                 if ((n = send(sd, buff, strlen(buff), MSG_DONTWAIT)) <= 0) {
-//                     send_check(sock, &sock->connection_list[i], n);
-//                 }
-//             }
-//         }
-//     }
-// }
+    if (uid < 0) {
+        printf("bad uid, cant send message");
+        return;
+    }
+    for (int i = 0; i < MAX_CLIENTS; ++i) {
+        sd = sock->connection_list[i].socket;
+        if (sd != MX_NO_SOCKET) {
+            if (sock->connection_list[i].uid != uid || uid == 0) {
+                mx_send_message_handler(sock, peer, bd, sd);
+            }
+        }
+    }
+}
 /*
  * Send message to client
  */

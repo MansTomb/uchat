@@ -73,6 +73,9 @@ typedef enum {
     failed_new_group_chat_channel,
     success_new_group_chat_channel,
 
+    this_uid_login,
+    this_uid_logout,
+
 } t_actions;
 
 int mx_check(int rc, char *err, char *desc);
