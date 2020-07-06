@@ -5,6 +5,7 @@
 
 #define MX_MSGHEIGHT(msg) (strlen(msg) + 20 * 10)
 #define MX_MSGWIDTH(msg) (strlen(msg) * 4 > 400 ? 400 : strlen(msg) * 4)
+#define MX_MAX_SEND_SIZE 4096
 
 typedef struct sockaddr_in t_saddr;
 typedef struct s_info t_info;
@@ -289,6 +290,9 @@ void mx_login_build_json_wrapper(t_info *info);
 void mx_register_build_json_wrapper(t_info *info);
 void mx_add_contact_build_json_wrapper(t_contacts *contacts);
 void mx_upd_prof_build_json_wrapper(t_info *info);
+
+void mx_send_message_handler(cJSON *json, int sd);
+void mx_receive_message_handler(char *receiving_buff, char **large_message, t_info *info);
 
     /* Sockets functions */
 t_sock *mx_client_socket_create(char *ip, int port);

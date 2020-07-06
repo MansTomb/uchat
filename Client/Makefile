@@ -2,7 +2,7 @@ CC = clang
 LIB = libmx.a
 NAME = uchat
 
-base = main socket info
+base = main socket info client_receive_message_handler client_send_message_handler
 
 login = login validate callbacks json
 

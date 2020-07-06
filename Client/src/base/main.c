@@ -7,7 +7,8 @@ static void wrong_usage() {
 static void *read_from_server(void *info) {
     t_info *info1 = (t_info *)info;
     int n;
-    char buff[1024];
+    char buff[MX_MAX_SEND_SIZE];
+    char *responce = NULL;
 
     while (1) {
         if ((n = read(info1->sock->sock, buff, sizeof(buff))) < 0) {
@@ -16,9 +17,7 @@ static void *read_from_server(void *info) {
             pthread_exit(0);
         }
         else if (n > 0) {
-            info1->response = strdup(buff);
-            info1->json = cJSON_Parse(buff);
-            printf("Responce: %s\n", info1->response);
+            mx_receive_message_handler(buff, &responce, info);
         }
         bzero(buff, sizeof(buff));
     }
