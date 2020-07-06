@@ -8,7 +8,6 @@ static t_windows *create_windows() {
         new->log = NULL;
         new->reg = NULL;
         new->ms = NULL;
-        new->chat = NULL;
         new->rc = NULL;
         new->ac = NULL;
         new->cg = NULL;
