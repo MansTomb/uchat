@@ -1,6 +1,6 @@
 #include "client.h"
 
-static int mx_check_err_json(cJSON *new) {
+int mx_check_err_json(cJSON *new) {
     const char *error_ptr;
 
     if (new == NULL)

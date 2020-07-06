@@ -44,7 +44,7 @@ struct s_contact {
 };
 
 // client profile data
-struct s_profile_data { 
+struct s_profile_data {
     int id;
     char *login;
     char *first_name;
@@ -297,6 +297,7 @@ void mx_register_build_json_wrapper(t_info *info);
 void mx_add_contact_build_json_wrapper(t_contacts *contacts);
 void mx_upd_prof_build_json_wrapper(t_info *info);
 
+int mx_check_err_json(cJSON *new);
 void mx_send_message_handler(cJSON *json, int sd);
 void mx_receive_message_handler(char *receiving_buff, char **large_message, t_info *info);
 
