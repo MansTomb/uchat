@@ -5,11 +5,11 @@
 
 .main_window {
     background-color: rgba(0, 0, 0, 0.057);
-    /* background-image: url('./Resources/images/back.jpg'); */
 }
 
 .message_list {
-    background-color: grey;
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(74,167,171,1) 0%, rgba(154,152,200,1) 49%, rgba(38,171,193,1) 100%);
 }
 
 .chat_name_label {
@@ -18,19 +18,19 @@
 }
 
 #message_text:hover {
-    border-radius: 30px;
+    border-radius: 20px;
     border-color: black;
     background-color: white;
 }
 
 #message_text:active {
-    border-radius: 30px;
+    border-radius: 20px;
     background-color: white;
     border-color: black;
 }
 
 #message_text {
-    border-radius: 30px;
+    border-radius: 20px;
     background-color: white;
     font-size: 20px;
     border-color: black;
@@ -52,54 +52,40 @@
     font-size: 20px;
 }
 
-.main_menu_buttons:hover:active {
-    background-color: whitesmoke;
-    border-radius: 20px;
-    font-size: 20px;
-}
-
 .chat_chooser_button {
     background-color: white;
     border-radius: 20px;
     font-size: 20px;
 }
 
+.main_menu_buttons:hover:active {
+    background-color: whitesmoke;
+    border-radius: 20px;
+    font-size: 30px;
+}
+
 .main_menu_buttons {
     background-color: white;
     border-radius: 20px;
-    font-size: 20px;
+    font-size: 30px;
 }
-
 
 .profile_scrollable {
     background-color: grey;
     opacity: 1;
 }
 
-.profile_name {
-    font-size: 30px;
-    color: whitesmoke;
-    margin-left: 10px;
-    background-color: darkblue;
-    opacity: 0.5;
-}
-
-.profile_id {
-    font-size: 30px;
-    color: whitesmoke;
-    margin-left: 10px;
-    background-color: darkblue;
-    opacity: 0.5;
-}
-
-.profile_name_label {
+.profile_field {
     font-size: 20px;
-    color: whitesmoke;
+    /* background-color: darkblue; */
 }
 
-.profile_id_label {
+.profile_label {
     font-size: 20px;
-    color: whitesmoke;
+}
+
+.profile_status {
+    font-size: 20px;
 }
 
 .profile_button_edit {
@@ -149,6 +135,18 @@
     font-size: 20px;
 }
 
+.contacts_create_group {
+    background-color: white;
+    border-radius: 20px;
+    font-size: 20px;
+}
+
+.contacts_create_group:hover:active {
+    background-color: white;
+    border-radius: 20px;
+    font-size: 20px;
+}
+
 .contacts_button_cancel {
     background-color: white;
     border-radius: 20px;
@@ -163,4 +161,17 @@
 
 .treeview.view {
     font-size: 40px;
+}
+
+.preferences_scroll {
+    background-color: grey;
+    opacity: 1;
+}
+
+.change_password:hover:active {
+    background-color: whitesmoke;
+}
+
+.change_password {
+    background-color: whitesmoke;
 }

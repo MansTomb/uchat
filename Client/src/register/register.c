@@ -1,32 +1,46 @@
 #include "client.h"
 
-void mx_register_screen_show(t_info *info) {
-    t_register *reg = info->windows->reg;
+void mx_register_screen_build(t_info *info, t_register *reg) {
+    if (reg == NULL)
+        info->windows->reg = reg = malloc(sizeof(t_register));
 
-    if (!reg)
-        reg = info->windows->reg = mx_register_constructor(info);
+    reg->builder = gtk_builder_new();
+    gtk_builder_add_from_file(reg->builder, "./Resources/glade/register_screen.glade", NULL);
 
-    mx_background_image_show(reg->back_image);
-    gtk_widget_show(reg->backbt);
-    gtk_widget_show(reg->registerbt);
-    gtk_widget_show(reg->username_label);
-    gtk_widget_show(reg->username_entry);
-    gtk_widget_show(reg->password_label);
-    gtk_widget_show(reg->password_entry);
-    gtk_widget_show(reg->password2_label);
-    gtk_widget_show(reg->password2_entry);
+    reg->password_entry = GTK_WIDGET(gtk_builder_get_object(reg->builder, "password_entry"));
+    reg->passwordc_entry = GTK_WIDGET(gtk_builder_get_object(reg->builder, "passwordc_entry"));
+    reg->username_entry = GTK_WIDGET(gtk_builder_get_object(reg->builder, "username_entry"));
+    reg->window = GTK_WIDGET(gtk_builder_get_object(reg->builder, "register_window"));
+    gtk_builder_connect_signals(reg->builder, info);
+
+    gtk_widget_show(reg->window);
 }
 
-void mx_register_screen_hide(t_info *info) {
-    t_register *reg = info->windows->reg;
+void mx_register_screen_destroy(t_info *info) {
+    gtk_widget_destroy(info->windows->reg->window);
+    free(info->windows->reg);
+    info->windows->reg = NULL;
+}
 
-    gtk_widget_hide(reg->backbt);
-    gtk_widget_hide(reg->registerbt);
-    gtk_widget_hide(reg->username_label);
-    gtk_widget_hide(reg->username_entry);
-    gtk_widget_hide(reg->password_label);
-    gtk_widget_hide(reg->password_entry);
-    gtk_widget_hide(reg->password2_label);
-    gtk_widget_hide(reg->password2_entry);
-    mx_background_image_hide(reg->back_image);
+void mx_on_click_back(GtkWidget *widget, gpointer data) {
+    t_info *info = data;
+
+    mx_register_screen_destroy(info);
+    mx_login_screen_build(info, info->windows->log);
+}
+
+void mx_reg_user_on_click(GtkApplication *app, gpointer user_data) {
+    t_info *info = (t_info *)user_data;
+
+    if(app && info){};
+    // action "mx_make_register" estimated return mx_success_register
+    if (mx_reg_data_validate(info->windows->reg)) {
+        mx_register_build_json_wrapper(info);
+        mx_wait_for_json(info, failed_register, success_register);
+        if (mx_get_jtype(info, success_register)) {
+            
+        }
+        else if (mx_get_jtype(info, failed_register))
+            mx_dialog_warning_create(NULL, "Username already on use!");
+    }
 }

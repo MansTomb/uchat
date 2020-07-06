@@ -167,3 +167,8 @@
 .treeview.view {
     font-size: 40px;
 }
+
+.preferences_scroll {
+    background-color: rgba(255, 255, 255, 0.495);
+    opacity: 1;
+}

@@ -2,38 +2,37 @@ CC = clang
 LIB = libmx.a
 NAME = uchat
 
-base = main socket info main_window windows_constructor
+base = main socket info client_receive_message_handler client_send_message_handler
 
-login = login callbacks errors constructor send_json_login
+login = login validate callbacks json
 
-register = register callbacks errors constructor send_json_reg
+register = register validate json
 
-chat = chat callbacks errors constructor
+admin = admin
 
-chat_switcher = chat_switcher chat_switcher_hide callbacks errors constructor \
-	chat_switcher_show
+chat = chat interface callbacks
 
-message = message callbacks errors constructor
+message = message
 
-main_menu = main_menu callbacks callbacks2 errors constructor
+message_img = message_img
 
-profile = profile callbacks errors constructor
+room_creation = room_creation validate
 
-contacts = contacts callbacks errors constructor tree add_contact \
-	add_callbacks send_json_contacts
+preferences = callbacks
 
-room_creation = room_creation callbacks errors constructor
+change_password = change_password
 
-main_chat_screen = main_chat_screen
+main_chat_screen = main_screen contacts contacts_callbacks contacts_json      \
+	profile profile_callbacks profile_json
 
-exit = exit callbacks constructor
+add_contact = add_contact
 
-utils = background_images buttons grids input_labels layouts css labels       \
-	widget dialog scrollable stack stack_switcher fixed frame box listbox     \
-	toggle_button json_get_type wait_for_json create_hash
+create_group = create_group
 
-dirs = base login register chat chat_switcher message main_menu profile       \
-	contacts room_creation main_chat_screen utils json exit
+utils = css wait_for_json create_hash json_get_type dialog entry
+
+dirs = base login register admin add_contact chat create_group main_chat_screen \
+	message message_img room_creation utils
 
 FILES = $(foreach dir, $(dirs), $($(dir):%=$(dir)/%))
 
