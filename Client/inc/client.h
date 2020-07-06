@@ -357,6 +357,11 @@ void mx_on_click_exit(GtkWidget *widget, gpointer data);
 void mx_add_contact_build(t_info *info, t_contact_add *ac);
 void mx_add_contact_destroy(t_info *info);
 
+/*  Callbacks */
+void mx_contacts_tree_on_click(GtkTreeView *tree_view, GtkTreePath *path, GtkTreeViewColumn *column, gpointer user_data);
+void mx_contacts_send_message(GtkWidget *widget, gpointer data);
+void mx_contacts_delete(GtkWidget *widget, gpointer data);
+
 
 void mx_create_group_build(t_info *info, t_group_create *cg);
 void mx_create_group_destroy(t_info *info);

@@ -6,7 +6,7 @@ base = main socket info
 
 login = login validate callbacks json
 
-register = register
+register = register validate json
 
 admin = admin
 
@@ -22,7 +22,8 @@ preferences = callbacks
 
 change_password = change_password
 
-main_chat_screen = main_screen
+main_chat_screen = main_screen contacts contacts_callbacks contacts_json      \
+	profile profile_callbacks profile_json
 
 add_contact = add_contact
 
