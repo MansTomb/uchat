@@ -5,7 +5,7 @@ void mx_db_registration(t_info *info, t_peer *peer, cJSON *get) {
 
     bd = mx_registration(info->sock->db, get);
     if (MX_TYPE(bd) == success_register)
-        peer->uid = MX_VINT(bd, "id");
+        peer->uid = MX_VINT(bd, "uid");
     mx_send_message_handler(info->sock, peer, bd, peer->socket);
 
     cJSON_Delete(bd);
