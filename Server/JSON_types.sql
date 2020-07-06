@@ -28,7 +28,6 @@
 -- get client chats messages
 { "json_type": 18, "uid": 1, "cid": 1}
 
-
 -- add new contact
 { "json_type": 23, "uid": 3, "coid": 2}
 -- del contact

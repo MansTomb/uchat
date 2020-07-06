@@ -123,6 +123,7 @@ void mx_db_edit_message(t_info *info, t_peer *peer, cJSON *get);
 
 void mx_db_get_self_response(t_info *info, t_peer *peer, cJSON *get,
                             cJSON *(*func)(sqlite3 *, cJSON *));
+void mx_db_get_contact_list(t_info *info, t_peer *peer, cJSON *get);
 
 /* Utils */
 
