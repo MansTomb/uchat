@@ -1,30 +1,5 @@
 #include "server.h"
 
-static int check_err_json(cJSON *new) {
-    const char *error_ptr;
-
-    if (new == NULL)
-        if ((error_ptr = cJSON_GetErrorPtr()) != NULL) {
-            fprintf(stderr, "cJSON_Parse error, before: %s", error_ptr);
-            return 1;
-        }
-    return 0;
-}
-
-void mx_message_handler(t_info *info, t_peer *peer) {
-    cJSON *get;
-    int type;
-
-    get = cJSON_Parse(peer->receiving_buffer);
-    if (check_err_json(get))
-        return;
-
-    type = MX_TYPE(get);
-
-    mx_response_db(info, peer, type, get);
-    // cJSON_Delete(get);
-}
-
 // static void if_changing_profile(t_info *info, t_peer *peer, int type, cJSON *get) {
 //     if (type == make_change_password)
 //         mx_db_get_self_response(info, peer, get, &mx_change_password);
@@ -49,12 +24,14 @@ void mx_message_handler(t_info *info, t_peer *peer) {
 //         mx_db_create_personal_chat(info, peer, type, get);
 // }
 
-void mx_response_db(t_info *info, t_peer *peer, int type, cJSON *get) {
+void mx_response_db(t_info *info, t_peer *peer, cJSON *get) {
+    int type = MX_TYPE(get);
+
     if (type == make_register)
         mx_db_registration(info, peer, get);  // + дописать его в канал general или нет ???
     else if (type == make_authorization)
         mx_db_authorization(info, peer, get);  // + подгрузка истории
-    else if (type == make_deletion)
+    else if (type == make_delete_user)
         mx_db_delete(info, peer, get);
 
     else if (type == send_message)
@@ -62,9 +39,7 @@ void mx_response_db(t_info *info, t_peer *peer, int type, cJSON *get) {
     else if (type == edit_message || type == delete_message)
         mx_db_edit_message(info, peer, get);
     else if (type == logout) {
-        peer->uid = MX_NO_PEER;
-        mx_json_to_sending_buffer(peer, get);
-        mx_print_serv_out(get, peer->sending_buffer);
+        mx_db_logout(info, peer, get);
     }
 
     else if (type == make_change_password)

@@ -31,7 +31,7 @@ static pid_t insurance(char *cmd, pid_t pid) {
  * Attach file descriptors 0, 1, and 2 to /dev/null.
  * Initialize the log file.
  */
-static void manage_fd(char *cmd, struct rlimit *rl, t_sock *sock) {
+static void manage_fd(char *cmd, struct rlimit *rl) {
     int fd0;
     int fd1;
     int fd2;
@@ -46,8 +46,6 @@ static void manage_fd(char *cmd, struct rlimit *rl, t_sock *sock) {
     }
     fd1 = dup(0);
     fd2 = dup(0);
-
-    if (sock) {}
 
     // if (fd0 != 0 || fd1 != 1 || fd2 != 2) {
     //     fprintf(stderr, "%s: error file descriptors\n", cmd);
@@ -73,5 +71,5 @@ void mx_daemonize(t_sock *sock) {
         exit(EXIT_FAILURE);
     pid = insurance(cmd, pid);
     printf("server id -> %d\n", pid);
-    manage_fd(cmd, (struct rlimit *)&rl, sock);
+    manage_fd(cmd, (struct rlimit *)&rl);
 }

@@ -2,15 +2,15 @@
 
 static int callback(void *data, int argc, char **argv, char **cols) {
     cJSON *contact = cJSON_CreateObject();
-    const char *fields[] = {"contact_id", "login", "first_name", "second_name",
-        "email", "status"};
+    const char *fields[] =
+        {"coid", "login", "fname", "sname", "email", "status"};
 
     cJSON_AddNumberToObject(contact, fields[0], atoi(argv[0]));
     for (uint32_t i = 1; i < sizeof(fields) / sizeof(fields[0]); ++i)
         cJSON_AddStringToObject(contact, fields[i], argv[i]);
 
-    cJSON_AddNumberToObject(contact, "group_id", argv[6] ? atoi(argv[6]) : 0);
-    cJSON_AddStringToObject(contact, "group_name", argv[7] ? argv[7] : "");
+    cJSON_AddNumberToObject(contact, "gid", argv[6] ? atoi(argv[6]) : 0);
+    cJSON_AddStringToObject(contact, "gname", argv[7] ? argv[7] : "");
     cJSON_AddItemToArray(cJSON_GetObjectItem(data, "contacts"), contact);
     return 0;
 }

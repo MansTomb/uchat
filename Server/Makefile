@@ -7,8 +7,9 @@ base = main
 init = daemonize init_info sockets_initialize sockets_initialize_2
 
 sockets = handle_incoming_data handle_new_connection loop \
-	receive_message send_message shutdown signals message_handler \
-	func_response_db_1 func_response_db_2 func_response_db_3
+	receive_message send_message shutdown signals receive_message_handler \
+	func_response_db_1 func_response_db_2 func_response_db_3 response_db \
+	send_message_handler
 
 sql = authorization check_error close_db create_tables init_db \
 	receive_message registration create_personal_chat get_present_chat \
@@ -16,7 +17,7 @@ sql = authorization check_error close_db create_tables init_db \
 	if_message_on_email get_contact_list update_profile get_clients_chats \
 	get_client_chat_messages edit_message
 
-utils = initialize_zero message_on_email print_serv_out
+utils = initialize_zero message_on_email print_serv_out json
 
 dirs = base init sockets sql utils
 FILES = $(foreach dir, $(dirs), $($(dir):%=$(dir)/%))

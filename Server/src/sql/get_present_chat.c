@@ -1,7 +1,7 @@
 #include "server.h"
 
 static int get_role(void *data, int argc, char **argv, char **cols) {
-    cJSON_AddNumberToObject(data, "id", atoi(argv[0]));
+    cJSON_AddNumberToObject(data, "cid", atoi(argv[0]));
     cJSON_AddNumberToObject(data, "role", atoi(argv[1]));
     return 0;
 }
@@ -17,7 +17,7 @@ static void check_role(cJSON *jsn) {
         int rc = 0;
 
         asprintf(&query, "UPDATE users_chats SET role = 1 WHERE chat_id = %i "
-                "AND user_id = %i;", cJSON_GetObjectItem(jsn, "id")->valueint,
+                "AND user_id = %i;", cJSON_GetObjectItem(jsn, "cid")->valueint,
                 cJSON_GetObjectItem(jsn, "uid1")->valueint);
 
         cJSON_SetNumberValue(cJSON_GetObjectItem(jsn, "role"), 1);
@@ -35,7 +35,8 @@ void mx_get_present_chat(sqlite3 *db, cJSON *jsn) {
 
     asprintf(&query, "SELECT c.id, uc1.role FROM users_chats AS uc1 JOIN "
             "users_chats AS uc2 ON uc1.user_id = %i AND uc2.user_id = %i "
-            "AND uc1.chat_id = uc2.chat_id JOIN chats AS c ON c.type = 1;",
+            "AND uc1.chat_id = uc2.chat_id JOIN chats AS c ON c.type = 1 "
+            "AND uc1.chat_id = c.id;",
             cJSON_GetObjectItem(jsn, "uid1")->valueint,
             cJSON_GetObjectItem(jsn, "uid2")->valueint);
 

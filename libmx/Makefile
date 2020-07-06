@@ -16,7 +16,8 @@ print = print_strarr print_unicode printchar printnum printstr printstrlen \
 
 string = count_substr count_words del_extra_spaces del_strarr get_char_index \
 	get_substr_index lltoa_s lltoa replace_substr str_reverse strdel strdup \
-	strjoin strndup strnew strsplit strtrim ulltoa_s ulltoa ulltoh_s ulltoh
+	strjoin strjoin_free strndup strnew strsplit strtrim \
+	ulltoa_s ulltoa ulltoh_s ulltoh
 
 utils = factorial foreach isprime numlen sigma sum_digits swap unumlen
 

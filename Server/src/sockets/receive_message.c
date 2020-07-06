@@ -33,12 +33,12 @@ int mx_receive_from_peer(t_info *info, t_peer *peer) {
     // }
     // Count bytes to send.
 
-    len_to_receive = sizeof(peer->receiving_buffer);
+    len_to_receive = sizeof(peer->recv_buff);
     if (len_to_receive > MX_MAX_SEND_SIZE)
         len_to_receive = MX_MAX_SEND_SIZE;
 
     // printf("Let's try to recv() %zd bytes... ", len_to_receive);
-    received_count = recv(peer->socket, (char *)&peer->receiving_buffer,
+    received_count = recv(peer->socket, (char *)&peer->recv_buff,
                           len_to_receive, MSG_DONTWAIT);
     if (received_count <= 0) {
         if (recv_check(received_count) == -2)
@@ -50,7 +50,7 @@ int mx_receive_from_peer(t_info *info, t_peer *peer) {
         // printf("recv() %zd bytes\n", received_count);
     }
     // if (peer->current_receiving_byte >= sizeof(peer->receiving_buffer)) {
-        mx_message_handler(info, peer);
+        // mx_message_handler(info, peer);
         peer->current_receiving_byte = 0;
     // }
 

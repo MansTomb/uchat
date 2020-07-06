@@ -1,8 +1,8 @@
 #include "server.h"
 
-static int callback(void *data, int argc, char **argv, char **azColName) {
+static int callback(void *data, int argc, char **argv, char **col) {
     for (int i = 0; i < argc; ++i) {
-        printf("%s = %s\n", azColName[i], argv[i]);
+        printf("%s = %s\n", col[i], argv[i]);
     }
 
     printf("\n");

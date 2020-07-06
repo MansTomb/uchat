@@ -15,10 +15,11 @@ static int get_id(void *data, int argc, char **argv, char **cols) {
 static void get_arr_users(sqlite3 *db, cJSON *jsn, int *uid) {
     int count = 0;
     int *new_uid;
-    int i;
+    int i = 0;
 
-    for (i = 0; uid[i] != 0; ++i)
-        count++;
+    for (; uid[i] != 0; ++i)
+        ++count;
+
     new_uid = malloc(count * sizeof(int));
     for (i = 0; i < count; ++i)
         new_uid[i] = uid[i];
@@ -35,8 +36,8 @@ static void get_all_users(sqlite3 *db, cJSON *jsn) {
     int *uid = malloc(MAX_CLIENTS * sizeof(int));
 
     bzero(uid, MAX_CLIENTS);
-    asprintf(&query, "SELECT user_id FROM users_chats WHERE chat_id == %i "
-             "AND role > 0;", MX_VINT(jsn, "chat_id"));
+    asprintf(&query, "SELECT user_id FROM users_chats WHERE chat_id = %i "
+            "AND role > 0;", MX_VINT(jsn, "cid"));
 
     rc = sqlite3_exec(db, query, get_id, uid, &err);
     if (mx_check(rc, err, "get all users") != SQLITE_OK)
@@ -53,8 +54,8 @@ cJSON *mx_edit_message(sqlite3 *db, cJSON *jsn) {
     int rc = 0;
 
     if (MX_TYPE(jsn) == edit_message) {
-        asprintf(&query, "UPDATE messages SET content='%s' WHERE id=%i;",
-                 MX_VSTR(jsn, "content"), MX_VINT(jsn, "mid"));
+        asprintf(&query, "UPDATE messages SET content = '%s' WHERE id = %i;",
+                MX_VSTR(jsn, "content"), MX_VINT(jsn, "mid"));
         rc = sqlite3_exec(db, query, NULL, NULL, &err);
 
         if (mx_check(rc, err, "edit message") != SQLITE_OK)
@@ -63,8 +64,8 @@ cJSON *mx_edit_message(sqlite3 *db, cJSON *jsn) {
             get_all_users(db, jsn);
     }
     else if (MX_TYPE(jsn) == delete_message) {
-        asprintf(&query, "DELETE FROM messages WHERE id=%i;",
-                 MX_VINT(jsn, "mid"));
+        asprintf(&query, "DELETE FROM messages WHERE id = %i;",
+                MX_VINT(jsn, "mid"));
         rc = sqlite3_exec(db, query, NULL, NULL, &err);
 
         if (mx_check(rc, err, "delete message") != SQLITE_OK)

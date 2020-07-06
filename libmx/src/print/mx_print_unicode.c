@@ -3,7 +3,7 @@
 void mx_print_unicode(wchar_t c, const int fd) {
     char parts[5] = {0};
 
-    if (c < 0x80) 
+    if (c < 0x80)
         parts[0] = c & 0x7F;
     else if (c < 0x0800) {
         parts[0] = (c >> 6 & 0x1F) | 0xC0;

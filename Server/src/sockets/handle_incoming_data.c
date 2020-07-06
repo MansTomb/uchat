@@ -15,6 +15,9 @@ void mx_handle_disconnect(t_sock *sock, t_peer *client) {
     close(client->socket);
     client->socket = MX_NO_SOCKET;
     client->uid = -1;
+    if (client->large_message)
+        mx_strdel(&client->large_message);
+    client->m_type = 0;
 
     // mx_dequeue_all(&client->send_buffer);
     client->current_sending_byte   = -1;
@@ -28,9 +31,12 @@ void mx_handle_incoming_data(t_info *info) {
     for (int i = 0; i < MAX_CLIENTS; ++i) {
         sd = info->sock->connection_list[i].socket;
         // *client = info->sock->connection_list[i];
-        if (sd != MX_NO_SOCKET && FD_ISSET(sd, &info->sock->readfds))
+        if (sd != MX_NO_SOCKET && FD_ISSET(sd, &info->sock->readfds)) {
             if (mx_receive_from_peer(info, &sock->connection_list[i]) != 0)
                 mx_handle_disconnect(info->sock, &info->sock->connection_list[i]);
+            else
+                mx_receive_message_handler(info, &info->sock->connection_list[i]);
+        }
     }
 
     // for (int i = 0; i < MAX_CLIENTS; ++i) {

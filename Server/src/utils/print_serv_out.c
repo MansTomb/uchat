@@ -24,7 +24,7 @@ void mx_print_serv_out(cJSON *json, char *s) {
         case failed_authorization:
             print_red(s);
             break;
-        case failed_deletion:
+        case failed_delete_user:
             print_red(s);
             break;
         case failed_change_password:
@@ -50,7 +50,7 @@ void mx_print_serv_out(cJSON *json, char *s) {
         case success_authorization:
             print_grn(s);
             break;
-        case success_deletion:
+        case success_delete_user:
             print_grn(s);
             break;
         case success_change_password:

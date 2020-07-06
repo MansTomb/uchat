@@ -5,8 +5,7 @@ void mx_db_get_self_response(t_info *info, t_peer *peer, cJSON *get,
     cJSON *bd;
 
     bd = func(info->sock->db, get);
-    mx_json_to_sending_buffer(peer, bd);
-    mx_send_msg_self(info->sock, peer);
+    mx_send_message_handler(info->sock, peer, bd, peer->socket);
 
     cJSON_Delete(bd);
 }
