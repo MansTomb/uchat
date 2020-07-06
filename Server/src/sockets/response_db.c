@@ -25,6 +25,7 @@
 // }
 
 void mx_response_db(t_info *info, t_peer *peer, cJSON *get) {
+    printf("%s\n", peer->recv_buff);
     int type = MX_TYPE(get);
 
     if (type == make_register)

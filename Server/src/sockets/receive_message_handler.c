@@ -34,7 +34,7 @@ void mx_receive_message_handler(t_info *info, t_peer *peer) {
     cJSON *get;
     int type;
 
-    cJSON_Minify(peer->recv_buff);
+    // cJSON_Minify(peer->recv_buff);
     get = cJSON_Parse(peer->recv_buff);
     if (mx_check_err_json(get))
         return;

@@ -3,19 +3,42 @@
 { "json_type": 0, "login": "ooo", "hash": "222"}
 { "json_type": 0, "login": "trohalska", "hash": "444"}
 { "json_type": 0, "login": "sasha1", "hash": "oibjktbkaslkbjgfk"}
+{ "json_type": 0, "login": "4", "hash": "4"}
 
 -- authorization
-
 { "json_type": 3, "login": "tatat", "hash": "jfhgkajdfhgkfdj"}
 { "json_type": 3, "login": "trohalska", "hash": "000"}
 { "json_type": 3, "login": "sasha1", "hash": "oibjktbkaslkbjgfk"}
 { "json_type": 3, "login": "ooo", "hash": "222"}
+{ "json_type": 3, "login": "4", "hash": "4"}
 
 -- change_password
-{ "json_type": 9, "login": "tatat", "hash": "", "new_hash": "444"}
+{ "json_type": 9, "login": "4", "hash": "4", "new_hash": "444"}
+
+-- update profile
+{"json_type": 12, "uid": 1, "fname": "gg", "sname": "rr", "email": "trogalska2208@gmail.com", "status": "", "snot": 1, "vnot": 1, "enot": 1}
+
+// ----------------
+-- get contact_list
+{ "json_type": 14, "uid": 3}
+
+-- get client chats
+{ "json_type": 16, "uid": 2}
+
+-- get client chats messages
+{ "json_type": 18, "uid": 2, "cid": 1}
 
 -- create personal chat
 { "json_type": 28, "uid1": 1, "uid2": 2 }
+
+// ----------------
+-- add new contact
+{ "json_type": 23, "uid": 3, "coid": 2}
+-- del contact
+{ "json_type": 32, "uid": 3, "coid": 2}
+
+
+
 
 -- send message
 { "json_type": 42, "uid": 2, "cid": 3, "type": 1, "content": "Hello, dear friend!"}
@@ -25,23 +48,6 @@
 { "json_type": 38, "uid": 2, "chat_id": 3, "mid": 30}
 
 
--- update profile
-{"json_type": 12, "uid": 3, "fname": "", "sname": "", "email": "", "status": "", "snot": 1, "vnot": 1, "enot": 1}
-
--- add new contact
-{ "json_type": 22, "uid": 2, "friend_login": "ooo"}
-
--- del contact
-{ "json_type": 25, "uid1": 2, "uid2": 1}
-
--- get contact_list
-{ "json_type": 16, "uid": 2}
-
--- get client chats
-{ "json_type": 18, "uid": 2}
-
--- get client chats messages
-{ "json_type": 18, "uid": 2, "cid": 1}
 
 
 {"p_type": 0, "piece": "{\"json_type\": 3, \"login\": \"ooo\", \"hash\": \"222\"}"}
