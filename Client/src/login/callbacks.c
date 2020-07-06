@@ -1,6 +1,14 @@
 #include "client.h"
 
-void mx_login_on_click(GtkApplication *app, gpointer user_data) {
+void mx_on_click_register(GtkWidget *widget, gpointer data) {
+    t_info *info = data;
+
+    mx_login_screen_destroy(info);
+    mx_register_screen_build(info, info->windows->reg);
+}
+
+
+void mx_on_click_login(GtkWidget *widget, gpointer user_data) {
     t_info *info = (t_info *)user_data;
     t_login *log = info->windows->log;
 
@@ -12,17 +20,10 @@ void mx_login_on_click(GtkApplication *app, gpointer user_data) {
             pthread_join(info->thread.timer, NULL);
             mx_save_login_data(info);
             mx_get_json_contact(info);
-            mx_login_screen_hide(info);
-            mx_main_chat_screen_show(info);
+            mx_login_screen_destroy(info);
+            mx_main_screen_build(info, info->windows->ms);
         }
         else if (mx_get_jtype(info, failed_authorization))
             mx_dialog_warning_create(NULL, "Invalid login or password!");
     }
-}
-
-void mx_register_on_click(GtkApplication *app, gpointer user_data) {
-    t_info *info = (t_info *)user_data;
-    
-    mx_login_screen_hide(info);
-    mx_register_screen_show(info);
 }

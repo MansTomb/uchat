@@ -2,48 +2,36 @@ CC = clang
 LIB = libmx.a
 NAME = uchat
 
-base = main socket info main_window windows_constructor
+base = main socket info
 
-login = login callbacks errors constructor send_json_login
+login = login validate callbacks json
 
-register = register callbacks errors constructor send_json_reg
+register = register
 
-admin = admin callbacks errors constructor
+admin = admin
 
-chat = chat callbacks errors constructor
+chat = chat interface callbacks
 
-chat_switcher = chat_switcher chat_switcher_hide callbacks errors constructor \
-	chat_switcher_show
+message = message
 
-message = message callbacks errors constructor
+message_img = message_img
 
-main_menu = main_menu callbacks callbacks2 errors constructor
+room_creation = room_creation validate
 
-profile = profile callbacks errors constructor send_json_upd_profile          \
-	constructor2
+preferences = callbacks
 
-contacts = contacts callbacks errors constructor tree add_contact             \
-	add_callbacks send_json_contacts get_json_contacts create_group           \
-	create_group_callbacks
+change_password = change_password
 
-room_creation = room_creation callbacks errors constructor
+main_chat_screen = main_screen
 
-preferences = callbacks constructor errors preferences
+add_contact = add_contact
 
-change_password = change_password callbacks errors constructor
+create_group = create_group
 
-main_chat_screen = main_chat_screen
+utils = css wait_for_json create_hash json_get_type dialog entry
 
-exit = exit callbacks constructor
-
-utils = background_images buttons grids input_labels layouts css labels       \
-	widget dialog scrollable stack stack_switcher fixed frame box listbox     \
-	toggle_button json_get_type wait_for_json create_hash switch_button      \
-	volume_button check_button scale
-
-dirs = base login register chat chat_switcher message main_menu profile       \
-	contacts room_creation main_chat_screen utils json exit preferences       \
-	admin change_password
+dirs = base login register admin add_contact chat create_group main_chat_screen \
+	message message_img room_creation utils
 
 FILES = $(foreach dir, $(dirs), $($(dir):%=$(dir)/%))
 
