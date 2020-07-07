@@ -5,7 +5,7 @@ static void json_to_sending_buffer(char *buff, cJSON *json) {
 
     root = cJSON_Print(json);
     sprintf(buff, "%s", root);
-    
+
 }
 
 static void send_one(int sd, char *buff) {
@@ -31,11 +31,17 @@ void mx_send_message_handler(cJSON *json, int sd) {
     char send_buff[MX_MAX_SEND_SIZE];
     char *buff = cJSON_Print(json);
 
-    if (strlen(buff) < 3 * MX_MAX_SEND_SIZE / 2) {
-        json_to_sending_buffer(send_buff, create_peice(0, buff));
+    if (cJSON_GetObjectItem(json, "json_type")->valueint > 99) {
+        json_to_sending_buffer(send_buff, create_peice(3, buff));
         send_one(sd, send_buff);
     }
     else {
-        printf("еще нет\n");
+        if (strlen(buff) < 3 * MX_MAX_SEND_SIZE / 2) {
+            json_to_sending_buffer(send_buff, create_peice(0, buff));
+            send_one(sd, send_buff);
+        }
+        else {
+            printf("еще нет\n");
+        }
     }
 }

@@ -17,7 +17,7 @@ static void *read_from_server(void *info) {
             pthread_exit(0);
         }
         else if (n > 0) {
-            mx_receive_message_handler(buff, &responce, info);
+            mx_receive_message_handler(buff, &responce, info, n);
         }
         bzero(buff, sizeof(buff));
     }

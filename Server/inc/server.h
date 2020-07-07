@@ -105,10 +105,11 @@ void mx_send_message_all(t_sock *sock, t_peer *peer, cJSON *bd, int uid);
 int mx_send_msg_client(t_sock *sock, t_peer *peer, cJSON *bd, int uid);
 void mx_send_msg_clients(t_sock *sock, t_peer *peer, cJSON *bd, int *uid);
 
-void mx_send_message_handler(t_sock *sock, t_peer *peer, cJSON *bd, int sd);
-
     /* message_handler.c */
+void mx_send_message_handler(t_sock *sock, t_peer *peer, cJSON *bd, int sd);
 void mx_receive_message_handler(t_info *info, t_peer *peer);
+void mx_send_file(t_sock *sock, t_peer *peer, cJSON *bd, int sd);
+
 void mx_response_db(t_info *info, t_peer *peer, cJSON *get);
 
     /* func_response_db.c */
