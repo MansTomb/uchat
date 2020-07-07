@@ -39,6 +39,7 @@ struct s_contact {
     char *s_name;
     char *email;
     char *stat;
+    int active;
     int grp_id;
     char *grp_name;
 };

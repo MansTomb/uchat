@@ -21,49 +21,70 @@ typedef enum {
     failed_authorization,           // --
     success_authorization,          // when login exists in db in 1 example, and login and hash valid
 
-    make_deletion,                      // зробити
-    failed_deletion,
-    success_deletion,
+    make_delete_user,
+    failed_delete_user,
+    success_delete_user,
 
     make_change_password,
     failed_change_password,         // --
-    success_change_password,        // when login exists in db in 1 example, and login and hash valid
+    success_change_password,        // valid hash
 
     make_update_profile,
     success_update_profile,
 
-    get_client_data,                      // зробити
-    send_client_data,
-
     get_client_contacts,
     send_client_contacts,
 
-    get_client_chats,                      // зробити
+    get_client_chats,
     send_client_chats,
 
-    get_client_messages,                      // зробити
-    send_client_messages,
+    get_client_chat_messages,
+    send_client_chat_messages,
+
+    make_search_user,
+    failed_search_user,             // error db
+    success_search_user,
 
     make_add_new_contact,
-    failed_add_new_contact,         // when contact doesn't exist in users
+    failed_add_new_contact,
     success_add_new_contact,
 
+    make_add_new_contact_group,
+    failed_add_new_contact_group,
+    success_add_new_contact_group,
+
+    make_del_new_contact_group,
+    failed_del_new_contact_group,
+    success_del_new_contact_group,
+
     make_del_contact,
-    failed_del_contact,             // when contact doesn't exist in contacts_list
+    failed_del_contact,         // when contact doesn't exist in contacts_list
     success_del_contact,
 
     make_new_personal_chat,
     failed_new_personal_chat,
     success_new_personal_chat,
 
-    make_new_group_chat,                      // зробити
+    make_new_group_chat,
     get_new_group_chat,
 
-    make_new_chanel,                      // зробити
+    make_new_chanel,
     get_new_chanel,
 
     send_message,
     failed_send_message,                    // error db
 
+    edit_message,
+    delete_message,
+    failed_edit_delete_message,             // error db
+
     logout,
+
+    make_new_group_chat_channel,
+    failed_new_group_chat_channel,
+    success_new_group_chat_channel,
+
+    this_uid_login,   // два єнама без запроса
+    this_uid_logout,
+
 } t_actions;

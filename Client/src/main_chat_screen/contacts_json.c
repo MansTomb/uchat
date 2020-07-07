@@ -36,6 +36,7 @@ t_contact *mx_contact_constructor(cJSON **jc) {
     c->s_name = cJSON_GetObjectItem(*jc, "sname")->valuestring;
     c->email = cJSON_GetObjectItem(*jc, "email")->valuestring;
     c->stat = cJSON_GetObjectItem(*jc, "status")->valuestring;
+    c->active = cJSON_GetObjectItem(*jc, "active")->valueint;
     c->grp_id = cJSON_GetObjectItem(*jc, "gid")->valueint;
     c->grp_name = cJSON_GetObjectItem(*jc, "gname")->valuestring;
     return c;
