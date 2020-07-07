@@ -47,6 +47,9 @@
 { "json_type": 48, "uid": 1, "ctype": 2, "cname": "general"}
 
 
+{ "json_type": 100, "path": "Server/tmp/14.jpg"}
+
+
 --------------------------other
 
 {"p_type": 0, "piece": "{\"json_type\": 3, \"login\": \"ooo\", \"hash\": \"222\"}"}

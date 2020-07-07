@@ -78,6 +78,14 @@ typedef enum {
 
 } t_actions;
 
+typedef enum {
+    one_msg,
+    big_msg,
+    big_msg_end,
+    file,
+    file_end
+} t_datatype;
+
 int mx_check(int rc, char *err, char *desc);
 
 int mx_create_db(sqlite3 *db);

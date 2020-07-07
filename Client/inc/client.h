@@ -299,7 +299,8 @@ void mx_upd_prof_build_json_wrapper(t_info *info);
 
 int mx_check_err_json(cJSON *new);
 void mx_send_message_handler(cJSON *json, int sd);
-void mx_receive_message_handler(char *receiving_buff, char **large_message, t_info *info);
+void mx_receive_message_handler(char *receiving_buff, char **large_message,
+                                t_info *info);
 
     /* Sockets functions */
 t_sock *mx_client_socket_create(char *ip, int port);
