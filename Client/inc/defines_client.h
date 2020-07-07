@@ -11,6 +11,10 @@
 #define MX_CB G_CALLBACK
 #define MX_GSIG_CON g_signal_connect
 
+#define MX_MSGHEIGHT(msg) (strlen(msg) + 20 * 10)
+#define MX_MSGWIDTH(msg) (strlen(msg) * 4 > 400 ? 400 : strlen(msg) * 4)
+#define MX_MAX_SEND_SIZE 4096
+
 /* Types for sending jsons */
 typedef enum {
     make_register,

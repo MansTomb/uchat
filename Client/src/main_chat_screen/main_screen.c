@@ -12,8 +12,8 @@ void mx_main_screen_build(t_info *info, t_main_screen *ms) {
     ms->chat_stack = GTK_WIDGET(gtk_builder_get_object(ms->builder, "chat_stack"));
     gtk_builder_connect_signals(ms->builder, info);
 
-    mx_chat_put(info, "Pervii");
-    mx_chat_put(info, "Vtoroi");
+    mx_chat_put(info, "Pervii", 99);
+    mx_chat_put(info, "Vtoroi", 100);
     gtk_widget_show(ms->window);
 }
 

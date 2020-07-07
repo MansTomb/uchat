@@ -10,7 +10,7 @@ register = register validate json
 
 admin = admin
 
-chat = chat interface callbacks
+chat = chat interface callbacks get_json_chat_list_login
 
 message = message
 

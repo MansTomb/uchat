@@ -1,7 +1,5 @@
 #include "client.h"
 
-#include "client.h"
-
 static void free_wrapper(char **hash_pass, cJSON **jreg) {
     cJSON_Delete(*jreg);
     if (MX_MALLOC_SIZE(*hash_pass))

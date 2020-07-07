@@ -3,10 +3,6 @@
 #include "uchat.h"
 #include "defines_client.h"
 
-#define MX_MSGHEIGHT(msg) (strlen(msg) + 20 * 10)
-#define MX_MSGWIDTH(msg) (strlen(msg) * 4 > 400 ? 400 : strlen(msg) * 4)
-#define MX_MAX_SEND_SIZE 4096
-
 typedef struct sockaddr_in t_saddr;
 typedef struct s_info t_info;
 typedef struct s_login t_login;
@@ -148,6 +144,7 @@ struct s_change_password {
 
 struct s_chat {
     char *chat_name;
+    int cid;
 
     GtkBuilder *builder;
     GtkWidget *img_dialog;
@@ -284,7 +281,7 @@ t_info *mx_create_info();
     /* Jsons */
 void mx_save_login_data(t_info *info);
 void mx_get_json_contact(t_info *info);
-void save_chats(t_info *info);
+void mx_get_json_chats_list(t_info *info);
 void mx_save_grp_list(t_info *info);
 
 void mx_add_contact_build_json_wrapper(t_contacts *contacts);
@@ -402,9 +399,9 @@ void mx_on_click_vnoti_switch(GtkWidget *widget, gpointer data);
 void mx_on_click_enoti_switch(GtkWidget *widget, gpointer data);
 
 /*                             CHAT SCREEN */
-t_chat *mx_chat_build(t_info *info, char *chat_name);
+t_chat *mx_chat_build(t_info *info, char *chat_name, int cid);
 void mx_chat_destroy(t_list_node *chat_node);
-void mx_chat_put(t_info *info, char *chat_name);
+void mx_chat_put(t_info *info, char *chat_name, int cid);
 
     /* Chat callbacks */
 void mx_send_message(GtkWidget *widget, gpointer data);

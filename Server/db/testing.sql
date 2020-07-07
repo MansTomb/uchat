@@ -22,7 +22,7 @@ INSERT INTO users VALUES
     (NULL, 'ineedhelp', 'ntrhtr'),
     (NULL, 'tootoo', 'hhtrhr');
 
-INSERT INTO chats VALUES (NULL, 1, '');
+INSERT INTO chats VALUES (NULL, 1, 'kek chat');
 INSERT INTO users_chats VALUES (1, last_insert_rowid(), 1);
 INSERT INTO users_chats VALUES (2, (SELECT max(id) FROM chats), 1);
 
