@@ -17,7 +17,7 @@ message = message
 
 message_img = message_img
 
-room_creation = room_creation validate
+room_creation = room_creation validate callbacks
 
 change_password = change_password
 
