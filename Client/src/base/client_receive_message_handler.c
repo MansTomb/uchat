@@ -68,21 +68,21 @@ static void file_handler(cJSON *json, char **large_message, t_info *info) {
     int n;
     int type = cJSON_GetObjectItem(json, "p_type")->valueint;
 
-    if ((new = fopen("new.jpg", "w")) == NULL) {
+    if ((new = fopen("new.jpg", "wb")) == NULL) {
         printf("Cannot open file new.\n");
         exit(1);
     }
     printf("opened\n");
 
     while (1) {
-
-        if ((n = read(info->sock->sock, buff, sizeof(buff))) < 0) {
+        memset(buff, '\0', MX_MAX_SEND_SIZE);
+        if ((n = read(info->sock->sock, buff, MX_MAX_SEND_SIZE)) < 0) {
             // perror(MX_ERR_CL_RE);
             puts("\nGood bye, see you soon...\n");
             pthread_exit(0);
         }
         else if (n > 0) {
-            printf("%s\n----------------\n", buff);
+            printf("\n------------\n%s\nn = %d\n-----------\n", buff, n);
 
             json = cJSON_Parse(buff);
             if (mx_check_err_json(json)) {
@@ -90,7 +90,7 @@ static void file_handler(cJSON *json, char **large_message, t_info *info) {
                 return;
             }
             type = cJSON_GetObjectItem(json, "p_type")->valueint;
-            if (type == 5) {
+            if (type == 5 || n == 0) {
                 // fwrite(*large_message, 1, strlen(*large_message), new);
                 // mx_strdel(large_message);
                 fclose (new);
@@ -99,14 +99,17 @@ static void file_handler(cJSON *json, char **large_message, t_info *info) {
             }
             else {
                 piece = cJSON_GetObjectItem(json, "piece")->valuestring;
-                printf("%s\n", piece);
+                int n1 = cJSON_GetObjectItem(json, "n")->valueint;
+                printf("piece = %s\nsize = %lu\n", piece, strlen(piece));
                 // *large_message = mx_strjoin_free(*large_message, piece);
-                fwrite(piece, 1, cJSON_GetObjectItem(json, "n")->valueint, new);
+                if (n1 > 0)
+                    // fwrite(piece, 1, strlen(buff), new);
+                    printf("ssssss\n");
+                // mx_strdel(piece);
             }
-
         }
     }
-
+    // free(piece);
 }
 
 void mx_receive_message_handler(char *receiving_buff, char **large_message,

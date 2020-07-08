@@ -33,6 +33,7 @@ static void send_one(t_sock *sock, t_peer *peer, int sd) {
 static cJSON *create_piece_file(int type, char *str, int size) {
     cJSON *obj = cJSON_CreateObject();
 
+
     cJSON_AddNumberToObject(obj, "p_type", type);
     cJSON_AddStringToObject(obj, "piece", str);
     if (size)
@@ -94,34 +95,36 @@ void mx_send_file(t_sock *sock, t_peer *peer, cJSON *bd, int sd) {
     // printf("path = %s\n", path);
 
     FILE *fp;
-    if ((fp = fopen(path, "r")) == NULL) {
+    if ((fp = fopen(path, "rb")) == NULL) {
         printf("Cannot open file.\n");
         // exit(1);
     }
     else {
-        // FILE *new;
-        // if ((new = fopen("Server/tmp/new.png", "w")) == NULL) {
-        //     printf("Cannot open file new.\n");
-        //     exit(1);
-        // }
+        FILE *new;
+        if ((new = fopen("Server/tmp/new.png", "wb")) == NULL) {
+            printf("Cannot open file new.\n");
+            exit(1);
+        }
 
-        mx_json_to_sending_buffer(peer->send_buff, create_peice(file, "0", 0));
+        mx_json_to_sending_buffer(peer->send_buff, create_piece_file(file, "0", 0));
         send_one(sock, peer, sd);
         printf("%s\n ---", peer->send_buff);
         sleep(1);
 
         while (1) {
-            // memset(buff, 0x00, MX_MAX_SEND_SIZE / 2);
-            int n = fread(buff, 1, MX_MAX_SEND_SIZE / 2 - 1, fp);
-            buff[MX_MAX_SEND_SIZE / 2 - 1] = '\0';
+            // memset(buff, '\0', MX_MAX_SEND_SIZE / 2);
+            int n = fread(buff, 1, MX_MAX_SEND_SIZE / 2, fp);
+            // buff[MX_MAX_SEND_SIZE / 2 - 1] = '\0';
+
+            printf("----------\n%s\n strlen = %lu\n ------------", buff, strlen(buff));
+            fwrite(buff, 1, n, new);
+
             mx_json_to_sending_buffer(peer->send_buff, create_piece_file(4, buff, n));
             send_one(sock, peer, sd);
 
-            // fwrite(buff, 1, n, new);
-
             if (n == EOF || n == 0) {   // file_read_len == 0.
                 printf("finish file\n");
-                mx_json_to_sending_buffer(peer->send_buff, create_peice(5, "0", 0));
+                mx_json_to_sending_buffer(peer->send_buff, create_piece_file(5, "0", 0));
                 send_one(sock, peer, sd);
                 sleep(1);
                 printf("%s\n ---", peer->send_buff);
@@ -131,7 +134,7 @@ void mx_send_file(t_sock *sock, t_peer *peer, cJSON *bd, int sd) {
             sleep(1);
         }
 
-        // fclose (new);
+        fclose (new);
         fclose (fp);
     }
 
