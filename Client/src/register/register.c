@@ -32,10 +32,10 @@ void mx_on_click_back(GtkWidget *widget, gpointer data) {
     mx_login_screen_build(info, info->windows->log);
 }
 
-void mx_reg_user_on_click(GtkApplication *app, gpointer user_data) {
+void mx_on_click_register(GtkWidget *widget, gpointer user_data) {
     t_info *info = (t_info *)user_data;
 
-    if(app && info){};
+    if(widget && info){};
     // action "mx_make_register" estimated return mx_success_register
     if (mx_reg_data_validate(info->windows->reg)) {
         mx_register_build_json_wrapper(info);
