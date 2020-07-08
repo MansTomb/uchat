@@ -15,8 +15,8 @@ void save_chats(t_info *info) {
         cJSON *chats = cJSON_GetArrayItem(cJSON_GetObjectItem(info->json, "chats"), i);
         char *cname = cJSON_GetObjectItem(chats, "cname")->valuestring;
         mx_chat_put(info, cname, cJSON_GetObjectItem(chats, "cid")->valueint);
-        mx_strdel(&cname);
-        cJSON_Delete(chats);
+        // mx_strdel(&cname);
+        // cJSON_Delete(chats);
     }
 }
 
