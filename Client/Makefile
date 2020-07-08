@@ -29,7 +29,7 @@ profile = profile json callbacks
 
 preferences = preferences
 
-add_contact = add_contact json
+add_contact = add_contact json callbacks
 
 create_group = create_group
 
