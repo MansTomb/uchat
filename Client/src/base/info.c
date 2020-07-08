@@ -11,6 +11,9 @@ static t_windows *create_windows() {
         new->rc = NULL;
         new->ac = NULL;
         new->cg = NULL;
+        new->pref = NULL;
+        new->prof = NULL;
+        new->cont = NULL;
     }
     return new;
 }
@@ -24,6 +27,7 @@ t_info *mx_create_info() {
     // screen = gdk_display_get_default_screen(display);
     new->timer = NULL;
     new->json = NULL;
+    new->wchange = 0;
     new->windows = create_windows();
     new->chat_list = mx_create_list();
     new->css = gtk_css_provider_new();

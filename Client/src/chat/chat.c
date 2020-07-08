@@ -16,6 +16,7 @@ t_chat *mx_chat_build(t_info *info, char *chat_name, int cid) {
 
     chat->cid = cid;
     chat->chat_name = chat_name;
+    chat->id = id;
     chat->info = info;
 
     gtk_widget_show(chat->main_box);

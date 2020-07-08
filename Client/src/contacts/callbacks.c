@@ -38,3 +38,15 @@ void mx_contacts_delete(GtkWidget *widget, gpointer data) {
     // // check if this is a grp_name if it is make request to delete like a grp;
     // gtk_tree_store_remove(GTK_TREE_STORE(model), &contacts->choosen_contact);
 }
+
+void mx_on_add_contact(GtkWidget *widget, gpointer data) {
+    t_info *info = data;
+
+    mx_add_contact_build(info, info->windows->ac);
+}
+
+void mx_on_create_group(GtkWidget *widget, gpointer data) {
+    t_info *info = data;
+
+    mx_create_group_build(info, info->windows->cg);
+}
