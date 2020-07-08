@@ -1,6 +1,6 @@
 #include "client.h"
 
-t_chat *mx_chat_build(t_info *info, char *chat_name) {
+t_chat *mx_chat_build(t_info *info, char *chat_name, int id) {
     t_chat *chat = malloc(sizeof(t_chat));
 
     chat->builder = gtk_builder_new();
@@ -15,6 +15,7 @@ t_chat *mx_chat_build(t_info *info, char *chat_name) {
     gtk_file_filter_add_pixbuf_formats(chat->ffilter);
 
     chat->chat_name = chat_name;
+    chat->id = id;
     chat->info = info;
 
     gtk_widget_show(chat->main_box);

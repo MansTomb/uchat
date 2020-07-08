@@ -143,6 +143,7 @@ struct s_change_password {
 
 struct s_chat {
     char *chat_name;
+    int id;
 
     GtkBuilder *builder;
     GtkWidget *img_dialog;
@@ -398,9 +399,9 @@ void mx_on_click_vnoti_switch(GtkWidget *widget, gpointer data);
 void mx_on_click_enoti_switch(GtkWidget *widget, gpointer data);
 
 /*                             CHAT SCREEN */
-t_chat *mx_chat_build(t_info *info, char *chat_name);
+t_chat *mx_chat_build(t_info *info, char *chat_name, int id);
 void mx_chat_destroy(t_list_node *chat_node);
-void mx_chat_put(t_info *info, char *chat_name);
+void mx_chat_put(t_info *info, char *chat_name, int id);
 
     /* Chat callbacks */
 void mx_send_message(GtkWidget *widget, gpointer data);
