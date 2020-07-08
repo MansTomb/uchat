@@ -2,7 +2,8 @@ CC = clang
 LIB = libmx.a
 NAME = uchat
 
-base = main socket info client_receive_message_handler client_send_message_handler
+base = main socket info client_receive_message_handler client_send_message_handler \
+	close
 
 login = login validate callbacks json
 
@@ -18,21 +19,24 @@ message_img = message_img
 
 room_creation = room_creation validate
 
-preferences = callbacks
-
 change_password = change_password
 
-main_chat_screen = main_screen contacts contacts_callbacks contacts_json      \
-	profile profile_callbacks profile_json
+main_chat_screen = main_screen
 
-add_contact = add_contact
+contacts = contacts callbacks json
+
+profile = profile json callbacks
+
+preferences = preferences
+
+add_contact = add_contact json
 
 create_group = create_group
 
 utils = css wait_for_json create_hash json_get_type dialog entry
 
 dirs = base login register admin add_contact chat create_group main_chat_screen \
-	message message_img room_creation utils
+	profile preferences contacts message message_img room_creation utils
 
 FILES = $(foreach dir, $(dirs), $($(dir):%=$(dir)/%))
 

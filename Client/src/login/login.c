@@ -12,11 +12,14 @@ void mx_login_screen_build(t_info *info, t_login *log) {
     log->window = GTK_WIDGET(gtk_builder_get_object(log->builder, "login_window"));
     gtk_builder_connect_signals(log->builder, info);
 
+    MX_GSIG_CON(log->window, "delete-event", G_CALLBACK(mx_destroy), info);
     gtk_widget_show(log->window);
 }
 
 void mx_login_screen_destroy(t_info *info) {
+    info->wchange = 1;
     gtk_widget_destroy(info->windows->log->window);
     free(info->windows->log);
     info->windows->log = NULL;
+    info->wchange = 0;
 }

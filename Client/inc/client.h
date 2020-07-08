@@ -123,18 +123,14 @@ struct s_register {
 };
 
 struct s_preferences {
-    GtkWidget *scroll;
-    GtkWidget *layout;
-    GtkWidget *volume_label;
+    GtkBuilder *builder;
+    GtkWidget *dialog;
+    GtkWidget *box;
+    GtkWidget *change_pass;
     GtkWidget *volume;
-    GtkWidget *theme_label;
-    GtkWidget *theme_switch;
-    GtkWidget *v_notify_switch;
-    GtkWidget *s_notify_switch;
-    GtkWidget *e_notify_switch;
-
-    GtkWidget *change_pass_dialog;
-    GtkWidget *change_pass_bt;
+    GtkWidget *vnotify;
+    GtkWidget *snotify;
+    GtkWidget *enotify;
 };
 
 struct s_change_password {
@@ -163,29 +159,22 @@ struct s_main_screen {
     GtkBuilder *builder;
     GtkWidget *revealer;
     GtkWidget *chat_stack;
+    GtkWidget *menu_stack;
 };
 
 struct s_profile {
-    GtkWidget *avatar;
-
-    GtkWidget *name; // менять логин не планируется, так что может быть его надо удалить
-    GtkWidget *namelb;
-    GtkWidget *id;
-    GtkWidget *fname;
-    GtkWidget *fnamelb;
-    GtkWidget *sname;
-    GtkWidget *snamelb;
-    GtkWidget *email;
-    GtkWidget *emaillb;
-    GtkWidget *status;
-    GtkWidget *statuslb;
-
-    GtkWidget *edit;
+    GtkBuilder *builder;
+    GtkWidget *dialog;
+    GtkWidget *box;
+    GtkWidget *image;
+    GtkWidget *avatartbt;
     GtkWidget *save;
+    GtkWidget *edit;
     GtkWidget *cancel;
-
-    GtkWidget *scrollable;
-    GtkWidget *layout;
+    GtkWidget *login;
+    GtkWidget *fname;
+    GtkWidget *lname;
+    GtkWidget *email;
 };
 
 struct s_contact_add {
@@ -211,19 +200,13 @@ struct s_group_create {
 };
 
 struct s_contacts {
-    GtkWidget *treeview;
-    GtkWidget *treemodel;
-    GtkWidget *menu;
-
+    GtkBuilder *builder;
+    GtkWidget *dialog;
+    GtkWidget *box;
     GtkWidget *addbt;
-    GtkWidget *crtgrp;
-
-    t_contact_add *dialog;
-    t_group_create *dialog2;
-
-    t_info *info;
-
-    GtkTreeIter choosen_contact;
+    GtkWidget *crtbt;
+    GtkWidget *tree_view;
+    GtkTreeStore *tree_store;
 };
 
 struct s_exit {
@@ -250,6 +233,9 @@ struct s_windows {
     t_login *log;
     t_register *reg;
     t_main_screen *ms;
+    t_profile *prof;
+    t_contacts *cont;
+    t_preferences *pref;
     t_room_creation *rc;
     t_contact_add *ac;
     t_group_create *cg;
@@ -275,6 +261,8 @@ struct s_info {
     GTimer *timer;
 
     t_data *cl_data;
+
+    gboolean wchange;
 };
 
     /* Main */
@@ -304,6 +292,9 @@ void mx_receive_message_handler(char *receiving_buff, char **large_message, t_in
 t_sock *mx_client_socket_create(char *ip, int port);
 
     /* UTILS FUNCTIONS */
+
+    /* On exit */
+gboolean mx_destroy(GtkWidget *widget, GdkEvent *event, gpointer data);
 
     /* Work with css */
 void mx_css_from_file(t_info *info, char *filename);
@@ -363,7 +354,16 @@ void mx_main_screen_destroy(t_info *info);
 void mx_on_click_main_menu(GtkWidget *widget, gpointer data);
 void mx_on_click_exit(GtkWidget *widget, gpointer data);
 
+/*                              Profile Screen */
+void mx_profile_build(t_info *info, t_profile *prof);
+void mx_profile_destroy(t_info *info);
+
+/* Callbacks */
+
+
 /*                              Contacts screen */
+void mx_contacts_build(t_info *info, t_contacts *cont);
+void mx_contacts_destroy(t_info *info);
 void mx_add_contact_build(t_info *info, t_contact_add *ac);
 void mx_add_contact_destroy(t_info *info);
 
@@ -387,10 +387,8 @@ gboolean mx_room_creation_data_validation(t_room_creation *room);
 
 /*                              Preferences Screen */
 
-t_preferences *mx_preferences_constructor(t_info *info);
-void mx_preferences_destructor(t_info *info);
-void mx_preferences_show(t_info *info);
-void mx_preferences_hide(t_info *info);
+void mx_preferences_build(t_info *info, t_preferences *pref);
+void mx_preferences_destroy(t_info *info);
 
     /* Callbacks */
 void mx_on_click_change_pass(GtkWidget *widget, gpointer data);
