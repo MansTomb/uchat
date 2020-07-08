@@ -1,9 +1,8 @@
 #include "client.h"
 
-static void upd_prof_bld_json(const t_info *info, int *s_sock) {
+static void upd_prof_bld_json(const t_info *info, const int *s_sock) {
     cJSON *jprof = cJSON_CreateObject();
     const t_profile *prof = info->windows->prof;
-    const t_preferences *pref = info->windows->pref;
 
     cJSON_AddNumberToObject(jprof, "json_type", make_update_profile);
     cJSON_AddNumberToObject(jprof, "uid", info->cl_data->profile->id);
@@ -19,18 +18,12 @@ static void upd_prof_bld_json(const t_info *info, int *s_sock) {
     cJSON_Delete(jprof);
 }
 
-// void upd_profile(t_info *info) {
-//     t_profile_data *prof = info->cl_data->profile;
-//     char *p_id = mx_lltoa(prof->id);
-
-//     mx_save_login_data(info);
-//     gtk_entry_set_text(GTK_ENTRY(info->windows->profile->name), p_id);
-//     gtk_entry_set_text(GTK_ENTRY(info->windows->profile->id), prof->first_name);
-//     free(p_id);
-// }
+void upd_profile(t_info *info) {
+    mx_save_login_data(info);
+}
 
 void mx_upd_prof_build_json_wrapper(t_info *info) {
     upd_prof_bld_json(info, &info->sock->sock);
     mx_wait_for_json(info, success_update_profile, success_update_profile);
-    // upd_profile(info);
+    upd_profile(info);
 }

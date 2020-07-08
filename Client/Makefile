@@ -19,7 +19,7 @@ message_img = message_img
 
 room_creation = room_creation validate callbacks
 
-change_password = change_password
+change_password = change_password 
 
 main_chat_screen = main_screen
 
@@ -27,7 +27,7 @@ contacts = contacts callbacks json
 
 profile = profile json callbacks
 
-preferences = preferences callbacks
+preferences = preferences callbacks chg_pass_json
 
 add_contact = add_contact json callbacks
 

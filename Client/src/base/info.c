@@ -32,6 +32,7 @@ t_info *mx_create_info() {
     new->chat_list = mx_create_list();
     new->css = gtk_css_provider_new();
     new->cl_data = (t_data *)malloc(sizeof(t_data));
+    new->cl_data->contacts = mx_create_list();
     new->cl_data->profile = (t_profile_data *)malloc(sizeof(t_profile_data));
     // gtk_style_context_add_provider_for_screen(screen, GTK_STYLE_PROVIDER(new->css), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
     return new;

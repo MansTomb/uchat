@@ -60,7 +60,6 @@ struct s_data {
 
     t_list *contacts;
     t_list *cont_grp_names;
-    t_list *chats_list;
 };
 
 struct s_sock {
@@ -268,21 +267,17 @@ t_info *mx_create_info();
 
     /* Jsons */
 void mx_save_login_data(t_info *info);
-void mx_get_json_contact(t_info *info);
+void mx_get_json_contacts(t_info *info);
 void mx_get_json_chats_list(t_info *info);
-void mx_save_grp_list(t_info *info);
-
-void mx_add_contact_build_json_wrapper(t_contacts *contacts);
-void mx_get_json_contact(t_info *info);
+void mx_chg_pass_json(t_info *info, const char *old_pass, const char *new_pass);
 
     /* Json wrappers */
 bool mx_get_jtype(t_info *info, int type);
 void mx_login_build_json_wrapper(t_info *info);
 void mx_register_build_json_wrapper(t_info *info);
-void mx_add_contact_build_json_wrapper(t_contacts *contacts);
 void mx_upd_prof_build_json_wrapper(t_info *info);
 
-int mx_check_err_json(cJSON *new);
+    /* Package transferring */
 void mx_send_message_handler(cJSON *json, int sd);
 void mx_receive_message_handler(char *receiving_buff, char **large_message, t_info *info);
 

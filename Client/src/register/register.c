@@ -28,6 +28,7 @@ void mx_register_screen_destroy(t_info *info) {
 void mx_on_click_back(GtkWidget *widget, gpointer data) {
     t_info *info = data;
 
+printf("mx_on_click_back\n");
     mx_register_screen_destroy(info);
     mx_login_screen_build(info, info->windows->log);
 }

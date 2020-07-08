@@ -34,17 +34,20 @@ void mx_on_click_main_menu(GtkWidget *widget, gpointer data) {
     t_info *info = data;
     gboolean revealed = gtk_revealer_get_reveal_child(GTK_REVEALER(info->windows->ms->revealer));
 
+printf("mx_on_click_main_menu\n");
     gtk_revealer_set_reveal_child(GTK_REVEALER(info->windows->ms->revealer), !revealed);
 }
 
 void mx_on_click_room_creation(GtkWidget *widget, gpointer data) {
     t_info *info = data;
 
+printf("mx_on_click_room_creation\n");
     mx_room_creation_build(info, info->windows->rc);
 }
 
 void mx_on_click_exit(GtkWidget *widget, gpointer data) {
     t_info *info = data;
 
+printf("mx_on_click_exit\n");
     gtk_main_quit();
 }

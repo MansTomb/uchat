@@ -1,6 +1,6 @@
 #include "client.h"
 
-static void send_get_chats_request(t_info *info) {
+static void send_get_chats_request(const t_info *info) {
     cJSON *jobj = cJSON_CreateObject();
 
     cJSON_AddNumberToObject(jobj, "json_type", get_client_chats);
@@ -10,13 +10,23 @@ static void send_get_chats_request(t_info *info) {
     cJSON_Delete(jobj);
 }
 
-void save_chats(t_info *info) {
-    for (int i = 0; i < cJSON_GetArraySize(cJSON_GetObjectItem(info->json, "chats")); ++i) {
-        cJSON *chats = cJSON_GetArrayItem(cJSON_GetObjectItem(info->json, "chats"), i);
-        char *cname = cJSON_GetObjectItem(chats, "cname")->valuestring;
-        mx_chat_put(info, cname, cJSON_GetObjectItem(chats, "cid")->valueint);
-        mx_strdel(&cname);
+static void save_chats(t_info *info) {
+    if (cJSON_IsObject(info->json)) {
+        cJSON *i = NULL;
+        cJSON *chats = cJSON_GetObjectItem(info->json, "chats");
+
+        if (cJSON_IsArray(chats)) {
+            cJSON_ArrayForEach(i, chats) {
+                mx_chat_put(info,
+                            cJSON_GetObjectItem(i, "cname")->valuestring,
+                            cJSON_GetObjectItem(i, "cid")->valueint);
+            }
+        }
+        else
+            fprintf(stderr, "json saving error\n");
     }
+    else
+        fprintf(stderr, "json saving error\n");
 }
 
 void mx_get_json_chats_list(t_info *info) {

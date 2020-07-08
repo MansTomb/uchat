@@ -21,7 +21,7 @@ void mx_on_click_login(GtkWidget *widget, gpointer user_data) {
             mx_save_login_data(info);
             mx_login_screen_destroy(info);
             mx_main_screen_build(info, info->windows->ms);
-            mx_get_json_contact(info);
+            mx_get_json_contacts(info);
             mx_get_json_chats_list(info);
         }
         else if (mx_get_jtype(info, failed_authorization))

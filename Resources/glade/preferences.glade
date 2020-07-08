@@ -168,6 +168,7 @@ audio-volume-medium-symbolic</property>
         <property name="receives_default">True</property>
         <property name="halign">center</property>
         <property name="valign">center</property>
+        <signal name="clicked" handler="mx_on_change_password" swapped="no"/>
       </object>
       <packing>
         <property name="expand">False</property>

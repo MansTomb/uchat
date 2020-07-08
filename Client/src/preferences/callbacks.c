@@ -25,5 +25,7 @@ void mx_on_change_password(GtkWidget *widget, gpointer data) {
     t_info *info = data;
     t_preferences *pref = info->windows->pref;
 
+printf("mx_on_change_password\n");
+    mx_chg_pass_json(info, "kek", "lol");
     // change password dialog
 }
