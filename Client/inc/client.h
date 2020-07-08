@@ -306,6 +306,9 @@ GtkWidget *mx_entry_constructor(char *name);
 bool mx_entry_text_exist(GtkWidget *entry);
 const char *mx_entry_get_text(GtkWidget *entry);
 
+    /* Toggle Button */
+gboolean mx_get_tactive(GtkWidget *widget);
+
     /* Hash */
 char *mx_create_hash(const char *pass);
 

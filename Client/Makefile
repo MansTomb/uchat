@@ -33,7 +33,7 @@ add_contact = add_contact json callbacks
 
 create_group = create_group
 
-utils = css wait_for_json create_hash json_get_type dialog entry
+utils = css wait_for_json create_hash json_get_type dialog entry toggle
 
 dirs = base login register admin add_contact chat create_group main_chat_screen \
 	profile preferences contacts message message_img room_creation utils
