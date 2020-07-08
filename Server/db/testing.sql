@@ -2,6 +2,10 @@
 -- .mode column
 
 INSERT INTO users VALUES
+    (NULL, 'lol', 'lol'),
+    (NULL, 'kek', 'kek');
+
+INSERT INTO users VALUES
     (NULL, 'abalabin', 'qwerty'),
     (NULL, 'oafanasiev', 'asdfgh'),
     (NULL, 'trohalska', 'zxcvbn'),

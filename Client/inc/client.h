@@ -273,7 +273,6 @@ void mx_get_json_chats_list(t_info *info);
 void mx_save_grp_list(t_info *info);
 
 void mx_add_contact_build_json_wrapper(t_contacts *contacts);
-void save_contacts(t_info *info);
 void mx_get_json_contact(t_info *info);
 
     /* Json wrappers */

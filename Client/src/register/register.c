@@ -36,7 +36,6 @@ void mx_reg_user_on_click(GtkWidget *widget, gpointer user_data) {
     t_info *info = (t_info *)user_data;
 
     if(widget && info){};
-    // action "mx_make_register" estimated return mx_success_register
     if (mx_reg_data_validate(info->windows->reg)) {
         mx_register_build_json_wrapper(info);
         mx_wait_for_json(info, failed_register, success_register);
