@@ -27,7 +27,7 @@ contacts = contacts callbacks json
 
 profile = profile json callbacks
 
-preferences = preferences
+preferences = preferences callbacks
 
 add_contact = add_contact json callbacks
 

@@ -4,7 +4,6 @@ static void upd_prof_bld_json(const t_info *info, int *s_sock) {
     cJSON *jprof = cJSON_CreateObject();
     const t_profile *prof = info->windows->prof;
     const t_preferences *pref = info->windows->pref;
-    char *str = NULL;
 
     cJSON_AddNumberToObject(jprof, "json_type", make_update_profile);
     cJSON_AddNumberToObject(jprof, "uid", info->cl_data->profile->id);
@@ -16,11 +15,8 @@ static void upd_prof_bld_json(const t_info *info, int *s_sock) {
     cJSON_AddNumberToObject(jprof, "vnot", info->cl_data->profile->vs_noty);
     cJSON_AddNumberToObject(jprof, "enot", info->cl_data->profile->email_noty);
 
-    str = cJSON_Print(jprof);
     mx_send_message_handler(jprof, *s_sock);
     cJSON_Delete(jprof);
-    if (MX_MALLOC_SIZE(str))
-        free(str);
 }
 
 // void upd_profile(t_info *info) {

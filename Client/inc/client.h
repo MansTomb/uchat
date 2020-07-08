@@ -399,9 +399,9 @@ void mx_preferences_destroy(t_info *info);
     /* Callbacks */
 void mx_on_click_change_pass(GtkWidget *widget, gpointer data);
 void mx_on_click_theme_switch(GtkWidget *widget, gboolean state, gpointer data);
-void mx_on_click_snoti_switch(GtkWidget *widget, gpointer data);
-void mx_on_click_vnoti_switch(GtkWidget *widget, gpointer data);
-void mx_on_click_enoti_switch(GtkWidget *widget, gpointer data);
+void mx_on_toggle_vnoti(GtkWidget *widget, gpointer data);
+void mx_on_toggle_snoti(GtkWidget *widget, gpointer data);
+void mx_on_toggle_enoti(GtkWidget *widget, gpointer data);
 
 /*                             CHAT SCREEN */
 t_chat *mx_chat_build(t_info *info, char *chat_name, int id);
