@@ -15,6 +15,7 @@ static void *read_from_server(void *info) {
             // perror(MX_ERR_CL_RE);
             puts("\nGood bye, see you soon...\n");
             pthread_exit(0);
+            mx_destroy(NULL, NULL, info1);
         }
         else if (n > 0) {
             mx_receive_message_handler(buff, &responce, info);

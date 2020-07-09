@@ -19,7 +19,7 @@ message_img = message_img
 
 room_creation = room_creation validate callbacks
 
-change_password = change_password
+change_pass = change_pass callbacks validate
 
 main_chat_screen = main_screen
 
@@ -36,7 +36,8 @@ create_group = create_group
 utils = css wait_for_json create_hash json_get_type dialog entry toggle
 
 dirs = base login register admin add_contact chat create_group main_chat_screen \
-	profile preferences contacts message message_img room_creation utils
+	profile preferences contacts message message_img room_creation utils      \
+	change_pass
 
 FILES = $(foreach dir, $(dirs), $($(dir):%=$(dir)/%))
 

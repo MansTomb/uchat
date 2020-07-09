@@ -11,6 +11,7 @@ static t_windows *create_windows() {
         new->rc = NULL;
         new->ac = NULL;
         new->cg = NULL;
+        new->cp = NULL;
         new->pref = NULL;
         new->prof = NULL;
         new->cont = NULL;

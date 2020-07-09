@@ -133,14 +133,6 @@ struct s_preferences {
     GtkWidget *enotify;
 };
 
-struct s_change_password {
-    GtkWidget *dialog;
-    GtkWidget *old_pass;
-    GtkWidget *new_pass;
-    GtkWidget *changebt;
-    GtkWidget *cancelbt;
-};
-
 struct s_chat {
     char *chat_name;
     int id;
@@ -229,6 +221,18 @@ struct s_room_creation {
     t_info *info;
 };
 
+struct s_change_password {
+    GtkWidget *dialog;
+    GtkBuilder *builder;
+    GtkWidget *changebt;
+    GtkWidget *cancelbt;
+    GtkWidget *oldpass;
+    GtkWidget *newpass1;
+    GtkWidget *newpass2;
+
+    t_info *info;
+};
+
 struct s_windows {
     t_admin *adm;
     t_login *log;
@@ -239,6 +243,7 @@ struct s_windows {
     t_preferences *pref;
     t_room_creation *rc;
     t_contact_add *ac;
+    t_change_password *cp;
     t_group_create *cg;
 };
 
@@ -397,11 +402,20 @@ void mx_preferences_build(t_info *info, t_preferences *pref);
 void mx_preferences_destroy(t_info *info);
 
     /* Callbacks */
-void mx_on_click_change_pass(GtkWidget *widget, gpointer data);
 void mx_on_click_theme_switch(GtkWidget *widget, gboolean state, gpointer data);
 void mx_on_toggle_vnoti(GtkWidget *widget, gpointer data);
 void mx_on_toggle_snoti(GtkWidget *widget, gpointer data);
 void mx_on_toggle_enoti(GtkWidget *widget, gpointer data);
+void mx_on_change_password(GtkWidget *widget, gpointer data);
+
+/*                               Change Password */
+void mx_change_password_build(t_info *info, t_change_password *cp);
+void mx_change_password_destroy(t_info *info);
+gboolean mx_cp_validate(t_change_password *cp);
+
+    /* Callbacks */
+void mx_on_cp_cancel(GtkWidget *widget, gpointer data);
+void mx_on_cp_change(GtkWidget *widget, gpointer data);
 
 /*                             CHAT SCREEN */
 t_chat *mx_chat_build(t_info *info, char *chat_name, int id);

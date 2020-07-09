@@ -11,6 +11,10 @@
 #define MX_CB G_CALLBACK
 #define MX_GSIG_CON g_signal_connect
 
+#define MX_PASS_NONPRINT "Password contain non printable characters!"
+#define MX_NEWPASS_NOTEQUAL "New password wont match!"
+#define MX_FIELDS_NOTEMPTY "Fields cant be empty!"
+
 /* Types for sending jsons */
 typedef enum {
     make_register,
