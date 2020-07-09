@@ -56,7 +56,7 @@ WFLAGS = -Wall -Wextra -Werror -Wpedantic -Wno-unused-command-line-argument \
 LFLAGS = -Iinc -I$(LIB_DIR)inc -I/usr/local/opt/openssl/include \
 	-L/usr/local/opt/openssl/lib -lssl -lcrypto
 
-# CFLAGS = -Os -march=native -fomit-frame-pointer -flto
+CFLAGS = -Os -march=native -fomit-frame-pointer -flto
 
 CFLAGS = -O0 -g3 -glldb -ftrapv -fno-omit-frame-pointer -fsanitize=address    \
 	-fsanitize=undefined

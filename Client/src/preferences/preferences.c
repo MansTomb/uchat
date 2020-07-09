@@ -15,6 +15,10 @@ void mx_preferences_build(t_info *info, t_preferences *pref) {
     pref->enotify = GTK_WIDGET(gtk_builder_get_object(pref->builder, "enotify"));
     gtk_builder_connect_signals(pref->builder, info);
 
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pref->vnotify), info->cl_data->profile->vs_noty);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pref->snotify), info->cl_data->profile->sound_noty);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pref->enotify), info->cl_data->profile->email_noty);
+
     gtk_stack_add_titled(GTK_STACK(info->windows->ms->menu_stack), pref->box, "Preferences", "Preferences");
     gtk_widget_show(pref->box);
 }

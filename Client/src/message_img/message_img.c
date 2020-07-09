@@ -19,10 +19,10 @@ t_message_img *mx_message_img_build(t_info *info, char *username, GtkWidget *img
     message->main_fixed = GTK_WIDGET(gtk_builder_get_object(message->builder, "main_fixed"));
     gtk_builder_connect_signals(message->builder, message);
     set_preferences(message, username, img);
-
     message->info = info;
 
     gtk_widget_show(message->main_fixed);
+
     return message;
 }
 
