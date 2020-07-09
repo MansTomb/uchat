@@ -1,5 +1,14 @@
 #include "client.h"
 
+static void set_fields(t_info *info, t_profile *prof) {
+    t_profile_data *data = info->cl_data->profile;
+
+    gtk_entry_set_text(GTK_ENTRY(prof->login), data->login);
+    gtk_entry_set_text(GTK_ENTRY(prof->fname), data->first_name);
+    gtk_entry_set_text(GTK_ENTRY(prof->lname), data->sec_name);
+    gtk_entry_set_text(GTK_ENTRY(prof->email), data->user_email);
+}
+
 void mx_profile_build(t_info *info, t_profile *prof) {
     if (prof == NULL)
         info->windows->prof = prof = malloc(sizeof(t_profile));
@@ -19,6 +28,7 @@ void mx_profile_build(t_info *info, t_profile *prof) {
     prof->email = GTK_WIDGET(gtk_builder_get_object(prof->builder, "email"));
     gtk_builder_connect_signals(prof->builder, info);
 
+    set_fields(info, prof);
     gtk_stack_add_titled(GTK_STACK(info->windows->ms->menu_stack), prof->box, "Profile", "Profile");
     gtk_widget_hide(prof->cancel);
     gtk_widget_hide(prof->save);
