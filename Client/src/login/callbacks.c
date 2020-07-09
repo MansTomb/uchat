@@ -7,7 +7,6 @@ void mx_on_click_register(GtkWidget *widget, gpointer data) {
     mx_register_screen_build(info, info->windows->reg);
 }
 
-
 void mx_on_click_login(GtkWidget *widget, gpointer user_data) {
     t_info *info = (t_info *)user_data;
     t_login *log = info->windows->log;
