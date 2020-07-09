@@ -16,6 +16,8 @@
 #define MX_EMAIL_PATH "Server/tmp/sendmail"
 #define MX_EMAIL_PATH_LOGIN "Server/tmp/sendmail_login"
 
+#define MX_FILES_DIR "Server/tmp/"
+
 typedef struct sockaddr_in t_saddr;
 
 typedef struct s_peer {                            // t_peer
@@ -105,10 +107,14 @@ void mx_send_message_all(t_sock *sock, t_peer *peer, cJSON *bd, int uid);
 int mx_send_msg_client(t_sock *sock, t_peer *peer, cJSON *bd, int uid);
 void mx_send_msg_clients(t_sock *sock, t_peer *peer, cJSON *bd, int *uid);
 
-void mx_send_message_handler(t_sock *sock, t_peer *peer, cJSON *bd, int sd);
-
     /* message_handler.c */
+int mx_send_check(t_sock *sock, t_peer *client, int n);
+int mx_recv_check(int n);
+void mx_send_message_handler(t_sock *sock, t_peer *peer, cJSON *bd, int sd);
 void mx_receive_message_handler(t_info *info, t_peer *peer);
+void mx_send_file(t_sock *sock, t_peer *peer, cJSON *bd, int sd);
+void mx_receive_file(t_info *info, t_peer *peer, cJSON *json);
+
 void mx_response_db(t_info *info, t_peer *peer, cJSON *get);
 
     /* func_response_db.c */
@@ -123,6 +129,7 @@ void mx_db_edit_message(t_info *info, t_peer *peer, cJSON *get);
 
 void mx_db_get_self_response(t_info *info, t_peer *peer, cJSON *get,
                             cJSON *(*func)(sqlite3 *, cJSON *));
+void mx_db_get_contact_list(t_info *info, t_peer *peer, cJSON *get);
 
 /* Utils */
 

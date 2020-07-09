@@ -16,7 +16,7 @@ static void auditor1(t_info *info, t_peer *peer, int type, cJSON *get) {
         mx_db_get_self_response(info, peer, get, &mx_update_profile);
 
     else if (type == get_client_contacts)
-        mx_db_get_self_response(info, peer, get, &mx_get_contact_list);
+        mx_db_get_contact_list(info, peer, get);
     else if (type == get_client_chats)
         mx_db_get_self_response(info, peer, get, &mx_get_clients_chats);
     else if (type == get_client_chat_messages)
@@ -33,7 +33,6 @@ static void auditor1(t_info *info, t_peer *peer, int type, cJSON *get) {
 }
 
 void mx_response_db(t_info *info, t_peer *peer, cJSON *get) {
-    // printf("%s\n", peer->recv_buff);
     int type = MX_TYPE(get);
 
     if (type == make_register)
@@ -43,7 +42,7 @@ void mx_response_db(t_info *info, t_peer *peer, cJSON *get) {
     else if (type == make_delete_user)
         mx_db_delete(info, peer, get);
 
-    else if (type == send_message)
+    else if (type == send_message || type == file_msg)
         mx_db_send_message(info, peer, get);
     else if (type == edit_message || type == delete_message)
         mx_db_edit_message(info, peer, get);

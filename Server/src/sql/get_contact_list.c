@@ -11,6 +11,7 @@ static int callback(void *data, int argc, char **argv, char **cols) {
 
     cJSON_AddNumberToObject(contact, "gid", argv[6] ? atoi(argv[6]) : 0);
     cJSON_AddStringToObject(contact, "gname", argv[7] ? argv[7] : "");
+    cJSON_AddBoolToObject(contact, "active", false);
     cJSON_AddItemToArray(cJSON_GetObjectItem(data, "contacts"), contact);
     return 0;
 }

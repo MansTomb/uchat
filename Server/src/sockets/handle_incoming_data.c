@@ -1,6 +1,8 @@
 #include "server.h"
 
 void mx_handle_disconnect(t_sock *sock, t_peer *client) {
+    cJSON *json;
+
     //Check if it was for closing , and also read the
     //incoming message
     //Somebody disconnected , get his details and print
@@ -11,7 +13,10 @@ void mx_handle_disconnect(t_sock *sock, t_peer *client) {
 
     // mx_shutdown_ssl();
 
-    //Close the socket and mark as MX_NO_SOCKET in list for reuse
+    json = mx_this_uid_login_or_logout(client->uid, this_uid_logout);
+    mx_send_message_all(sock, client, json, client->uid);
+
+    // Close the socket and mark as MX_NO_SOCKET in list for reuse
     close(client->socket);
     client->socket = MX_NO_SOCKET;
     client->uid = -1;

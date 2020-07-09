@@ -30,11 +30,12 @@ void mx_db_authorization(t_info *info, t_peer *peer, cJSON *get) {
 void mx_db_logout(t_info *info, t_peer *peer, cJSON *get) {
     cJSON *json;
 
-    json = mx_this_uid_login_or_logout(peer->uid, this_uid_logout);
-    mx_send_message_all(info->sock, peer, json, peer->uid);
     peer->uid = MX_NO_PEER;
     mx_json_to_sending_buffer(peer->send_buff, get);
     mx_print_serv_out(get, peer->send_buff);
+
+    json = mx_this_uid_login_or_logout(peer->uid, this_uid_logout);
+    mx_send_message_all(info->sock, peer, json, peer->uid);
 }
 
 void mx_db_delete(t_info *info, t_peer *peer, cJSON *get) {
