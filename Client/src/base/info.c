@@ -41,5 +41,6 @@ t_info *mx_create_info() {
     new->cl_data->contacts = mx_create_list();
     new->cl_data->profile = (t_profile_data *)malloc(sizeof(t_profile_data));
     new->cl_data->contacts = mx_create_list();
+    new->cl_data->cont_grp_names = mx_create_list();
     return new;
 }

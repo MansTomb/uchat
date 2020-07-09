@@ -23,7 +23,7 @@ change_pass = change_pass callbacks validate
 
 main_chat_screen = main_screen
 
-contacts = contacts callbacks json
+contacts = contacts callbacks json create_table
 
 profile = profile json callbacks
 
