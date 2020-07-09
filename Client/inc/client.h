@@ -3,10 +3,6 @@
 #include "uchat.h"
 #include "defines_client.h"
 
-#define MX_MSGHEIGHT(msg) (strlen(msg) + 20 * 10)
-#define MX_MSGWIDTH(msg) (strlen(msg) * 4 > 400 ? 400 : strlen(msg) * 4)
-#define MX_MAX_SEND_SIZE 4096
-
 typedef struct sockaddr_in t_saddr;
 typedef struct s_info t_info;
 typedef struct s_login t_login;
@@ -39,12 +35,13 @@ struct s_contact {
     char *s_name;
     char *email;
     char *stat;
+    int active;
     int grp_id;
     char *grp_name;
 };
 
 // client profile data
-struct s_profile_data { 
+struct s_profile_data {
     int id;
     char *login;
     char *first_name;
@@ -63,7 +60,6 @@ struct s_data {
 
     t_list *contacts;
     t_list *cont_grp_names;
-    t_list *chats_list;
 };
 
 struct s_sock {
@@ -135,7 +131,7 @@ struct s_preferences {
 
 struct s_chat {
     char *chat_name;
-    int id;
+    int cid;
 
     GtkBuilder *builder;
     GtkWidget *img_dialog;
@@ -281,21 +277,18 @@ void mx_info_create_css(t_info *new);
 
     /* Jsons */
 void mx_save_login_data(t_info *info);
-void mx_get_json_contact(t_info *info);
-void save_chats(t_info *info);
-void mx_save_grp_list(t_info *info);
-
-void mx_add_contact_build_json_wrapper(t_contacts *contacts);
-void save_contacts(t_info *info);
-void mx_get_json_contact(t_info *info);
+void mx_get_json_contacts(t_info *info);
+void mx_get_json_chats_list(t_info *info);
+void mx_chg_pass_json(t_info *info, const char *old_pass, const char *new_pass);
+int mx_check_err_json(cJSON *new);
 
     /* Json wrappers */
 bool mx_get_jtype(t_info *info, int type);
 void mx_login_build_json_wrapper(t_info *info);
 void mx_register_build_json_wrapper(t_info *info);
-void mx_add_contact_build_json_wrapper(t_contacts *contacts);
 void mx_upd_prof_build_json_wrapper(t_info *info);
 
+    /* Package transferring */
 void mx_send_message_handler(cJSON *json, int sd);
 void mx_receive_message_handler(char *receiving_buff, char **large_message, t_info *info);
 
@@ -426,9 +419,9 @@ void mx_on_cp_cancel(GtkWidget *widget, gpointer data);
 void mx_on_cp_change(GtkWidget *widget, gpointer data);
 
 /*                             CHAT SCREEN */
-t_chat *mx_chat_build(t_info *info, char *chat_name, int id);
+t_chat *mx_chat_build(t_info *info, char *chat_name, int cid);
 void mx_chat_destroy(t_list_node *chat_node);
-void mx_chat_put(t_info *info, char *chat_name, int id);
+void mx_chat_put(t_info *info, char *chat_name, int cid);
 
     /* Chat callbacks */
 void mx_send_message(GtkWidget *widget, gpointer data);

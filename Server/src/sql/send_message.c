@@ -36,7 +36,7 @@ static void get_all_users(sqlite3 *db, cJSON *jsn) {
     int *uid = malloc(MAX_CLIENTS * sizeof(int));
 
     bzero(uid, MAX_CLIENTS);
-    asprintf(&query, "SELECT uid FROM users_chats WHERE cid = %i "
+    asprintf(&query, "SELECT user_id FROM users_chats WHERE chat_id = %i "
             "AND role > 0;", MX_VINT(jsn, "cid"));
 
     rc = sqlite3_exec(db, query, get_id, uid, &err);

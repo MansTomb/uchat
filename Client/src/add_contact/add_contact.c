@@ -23,7 +23,7 @@ void mx_add_contact_build(t_info *info, t_contact_add *ac) {
     ac->info = info;
 
     gtk_widget_show(ac->dialog);
-}
+} 
 
 void mx_add_contact_destroy(t_info *info) {
     gtk_widget_destroy(info->windows->ac->dialog);
