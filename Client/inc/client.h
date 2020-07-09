@@ -26,7 +26,12 @@ typedef struct s_profile_data t_profile_data;
 typedef struct s_data t_data;
 typedef struct s_sock t_sock;
 
+typedef struct s_giter t_giter;
 
+struct s_giter {
+    char *gname;
+    GtkTreeIter iter;
+};
 // list of contacts that client have
 struct s_contact {
     int cid;
@@ -200,6 +205,9 @@ struct s_contacts {
     GtkTreeViewColumn *stat_col;
     GtkCellRenderer *log_render;
     GtkCellRendererPixbuf *stat_render;
+
+    GtkTreeIter main_iter;
+    t_list *giters;
 };
 
 struct s_exit {
