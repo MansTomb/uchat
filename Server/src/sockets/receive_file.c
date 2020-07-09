@@ -7,21 +7,20 @@ static void file_loop(t_info *info, t_peer *peer, FILE *new, int fsize) {
     while (1) {
         // bzero(peer->recv_buff, sizeof(peer->recv_buff));
         if ((n = recv(peer->socket, buff, MX_MAX_SEND_SIZE, 0)) < 0) {
-            printf("\n~~handle_disconnect~~\n");
-            // mx_handle_disconnect(info->sock, peer);
+            // printf("\n~~handle_disconnect~~\n");
+            mx_handle_disconnect(info->sock, peer);
         }
         else if (n > 0){
-            printf("\n---\n%s\nfsize = %d, n = %d\n---\n", buff, fsize, n);
-            // fseek(new, 0, SEEK_END);
-            // if (fsize <= MX_MAX_SEND_SIZE) {
-            //     fwrite(buff, 1, fsize, new);
-            //     break;
-            // }
+            // printf("\n---\n%s\nfsize = %d, n = %d\n---\n", buff, fsize, n);
+            if (fsize <= MX_MAX_SEND_SIZE) {
+                fwrite(buff, 1, fsize, new);
+                break;
+            }
             fwrite(buff, 1, n, new);
-            // fsize -= MX_MAX_SEND_SIZE;
+            fsize -= MX_MAX_SEND_SIZE;
         }
         else {
-            printf("\n~~file finished~~~\n");
+            printf("\n~~~unused behavior~~~\n");
             break;
         }
     }
@@ -37,10 +36,10 @@ void mx_receive_file(t_info *info, t_peer *peer, cJSON *json) {
     if ((new = fopen(fullname, "wb")) == NULL)
         printf("Cannot open file on client.\n");
     else {
-        printf("file opened\n");
+        printf("recv file opened\n");
         file_loop(info, peer, new, fsize);
     }
     fclose (new);
     mx_strdel(&fullname);
-    printf("file closed\n");
+    printf("recv file closed\n");
 }

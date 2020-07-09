@@ -47,22 +47,17 @@ void mx_receive_message_handler(t_info *info, t_peer *peer) {
         return;
 
     type = MX_PTYPE(get);
-
-    printf("%s\n", peer->recv_buff);
-
+    // printf("%s\n", peer->recv_buff);
     if (type == one_msg)
         one_message_handler(info, peer, get);
     else if (type == big_msg || type == big_msg_end)
         mx_large_message_handler(info, peer, get);
     else if (type == file) {
-        printf("------------\n");
-        // mx_send_file(info->sock, peer, get, peer->socket);
         mx_receive_file(info, peer, get);
-        // one_message_handler(info, peer, get);
+        one_message_handler(info, peer, get);
     }
     else
         printf("ERROR p_type\n");
     // bzero(peer->recv_buff, sizeof(peer->recv_buff));
-
     cJSON_Delete(get);
 }

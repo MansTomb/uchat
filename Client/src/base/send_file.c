@@ -3,7 +3,7 @@
 static void send_one(int sd, char *buff) {
     int n;
 
-    n = send(sd, buff, sizeof(buff), MSG_DONTWAIT);
+    n = send(sd, buff, MX_MAX_SEND_SIZE, MSG_DONTWAIT);
     if (n <= 0) {
         perror("write");
         pthread_exit((void *)EXIT_FAILURE);
@@ -15,7 +15,7 @@ static cJSON *create_piece_file(char *piece, char *path, int size) {
 
     cJSON_AddNumberToObject(obj, "p_type", 3);
     cJSON_AddStringToObject(obj, "piece", piece);
-    cJSON_AddStringToObject(obj, "name", &path[strlen(MX_FILES_DIR)]);
+    cJSON_AddStringToObject(obj, "name", &path[strlen(MX_SEND_FILES_DIR)]);
     cJSON_AddNumberToObject(obj, "n", size);
 
     return obj;
@@ -47,12 +47,13 @@ void mx_send_file(cJSON *json, int sd) {
     if ((fp = fopen(path, "rb")) == NULL)
         printf("Cannot open file on client.\n");
     else {
+        printf("start sending file\n");
         send_first(json, fp, path, sd);
-        printf("%s\n", buff);
+        // printf("%s\n", buff);
         sleep(1);
         while (!feof(fp)) {
             int n = fread(buff, 1, MX_MAX_SEND_SIZE, fp);   // ->n
-            printf("---\n%s\n strlen = %d\n---", buff, n);
+            // printf("---\n%s\n strlen = %d\n---", buff, n);
             send_one(sd, buff);
             bzero(buff, sizeof(buff));
         }

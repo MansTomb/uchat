@@ -11,7 +11,8 @@
 #define MX_CB G_CALLBACK
 #define MX_GSIG_CON g_signal_connect
 
-#define MX_FILES_DIR "Client/files/"
+#define MX_SEND_FILES_DIR "Client/files_send/"
+#define MX_RECV_FILES_DIR "Client/files_recv/"
 
 /* Types for sending jsons */
 typedef enum {

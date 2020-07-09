@@ -48,7 +48,7 @@
 
 
 
-{ "json_type": 53, "uid": 2, "cid": 1, "type": 2, "content": "Client/files/rrr"}
+{ "json_type": 53, "uid": 2, "cid": 1, "type": 2, "content": "Client/files_send/im.png"}
 { "json_type": 53, "path": "Client/im.png"}
 
 

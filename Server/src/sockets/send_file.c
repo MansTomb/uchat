@@ -34,8 +34,7 @@ static cJSON *send_first(cJSON *json, FILE *fp, char *path, int sd) {
 }
 
 void mx_send_file(t_sock *sock, t_peer *peer, cJSON *bd, int sd) {
-    // char *path = cJSON_GetObjectItem(bd, "content")->valuestring;
-    char *path = "Server/tmp/12.jpg";
+    char *path = cJSON_GetObjectItem(bd, "content")->valuestring;
     FILE *fp;
     int size;
     cJSON *msg;
@@ -43,14 +42,15 @@ void mx_send_file(t_sock *sock, t_peer *peer, cJSON *bd, int sd) {
     if ((fp = fopen(path, "rb")) == NULL)
         printf("Cannot open file on server.\n");
     else {
+        printf("start sending file\n");
         msg = send_first(bd, fp, path, sd);
         mx_json_to_sending_buffer(peer->send_buff, msg);
         send_one(sock, peer, sd);
-        printf("%s\n", peer->send_buff);
+        // printf("%s\n", peer->send_buff);
         sleep(1);
         while (!feof(fp)) {
             int n = fread(peer->send_buff, 1, MX_MAX_SEND_SIZE, fp);   // ->n
-            printf("---\n%s\n strlen = %d\n---", peer->send_buff, n);
+            // printf("---\n%s\n strlen = %d\n---", peer->send_buff, n);
             send_one(sock, peer, sd);
             bzero(peer->send_buff, sizeof(peer->send_buff));
         }

@@ -25,18 +25,18 @@ static void file_loop(t_info *info, FILE *new, int fsize) {
 void mx_receive_file(cJSON *json, t_info *info) {
     FILE *new = NULL;
     char *name = cJSON_GetObjectItem(json, "name")->valuestring;
-    char *fullname = mx_strjoin(MX_FILES_DIR, name);
-    int fsize;
+    char *fullname = mx_strjoin(MX_RECV_FILES_DIR, name);
+    int fsize = cJSON_GetObjectItem(json, "n")->valueint;
 
+    printf("name = %s, full = %s, size = %d\n", name, fullname, fsize);
     if ((new = fopen(fullname, "wb")) == NULL)
         printf("Cannot open file on client.\n");
     else {
-        fsize = cJSON_GetObjectItem(json, "n")->valueint;
-        printf("opened, size = %d\n", fsize);
+        printf("recv file opened\n");
         file_loop(info, new, fsize);
     }
     fclose (new);
     // сохранить гдето в инфо что файл получен
     mx_strdel(&fullname);
-    printf("file closed\n");
+    printf("recv file closed\n");
 }
