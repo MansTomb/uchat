@@ -18,6 +18,7 @@ t_chat *mx_chat_build(t_info *info, char *chat_name, int cid) {
     chat->chat_name = chat_name;
     chat->info = info;
 
+    mx_css_from_file(info, "./Resources/css/chat.css");
     gtk_widget_show(chat->main_box);
     return chat;
 }
