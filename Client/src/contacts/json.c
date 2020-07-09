@@ -10,6 +10,21 @@ static void send_contacts_request(const t_info *info) {
     cJSON_Delete(jobj);
 }
 
+static void chk_add_exist_grp(char *g_name, t_list *g_list) {
+    t_list_node *node = g_list ? g_list->head : NULL;
+    bool exist = false;
+
+    for (; node; node = node->next) {
+        if (strcmp((char *)node->data, g_name) == 0) {
+            exist = true;
+            break;
+        }
+    }
+    if (!exist) {
+        mx_push_back(g_list, g_name);
+    }
+}
+
 static t_contact *get_contact(const cJSON *iterator) {
     t_contact *c = malloc(sizeof(t_contact));
 
@@ -33,6 +48,7 @@ static void save_contacts(const t_info *info) {
         if (cJSON_IsArray(contacts)) {
             cJSON_ArrayForEach(iterator, contacts) {
                 mx_push_back(info->cl_data->contacts, get_contact(iterator));
+                chk_add_exist_grp(((t_contact *)info->cl_data->contacts->tail->data)->grp_name, info->cl_data->cont_grp_names);
             }
         }
         else

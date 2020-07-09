@@ -34,7 +34,7 @@ void mx_save_login_data(t_info *info) {
     p->user_email = cJSON_GetObjectItem(info->json, "email")->valuestring;
     p->status = cJSON_GetObjectItem(info->json, "status")->valuestring;
 
-    p->sound_noty = cJSON_GetObjectItem(info->json, "snotify")->valueint;
-    p->vs_noty = cJSON_GetObjectItem(info->json, "vnotify")->valueint;
-    p->email_noty = cJSON_GetObjectItem(info->json, "enotify")->valueint;
+    p->sound_noty = cJSON_GetObjectItem(info->json, "snot")->valueint;
+    p->vs_noty = cJSON_GetObjectItem(info->json, "vnot")->valueint;
+    p->email_noty = cJSON_GetObjectItem(info->json, "enot")->valueint;
 }
