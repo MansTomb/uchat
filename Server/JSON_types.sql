@@ -47,7 +47,9 @@
 { "json_type": 48, "uid": 1, "ctype": 2, "cname": "general"}
 
 
-{ "json_type": 100, "path": "Server/tmp/14.jpg"}
+
+{ "json_type": 53, "uid": 2, "cid": 1, "type": 2, "content": "Client/files/rrr"}
+{ "json_type": 53, "path": "Client/im.png"}
 
 
 --------------------------other

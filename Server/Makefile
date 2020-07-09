@@ -9,7 +9,7 @@ init = daemonize init_info sockets_initialize sockets_initialize_2
 sockets = handle_incoming_data handle_new_connection loop \
 	receive_message send_message shutdown signals receive_message_handler \
 	func_response_db_1 func_response_db_2 func_response_db_3 response_db \
-	send_message_handler send_file
+	send_message_handler receive_file send_file
 
 sql = authorization check_error close_db create_tables init_db \
 	receive_message registration create_personal_chat get_present_chat \

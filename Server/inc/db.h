@@ -76,6 +76,9 @@ typedef enum {
     this_uid_login,   // два єнама без запроса
     this_uid_logout,
 
+    file_msg,
+    failed_receiving_file,
+
 } t_actions;
 
 typedef enum {
@@ -100,6 +103,8 @@ cJSON *mx_update_profile(sqlite3 *db, cJSON *jsn);
 cJSON *mx_send_message(sqlite3 *db, cJSON *jsn);
 cJSON *mx_edit_message(sqlite3 *db, cJSON *jsn);
 cJSON *mx_if_message_on_mail(sqlite3 *db, cJSON *jsn);
+
+cJSON *mx_file_manage(sqlite3 *db, cJSON *jsn);
 
 cJSON *mx_add_new_contact(sqlite3 *db, cJSON *jsn);
 cJSON *mx_del_contact(sqlite3 *db, cJSON *jsn);

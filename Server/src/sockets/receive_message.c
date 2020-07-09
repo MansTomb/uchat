@@ -1,6 +1,6 @@
 #include "server.h"
 
-int recv_check(int n) {
+int mx_recv_check(int n) {
     if (n < 0) {
         if (errno == EAGAIN || errno == EWOULDBLOCK)
             printf("peer is not ready right now, try again later.\n");
@@ -41,7 +41,7 @@ int mx_receive_from_peer(t_info *info, t_peer *peer) {
     received_count = recv(peer->socket, (char *)&peer->recv_buff,
                           len_to_receive, MSG_DONTWAIT);
     if (received_count <= 0) {
-        if (recv_check(received_count) == -2)
+        if (mx_recv_check(received_count) == -2)
             return -1;
     }
     else if (received_count > 0) {

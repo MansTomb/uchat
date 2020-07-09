@@ -30,7 +30,6 @@ typedef struct s_profile_data t_profile_data;
 typedef struct s_data t_data;
 typedef struct s_sock t_sock;
 
-
 // list of contacts that client have
 struct s_contact {
     int cid;
@@ -297,10 +296,13 @@ void mx_register_build_json_wrapper(t_info *info);
 void mx_add_contact_build_json_wrapper(t_contacts *contacts);
 void mx_upd_prof_build_json_wrapper(t_info *info);
 
+void mx_json_to_sending_buffer(char *buff, cJSON *json);
 int mx_check_err_json(cJSON *new);
 void mx_send_message_handler(cJSON *json, int sd);
 void mx_receive_message_handler(char *receiving_buff, char **large_message,
                                 t_info *info);
+void mx_receive_file(cJSON *json, t_info *info);
+void mx_send_file(cJSON *json, int sd);
 
     /* Sockets functions */
 t_sock *mx_client_socket_create(char *ip, int port);

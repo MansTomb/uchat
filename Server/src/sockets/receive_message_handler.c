@@ -6,6 +6,13 @@ static int one_message_handler(t_info *info, t_peer *peer, cJSON *get) {
     piece = cJSON_Parse(MX_VSTR(get, "piece"));
     if (mx_check_err_json(piece))
         return -1;
+    if (MX_PTYPE(get) == file) {
+        char *new_content = mx_strjoin(MX_FILES_DIR, MX_VSTR(get, "name"));
+
+        cJSON_DeleteItemFromObject(piece, "content");
+        cJSON_AddStringToObject(piece, "content", new_content);
+        mx_strdel(&new_content);
+    }
     mx_response_db(info, peer, piece);
     return 0;
 }
@@ -40,14 +47,22 @@ void mx_receive_message_handler(t_info *info, t_peer *peer) {
         return;
 
     type = MX_PTYPE(get);
+
+    printf("%s\n", peer->recv_buff);
+
     if (type == one_msg)
         one_message_handler(info, peer, get);
     else if (type == big_msg || type == big_msg_end)
         mx_large_message_handler(info, peer, get);
-    else if (type == file || type == file_end)
-        mx_send_file(info->sock, peer, cJSON_Parse(MX_PIECE(get)), peer->socket);   /// затичка
+    else if (type == file) {
+        printf("------------\n");
+        // mx_send_file(info->sock, peer, get, peer->socket);
+        mx_receive_file(info, peer, get);
+        // one_message_handler(info, peer, get);
+    }
     else
         printf("ERROR p_type\n");
+    // bzero(peer->recv_buff, sizeof(peer->recv_buff));
 
     cJSON_Delete(get);
 }
