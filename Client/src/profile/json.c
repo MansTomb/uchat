@@ -18,12 +18,8 @@ static void upd_prof_bld_json(const t_info *info, const int *s_sock) {
     cJSON_Delete(jprof);
 }
 
-void upd_profile(t_info *info) {
-    mx_save_login_data(info);
-}
-
 void mx_upd_prof_build_json_wrapper(t_info *info) {
     upd_prof_bld_json(info, &info->sock->sock);
     mx_wait_for_json(info, success_update_profile, success_update_profile);
-    upd_profile(info);
+    mx_save_login_data(info);
 }

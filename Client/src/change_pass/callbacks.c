@@ -9,14 +9,14 @@ void mx_on_cp_change(GtkWidget *widget, gpointer data) {
     t_change_password *cp = data;
 
     if (mx_cp_validate(cp)) {
-        /* SEND;
-            old pass -> mx_entry_get_text(cp->oldpass)
-            new pass1 -> mx_entry_get_text(cp->newpass1)
-            new pass2 -> mx_entry_get_text(cp->newpass2)
-
-            if success: close window
-            if nonsucces: say that old password wrong
-        */
+            mx_chg_pass_json(cp->info,
+                             mx_entry_get_text(cp->oldpass),
+                             mx_entry_get_text(cp->newpass1));
+            if (mx_get_jtype(cp->info, success_change_password)) {
+                mx_change_password_destroy(cp->info);
+            }
+            else {
+                mx_dialog_warning_create(NULL, "Changing password error!\n");
+            }
     }
-    // mx_change_password_destroy(cp->info);
 }
