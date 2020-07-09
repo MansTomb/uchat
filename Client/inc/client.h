@@ -200,6 +200,10 @@ struct s_contacts {
     GtkWidget *crtbt;
     GtkWidget *tree_view;
     GtkTreeStore *tree_store;
+    GtkTreeViewColumn *log_col;
+    GtkTreeViewColumn *stat_col;
+    GtkCellRenderer *log_render;
+    GtkCellRendererPixbuf *stat_render;
 };
 
 struct s_exit {
@@ -273,6 +277,7 @@ struct s_info {
 
     /* Main */
 t_info *mx_create_info();
+void mx_info_create_css(t_info *new);
 
     /* Jsons */
 void mx_save_login_data(t_info *info);
@@ -323,6 +328,9 @@ bool mx_get_jtype(t_info *info, int type);
 
     /* Dialog error */
 void mx_dialog_warning_create(GtkWidget *parent, char *message);
+
+    /* Set vnotify */
+void mx_set_vnoti(t_main_screen *ms, char *chat_name, gboolean value);
 
 /* Windows */
 

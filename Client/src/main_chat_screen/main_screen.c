@@ -18,7 +18,9 @@ void mx_main_screen_build(t_info *info, t_main_screen *ms) {
     mx_profile_build(info, info->windows->prof);
     mx_preferences_build(info, info->windows->pref);
     mx_contacts_build(info, info->windows->cont);
+    mx_set_vnoti(ms, "Vtoroi", 1);
     MX_GSIG_CON(ms->window, "delete-event", G_CALLBACK(mx_destroy), info);
+    mx_css_from_file(info, "./Resources/css/main.css");
     gtk_widget_show(ms->window);
 }
 

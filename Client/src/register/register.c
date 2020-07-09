@@ -14,6 +14,7 @@ void mx_register_screen_build(t_info *info, t_register *reg) {
     gtk_builder_connect_signals(reg->builder, info);
 
     MX_GSIG_CON(reg->window, "delete-event", G_CALLBACK(mx_destroy), info);
+    mx_css_from_file(info, "./Resources/css/register.css");
     gtk_widget_show(reg->window);
 }
 

@@ -1,33 +1,4 @@
-#loginbt {
-    background-color: white;
-}
-
-#loginbt:hover {
-    background-color: white;
-}
-
-#loginbt:active {
-    background-color: white;
-}
-
-#registerbt {
-    background-color: white;
-}
-
-#registerbt:hover {
-    background-color: white;
-}
-
-#registerbt:active {
-    color: black;
-}
-
-#username_label {
-    color: black;
-    font-size: large;
-}
-
-#password_label {
-    color: black;
-    font-size: large;
+.main_window {
+    background-image: url('../images/backA.jpg');
+    background-size: 100% 100%;
 }

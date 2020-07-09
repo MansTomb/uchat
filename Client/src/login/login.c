@@ -13,6 +13,7 @@ void mx_login_screen_build(t_info *info, t_login *log) {
     gtk_builder_connect_signals(log->builder, info);
 
     MX_GSIG_CON(log->window, "delete-event", G_CALLBACK(mx_destroy), info);
+    mx_css_from_file(info, "./Resources/css/login.css");
     gtk_widget_show(log->window);
 }
 
