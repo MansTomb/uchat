@@ -32,7 +32,8 @@ void mx_add_cnt_json_wrapper(t_contact_add *ac) {
     if (coid != -1) {
         add_cnt_bld_json(gname, coid, ac->info->cl_data->profile->id, ac->info->sock->sock);
         mx_wait_for_json(ac->info, failed_add_new_contact, success_add_new_contact);
-        mx_get_json_contacts(ac->info);
+        if (mx_get_jtype(ac->info, success_add_new_contact))
+            mx_get_json_contacts(ac->info);
     }
     else {
         mx_dialog_warning_create(NULL, "The contact does not exist or this is your login.!\n");

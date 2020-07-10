@@ -54,7 +54,6 @@ static void exist_cntct(t_list *c_list, const t_info *info, const cJSON *i) {
     if (!exist) {
         mx_push_back(info->cl_data->contacts, get_contact(i));
     }
-    mx_strdel(&c_login);
 }
 
 static void save_contacts(const t_info *info) {

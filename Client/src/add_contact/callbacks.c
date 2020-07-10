@@ -10,7 +10,6 @@ void mx_on_add_contact_cancel(GtkWidget *widget, gpointer data) {
 void mx_on_add_contact_add(GtkWidget *widget, gpointer data) {
     t_contact_add *ac = data;
 
-printf("mx_on_add_contact_add\n%s\n", gtk_entry_get_text(GTK_ENTRY(ac->entry)));
     mx_add_cnt_json_wrapper(ac);
     mx_add_contact_destroy(ac->info);
 }

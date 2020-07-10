@@ -47,7 +47,6 @@ static void printlist(t_list_node *node) {
 void mx_on_add_contact(GtkWidget *widget, gpointer data) {
     t_info *info = data;
 
-printf("mx_on_add_contact\n");
     info->cl_data->tmp_users = mx_create_list();
     mx_get_list_users_json_wrapper(info);
     mx_foreach_list(info->cl_data->tmp_users, printlist);
