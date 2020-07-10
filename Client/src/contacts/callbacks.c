@@ -38,6 +38,10 @@ void mx_contacts_send_message(GtkWidget *widget, gpointer data) {
 
 }
 
+void mx_contacts_block(GtkWidget *widget, gpointer data) {
+    
+}
+
 void mx_contacts_delete(GtkWidget *widget, gpointer data) {
     // GtkTreeModel *model = gtk_tree_view_get_model(GTK_TREE_VIEW(contacts->treeview));
 
