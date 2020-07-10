@@ -14,17 +14,16 @@ cJSON *mx_search_user(sqlite3 *db, cJSON *jsn) {
     char *err = NULL;
     int rc = 0;
 
-    asprintf(&query, "SELECT id, login FROM users WHERE login LIKE '%%%s%%' "
-            "LIMIT 15;", MX_VSTR(jsn, "login"));
+    asprintf(&query, "SELECT id, login FROM users;");
     cJSON_AddArrayToObject(jsn, "users");
     rc = sqlite3_exec(db, query, callback, jsn, &err);
 
-    if (mx_check(rc, err, "find user login") != SQLITE_OK) {
-        MX_SET_TYPE(jsn, failed_search_user);
-    }
-    else {
+    // if (mx_check(rc, err, "find user login") != SQLITE_OK) {
+    //     MX_SET_TYPE(jsn, failed_search_user);
+    // }
+    // else {
         MX_SET_TYPE(jsn, success_search_user);
-    }
+    // }
     free(query);
     return jsn;
 }
