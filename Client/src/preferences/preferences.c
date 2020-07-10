@@ -9,6 +9,8 @@ void mx_preferences_build(t_info *info, t_preferences *pref) {
 
     pref->box = GTK_WIDGET(gtk_builder_get_object(pref->builder, "box"));
     pref->change_pass = GTK_WIDGET(gtk_builder_get_object(pref->builder, "change_pass"));
+    pref->del_prof = GTK_WIDGET(gtk_builder_get_object(pref->builder, "delete_profile"));
+    pref->themeswitch = GTK_WIDGET(gtk_builder_get_object(pref->builder, "theme_switcher"));
     pref->volume = GTK_WIDGET(gtk_builder_get_object(pref->builder, "volume"));
     pref->vnotify = GTK_WIDGET(gtk_builder_get_object(pref->builder, "vnotify"));
     pref->snotify = GTK_WIDGET(gtk_builder_get_object(pref->builder, "snotify"));

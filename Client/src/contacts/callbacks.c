@@ -16,6 +16,7 @@ void mx_contacts_tree_on_click(GtkTreeView *tree_view, GtkTreePath *path,
                                 gpointer user_data) {
     GtkTreeIter iter;
     GtkTreeModel *model = gtk_tree_view_get_model(tree_view);
+    t_info *info = user_data;
 
     gtk_tree_model_get_iter_from_string(model, &iter,
                                         gtk_tree_path_to_string(path));
@@ -25,7 +26,12 @@ void mx_contacts_tree_on_click(GtkTreeView *tree_view, GtkTreePath *path,
     else {
         printf("Nazata kolonka\n");
         // contacts->choosen_contact = iter; запомнить по итеру какой контакт выбор для коллбеков в меню
+        gtk_menu_popup_at_pointer(GTK_MENU(info->windows->cont->menu), NULL);
     }
+}
+
+void mx_contacts_open_prof(GtkWidget *widget, gpointer data) {
+
 }
 
 void mx_contacts_send_message(GtkWidget *widget, gpointer data) {

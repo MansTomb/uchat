@@ -52,3 +52,9 @@ void mx_msg_delete(GtkWidget *widget, gpointer data) {
 
     printf("Delete\n");
 }
+
+void mx_on_msg_edit(GtkWidget *widget, gpointer data) {
+    t_message *message = data;
+
+    printf("EditMsg\n");
+}
