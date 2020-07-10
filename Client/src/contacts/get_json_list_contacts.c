@@ -13,7 +13,7 @@ static void get_list_bld_json(const int id, int s_sock) {
 static t_user *get_user(const cJSON *iterator) {
     t_user *u = malloc(sizeof(t_user));
 
-    u->id = cJSON_GetObjectItemCaseSensitive(iterator, "id")->valueint;
+    u->id = cJSON_GetObjectItemCaseSensitive(iterator, "uid")->valueint;
     u->login = cJSON_GetObjectItemCaseSensitive(iterator, "login")->valuestring;
     return u;
 }

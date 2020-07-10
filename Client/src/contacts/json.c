@@ -40,6 +40,23 @@ static t_contact *get_contact(const cJSON *iterator) {
     return c;
 }
 
+static void exist_cntct(t_list *c_list, const t_info *info, const cJSON *i) {
+    t_list_node *node = c_list ? c_list->head : NULL;
+    char *c_login = cJSON_GetObjectItemCaseSensitive(i, "login")->valuestring;
+    bool exist = false;
+
+    for (; node; node = node->next) {
+        if (strcmp(((t_contact *)node->data)->login, c_login) == 0) {
+            exist = true;
+            break;
+        }
+    }
+    if (!exist) {
+        mx_push_back(info->cl_data->contacts, get_contact(i));
+    }
+    mx_strdel(&c_login);
+}
+
 static void save_contacts(const t_info *info) {
     if (cJSON_IsObject(info->json)) {
         cJSON *iterator = NULL;
@@ -47,7 +64,7 @@ static void save_contacts(const t_info *info) {
 
         if (cJSON_IsArray(contacts)) {
             cJSON_ArrayForEach(iterator, contacts) {
-                mx_push_back(info->cl_data->contacts, get_contact(iterator));
+                exist_cntct(info->cl_data->contacts, info, iterator);
                 chk_add_exist_grp(((t_contact *)info->cl_data->contacts->tail->data)->grp_name, info->cl_data->cont_grp_names);
             }
         }

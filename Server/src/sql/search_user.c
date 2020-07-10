@@ -3,7 +3,7 @@
 static int callback(void *data, int argc, char **argv, char **cols) {
     cJSON *contact = cJSON_CreateObject();
 
-    cJSON_AddNumberToObject(contact, cols[0], atoi(argv[0]));
+    cJSON_AddNumberToObject(contact, "uid", atoi(argv[0]));
     cJSON_AddStringToObject(contact, cols[1], argv[1]);
     cJSON_AddItemToArray(cJSON_GetObjectItem(data, "users"), contact);
     return 0;

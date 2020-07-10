@@ -303,6 +303,7 @@ void mx_get_list_users_json_wrapper(t_info *info);
 void mx_login_build_json_wrapper(t_info *info);
 void mx_register_build_json_wrapper(t_info *info);
 void mx_upd_prof_build_json_wrapper(t_info *info);
+void mx_add_cnt_json_wrapper(t_contact_add *ac);
 
     /* Package transferring */
 void mx_json_to_sending_buffer(char *buff, cJSON *json);

@@ -30,7 +30,7 @@ profile = profile json callbacks
 
 preferences = preferences callbacks chg_pass_json
 
-add_contact = add_contact json callbacks
+add_contact = add_contact json callbacks add_json_user_to_contacts
 
 create_group = create_group
 
