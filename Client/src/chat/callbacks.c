@@ -23,7 +23,6 @@ static void delete_text(t_chat *chat) {
 
 void mx_send_message(GtkWidget *widget, gpointer data) {
     t_chat *chat = data;
-    // t_message *msg = mx_message_build(chat->info, "4Elovek", (char *)gtk_entry_get_text(GTK_ENTRY(chat->entry)));
     t_message *msg = mx_message_build(chat->info, "4Elovek", get_text(chat));
 
     delete_text(chat);
@@ -59,4 +58,14 @@ void mx_on_dialog_cancel(GtkWidget *widget, gpointer data) {
     t_chat *chat = data;
 
     gtk_widget_hide(chat->img_dialog);
+}
+
+void mx_on_scroll_edge(GtkWidget *widget, GtkPositionType pos, gpointer data) {
+    t_chat *chat = data;
+
+    printf("Load messages netop\n");
+    if (GTK_POS_TOP == pos) {
+        printf("Load messages\n");
+        /* Load message */
+    }
 }

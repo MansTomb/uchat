@@ -418,6 +418,9 @@ void mx_on_add_contact_add(GtkWidget *widget, gpointer data);
 void mx_create_group_build(t_info *info, t_group_create *cg);
 void mx_create_group_destroy(t_info *info);
 
+void mx_on_crt_group_cancel(GtkWidget *widget, gpointer data);
+void mx_on_crt_group_create(GtkWidget *widget, gpointer data);
+
 /*                              Room Creation */
 void mx_room_creation_build(t_info *info, t_room_creation *rc);
 void mx_room_creation_destroy(t_info *info);
@@ -455,6 +458,7 @@ void mx_chat_put(t_info *info, char *chat_name, int cid);
 
     /* Chat callbacks */
 void mx_send_message(GtkWidget *widget, gpointer data);
+void mx_on_scroll_edge(GtkWidget *widget, GtkPositionType pos, gpointer data);
 
     /* Chat error dialogs */
 

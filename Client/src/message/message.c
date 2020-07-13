@@ -40,21 +40,3 @@ t_message *mx_message_build(t_info *info, char *username, char *msg) {
 //     free(info->message);
 //     info->windows->log = NULL;
 // }
-
-void mx_msg_menu_show(GtkWidget *widget, GdkEvent *event, gpointer data) {
-    t_message *message = data;
-
-    gtk_popover_popup(GTK_POPOVER(message->menu));
-}
-
-void mx_msg_delete(GtkWidget *widget, gpointer data) {
-    t_message *message = data;
-
-    printf("Delete\n");
-}
-
-void mx_on_msg_edit(GtkWidget *widget, gpointer data) {
-    t_message *message = data;
-
-    printf("EditMsg\n");
-}

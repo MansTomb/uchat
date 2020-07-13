@@ -31,15 +31,3 @@ t_message_img *mx_message_img_build(t_info *info, char *username, GtkWidget *img
 //     free(info->message);
 //     info->windows->log = NULL;
 // }
-
-void mx_msg_img_menu_show(GtkWidget *widget, GdkEvent *event, gpointer data) {
-    t_message_img *message = data;
-
-    gtk_popover_popup(GTK_POPOVER(message->menu));
-}
-
-void mx_msg_img_delete(GtkWidget *widget, gpointer data) {
-    t_message_img *message = data;
-
-    printf("Delete\n");
-}

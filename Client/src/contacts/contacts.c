@@ -55,7 +55,11 @@ void mx_contacts_build(t_info *info, t_contacts *cont) {
     cont->log_col = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(cont->builder, "login_column"));
     cont->stat_col = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(cont->builder, "status"));
     cont->menu = create_menu(info);
+    cont->giters = mx_create_list();
     gtk_builder_connect_signals(cont->builder, info);
+
+    gtk_tree_view_column_add_attribute(cont->log_col, cont->log_render, "text", 0);
+    gtk_tree_view_column_add_attribute(cont->stat_col, GTK_CELL_RENDERER(cont->stat_render), "pixbuf", 1);
 
     mx_get_json_contacts(info);
     mx_create_table(info, cont);

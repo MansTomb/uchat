@@ -48,10 +48,7 @@ static void create_every_group(t_info *info, t_contacts *cont) {
 }
 
 void mx_create_table(t_info *info, t_contacts *cont) {
-    cont->giters = mx_create_list();
-
-    gtk_tree_view_column_add_attribute(cont->log_col, cont->log_render, "text", 0);
-    gtk_tree_view_column_add_attribute(cont->stat_col, GTK_CELL_RENDERER(cont->stat_render), "pixbuf", 1);
-
+    gtk_tree_store_clear(cont->tree_store);
+    mx_clear_list(cont->giters);
     create_every_group(info, cont);
 }

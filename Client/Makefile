@@ -14,9 +14,9 @@ admin = admin
 
 chat = chat interface callbacks get_json_chat_list_login
 
-message = message
+message = message callbacks
 
-message_img = message_img
+message_img = message_img callbacks
 
 room_creation = room_creation validate callbacks
 
@@ -32,7 +32,7 @@ preferences = preferences callbacks chg_pass_json
 
 add_contact = add_contact json callbacks add_json_user_to_contacts
 
-create_group = create_group
+create_group = create_group callbacks
 
 utils = css wait_for_json create_hash json_get_type dialog entry toggle       \
 	set_vnotify
