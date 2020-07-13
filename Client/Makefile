@@ -13,7 +13,7 @@ register = register validate json
 admin = admin
 
 chat = chat interface callbacks get_json_chat_list_login callbacks_2          \
-	json_send_msg_1
+	json_send_msg_1 get_json_history
 
 message = message callbacks interface
 

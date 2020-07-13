@@ -106,6 +106,8 @@ struct s_message_img {
     GtkWidget *msg_bt;
     GtkWidget *menu;
 
+    int mid;
+
     t_info *info;
 };
 
@@ -313,6 +315,7 @@ void mx_register_build_json_wrapper(t_info *info);
 void mx_upd_prof_build_json_wrapper(t_info *info);
 void mx_add_cnt_json_wrapper(t_contact_add *ac);
 void mx_send_message_t1_json_wrapper(t_chat *chat, char *content);
+void mx_get_json_chat_history(t_info *info, t_chat *chat);
 
     /* Package transferring */
 void mx_json_to_sending_buffer(char *buff, cJSON *json);
@@ -477,7 +480,7 @@ void mx_msg_menu_show(GtkWidget *widget, GdkEvent *event, gpointer data);
 void mx_msg_delete(GtkWidget *widget, gpointer data);
 
 /*                              Messages Img Class */
-t_message_img *mx_message_img_build(t_info *info, char *username, GtkWidget *img);
+t_message_img *mx_message_img_build(t_info *info, cJSON *json);
 
     /* Message callbacks */
 void mx_msg_img_menu_show(GtkWidget *widget, GdkEvent *event, gpointer data);

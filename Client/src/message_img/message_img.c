@@ -1,12 +1,19 @@
 #include "client.h"
 
-static void set_preferences(t_message_img *new, char *username, GtkWidget *img) {
-    gtk_widget_set_size_request(new->main_fixed, 200, 200);
-    gtk_button_set_image(GTK_BUTTON(new->msg_bt), img);
-    gtk_label_set_text(GTK_LABEL(new->name_label), username);
+static void json_sets(t_message_img *msg, cJSON *json) {
+    char *content = cJSON_GetObjectItem(json, "content")->valuestring;
+    // char *username = cJSON_GetObjectItem(json, "name")->valuestring;
+    char *time = cJSON_GetObjectItem(json, "time")->valuestring;
+
+    msg->mid = cJSON_GetObjectItem(json, "mid")->valueint;
+    
+    gtk_widget_set_size_request(msg->main_fixed, 200, 200);
+    // gtk_button_set_image(GTK_BUTTON(msg->msg_bt), ) get iamge
+    gtk_label_set_text(GTK_LABEL(msg->name_label), "User");
+    gtk_label_set_text(GTK_LABEL(msg->date_label), time);
 }
 
-t_message_img *mx_message_img_build(t_info *info, char *username, GtkWidget *img) {
+t_message_img *mx_message_img_build(t_info *info, cJSON *json) {
     t_message_img *message = malloc(sizeof(t_message_img));
 
     message->builder = gtk_builder_new();
@@ -18,8 +25,9 @@ t_message_img *mx_message_img_build(t_info *info, char *username, GtkWidget *img
     message->menu = GTK_WIDGET(gtk_builder_get_object(message->builder, "menu"));
     message->main_fixed = GTK_WIDGET(gtk_builder_get_object(message->builder, "main_fixed"));
     gtk_builder_connect_signals(message->builder, message);
-    set_preferences(message, username, img);
+
     message->info = info;
+    json_sets(message, json);
 
     gtk_widget_show(message->main_fixed);
 
