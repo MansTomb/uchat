@@ -12,11 +12,11 @@ register = register validate json
 
 admin = admin
 
-chat = chat interface callbacks get_json_chat_list_login
+chat = chat interface callbacks get_json_chat_list_login callbacks_2
 
-message = message callbacks
+message = message callbacks interface
 
-message_img = message_img callbacks
+message_img = message_img callbacks interface
 
 room_creation = room_creation validate callbacks
 
