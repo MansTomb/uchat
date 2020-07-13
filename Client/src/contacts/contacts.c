@@ -28,11 +28,13 @@ static GtkWidget *create_menu(t_info *info) {
     GdkDisplay *display;
     GdkScreen *screen;
     GtkWidget *menu = gtk_menu_new();
+    GtkWidget *tv = info->windows->cont->tree_view;
 
     display = gdk_display_get_default();
     screen = gdk_display_get_default_screen(display);
     gtk_menu_set_screen(GTK_MENU(menu), screen);
     create_menu_items(info->windows->cont, menu);
+    MX_GSIG_CON(tv, "row-activated", MX_CB(mx_contacts_tree_on_click), info);
     return menu;
 }
 
@@ -55,6 +57,7 @@ void mx_contacts_build(t_info *info, t_contacts *cont) {
     cont->menu = create_menu(info);
     gtk_builder_connect_signals(cont->builder, info);
 
+    mx_get_json_contacts(info);
     mx_create_table(info, cont);
     gtk_stack_add_titled(GTK_STACK(info->windows->ms->menu_stack), cont->box, "Contacts", "Contacts");
     gtk_widget_show(cont->box);

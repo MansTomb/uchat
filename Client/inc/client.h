@@ -188,6 +188,7 @@ struct s_contact_add {
     GtkWidget *entry;
     GtkWidget *combobox;
     GtkTreeStore *nameslist;
+    GtkEntryCompletion *e_comp;
 
     t_info *info;
 };

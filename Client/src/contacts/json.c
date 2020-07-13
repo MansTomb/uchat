@@ -17,10 +17,12 @@ static void chk_add_exist_grp(char *g_name, t_list *g_list) {
     for (; node; node = node->next) {
         if (strcmp((char *)node->data, g_name) == 0) {
             exist = true;
+            printf("Exist! -> %s\n", g_name);
             break;
         }
     }
     if (!exist) {
+        printf("Not Exist! -> %s\n", g_name);
         mx_push_back(g_list, g_name);
     }
 }

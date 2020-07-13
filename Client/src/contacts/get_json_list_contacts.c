@@ -38,7 +38,7 @@ static void save_users(t_info *info) {
 void mx_get_list_users_json_wrapper(t_info *info) {
     get_list_bld_json(info->cl_data->profile->id, info->sock->sock);
     mx_wait_for_json(info, failed_search_user, success_search_user);
-    if (mx_get_jtype(ac->info, success_search_user))
+    if (mx_get_jtype(info, success_search_user))
         save_users(info);
     else {
         mx_dialog_warning_create(NULL, "Failed search user!\n");
