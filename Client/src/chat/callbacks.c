@@ -45,7 +45,7 @@ void mx_chat_img_send(GtkWidget *widget, gpointer data) {
 
     // prof->id;
     // chat->cid;
-    // type = 1;
+    // type = 2;
     // content = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(chat->img_dialog);
 
     /*
