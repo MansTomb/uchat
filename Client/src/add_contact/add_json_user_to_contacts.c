@@ -2,11 +2,14 @@
 
 static void add_cnt_bld_json(const char *gname, const int coid, const int uid, int s_sock) {
     cJSON *jobj = cJSON_CreateObject();
+    size_t glen = 0;
+    if (gname)
+        glen = strlen(gname);
 
     cJSON_AddNumberToObject(jobj, "json_type", make_add_new_contact);
     cJSON_AddNumberToObject(jobj, "uid", uid);
     cJSON_AddNumberToObject(jobj, "coid", coid);
-    cJSON_AddStringToObject(jobj, "gname", gname);
+    cJSON_AddStringToObject(jobj, "gname", glen > 0 ? gname : "Others");
 
     mx_send_message_handler(jobj, s_sock);
     cJSON_Delete(jobj);

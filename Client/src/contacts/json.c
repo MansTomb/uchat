@@ -4,7 +4,7 @@ static void send_contacts_request(const t_info *info) {
     cJSON *jobj = cJSON_CreateObject();
 
     cJSON_AddNumberToObject(jobj, "json_type", get_client_contacts);
-    cJSON_AddNumberToObject(jobj, "uid", info->cl_data->profile->id); // we need to send our client uid
+    cJSON_AddNumberToObject(jobj, "uid", info->cl_data->profile->id);
 
     mx_send_message_handler(jobj, info->sock->sock);
     cJSON_Delete(jobj);
