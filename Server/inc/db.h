@@ -119,3 +119,4 @@ cJSON *mx_get_client_chat_messages(sqlite3 *db, cJSON *jsn);
 
 cJSON *mx_search_user(sqlite3 *db, cJSON *jsn);
 cJSON *mx_delete_user(sqlite3 *db, cJSON *jsn);
+

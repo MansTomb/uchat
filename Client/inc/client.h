@@ -94,6 +94,7 @@ struct s_message {
     GtkWidget *menu;
 
     int mid;
+    int cid;
 
     t_info *info;
 };
@@ -107,6 +108,7 @@ struct s_message_img {
     GtkWidget *menu;
 
     int mid;
+    int cid;
 
     t_info *info;
 };
@@ -150,6 +152,8 @@ struct s_preferences {
 struct s_chat {
     char *chat_name;
     int cid;
+    bool edit;
+    t_message *editedmsg;
     t_list *msg_list;
 
     GtkBuilder *builder;
@@ -315,6 +319,8 @@ void mx_register_build_json_wrapper(t_info *info);
 void mx_upd_prof_build_json_wrapper(t_info *info);
 void mx_add_cnt_json_wrapper(t_contact_add *ac);
 void mx_send_message_t1_json_wrapper(t_chat *chat, char *content);
+void mx_edit_message_t1_json_wrapper(t_message *msg, char *content);
+void mx_delete_message_t1_json_wrapper(t_message *msg);
 void mx_get_json_chat_history(t_info *info, t_chat *chat);
 
     /* Package transferring */
@@ -331,6 +337,9 @@ void mx_send_file(cJSON *json, int sd);
 t_sock *mx_client_socket_create(char *ip, int port);
 
     /* UTILS FUNCTIONS */
+
+t_chat *mx_find_chat(t_info *info, int cid);
+t_message *mx_find_message(t_chat *chat, int mid);
 
     /* On exit */
 gboolean mx_destroy(GtkWidget *widget, GdkEvent *event, gpointer data);
@@ -473,7 +482,8 @@ void mx_on_scroll_edge(GtkWidget *widget, GtkPositionType pos, gpointer data);
     /* Chat error dialogs */
 
 /*                              Messages Class */
-t_message *mx_message_build(t_info *info, cJSON *json);
+t_message *mx_message_build(t_info *info, cJSON *json, int cid);
+void mx_message_destroy(t_chat *chat, int mid);
 
     /* Message callbacks */
 void mx_msg_menu_show(GtkWidget *widget, GdkEvent *event, gpointer data);

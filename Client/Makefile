@@ -15,7 +15,7 @@ admin = admin
 chat = chat interface callbacks get_json_chat_list_login callbacks_2          \
 	json_send_msg_1 get_json_history
 
-message = message callbacks interface
+message = message callbacks interface edit_json delete_json
 
 message_img = message_img callbacks interface
 
@@ -36,7 +36,7 @@ add_contact = add_contact json callbacks add_json_user_to_contacts
 create_group = create_group callbacks
 
 utils = css wait_for_json create_hash json_get_type dialog entry toggle       \
-	set_vnotify
+	set_vnotify find_something
 
 dirs = base login register admin add_contact chat create_group main_chat_screen \
 	profile preferences contacts message message_img room_creation utils      \

@@ -14,19 +14,20 @@ static void set_preferences(t_message *new, char *msg, int msgheight) {
     gtk_widget_set_size_request(new->main_fixed, MX_MSGWIDTH(msg), msgheight / 4);
 }
 
-static void json_sets(t_message *msg, cJSON *json) {
+static void json_sets(t_message *msg, cJSON *json, int cid) {
     char *content = cJSON_GetObjectItem(json, "content")->valuestring;
     // char *username = cJSON_GetObjectItem(json, "name")->valuestring;
     char *time = cJSON_GetObjectItem(json, "time")->valuestring;
 
     msg->mid = cJSON_GetObjectItem(json, "mid")->valueint;
-    
+    msg->cid = cid;
+
     set_preferences(msg, content, MX_MSGHEIGHT(content));
     gtk_label_set_text(GTK_LABEL(msg->name_label), "User");
     gtk_label_set_text(GTK_LABEL(msg->date_label), time);
 }
 
-t_message *mx_message_build(t_info *info, cJSON *json) {
+t_message *mx_message_build(t_info *info, cJSON *json, int cid) {
     t_message *message = malloc(sizeof(t_message));
 
     message->builder = gtk_builder_new();
@@ -40,14 +41,24 @@ t_message *mx_message_build(t_info *info, cJSON *json) {
     gtk_builder_connect_signals(message->builder, message);
 
     message->info = info;
-    json_sets(message, json);
+    json_sets(message, json, cid);
 
     gtk_widget_show(message->main_fixed);
     return message;
 }
 
-// void mx_message_destroy(t_info *info) {
-//     gtk_widget_destroy(info->message->main_box);
-//     free(info->message);
-//     info->windows->log = NULL;
-// }
+void mx_message_destroy(t_chat *chat, int mid) {
+    t_message *node;
+
+    for (size_t i = 0; i < chat->msg_list->size; ++i) {
+        node = mx_get_index(chat->msg_list, i)->data;
+
+        if (node->mid == mid) {
+            // gtk_container_remove(GTK_CONTAINER(chat->message_box), gtk_widget_get_parent(node->main_fixed));
+            gtk_widget_destroy(node->main_fixed);
+            free(node);
+            mx_pop_index(chat->msg_list, i);
+            return;
+        }
+    }
+}

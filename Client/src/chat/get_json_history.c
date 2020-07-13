@@ -20,7 +20,7 @@ static void save(t_info *info, t_chat *chat) {
 
         if (cJSON_IsArray(messages)) {
             cJSON_ArrayForEach(i, messages) {
-                msg = mx_message_build(info, i);
+                msg = mx_message_build(info, i, chat->cid);
                 mx_message_put(info, msg, chat->cid);
             }
         }
