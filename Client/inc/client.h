@@ -128,7 +128,7 @@ struct s_preferences {
     GtkWidget *dialog;
     GtkWidget *box;
     GtkWidget *change_pass;
-    GtWidget *del_prof;
+    GtkWidget *del_prof;
     GtkWidget *volume;
     GtkWidget *vnotify;
     GtkWidget *snotify;
@@ -393,6 +393,7 @@ void mx_add_contact_destroy(t_info *info);
 void mx_contacts_tree_on_click(GtkTreeView *tree_view, GtkTreePath *path, GtkTreeViewColumn *column, gpointer user_data);
 void mx_contacts_open_prof(GtkWidget *widget, gpointer data);
 void mx_contacts_send_message(GtkWidget *widget, gpointer data);
+void mx_contacts_block(GtkWidget *widget, gpointer data);
 void mx_contacts_delete(GtkWidget *widget, gpointer data);
 
 void mx_on_add_contact_cancel(GtkWidget *widget, gpointer data);
