@@ -18,12 +18,21 @@ static void upd_prof_bld_json(const t_info *info, const int *s_sock) {
     cJSON_Delete(jprof);
 }
 
-void upd_profile(t_info *info) {
-    mx_save_login_data(info);
+static void upd_prof_data(const t_info *info) {
+    t_profile_data *p = info->cl_data->profile;
+
+    p->first_name = cJSON_GetObjectItem(info->json, "fname")->valuestring;
+    p->sec_name = cJSON_GetObjectItem(info->json, "sname")->valuestring;
+    p->user_email = cJSON_GetObjectItem(info->json, "email")->valuestring;
+    p->status = cJSON_GetObjectItem(info->json, "status")->valuestring;
+
+    p->sound_noty = cJSON_GetObjectItem(info->json, "snot")->valueint;
+    p->vs_noty = cJSON_GetObjectItem(info->json, "vnot")->valueint;
+    p->email_noty = cJSON_GetObjectItem(info->json, "enot")->valueint;
 }
 
 void mx_upd_prof_build_json_wrapper(t_info *info) {
     upd_prof_bld_json(info, &info->sock->sock);
     mx_wait_for_json(info, success_update_profile, success_update_profile);
-    upd_profile(info);
+    upd_prof_data(info);
 }

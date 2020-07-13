@@ -14,7 +14,9 @@ static void socket_new_accept(int *new_sock, t_sock *sock) {
 }
 
 static void socket_new_add_to_arr_of_sockets(t_sock *sock, int *new_socket) {
-    for (int i = 0; i < MAX_CLIENTS; ++i) {
+    int i;
+
+    for (i = 0; i < MAX_CLIENTS; ++i) {
         if (sock->connection_list[i].socket == MX_NO_SOCKET) {
             sock->connection_list[i].socket = *new_socket;
             sock->connection_list[i].addres = sock->address;
@@ -24,6 +26,10 @@ static void socket_new_add_to_arr_of_sockets(t_sock *sock, int *new_socket) {
             printf("Adding to list of sockets as %d\n", i);
             break;
         }
+    }
+    if (i == MAX_CLIENTS) {
+        printf("no place for new connection.\n");
+        close(*new_socket);
     }
 }
 

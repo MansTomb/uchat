@@ -20,6 +20,9 @@
 #define MX_MSGHEIGHT(msg) (strlen(msg) + 20 * 10)
 #define MX_MSGWIDTH(msg) (strlen(msg) * 4 > 400 ? 400 : strlen(msg) * 4)
 
+#define MX_SEND_FILES_DIR "Client/files_send/"
+#define MX_RECV_FILES_DIR "Client/files_recv/"
+
 /* Types for sending jsons */
 typedef enum {
     make_register,
@@ -93,7 +96,9 @@ typedef enum {
     failed_new_group_chat_channel,
     success_new_group_chat_channel,
 
-    this_uid_login,   // два єнама без запроса
+    this_uid_login,
     this_uid_logout,
+
+    file_msg,
 
 } t_actions;

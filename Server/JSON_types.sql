@@ -28,7 +28,6 @@
 -- get client chats messages
 { "json_type": 18, "uid": 1, "cid": 1}
 
-
 -- add new contact
 { "json_type": 23, "uid": 3, "coid": 2}
 -- del contact
@@ -46,6 +45,11 @@
 { "json_type": 20, "login": "8"}
 -- create_group_chat_channel
 { "json_type": 48, "uid": 1, "ctype": 2, "cname": "general"}
+
+
+
+{ "json_type": 53, "uid": 2, "cid": 1, "type": 2, "content": "Client/files_send/im.png"}
+{ "json_type": 53, "path": "Client/im.png"}
 
 
 --------------------------other

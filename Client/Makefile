@@ -2,8 +2,9 @@ CC = clang
 LIB = libmx.a
 NAME = uchat
 
-base = main socket info client_receive_message_handler client_send_message_handler \
-	close
+base = main socket info close \
+	client_receive_message_handler client_send_message_handler \
+	receive_file send_file
 
 login = login validate callbacks json
 
@@ -23,13 +24,13 @@ change_pass = change_pass callbacks validate
 
 main_chat_screen = main_screen
 
-contacts = contacts callbacks json create_table
+contacts = contacts callbacks json create_table get_json_list_contacts
 
 profile = profile json callbacks
 
 preferences = preferences callbacks chg_pass_json
 
-add_contact = add_contact json callbacks
+add_contact = add_contact json callbacks add_json_user_to_contacts
 
 create_group = create_group
 
