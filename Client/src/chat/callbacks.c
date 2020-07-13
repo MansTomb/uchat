@@ -23,34 +23,14 @@ static void delete_text(t_chat *chat) {
 
 void mx_send_message(GtkWidget *widget, gpointer data) {
     t_chat *chat = data;
-    t_profile_data *prof = chat->info->cl_data->profile;
 
-    // prof->id;
-    // chat->cid;
-    // type = 1;
-    // content = get_text(chat);
-
-    /*
-        Твоя фун-ка здесь юра, сверху написано как достать всё что надо для джсон
-        Советую в твою ф-ку передать chat, а из него уже в инфо идти бо иначе
-        ты не сможешь в get_text(<сюда>) правильный чат
-    */
-
+    if (strlen(get_text(chat)))
+        mx_send_message_t1_json_wrapper(chat, get_text(chat));
     delete_text(chat);
 }
 
 void mx_chat_img_send(GtkWidget *widget, gpointer data) {
     t_chat *chat = data;
-    t_profile_data *prof = chat->info->cl_data->profile;
 
-    // prof->id;
-    // chat->cid;
-    // type = 2;
-    // content = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(chat->img_dialog);
-
-    /*
-        В контенте ебу как там файлы передаються вообмещ ф-кой сверху сможешь
-        найти путь к файлу
-    */
     gtk_widget_hide(chat->img_dialog);
 }

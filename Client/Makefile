@@ -4,7 +4,7 @@ NAME = uchat
 
 base = main socket info close \
 	client_receive_message_handler client_send_message_handler \
-	receive_file send_file
+	receive_file send_file read_non_requested_jsons
 
 login = login validate callbacks json
 
@@ -12,7 +12,8 @@ register = register validate json
 
 admin = admin
 
-chat = chat interface callbacks get_json_chat_list_login callbacks_2
+chat = chat interface callbacks get_json_chat_list_login callbacks_2          \
+	json_send_msg_1
 
 message = message callbacks interface
 

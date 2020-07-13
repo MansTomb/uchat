@@ -11,6 +11,7 @@ t_chat *mx_chat_build(t_info *info, char *chat_name, int cid) {
     chat->message_box = GTK_WIDGET(gtk_builder_get_object(chat->builder, "message_box"));
     chat->img_dialog = GTK_WIDGET(gtk_builder_get_object(chat->builder, "img_dialog"));
     chat->ffilter = GTK_FILE_FILTER(gtk_builder_get_object(chat->builder, "filter"));
+    chat->msg_list = mx_create_list();
     gtk_builder_connect_signals(chat->builder, chat);
     gtk_file_filter_add_pixbuf_formats(chat->ffilter);
 

@@ -93,6 +93,8 @@ struct s_message {
     GtkWidget *msg_bt;
     GtkWidget *menu;
 
+    int mid;
+
     t_info *info;
 };
 
@@ -146,6 +148,7 @@ struct s_preferences {
 struct s_chat {
     char *chat_name;
     int cid;
+    t_list *msg_list;
 
     GtkBuilder *builder;
     GtkWidget *img_dialog;
@@ -293,6 +296,7 @@ struct s_info {
     /* Main */
 t_info *mx_create_info();
 void mx_info_create_css(t_info *new);
+bool mx_handle_if_not_requested(t_info *info, cJSON *json);
 
     /* Jsons */
 void mx_save_login_data(t_info *info);
@@ -308,6 +312,7 @@ void mx_login_build_json_wrapper(t_info *info);
 void mx_register_build_json_wrapper(t_info *info);
 void mx_upd_prof_build_json_wrapper(t_info *info);
 void mx_add_cnt_json_wrapper(t_contact_add *ac);
+void mx_send_message_t1_json_wrapper(t_chat *chat, char *content);
 
     /* Package transferring */
 void mx_json_to_sending_buffer(char *buff, cJSON *json);
@@ -456,6 +461,8 @@ t_chat *mx_chat_build(t_info *info, char *chat_name, int cid);
 void mx_chat_destroy(t_list_node *chat_node);
 void mx_chat_put(t_info *info, char *chat_name, int cid);
 
+void mx_message_put(t_info *info, t_message *msg, int cid);
+
     /* Chat callbacks */
 void mx_send_message(GtkWidget *widget, gpointer data);
 void mx_on_scroll_edge(GtkWidget *widget, GtkPositionType pos, gpointer data);
@@ -463,7 +470,7 @@ void mx_on_scroll_edge(GtkWidget *widget, GtkPositionType pos, gpointer data);
     /* Chat error dialogs */
 
 /*                              Messages Class */
-t_message *mx_message_build(t_info *info, char *username, char *msg);
+t_message *mx_message_build(t_info *info, cJSON *json);
 
     /* Message callbacks */
 void mx_msg_menu_show(GtkWidget *widget, GdkEvent *event, gpointer data);

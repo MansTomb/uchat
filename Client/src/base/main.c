@@ -25,8 +25,6 @@ static void *read_from_server(void *info) {
     pthread_exit(0);
 }
 
-
-
 static void *read_from_stdin(void *info) {   // for testing server
     t_info *info1 = (t_info *)info;
     int n;
