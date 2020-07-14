@@ -59,7 +59,7 @@ struct s_send_msg {
 
 struct s_send_msg_img {
     int cid;
-    t_message *msg;
+    t_message_img *msg;
     t_chat *chat;
     t_info *info;
 };
@@ -528,7 +528,7 @@ void mx_msg_menu_show(GtkWidget *widget, GdkEvent *event, gpointer data);
 void mx_msg_delete(GtkWidget *widget, gpointer data);
 
 /*                              Messages Img Class */
-t_message_img *mx_message_img_build(t_info *info, cJSON *json);
+t_message_img *mx_message_img_build(t_info *info, cJSON *json, int cid);
 
     /* Message callbacks */
 void mx_msg_img_menu_show(GtkWidget *widget, GdkEvent *event, gpointer data);
