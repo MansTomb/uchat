@@ -47,18 +47,6 @@ t_message *mx_message_build(t_info *info, cJSON *json, int cid) {
     return message;
 }
 
-void mx_message_destroy(t_chat *chat, int mid) {
-    t_message *node;
-
-    for (size_t i = 0; i < chat->msg_list->size; ++i) {
-        node = mx_get_index(chat->msg_list, i)->data;
-
-        if (node->mid == mid) {
-            // gtk_container_remove(GTK_CONTAINER(chat->message_box), gtk_widget_get_parent(node->main_fixed));
-            gtk_widget_destroy(node->main_fixed);
-            free(node);
-            mx_pop_index(chat->msg_list, i);
-            return;
-        }
-    }
+void mx_message_destroy(t_chat *chat, t_message *msg) {
+    gtk_container_remove(GTK_CONTAINER(chat->message_box), gtk_widget_get_parent(msg->main_fixed));
 }

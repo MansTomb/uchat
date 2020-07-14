@@ -4,7 +4,10 @@ NAME = uchat
 
 base = main socket info close \
 	client_receive_message_handler client_send_message_handler \
-	receive_file send_file read_non_requested_jsons
+	receive_file send_file
+
+handlers = read_non_requested_jsons handle_del_msg handle_edit_msg            \
+	handle_send_msg
 
 login = login validate callbacks json
 
@@ -19,7 +22,7 @@ message = message callbacks interface edit_json delete_json
 
 message_img = message_img callbacks interface
 
-room_creation = room_creation validate callbacks
+room_creation = room_creation validate callbacks json
 
 change_pass = change_pass callbacks validate
 
@@ -40,7 +43,7 @@ utils = css wait_for_json create_hash json_get_type dialog entry toggle       \
 
 dirs = base login register admin add_contact chat create_group main_chat_screen \
 	profile preferences contacts message message_img room_creation utils      \
-	change_pass
+	change_pass handlers
 
 FILES = $(foreach dir, $(dirs), $($(dir):%=$(dir)/%))
 

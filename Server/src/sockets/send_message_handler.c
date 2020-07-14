@@ -78,7 +78,7 @@ void mx_send_message_handler(t_sock *sock, t_peer *peer, cJSON *bd, int sd) {
     if (MX_TYPE(bd) == file_msg)
         mx_send_file(sock, peer, bd, sd);
     else {
-        if (strlen(root) < 3 * MX_MAX_SEND_SIZE / 2) {
+        if (strlen(root) < 2 * MX_MAX_SEND_SIZE / 3) {
             mx_json_to_sending_buffer(peer->send_buff, create_peice(one_msg, root));
             send_one(sock, peer, sd);
         }

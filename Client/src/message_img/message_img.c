@@ -1,19 +1,20 @@
 #include "client.h"
 
-static void json_sets(t_message_img *msg, cJSON *json) {
+static void json_sets(t_message_img *msg, cJSON *json, int cid) {
     char *content = cJSON_GetObjectItem(json, "content")->valuestring;
     // char *username = cJSON_GetObjectItem(json, "name")->valuestring;
     char *time = cJSON_GetObjectItem(json, "time")->valuestring;
+    GtkWidget *image = gtk_image_new_from_animation(gdk_pixbuf_animation_new_from_file(content, NULL));
 
     msg->mid = cJSON_GetObjectItem(json, "mid")->valueint;
-    
-    gtk_widget_set_size_request(msg->main_fixed, 200, 200);
-    // gtk_button_set_image(GTK_BUTTON(msg->msg_bt), ) get iamge
+    msg->cid = cid;
+
+    gtk_button_set_image(GTK_BUTTON(msg->msg_bt), image);
     gtk_label_set_text(GTK_LABEL(msg->name_label), "User");
     gtk_label_set_text(GTK_LABEL(msg->date_label), time);
 }
 
-t_message_img *mx_message_img_build(t_info *info, cJSON *json) {
+t_message_img *mx_message_img_build(t_info *info, cJSON *json, int cid) {
     t_message_img *message = malloc(sizeof(t_message_img));
 
     message->builder = gtk_builder_new();
@@ -27,15 +28,12 @@ t_message_img *mx_message_img_build(t_info *info, cJSON *json) {
     gtk_builder_connect_signals(message->builder, message);
 
     message->info = info;
-    json_sets(message, json);
+    json_sets(message, json, cid);
 
     gtk_widget_show(message->main_fixed);
-
     return message;
 }
 
-// void mx_message_destroy(t_info *info) {
-//     gtk_widget_destroy(info->message->main_box);
-//     free(info->message);
-//     info->windows->log = NULL;
-// }
+void mx_message_img_destroy(t_chat *chat, t_message_img *msg) {
+    gtk_container_remove(GTK_CONTAINER(chat->message_box), gtk_widget_get_parent(msg->main_fixed));
+}

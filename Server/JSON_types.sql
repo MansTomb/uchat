@@ -18,6 +18,10 @@
 -- update profile
 {"json_type": 12, "uid": 1, "fname": "hh'hh", "sname": "rr", "email": "trogalska2208@gmail.com", "status": "", "snot": 1, "vnot": 1, "enot": 1}
 
+-- delete profile
+{ "json_type": 6, "uid": 6, "login": "rar", "hash": "fb131bc57a477c8c9d068f1ee5622ac304195a77164ccc2d75d82dfe1a727ba8"}
+
+
 
 -- get contact_list
 { "json_type": 14, "uid": 3}
@@ -35,7 +39,7 @@
 
 
 -- send message
-{ "json_type": 42, "uid": 2, "cid": 1, "type": 1, "content": "Hello, dear friend!"}
+{ "json_type": 42, "uid": 1, "cid": 1, "type": 1, "content": "Hello, dear friend!"}
 -- edit message
 { "json_type": 44, "uid": 2, "cid": 1, "mid": 2, "content": "Hello!"}
 -- delete message

@@ -30,8 +30,9 @@ void mx_send_message_handler(cJSON *json, int sd) {
     char send_buff[MX_MAX_SEND_SIZE];
     char *buff = cJSON_Print(json);
 
+    bzero(send_buff, MX_MAX_SEND_SIZE);
     if (cJSON_GetObjectItem(json, "json_type")->valueint == file_msg) {
-        printf("------------\n");
+        // printf("------------\n");
         mx_send_file(json, sd);
         // mx_json_to_sending_buffer(send_buff, create_peice(3, buff));
         // send_one(sd, send_buff);

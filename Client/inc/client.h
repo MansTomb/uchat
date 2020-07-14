@@ -27,10 +27,41 @@ typedef struct s_data t_data;
 typedef struct s_sock t_sock;
 typedef struct s_giter t_giter;
 typedef struct s_user t_user;
+typedef struct s_del_msg t_del_msg;
+typedef struct s_edit_msg t_edit_msg;
+typedef struct s_send_msg t_send_msg;
+typedef struct s_send_msg_img t_send_msg_img;
 
 struct s_giter {
     char *gname;
     GtkTreeIter iter;
+};
+
+struct s_del_msg {
+    t_info *info;
+    t_chat *chat;
+    t_message *msg;
+    int mid;
+    int i;
+};
+struct s_edit_msg {
+    char *content;
+    t_info *info;
+    t_chat *chat;
+    t_message *msg;
+};
+struct s_send_msg {
+    int cid;
+    t_message *msg;
+    t_chat *chat;
+    t_info *info;
+};
+
+struct s_send_msg_img {
+    int cid;
+    t_message_img *msg;
+    t_chat *chat;
+    t_info *info;
 };
 
 // list of contacts that client have
@@ -304,6 +335,11 @@ t_info *mx_create_info();
 void mx_info_create_css(t_info *new);
 bool mx_handle_if_not_requested(t_info *info, cJSON *json);
 
+    /* Handlers */
+void mx_handle_delete_message(t_info *info, cJSON *json);
+void mx_handle_edit_message(t_info *info, cJSON *json);
+void mx_handle_send_message(t_info *info, cJSON *json);
+
     /* Jsons */
 void mx_save_login_data(t_info *info);
 void mx_get_json_contacts(t_info *info);
@@ -319,9 +355,11 @@ void mx_register_build_json_wrapper(t_info *info);
 void mx_upd_prof_build_json_wrapper(t_info *info);
 void mx_add_cnt_json_wrapper(t_contact_add *ac);
 void mx_send_message_t1_json_wrapper(t_chat *chat, char *content);
+void mx_send_message_t2_json_wrapper(t_chat *chat, char *content);
 void mx_edit_message_t1_json_wrapper(t_message *msg, char *content);
 void mx_delete_message_t1_json_wrapper(t_message *msg);
 void mx_get_json_chat_history(t_info *info, t_chat *chat);
+void mx_create_room_wrap(t_info *info);
 
     /* Package transferring */
 void mx_json_to_sending_buffer(char *buff, cJSON *json);
@@ -367,7 +405,7 @@ bool mx_get_jtype(t_info *info, int type);
 void mx_dialog_warning_create(GtkWidget *parent, char *message);
 
     /* Set vnotify */
-void mx_set_vnoti(t_main_screen *ms, char *chat_name, gboolean value);
+void mx_set_vnoti(t_info *info, t_main_screen *ms, int cid, gboolean value);
 
 /* Windows */
 
@@ -474,6 +512,7 @@ void mx_chat_destroy(t_list_node *chat_node);
 void mx_chat_put(t_info *info, char *chat_name, int cid);
 
 void mx_message_put(t_info *info, t_message *msg, int cid);
+void mx_message_img_put(t_info *info, t_message_img *msg, int cid);
 
     /* Chat callbacks */
 void mx_send_message(GtkWidget *widget, gpointer data);
@@ -483,14 +522,14 @@ void mx_on_scroll_edge(GtkWidget *widget, GtkPositionType pos, gpointer data);
 
 /*                              Messages Class */
 t_message *mx_message_build(t_info *info, cJSON *json, int cid);
-void mx_message_destroy(t_chat *chat, int mid);
+void mx_message_destroy(t_chat *chat, t_message *msg);
 
     /* Message callbacks */
 void mx_msg_menu_show(GtkWidget *widget, GdkEvent *event, gpointer data);
 void mx_msg_delete(GtkWidget *widget, gpointer data);
 
 /*                              Messages Img Class */
-t_message_img *mx_message_img_build(t_info *info, cJSON *json);
+t_message_img *mx_message_img_build(t_info *info, cJSON *json, int cid);
 
     /* Message callbacks */
 void mx_msg_img_menu_show(GtkWidget *widget, GdkEvent *event, gpointer data);
