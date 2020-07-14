@@ -512,6 +512,7 @@ void mx_chat_destroy(t_list_node *chat_node);
 void mx_chat_put(t_info *info, char *chat_name, int cid);
 
 void mx_message_put(t_info *info, t_message *msg, int cid);
+void mx_message_img_put(t_info *info, t_message_img *msg, int cid);
 
     /* Chat callbacks */
 void mx_send_message(GtkWidget *widget, gpointer data);
