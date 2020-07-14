@@ -19,7 +19,6 @@ static void text_message(t_info *info, cJSON *json) {
 
     mx_push_front(msg->chat->msg_list, msg->msg);
     gdk_threads_add_idle(wrap, msg);
-    cJSON_Delete(json);
 }
 
 static int wrap2(void *data) {
@@ -41,14 +40,16 @@ static void img_message(t_info *info, cJSON *json) {
 
     mx_push_front(msg->chat->msg_list, msg->msg);
     gdk_threads_add_idle(wrap2, msg);
-    cJSON_Delete(json);
 }
 
 void mx_handle_send_message(t_info *info, cJSON *json) {
-    switch (cJSON_GetObjectItem(json, "type")->valueint) {
+    int type = cJSON_GetObjectItem(json, "type")->valueint;
+    switch (type) {
         case 1:
             text_message(info, json);
+            break;
         case 2:
             img_message(info, json);
+            break;
     }
 }

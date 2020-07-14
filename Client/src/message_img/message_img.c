@@ -4,7 +4,7 @@ static void json_sets(t_message_img *msg, cJSON *json, int cid) {
     char *content = cJSON_GetObjectItem(json, "content")->valuestring;
     // char *username = cJSON_GetObjectItem(json, "name")->valuestring;
     char *time = cJSON_GetObjectItem(json, "time")->valuestring;
-    GtkWidget *image = gtk_image_new_from_pixbuf(gdk_pixbuf_animation_new_from_file(content, NULL));
+    GtkWidget *image = gtk_image_new_from_animation(gdk_pixbuf_animation_new_from_file(content, NULL));
 
     msg->mid = cJSON_GetObjectItem(json, "mid")->valueint;
     msg->cid = cid;
