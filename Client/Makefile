@@ -2,9 +2,9 @@ CC = clang
 LIB = libmx.a
 NAME = uchat
 
-base = main socket info \
+base = main socket info close \
 	client_receive_message_handler client_send_message_handler \
-	receive_file send_file
+	receive_file send_file read_non_requested_jsons
 
 login = login validate callbacks json
 
@@ -12,29 +12,35 @@ register = register validate json
 
 admin = admin
 
-chat = chat interface callbacks
+chat = chat interface callbacks get_json_chat_list_login callbacks_2          \
+	json_send_msg_1 get_json_history
 
-message = message
+message = message callbacks interface edit_json delete_json
 
-message_img = message_img
+message_img = message_img callbacks interface
 
-room_creation = room_creation validate
+room_creation = room_creation validate callbacks
 
-preferences = callbacks
+change_pass = change_pass callbacks validate
 
-change_password = change_password
+main_chat_screen = main_screen
 
-main_chat_screen = main_screen contacts contacts_callbacks contacts_json      \
-	profile profile_callbacks profile_json
+contacts = contacts callbacks json create_table get_json_list_contacts
 
-add_contact = add_contact
+profile = profile json callbacks
 
-create_group = create_group
+preferences = preferences callbacks chg_pass_json
 
-utils = css wait_for_json create_hash json_get_type dialog entry
+add_contact = add_contact json callbacks add_json_user_to_contacts
+
+create_group = create_group callbacks
+
+utils = css wait_for_json create_hash json_get_type dialog entry toggle       \
+	set_vnotify find_something
 
 dirs = base login register admin add_contact chat create_group main_chat_screen \
-	message message_img room_creation utils
+	profile preferences contacts message message_img room_creation utils      \
+	change_pass
 
 FILES = $(foreach dir, $(dirs), $($(dir):%=$(dir)/%))
 
@@ -52,7 +58,7 @@ WFLAGS = -Wall -Wextra -Werror -Wpedantic -Wno-unused-command-line-argument \
 LFLAGS = -Iinc -I$(LIB_DIR)inc -I/usr/local/opt/openssl/include \
 	-L/usr/local/opt/openssl/lib -lssl -lcrypto
 
-# CFLAGS = -Os -march=native -fomit-frame-pointer -flto
+CFLAGS = -Os -march=native -fomit-frame-pointer -flto
 
 CFLAGS = -O0 -g3 -glldb -ftrapv -fno-omit-frame-pointer -fsanitize=address    \
 	-fsanitize=undefined

@@ -15,6 +15,7 @@ static void *read_from_server(void *info) {
             // perror(MX_ERR_CL_RE);
             puts("\nGood bye, see you soon...\n");
             pthread_exit(0);
+            mx_destroy(NULL, NULL, info1);
         }
         else if (n > 0) {
             mx_receive_message_handler(buff, &responce, info);
@@ -23,8 +24,6 @@ static void *read_from_server(void *info) {
     }
     pthread_exit(0);
 }
-
-
 
 static void *read_from_stdin(void *info) {   // for testing server
     t_info *info1 = (t_info *)info;
@@ -71,10 +70,9 @@ int main(int argc, char *argv[]) {
     info->sock = mx_client_socket_create(argv[1], atoi((argv[2])));
 
     gtk_init(&argc, &argv);
+    mx_info_create_css(info);
 
     mx_login_screen_build(info, info->windows->log);
-    // mx_main_screen_build(info, info->windows->ms);
-    // mx_chat_put(info, "Best Chat");
 
     pthread_create(&info->thread.data, NULL, &read_from_server, (void *)info);
     pthread_create(&info->thread.timer, NULL, &login_timeout, (void *)info);

@@ -22,6 +22,9 @@
             <property name="name">password_entry</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="max_length">16</property>
+            <property name="visibility">False</property>
+            <property name="invisible_char">*</property>
             <property name="placeholder_text" translatable="yes">Password Confirm</property>
             <style>
               <class name="password_entry"/>
@@ -37,6 +40,7 @@
             <property name="name">username_entry</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="max_length">16</property>
             <property name="placeholder_text" translatable="yes">Username</property>
             <style>
               <class name="username_entry"/>
@@ -72,6 +76,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <signal name="clicked" handler="mx_reg_user_on_click" swapped="no"/>
                 <style>
                   <class name="login_button"/>
                 </style>
@@ -90,6 +95,9 @@
           <object class="GtkEntry" id="passwordc_entry">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="max_length">16</property>
+            <property name="visibility">False</property>
+            <property name="invisible_char">*</property>
             <property name="placeholder_text" translatable="yes">Password</property>
           </object>
           <packing>

@@ -25,6 +25,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <signal name="clicked" handler="mx_on_crt_group_cancel" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -38,6 +39,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <signal name="clicked" handler="mx_on_crt_group_create" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -73,7 +75,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry">
+              <object class="GtkEntry" id="entry">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="placeholder_text" translatable="yes">Group Name</property>

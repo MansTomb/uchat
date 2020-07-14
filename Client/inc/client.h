@@ -3,10 +3,6 @@
 #include "uchat.h"
 #include "defines_client.h"
 
-#define MX_MSGHEIGHT(msg) (strlen(msg) + 20 * 10)
-#define MX_MSGWIDTH(msg) (strlen(msg) * 4 > 400 ? 400 : strlen(msg) * 4)
-#define MX_MAX_SEND_SIZE 4096
-
 typedef struct sockaddr_in t_saddr;
 typedef struct s_info t_info;
 typedef struct s_login t_login;
@@ -29,6 +25,13 @@ typedef struct s_contact t_contact;
 typedef struct s_profile_data t_profile_data;
 typedef struct s_data t_data;
 typedef struct s_sock t_sock;
+typedef struct s_giter t_giter;
+typedef struct s_user t_user;
+
+struct s_giter {
+    char *gname;
+    GtkTreeIter iter;
+};
 
 // list of contacts that client have
 struct s_contact {
@@ -38,6 +41,7 @@ struct s_contact {
     char *s_name;
     char *email;
     char *stat;
+    int active;
     int grp_id;
     char *grp_name;
 };
@@ -56,13 +60,18 @@ struct s_profile_data {
     int email_noty;
 };
 
+struct s_user {
+    int id;
+    char *login;
+};
+
 // struct that have access to all client data
 struct s_data {
     t_profile_data *profile;
 
     t_list *contacts;
     t_list *cont_grp_names;
-    t_list *chats_list;
+    t_list *tmp_users;
 };
 
 struct s_sock {
@@ -84,6 +93,9 @@ struct s_message {
     GtkWidget *msg_bt;
     GtkWidget *menu;
 
+    int mid;
+    int cid;
+
     t_info *info;
 };
 
@@ -94,6 +106,9 @@ struct s_message_img {
     GtkWidget *name_label;
     GtkWidget *msg_bt;
     GtkWidget *menu;
+
+    int mid;
+    int cid;
 
     t_info *info;
 };
@@ -122,30 +137,24 @@ struct s_register {
 };
 
 struct s_preferences {
-    GtkWidget *scroll;
-    GtkWidget *layout;
-    GtkWidget *volume_label;
-    GtkWidget *volume;
-    GtkWidget *theme_label;
-    GtkWidget *theme_switch;
-    GtkWidget *v_notify_switch;
-    GtkWidget *s_notify_switch;
-    GtkWidget *e_notify_switch;
-
-    GtkWidget *change_pass_dialog;
-    GtkWidget *change_pass_bt;
-};
-
-struct s_change_password {
+    GtkBuilder *builder;
     GtkWidget *dialog;
-    GtkWidget *old_pass;
-    GtkWidget *new_pass;
-    GtkWidget *changebt;
-    GtkWidget *cancelbt;
+    GtkWidget *box;
+    GtkWidget *change_pass;
+    GtkWidget *del_prof;
+    GtkWidget *volume;
+    GtkWidget *vnotify;
+    GtkWidget *snotify;
+    GtkWidget *enotify;
+    GtkWidget *themeswitch;
 };
 
 struct s_chat {
     char *chat_name;
+    int cid;
+    bool edit;
+    t_message *editedmsg;
+    t_list *msg_list;
 
     GtkBuilder *builder;
     GtkWidget *img_dialog;
@@ -162,29 +171,22 @@ struct s_main_screen {
     GtkBuilder *builder;
     GtkWidget *revealer;
     GtkWidget *chat_stack;
+    GtkWidget *menu_stack;
 };
 
 struct s_profile {
-    GtkWidget *avatar;
-
-    GtkWidget *name; // менять логин не планируется, так что может быть его надо удалить
-    GtkWidget *namelb;
-    GtkWidget *id;
-    GtkWidget *fname;
-    GtkWidget *fnamelb;
-    GtkWidget *sname;
-    GtkWidget *snamelb;
-    GtkWidget *email;
-    GtkWidget *emaillb;
-    GtkWidget *status;
-    GtkWidget *statuslb;
-
-    GtkWidget *edit;
+    GtkBuilder *builder;
+    GtkWidget *dialog;
+    GtkWidget *box;
+    GtkWidget *image;
+    GtkWidget *avatartbt;
     GtkWidget *save;
+    GtkWidget *edit;
     GtkWidget *cancel;
-
-    GtkWidget *scrollable;
-    GtkWidget *layout;
+    GtkWidget *login;
+    GtkWidget *fname;
+    GtkWidget *lname;
+    GtkWidget *email;
 };
 
 struct s_contact_add {
@@ -195,6 +197,7 @@ struct s_contact_add {
     GtkWidget *entry;
     GtkWidget *combobox;
     GtkTreeStore *nameslist;
+    GtkEntryCompletion *e_comp;
 
     t_info *info;
 };
@@ -210,19 +213,21 @@ struct s_group_create {
 };
 
 struct s_contacts {
-    GtkWidget *treeview;
-    GtkWidget *treemodel;
-    GtkWidget *menu;
-
+    GtkBuilder *builder;
+    GtkWidget *dialog;
+    GtkWidget *box;
     GtkWidget *addbt;
-    GtkWidget *crtgrp;
+    GtkWidget *crtbt;
+    GtkWidget *tree_view;
+    GtkWidget *menu;
+    GtkTreeStore *tree_store;
+    GtkTreeViewColumn *log_col;
+    GtkTreeViewColumn *stat_col;
+    GtkCellRenderer *log_render;
+    GtkCellRendererPixbuf *stat_render;
 
-    t_contact_add *dialog;
-    t_group_create *dialog2;
-
-    t_info *info;
-
-    GtkTreeIter choosen_contact;
+    GtkTreeIter main_iter;
+    t_list *giters;
 };
 
 struct s_exit {
@@ -244,13 +249,29 @@ struct s_room_creation {
     t_info *info;
 };
 
+struct s_change_password {
+    GtkWidget *dialog;
+    GtkBuilder *builder;
+    GtkWidget *changebt;
+    GtkWidget *cancelbt;
+    GtkWidget *oldpass;
+    GtkWidget *newpass1;
+    GtkWidget *newpass2;
+
+    t_info *info;
+};
+
 struct s_windows {
     t_admin *adm;
     t_login *log;
     t_register *reg;
     t_main_screen *ms;
+    t_profile *prof;
+    t_contacts *cont;
+    t_preferences *pref;
     t_room_creation *rc;
     t_contact_add *ac;
+    t_change_password *cp;
     t_group_create *cg;
 };
 
@@ -274,30 +295,38 @@ struct s_info {
     GTimer *timer;
 
     t_data *cl_data;
+
+    gboolean wchange;
 };
 
     /* Main */
 t_info *mx_create_info();
+void mx_info_create_css(t_info *new);
+bool mx_handle_if_not_requested(t_info *info, cJSON *json);
 
     /* Jsons */
 void mx_save_login_data(t_info *info);
-void mx_get_json_contact(t_info *info);
-void save_chats(t_info *info);
-void mx_save_grp_list(t_info *info);
-
-void mx_add_contact_build_json_wrapper(t_contacts *contacts);
-void save_contacts(t_info *info);
-void mx_get_json_contact(t_info *info);
+void mx_get_json_contacts(t_info *info);
+void mx_get_json_chats_list(t_info *info);
+void mx_chg_pass_json(t_info *info, const char *old_pass, const char *new_pass);
+int mx_check_err_json(cJSON *new);
 
     /* Json wrappers */
 bool mx_get_jtype(t_info *info, int type);
+void mx_get_list_users_json_wrapper(t_info *info);
 void mx_login_build_json_wrapper(t_info *info);
 void mx_register_build_json_wrapper(t_info *info);
-void mx_add_contact_build_json_wrapper(t_contacts *contacts);
 void mx_upd_prof_build_json_wrapper(t_info *info);
+void mx_add_cnt_json_wrapper(t_contact_add *ac);
+void mx_send_message_t1_json_wrapper(t_chat *chat, char *content);
+void mx_edit_message_t1_json_wrapper(t_message *msg, char *content);
+void mx_delete_message_t1_json_wrapper(t_message *msg);
+void mx_get_json_chat_history(t_info *info, t_chat *chat);
 
+    /* Package transferring */
 void mx_json_to_sending_buffer(char *buff, cJSON *json);
 int mx_check_err_json(cJSON *new);
+
 void mx_send_message_handler(cJSON *json, int sd);
 void mx_receive_message_handler(char *receiving_buff, char **large_message,
                                 t_info *info);
@@ -309,6 +338,12 @@ t_sock *mx_client_socket_create(char *ip, int port);
 
     /* UTILS FUNCTIONS */
 
+t_chat *mx_find_chat(t_info *info, int cid);
+t_message *mx_find_message(t_chat *chat, int mid);
+
+    /* On exit */
+gboolean mx_destroy(GtkWidget *widget, GdkEvent *event, gpointer data);
+
     /* Work with css */
 void mx_css_from_file(t_info *info, char *filename);
 void mx_css_from_data(t_info *info, char *data);
@@ -317,6 +352,9 @@ void mx_css_from_data(t_info *info, char *data);
 GtkWidget *mx_entry_constructor(char *name);
 bool mx_entry_text_exist(GtkWidget *entry);
 const char *mx_entry_get_text(GtkWidget *entry);
+
+    /* Toggle Button */
+gboolean mx_get_tactive(GtkWidget *widget);
 
     /* Hash */
 char *mx_create_hash(const char *pass);
@@ -327,6 +365,9 @@ bool mx_get_jtype(t_info *info, int type);
 
     /* Dialog error */
 void mx_dialog_warning_create(GtkWidget *parent, char *message);
+
+    /* Set vnotify */
+void mx_set_vnoti(t_main_screen *ms, char *chat_name, gboolean value);
 
 /* Windows */
 
@@ -367,18 +408,35 @@ void mx_main_screen_destroy(t_info *info);
 void mx_on_click_main_menu(GtkWidget *widget, gpointer data);
 void mx_on_click_exit(GtkWidget *widget, gpointer data);
 
+/*                              Profile Screen */
+void mx_profile_build(t_info *info, t_profile *prof);
+void mx_profile_destroy(t_info *info);
+
+/* Callbacks */
+
+
 /*                              Contacts screen */
+void mx_contacts_build(t_info *info, t_contacts *cont);
+void mx_contacts_destroy(t_info *info);
+void mx_create_table(t_info *info, t_contacts *cont);
 void mx_add_contact_build(t_info *info, t_contact_add *ac);
 void mx_add_contact_destroy(t_info *info);
 
 /*  Callbacks */
 void mx_contacts_tree_on_click(GtkTreeView *tree_view, GtkTreePath *path, GtkTreeViewColumn *column, gpointer user_data);
+void mx_contacts_open_prof(GtkWidget *widget, gpointer data);
 void mx_contacts_send_message(GtkWidget *widget, gpointer data);
+void mx_contacts_block(GtkWidget *widget, gpointer data);
 void mx_contacts_delete(GtkWidget *widget, gpointer data);
 
+void mx_on_add_contact_cancel(GtkWidget *widget, gpointer data);
+void mx_on_add_contact_add(GtkWidget *widget, gpointer data);
 
 void mx_create_group_build(t_info *info, t_group_create *cg);
 void mx_create_group_destroy(t_info *info);
+
+void mx_on_crt_group_cancel(GtkWidget *widget, gpointer data);
+void mx_on_crt_group_create(GtkWidget *widget, gpointer data);
 
 /*                              Room Creation */
 void mx_room_creation_build(t_info *info, t_room_creation *rc);
@@ -391,37 +449,48 @@ gboolean mx_room_creation_data_validation(t_room_creation *room);
 
 /*                              Preferences Screen */
 
-t_preferences *mx_preferences_constructor(t_info *info);
-void mx_preferences_destructor(t_info *info);
-void mx_preferences_show(t_info *info);
-void mx_preferences_hide(t_info *info);
+void mx_preferences_build(t_info *info, t_preferences *pref);
+void mx_preferences_destroy(t_info *info);
 
     /* Callbacks */
-void mx_on_click_change_pass(GtkWidget *widget, gpointer data);
 void mx_on_click_theme_switch(GtkWidget *widget, gboolean state, gpointer data);
-void mx_on_click_snoti_switch(GtkWidget *widget, gpointer data);
-void mx_on_click_vnoti_switch(GtkWidget *widget, gpointer data);
-void mx_on_click_enoti_switch(GtkWidget *widget, gpointer data);
+void mx_on_toggle_vnoti(GtkWidget *widget, gpointer data);
+void mx_on_toggle_snoti(GtkWidget *widget, gpointer data);
+void mx_on_toggle_enoti(GtkWidget *widget, gpointer data);
+void mx_on_change_password(GtkWidget *widget, gpointer data);
+
+/*                               Change Password */
+void mx_change_password_build(t_info *info, t_change_password *cp);
+void mx_change_password_destroy(t_info *info);
+gboolean mx_cp_validate(t_change_password *cp);
+
+    /* Callbacks */
+void mx_on_cp_cancel(GtkWidget *widget, gpointer data);
+void mx_on_cp_change(GtkWidget *widget, gpointer data);
 
 /*                             CHAT SCREEN */
-t_chat *mx_chat_build(t_info *info, char *chat_name);
+t_chat *mx_chat_build(t_info *info, char *chat_name, int cid);
 void mx_chat_destroy(t_list_node *chat_node);
-void mx_chat_put(t_info *info, char *chat_name);
+void mx_chat_put(t_info *info, char *chat_name, int cid);
+
+void mx_message_put(t_info *info, t_message *msg, int cid);
 
     /* Chat callbacks */
 void mx_send_message(GtkWidget *widget, gpointer data);
+void mx_on_scroll_edge(GtkWidget *widget, GtkPositionType pos, gpointer data);
 
     /* Chat error dialogs */
 
 /*                              Messages Class */
-t_message *mx_message_build(t_info *info, char *username, char *msg);
+t_message *mx_message_build(t_info *info, cJSON *json, int cid);
+void mx_message_destroy(t_chat *chat, int mid);
 
     /* Message callbacks */
 void mx_msg_menu_show(GtkWidget *widget, GdkEvent *event, gpointer data);
 void mx_msg_delete(GtkWidget *widget, gpointer data);
 
 /*                              Messages Img Class */
-t_message_img *mx_message_img_build(t_info *info, char *username, GtkWidget *img);
+t_message_img *mx_message_img_build(t_info *info, cJSON *json);
 
     /* Message callbacks */
 void mx_msg_img_menu_show(GtkWidget *widget, GdkEvent *event, gpointer data);

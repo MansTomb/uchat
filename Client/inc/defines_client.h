@@ -6,10 +6,19 @@
 #define WIDTH 1280
 #define HEIGHT 720
 
+#define MX_MAX_SEND_SIZE 4096
+
 /*    Define for укорачивания(не нашёл англ слова в голове) */
 #define MX_BOX_V GTK_ORIENTATION_VERTICAL
 #define MX_CB G_CALLBACK
 #define MX_GSIG_CON g_signal_connect
+
+#define MX_PASS_NONPRINT "Password contain non printable characters!"
+#define MX_NEWPASS_NOTEQUAL "New password wont match!"
+#define MX_FIELDS_NOTEMPTY "Fields cant be empty!"
+
+#define MX_MSGHEIGHT(msg) (strlen(msg) + 20 * 10)
+#define MX_MSGWIDTH(msg) (strlen(msg) * 4 > 400 ? 400 : strlen(msg) * 4)
 
 #define MX_SEND_FILES_DIR "Client/files_send/"
 #define MX_RECV_FILES_DIR "Client/files_recv/"

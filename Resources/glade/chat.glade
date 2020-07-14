@@ -111,6 +111,7 @@
             </child>
           </object>
         </child>
+      <signal name="edge-reached" handler="mx_on_scroll_edge" swapped="no"/>
       </object>
       <packing>
         <property name="expand">True</property>

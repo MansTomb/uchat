@@ -12,7 +12,8 @@ int mx_check_err_json(cJSON *new) {
 }
 
 static void info_handler(char *str, t_info *info) {
-    info->json = cJSON_Parse(str);
+    if (mx_handle_if_not_requested(info, cJSON_Parse(str)))
+        info->json = cJSON_Parse(str);
     printf("Responce: %s\n", str);
 }
 

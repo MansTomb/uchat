@@ -10,7 +10,7 @@ static int callback(void *data, int argc, char **argv, char **cols) {
 
 static int get_all(void *data, int argc, char **argv, char **cols) {
     const char *strs[] = {"fname", "sname", "email", "status"};
-    const char *ints[] = {"snotify", "vnotify", "enotify"};
+    const char *ints[] = {"snot", "vnot", "enot"};
     const size_t size = sizeof(strs) / sizeof(strs[0]);
 
     for (size_t i = 0; i < size; ++i)
