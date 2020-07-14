@@ -39,5 +39,6 @@ void mx_send_message(GtkWidget *widget, gpointer data) {
 void mx_chat_img_send(GtkWidget *widget, gpointer data) {
     t_chat *chat = data;
 
+    // gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(chat->img_dialog));
     gtk_widget_hide(chat->img_dialog);
 }

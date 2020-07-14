@@ -275,6 +275,29 @@ struct s_windows {
     t_group_create *cg;
 };
 
+typedef struct s_del_msg t_del_msg;
+struct s_del_msg {
+    t_info *info;
+    t_chat *chat;
+    t_message *msg;
+    int mid;
+    int i;
+};
+typedef struct s_edit_msg t_edit_msg;
+struct s_edit_msg {
+    char *content;
+    t_info *info;
+    t_chat *chat;
+    t_message *msg;
+};
+typedef struct s_send_msg t_send_msg;
+struct s_send_msg {
+    int cid;
+    t_message *msg;
+    t_chat *chat;
+    t_info *info;
+};
+
 struct s_info {
     struct {
         pthread_t timer;
@@ -303,6 +326,11 @@ struct s_info {
 t_info *mx_create_info();
 void mx_info_create_css(t_info *new);
 bool mx_handle_if_not_requested(t_info *info, cJSON *json);
+
+    /* Handlers */
+void mx_handle_delete_message(t_info *info, cJSON *json);
+void mx_handle_edit_message(t_info *info, cJSON *json);
+void mx_handle_send_message(t_info *info, cJSON *json);
 
     /* Jsons */
 void mx_save_login_data(t_info *info);
@@ -483,7 +511,7 @@ void mx_on_scroll_edge(GtkWidget *widget, GtkPositionType pos, gpointer data);
 
 /*                              Messages Class */
 t_message *mx_message_build(t_info *info, cJSON *json, int cid);
-void mx_message_destroy(t_chat *chat, int mid);
+void mx_message_destroy(t_chat *chat, t_message *msg);
 
     /* Message callbacks */
 void mx_msg_menu_show(GtkWidget *widget, GdkEvent *event, gpointer data);
