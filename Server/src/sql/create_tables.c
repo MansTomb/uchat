@@ -28,7 +28,7 @@ static int create_triggers(sqlite3 *db) {
         MX_INSERT(users_profiles, user_id) "(NEW.id); "
         "INSERT INTO users_notify_settings VALUES (NEW.id, 1, 1, 1); END; "
         MX_TRIGGER(del_profile, DELETE) "users BEGIN "
-        MX_DEL_WH(users_profiles, user_id = OLD.id) 
+        MX_DEL_WH(users_profiles, user_id = OLD.id)
         MX_DEL_WH(users_notify_settings, user_id = OLD.id) "END;";
     char *err = NULL;
     int rc = sqlite3_exec(db, query, NULL, NULL, &err);
@@ -40,6 +40,10 @@ static int create_contacts(sqlite3 *db) {
     char *query = MX_CREATE(contacts_groups)
         MX_INT_PK(id)
         "name VARCHAR(64) NOT NULL UNIQUE); "
+        MX_CREATE(users_groups)
+        "user_id INTEGER NOT NULL, "
+        "group_id INTEGER NOT NULL, "
+        "PRIMARY KEY (user_id, group_id)); "
         MX_CREATE(contacts_lists)
         "user_id INTEGER NOT NULL, "
         "contact_id INTEGER NOT NULL, "

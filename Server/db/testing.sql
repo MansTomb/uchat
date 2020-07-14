@@ -2,10 +2,6 @@
 -- .mode column
 
 INSERT INTO users VALUES
-    (NULL, 'lol', 'lol'),
-    (NULL, 'kek', 'kek');
-
-INSERT INTO users VALUES
     (NULL, 'abalabin', 'qwerty'),
     (NULL, 'oafanasiev', 'asdfgh'),
     (NULL, 'trohalska', 'zxcvbn'),
@@ -26,7 +22,35 @@ INSERT INTO users VALUES
     (NULL, 'ineedhelp', 'ntrhtr'),
     (NULL, 'tootoo', 'hhtrhr');
 
-INSERT INTO chats VALUES (NULL, 1, 'kek chat');
+INSERT INTO contacts_lists VALUES
+    (1, 2, NULL),
+    (1, 3, NULL),
+    (1, 4, NULL),
+    (1, 5, NULL),
+    (1, 6, NULL),
+    (1, 7, NULL),
+    (1, 8, NULL),
+    (1, 9, NULL),
+    (1, 10, NULL),
+    (1, 11, NULL),
+    (1, 12, NULL),
+    (1, 13, NULL),
+    (1, 14, NULL),
+    (1, 15, NULL),
+    (1, 16, NULL),
+    (1, 17, NULL),
+    (1, 18, NULL),
+    (1, 19, NULL);
+
+INSERT INTO contacts_groups VALUES
+    (NULL, 'friends'),
+    (NULL, 'work'),
+    (NULL, 'family'),
+    (NULL, 'sluts'),
+    (NULL, 'whores'),
+    (NULL, 'milfs');
+
+INSERT INTO chats VALUES (NULL, 1, '');
 INSERT INTO users_chats VALUES (1, last_insert_rowid(), 1);
 INSERT INTO users_chats VALUES (2, (SELECT max(id) FROM chats), 1);
 
