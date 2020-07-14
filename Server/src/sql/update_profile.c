@@ -15,7 +15,7 @@ static void update_profile(sqlite3 *db, cJSON *jsn) {
             MX_VSTR(jsn, "email"), MX_VSTR(jsn, "status"), MX_VINT(jsn, "uid"));
     rc = sqlite3_exec(db, query, NULL, NULL, &err);
     if (mx_check(rc, err, "updating1_profile") != SQLITE_OK) {
-        MX_SET_TYPE(jsn, failed_authorization);
+        MX_SET_TYPE(jsn, failed_update_profile);
     }
     free(query);
 
@@ -25,7 +25,7 @@ static void update_profile(sqlite3 *db, cJSON *jsn) {
             MX_VINT(jsn, "vnot"), MX_VINT(jsn, "enot"), MX_VINT(jsn, "uid"));
     rc = sqlite3_exec(db, query, NULL, NULL, &err);
     if (mx_check(rc, err, "updating2_profile") != SQLITE_OK) {
-        MX_SET_TYPE(jsn, failed_authorization);
+        MX_SET_TYPE(jsn, failed_update_profile);
     }
     free(query);
 }
@@ -42,7 +42,7 @@ cJSON *mx_update_profile(sqlite3 *db, cJSON *jsn) {
 
     MX_SET_TYPE(jsn, success_update_profile);
     if (mx_check(rc, err, "update_profile") != SQLITE_OK) {
-        // MX_SET_TYPE(jsn, failed_authorization); ?????????
+        MX_SET_TYPE(jsn, failed_update_profile);
     }
     else
         update_profile(db, jsn);

@@ -79,6 +79,8 @@ typedef enum {
     file_msg,
     failed_receiving_file,
 
+    failed_update_profile,
+
 } t_actions;
 
 typedef enum {
