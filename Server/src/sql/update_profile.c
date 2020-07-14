@@ -21,9 +21,8 @@ static void update_profile(sqlite3 *db, cJSON *jsn) {
 
     // rewrite this function
     asprintf(&query, "UPDATE users_notify_settings SET sound= %i, visual= %i, "
-            "email = %i  WHERE user_id = %i;", MX_VINT(jsn, "snotify"),
-            MX_VINT(jsn, "vnotify"), MX_VINT(jsn, "enotify"),
-            MX_VINT(jsn, "uid"));
+            "email = %i  WHERE user_id = %i;", MX_VINT(jsn, "snot"),
+            MX_VINT(jsn, "vnot"), MX_VINT(jsn, "enot"), MX_VINT(jsn, "uid"));
     rc = sqlite3_exec(db, query, NULL, NULL, &err);
     if (mx_check(rc, err, "updating2_profile") != SQLITE_OK) {
         MX_SET_TYPE(jsn, failed_update_profile);
