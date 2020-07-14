@@ -27,10 +27,33 @@ typedef struct s_data t_data;
 typedef struct s_sock t_sock;
 typedef struct s_giter t_giter;
 typedef struct s_user t_user;
+typedef struct s_del_msg t_del_msg;
+typedef struct s_edit_msg t_edit_msg;
+typedef struct s_send_msg t_send_msg;
 
 struct s_giter {
     char *gname;
     GtkTreeIter iter;
+};
+
+struct s_del_msg {
+    t_info *info;
+    t_chat *chat;
+    t_message *msg;
+    int mid;
+    int i;
+};
+struct s_edit_msg {
+    char *content;
+    t_info *info;
+    t_chat *chat;
+    t_message *msg;
+};
+struct s_send_msg {
+    int cid;
+    t_message *msg;
+    t_chat *chat;
+    t_info *info;
 };
 
 // list of contacts that client have
@@ -275,29 +298,6 @@ struct s_windows {
     t_group_create *cg;
 };
 
-typedef struct s_del_msg t_del_msg;
-struct s_del_msg {
-    t_info *info;
-    t_chat *chat;
-    t_message *msg;
-    int mid;
-    int i;
-};
-typedef struct s_edit_msg t_edit_msg;
-struct s_edit_msg {
-    char *content;
-    t_info *info;
-    t_chat *chat;
-    t_message *msg;
-};
-typedef struct s_send_msg t_send_msg;
-struct s_send_msg {
-    int cid;
-    t_message *msg;
-    t_chat *chat;
-    t_info *info;
-};
-
 struct s_info {
     struct {
         pthread_t timer;
@@ -350,6 +350,7 @@ void mx_send_message_t1_json_wrapper(t_chat *chat, char *content);
 void mx_edit_message_t1_json_wrapper(t_message *msg, char *content);
 void mx_delete_message_t1_json_wrapper(t_message *msg);
 void mx_get_json_chat_history(t_info *info, t_chat *chat);
+void mx_create_room_wrap(t_info *info);
 
     /* Package transferring */
 void mx_json_to_sending_buffer(char *buff, cJSON *json);
@@ -395,7 +396,7 @@ bool mx_get_jtype(t_info *info, int type);
 void mx_dialog_warning_create(GtkWidget *parent, char *message);
 
     /* Set vnotify */
-void mx_set_vnoti(t_main_screen *ms, char *chat_name, gboolean value);
+void mx_set_vnoti(t_info *info, t_main_screen *ms, int cid, gboolean value);
 
 /* Windows */
 

@@ -22,7 +22,7 @@ message = message callbacks interface edit_json delete_json
 
 message_img = message_img callbacks interface
 
-room_creation = room_creation validate callbacks
+room_creation = room_creation validate callbacks json
 
 change_pass = change_pass callbacks validate
 

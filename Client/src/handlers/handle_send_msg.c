@@ -4,6 +4,7 @@ static int wrap(void *data) {
     t_send_msg *msg = data;
 
     gtk_list_box_insert(GTK_LIST_BOX(msg->chat->message_box), msg->msg->main_fixed, -1);
+    mx_set_vnoti(msg->info, msg->info->windows->ms, msg->cid, 1);
     free(msg);
     return 0;
 }
