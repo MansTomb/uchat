@@ -22,6 +22,12 @@ static void file_loop(t_info *info, FILE *new, int fsize) {
     }
 }
 
+static void info_handler(char *str, t_info *info) {
+    if (mx_handle_if_not_requested(info, cJSON_Parse(str)))
+        info->json = cJSON_Parse(str);
+    printf("Responce: %s\n", str);
+}
+
 void mx_receive_file(cJSON *json, t_info *info) {
     FILE *new = NULL;
     char *name = cJSON_GetObjectItem(json, "name")->valuestring;
@@ -36,6 +42,7 @@ void mx_receive_file(cJSON *json, t_info *info) {
         file_loop(info, new, fsize);
     }
     fclose (new);
+    info_handler(cJSON_GetObjectItem(json, "piece")->valuestring, info);
     // сохранить гдето в инфо что файл получен
     mx_strdel(&fullname);
     printf("recv file closed\n");
