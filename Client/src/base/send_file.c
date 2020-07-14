@@ -13,9 +13,14 @@ static void send_one(int sd, char *buff) {
 static cJSON *create_piece_file(char *piece, char *path, int size) {
     cJSON *obj = cJSON_CreateObject();
 
+    int i;
+    for (i = strlen(path) - 1; i > 0; i--) {
+        if (path[i - 1] == '/')
+            break;
+    }
     cJSON_AddNumberToObject(obj, "p_type", 3);
     cJSON_AddStringToObject(obj, "piece", piece);
-    cJSON_AddStringToObject(obj, "name", &path[strlen(MX_SEND_FILES_DIR)]);
+    cJSON_AddStringToObject(obj, "name", &path[i]);
     cJSON_AddNumberToObject(obj, "n", size);
 
     return obj;

@@ -35,7 +35,7 @@
 
 
 -- send message
-{ "json_type": 42, "uid": 2, "cid": 1, "type": 1, "content": "Hello, dear friend!"}
+{ "json_type": 42, "uid": 1, "cid": 1, "type": 1, "content": "Hello, dear friend!"}
 -- edit message
 { "json_type": 44, "uid": 2, "cid": 1, "mid": 2, "content": "Hello!"}
 -- delete message

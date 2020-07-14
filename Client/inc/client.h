@@ -355,6 +355,7 @@ void mx_register_build_json_wrapper(t_info *info);
 void mx_upd_prof_build_json_wrapper(t_info *info);
 void mx_add_cnt_json_wrapper(t_contact_add *ac);
 void mx_send_message_t1_json_wrapper(t_chat *chat, char *content);
+void mx_send_message_t2_json_wrapper(t_chat *chat, char *content);
 void mx_edit_message_t1_json_wrapper(t_message *msg, char *content);
 void mx_delete_message_t1_json_wrapper(t_message *msg);
 void mx_get_json_chat_history(t_info *info, t_chat *chat);
