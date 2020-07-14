@@ -41,7 +41,7 @@ void mx_db_logout(t_info *info, t_peer *peer, cJSON *get) {
 void mx_db_delete(t_info *info, t_peer *peer, cJSON *get) {
     cJSON *responce_bd;
 
-    // responce_bd = mx_registration(info->sock->db, get);
+    // responce_bd = mx_delete_user(info->sock->db, get);
     // mx_send_msg_self(info->sock, peer, );
     printf("authorization\n");
     // cJSON_Delete(bd);

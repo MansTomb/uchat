@@ -32,4 +32,6 @@ uchat_server
 *.db
 !*.sql
 
-*tmp*
+*.jpg
+*.png
+*.gif

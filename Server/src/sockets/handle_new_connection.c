@@ -21,8 +21,6 @@ static void socket_new_add_to_arr_of_sockets(t_sock *sock, int *new_socket) {
             sock->connection_list[i].socket = *new_socket;
             sock->connection_list[i].addres = sock->address;
 
-            sock->connection_list[i].current_sending_byte   = -1;
-            sock->connection_list[i].current_receiving_byte = 0;
             printf("Adding to list of sockets as %d\n", i);
             break;
         }
@@ -38,13 +36,6 @@ void mx_handle_new_connection(t_info *info) {
 
     if (FD_ISSET(info->sock->master_socket, &info->sock->readfds)) {
         socket_new_accept(&new_socket, info->sock);
-
-        //send new connection greeting message
-        // if( send(new_socket, message, strlen(message), 0) != (ssize_t)strlen(message) )
-        // {
-        //     perror("send");
-        // }
-        //add new socket to array of sockets
         socket_new_add_to_arr_of_sockets(info->sock, &new_socket);
     }
 }
