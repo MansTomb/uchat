@@ -30,6 +30,7 @@ typedef struct s_user t_user;
 typedef struct s_del_msg t_del_msg;
 typedef struct s_edit_msg t_edit_msg;
 typedef struct s_send_msg t_send_msg;
+typedef struct s_send_msg_img t_send_msg_img;
 
 struct s_giter {
     char *gname;
@@ -50,6 +51,13 @@ struct s_edit_msg {
     t_message *msg;
 };
 struct s_send_msg {
+    int cid;
+    t_message *msg;
+    t_chat *chat;
+    t_info *info;
+};
+
+struct s_send_msg_img {
     int cid;
     t_message *msg;
     t_chat *chat;
