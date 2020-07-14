@@ -28,22 +28,9 @@ typedef struct s_peer {                            // t_peer
     char *large_message;
     int m_type;
 
-    // t_message_queue send_buffer;  // Messages that waiting for send.
-
-    /* Buffered sending message.
-    *
-    * In case we doesn't send whole message per one call send().
-    * And current_sending_byte is a pointer to the part of data
-    * that will be send next call.
-    */
-    // t_message sending_buffer;
     char send_buff[MX_MAX_SEND_SIZE];
-    size_t current_sending_byte;
-
-    /* The same for the receiving message. */
-    // t_message receiving_buffer;
     char recv_buff[MX_MAX_SEND_SIZE];
-    size_t current_receiving_byte;
+
 }              t_peer;
 
 typedef struct s_sock {                            // t_sock

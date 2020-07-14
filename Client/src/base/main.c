@@ -79,7 +79,7 @@ int main(int argc, char *argv[]) {
     g_thread_new("read", read_from_server, info);
     pthread_create(&info->thread.timer, NULL, &login_timeout, (void *)info);
 
-    pthread_create(&info->thread.data, NULL, &read_from_stdin, (void *)info);  // for testing server
+    // pthread_create(&info->thread.data, NULL, &read_from_stdin, (void *)info);  // for testing server
 
     gtk_main();
 

@@ -31,3 +31,5 @@ uchat_server
 *serverlogs
 *.db
 !*.sql
+
+*tmp*

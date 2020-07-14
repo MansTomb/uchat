@@ -3,9 +3,6 @@
 void mx_handle_disconnect(t_sock *sock, t_peer *client) {
     cJSON *json;
 
-    //Check if it was for closing , and also read the
-    //incoming message
-    //Somebody disconnected , get his details and print
     getpeername(client->socket, (struct sockaddr *)&sock->address,
                 (socklen_t *)&sock->addrlen);
     printf("Host disconnected, ip %s:%d\n" ,
@@ -23,10 +20,8 @@ void mx_handle_disconnect(t_sock *sock, t_peer *client) {
     if (client->large_message)
         mx_strdel(&client->large_message);
     client->m_type = 0;
-
-    // mx_dequeue_all(&client->send_buffer);
-    client->current_sending_byte   = -1;
-    client->current_receiving_byte = 0;
+    bzero(client->send_buff, MX_MAX_SEND_SIZE);
+    bzero(client->recv_buff, MX_MAX_SEND_SIZE);
 }
 
 void mx_handle_incoming_data(t_info *info) {
