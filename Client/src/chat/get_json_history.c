@@ -15,13 +15,21 @@ static void save(t_info *info, t_chat *chat) {
     if (cJSON_IsObject(info->json)) {
         cJSON *i = NULL;
         cJSON *messages = cJSON_GetObjectItem(info->json, "messages");
+        int type = -1;
         t_message *msg = NULL;
         t_message_img *msg_img = NULL;
 
         if (cJSON_IsArray(messages)) {
             cJSON_ArrayForEach(i, messages) {
-                msg = mx_message_build(info, i, chat->cid);
-                mx_message_put(info, msg, chat->cid);
+                type = cJSON_GetObjectItem(i, "mtype")->valueint;
+                if (type == 1) {
+                    msg = mx_message_build(info, i, chat->cid);
+                    mx_message_put(info, msg, chat->cid);
+                }
+                else {
+                    msg_img = mx_message_img_build(info, i, chat->cid);
+                    mx_message_img_put(info, msg_img, chat->cid);
+                }
             }
         }
         else

@@ -16,7 +16,7 @@
 { "json_type": 9, "login": "4", "hash": "4", "new_hash": "444"}
 
 -- update profile
-{"json_type": 12, "uid": 1, "fname": "gg", "sname": "rr", "email": "trogalska2208@gmail.com", "status": "", "snot": 1, "vnot": 1, "enot": 1}
+{"json_type": 12, "uid": 1, "fname": "hh'hh", "sname": "rr", "email": "trogalska2208@gmail.com", "status": "", "snot": 1, "vnot": 1, "enot": 1}
 
 
 -- get contact_list
@@ -29,13 +29,13 @@
 { "json_type": 18, "uid": 1, "cid": 1}
 
 -- add new contact
-{ "json_type": 23, "uid": 3, "coid": 2}
+{ "json_type": 23, "uid": 1, "coid": 2, "gname": "best_friends"}
 -- del contact
-{ "json_type": 32, "uid": 3, "coid": 2}
+{ "json_type": 32, "uid": 3, "coid": 1}
 
 
 -- send message
-{ "json_type": 42, "uid": 2, "cid": 1, "type": 1, "content": "Hello, dear friend!"}
+{ "json_type": 42, "uid": 1, "cid": 1, "type": 1, "content": "Hello, dear friend!"}
 -- edit message
 { "json_type": 44, "uid": 2, "cid": 1, "mid": 2, "content": "Hello!"}
 -- delete message

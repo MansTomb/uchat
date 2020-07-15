@@ -77,12 +77,6 @@ typedef enum {
     failed_new_personal_chat,
     success_new_personal_chat,
 
-    make_new_group_chat,
-    get_new_group_chat,
-
-    make_new_chanel,
-    get_new_chanel,
-
     send_message,
     failed_send_message,                    // error db
 
@@ -96,9 +90,11 @@ typedef enum {
     failed_new_group_chat_channel,
     success_new_group_chat_channel,
 
-    this_uid_login,
+    this_uid_login,   // два єнама без запроса
     this_uid_logout,
 
     file_msg,
+    failed_receiving_file,
 
+    failed_update_profile,
 } t_actions;
