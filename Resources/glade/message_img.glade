@@ -21,6 +21,9 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Send Date</property>
+                <style>
+                  <class name="message_date"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -33,6 +36,9 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Username</property>
+                <style>
+                  <class name="message_username"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -54,6 +60,9 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <signal name="button-press-event" handler="mx_msg_menu_show" swapped="no"/>
+            <style>
+              <class name="message_img_button"/>
+            </style>
           </object>
           <packing>
             <property name="expand">False</property>
