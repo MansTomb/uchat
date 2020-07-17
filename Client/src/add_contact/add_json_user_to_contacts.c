@@ -33,7 +33,6 @@ void mx_add_cnt_json_wrapper(t_contact_add *ac) {
         mx_wait_for_json(ac->info, failed_add_new_contact, success_add_new_contact);
         if (mx_get_jtype(ac->info, success_add_new_contact)) {
             mx_get_json_contacts(ac->info);
-            mx_create_table(ac->info, ac->info->windows->cont);
         }
     }
     else {
