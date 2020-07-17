@@ -37,12 +37,14 @@ static void push_contacts_with_group(t_info *info, t_contacts *cont, char *gname
 
 static void create_every_group(t_info *info, t_contacts *cont) {
     char *grpname = NULL;
+    t_giter *giter = NULL;
 
     for (size_t i = 0; i < info->cl_data->cont_grp_names->size; ++i) {
         grpname = (mx_get_index(info->cl_data->cont_grp_names, i))->data;
         gtk_tree_store_append(cont->tree_store, &cont->main_iter, NULL);
         gtk_tree_store_set(cont->tree_store, &cont->main_iter, 0, grpname, -1);
-        mx_push_back(cont->giters, giter_create(grpname, cont->main_iter));
+        giter = giter_create(grpname, cont->main_iter);
+        mx_push_back(cont->giters, giter);
         push_contacts_with_group(info, cont, grpname);
     }
 }
