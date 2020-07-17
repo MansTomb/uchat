@@ -390,6 +390,8 @@ t_sock *mx_client_socket_create(char *ip, int port);
 t_chat *mx_find_chat(t_info *info, int cid);
 t_message *mx_find_message(t_chat *chat, int mid);
 
+gboolean mx_validate_chars(char *text);
+
     /* On exit */
 gboolean mx_destroy(GtkWidget *widget, GdkEvent *event, gpointer data);
 

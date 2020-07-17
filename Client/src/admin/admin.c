@@ -13,6 +13,7 @@ void mx_admin_screen_build(t_info *info, t_admin *adm) {
     adm->window = GTK_WIDGET(gtk_builder_get_object(adm->builder, "window"));
     gtk_builder_connect_signals(adm->builder, info);
 
+    mx_css_from_file(info, "./Resources/css/admin.css");
     gtk_widget_show(adm->window);
 }
 

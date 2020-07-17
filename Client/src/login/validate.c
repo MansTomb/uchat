@@ -9,20 +9,12 @@ static gboolean validate_empty_entry(t_login *log) {
     return false;
 }
 
-static gboolean validate_password_chars(t_login *log) {
-    const char *text = mx_entry_get_text(log->password_entry);
-    size_t len = strlen(text);
-
-    for (size_t i = 0; i < len; ++i) {
-        if (!isprint(text[i]))
-            return false;
-    }
-    return true;
-}
-
 gboolean mx_login_data_validate(t_login *log) {
+    char *pass = (char *)mx_entry_get_text(log->password_entry);
+    char *uname = (char *)mx_entry_get_text(log->username_entry);
+
     if (validate_empty_entry(log)) {
-        if (validate_password_chars(log)) {
+        if (mx_validate_chars(pass) && mx_validate_chars(uname)) {
             return true;
         }
         else {
