@@ -14,7 +14,7 @@ static void *read_from_server(void *info) {
         if ((n = read(info1->sock->sock, buff, sizeof(buff))) < 0) {
             // perror(MX_ERR_CL_RE);
             puts("\nGood bye, see you soon...\n");
-            // pthread_exit(0);
+            pthread_exit(0);
             mx_destroy(NULL, NULL, info1);
         }
         else if (n > 0) {
@@ -22,7 +22,7 @@ static void *read_from_server(void *info) {
         }
         bzero(buff, sizeof(buff));
     }
-    // pthread_exit(0);
+    pthread_exit(0);
 }
 
 static void *read_from_stdin(void *info) {   // for testing server
@@ -74,9 +74,9 @@ int main(int argc, char *argv[]) {
 
     mx_login_screen_build(info, info->windows->log);
 
-    // pthread_create(&info->thread.data, NULL, &read_from_server, (void *)info);
-    // g_idle_add(read_from_server, info);
-    g_thread_new("read", read_from_server, info);
+    pthread_create(&info->thread.data, NULL, &read_from_server, (void *)info);
+    // // g_idle_add(read_from_server, info);
+    // info->thread.data = g_thread_new("read", read_from_server, info);
     pthread_create(&info->thread.timer, NULL, &login_timeout, (void *)info);
 
     pthread_create(&info->thread.data, NULL, &read_from_stdin, (void *)info);  // for testing server

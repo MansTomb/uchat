@@ -20,6 +20,7 @@ typedef struct s_group_create t_group_create;
 typedef struct s_contacts t_contacts;
 typedef struct s_exit t_exit;
 typedef struct s_room_creation t_room_creation;
+typedef struct s_delete_profile t_delete_profile;
 typedef struct s_windows t_windows;
 typedef struct s_contact t_contact;
 typedef struct s_profile_data t_profile_data;
@@ -220,6 +221,15 @@ struct s_profile {
     GtkWidget *email;
 };
 
+struct s_delete_profile {
+    GtkBuilder *builder;
+    GtkWidget *dialog;
+    GtkWidget *pass1;
+    GtkWidget *pass2;
+
+    t_info *info;
+};
+
 struct s_contact_add {
     GtkBuilder *builder;
     GtkWidget *dialog;
@@ -304,6 +314,7 @@ struct s_windows {
     t_contact_add *ac;
     t_change_password *cp;
     t_group_create *cg;
+    t_delete_profile *dp;
 };
 
 struct s_info {
@@ -505,6 +516,14 @@ gboolean mx_cp_validate(t_change_password *cp);
     /* Callbacks */
 void mx_on_cp_cancel(GtkWidget *widget, gpointer data);
 void mx_on_cp_change(GtkWidget *widget, gpointer data);
+
+/*                                Delete Profile */
+void mx_delete_profile_build(t_info *info, t_delete_profile *dp);
+void mx_delete_profile_destroy(t_info *info);
+
+    /* Callbacks */
+void mx_del_profile_cancel(GtkWidget *widget, gpointer data);
+void mx_del_profile_delete(GtkWidget *widget, gpointer data);
 
 /*                             CHAT SCREEN */
 t_chat *mx_chat_build(t_info *info, char *chat_name, int cid);
