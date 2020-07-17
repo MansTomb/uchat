@@ -35,8 +35,10 @@ void mx_on_theme_switch(GtkWidget *widget, gboolean state, gpointer data) {
     t_info *info = data;
     t_preferences *pref = info->windows->pref;
 
-    if (state) {}; // one style
-    if (!state) {}; // other style
+    if (state)
+        mx_css_from_file(info, "./Resources/css/chat_dark.css");
+    else
+        mx_css_from_file(info, "./Resources/css/chat_light.css");
 }
 
 void mx_on_del_profile(GtkWidget *widget, gpointer data) {
