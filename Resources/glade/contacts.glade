@@ -40,6 +40,10 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <signal name="clicked" handler="mx_on_add_contact" swapped="no"/>
+            <style>
+              <class name="add_contact_button"/>
+              <class name="button"/>
+            </style>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -54,6 +58,10 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <signal name="clicked" handler="mx_on_create_group" swapped="no"/>
+            <style>
+              <class name="create_group_button"/>
+              <class name="button"/>
+            </style>
           </object>
           <packing>
             <property name="expand">False</property>

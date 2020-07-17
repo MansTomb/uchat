@@ -111,8 +111,9 @@
             <property name="halign">center</property>
             <property name="valign">center</property>
             <property name="editable">False</property>
+            <property name="max_length">16</property>
             <property name="has_frame">False</property>
-            <property name="text" translatable="yes">BestGuyEver</property>
+            <property name="text" translatable="yes">B</property>
             <property name="xalign">0.5</property>
             <property name="placeholder_text" translatable="yes">Login</property>
           </object>
@@ -127,6 +128,9 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">Login</property>
+            <style>
+              <class name="profile_label"/>
+            </style>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -152,8 +156,9 @@
             <property name="halign">center</property>
             <property name="valign">center</property>
             <property name="editable">False</property>
+            <property name="max_length">16</property>
             <property name="has_frame">False</property>
-            <property name="text" translatable="yes">Pobeditel'</property>
+            <property name="text" translatable="yes">P</property>
             <property name="xalign">0.5</property>
             <property name="placeholder_text" translatable="yes">First Name</property>
           </object>
@@ -168,6 +173,9 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">First Name</property>
+            <style>
+              <class name="profile_label"/>
+            </style>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -192,8 +200,9 @@
             <property name="can_focus">True</property>
             <property name="halign">center</property>
             <property name="editable">False</property>
+            <property name="max_length">16</property>
             <property name="has_frame">False</property>
-            <property name="text" translatable="yes">PoZizni</property>
+            <property name="text" translatable="yes">P</property>
             <property name="xalign">0.5</property>
             <property name="placeholder_text" translatable="yes">Last Name</property>
           </object>
@@ -208,6 +217,9 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">Last Name</property>
+            <style>
+              <class name="profile_label"/>
+            </style>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -232,8 +244,9 @@
             <property name="can_focus">True</property>
             <property name="halign">center</property>
             <property name="editable">False</property>
+            <property name="max_length">24</property>
             <property name="has_frame">False</property>
-            <property name="text" translatable="yes">gui@sobaka</property>
+            <property name="text" translatable="yes">gu</property>
             <property name="xalign">0.5</property>
             <property name="placeholder_text" translatable="yes">Email</property>
           </object>
@@ -249,6 +262,9 @@
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">Email</property>
             <property name="justify">fill</property>
+            <style>
+              <class name="profile_label"/>
+            </style>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -289,6 +305,10 @@
             <property name="halign">center</property>
             <property name="valign">center</property>
             <signal name="clicked" handler="mx_on_click_profile_save" swapped="no"/>
+            <style>
+              <class name="profile_save_button"/>
+              <class name="button"/>
+            </style>
           </object>
           <packing>
             <property name="expand">True</property>
@@ -305,6 +325,10 @@
             <property name="halign">center</property>
             <property name="valign">center</property>
             <signal name="clicked" handler="mx_on_click_profile_edit" swapped="no"/>
+            <style>
+              <class name="edit_profile_button"/>
+              <class name="button"/>
+            </style>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -321,6 +345,10 @@
             <property name="halign">center</property>
             <property name="valign">center</property>
             <signal name="clicked" handler="mx_on_click_profile_cancel" swapped="no"/>
+            <style>
+              <class name="profile_cancel_button"/>
+              <class name="button"/>
+            </style>
           </object>
           <packing>
             <property name="expand">True</property>
