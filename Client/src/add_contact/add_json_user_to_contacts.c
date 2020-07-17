@@ -16,8 +16,7 @@ static int get_uid(const t_list *list, const char *u_l, const char *c_l) {
     t_list_node *node = list ? list->head : NULL;
 
     for (; node; node = node->next) {
-        if (strcmp(((t_user *)node->data)->login, u_l) == 0
-            || strcmp(((t_user *)node->data)->login, c_l) == 0) {
+        if (strcmp(((t_user *)node->data)->login, u_l) == 0) {
             return ((t_user *)node->data)->id;
         }
     }
@@ -32,8 +31,10 @@ void mx_add_cnt_json_wrapper(t_contact_add *ac) {
     if (coid != -1) {
         add_cnt_bld_json(gname, coid, ac->info->cl_data->profile->id, ac->info->sock->sock);
         mx_wait_for_json(ac->info, failed_add_new_contact, success_add_new_contact);
-        if (mx_get_jtype(ac->info, success_add_new_contact))
+        if (mx_get_jtype(ac->info, success_add_new_contact)) {
             mx_get_json_contacts(ac->info);
+            mx_create_table(ac->info, ac->info->windows->cont);
+        }
     }
     else {
         mx_dialog_warning_create(NULL, "The contact does not exist or this is your login.!\n");

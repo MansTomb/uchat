@@ -2,7 +2,7 @@
 
 static void json_sets(t_message_img *msg, cJSON *json, int cid) {
     char *content = cJSON_GetObjectItem(json, "content")->valuestring;
-    // char *username = cJSON_GetObjectItem(json, "name")->valuestring;
+    char *username = cJSON_GetObjectItem(json, "login")->valuestring;
     char *time = cJSON_GetObjectItem(json, "time")->valuestring;
     GtkWidget *image = gtk_image_new_from_animation(gdk_pixbuf_animation_new_from_file(content, NULL));
 
@@ -10,7 +10,7 @@ static void json_sets(t_message_img *msg, cJSON *json, int cid) {
     msg->cid = cid;
 
     gtk_button_set_image(GTK_BUTTON(msg->msg_bt), image);
-    gtk_label_set_text(GTK_LABEL(msg->name_label), "User");
+    gtk_label_set_text(GTK_LABEL(msg->name_label), username);
     gtk_label_set_text(GTK_LABEL(msg->date_label), time);
 }
 
