@@ -30,8 +30,10 @@ static void push_contacts_with_group(t_info *info, t_contacts *cont, char *gname
     for (size_t i = 0; i < info->cl_data->contacts->size; ++i) {
         contact = (mx_get_index(info->cl_data->contacts, i))->data;
 
-        gtk_tree_store_append(cont->tree_store, &cont->main_iter, &iter->iter);
-        gtk_tree_store_set(cont->tree_store, &cont->main_iter, 0, contact->login, 1, pixbuf, -1);
+        if (strcmp(contact->grp_name, iter->gname) == 0) {
+            gtk_tree_store_append(cont->tree_store, &cont->main_iter, &iter->iter);
+            gtk_tree_store_set(cont->tree_store, &cont->main_iter, 0, contact->login, 1, pixbuf, -1);
+        }
     }
 }
 
@@ -51,6 +53,9 @@ static void create_every_group(t_info *info, t_contacts *cont) {
 
 void mx_create_table(t_info *info, t_contacts *cont) {
     gtk_tree_store_clear(cont->tree_store);
-    mx_clear_list(cont->giters);
     create_every_group(info, cont);
+    while (cont->giters->size) {
+        free(mx_get_index(cont->giters, 0)->data);
+        mx_pop_index(cont->giters, 0);
+    }
 }

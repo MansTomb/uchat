@@ -32,7 +32,7 @@ contacts = contacts callbacks json create_table get_json_list_contacts
 
 profile = profile json callbacks
 
-delete_profile = delete_profile callbacks
+delete_profile = delete_profile callbacks json
 
 preferences = preferences callbacks chg_pass_json
 

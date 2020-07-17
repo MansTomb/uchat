@@ -23,6 +23,8 @@ static void json_sets(t_message *msg, cJSON *json, int cid) {
     msg->cid = cid;
 
     set_preferences(msg, content, MX_MSGHEIGHT(content));
+    // if (strcmp(username, msg->info->cl_data->profile->login) == 0)
+        // gtk_widget_set_margin_start(msg->main_fixed, 400);
     gtk_label_set_text(GTK_LABEL(msg->name_label), username);
     gtk_label_set_text(GTK_LABEL(msg->date_label), time);
 }
