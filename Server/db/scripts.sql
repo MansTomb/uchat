@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS users_groups (
 CREATE TABLE IF NOT EXISTS contacts_lists (
     user_id INTEGER NOT NULL,
     contact_id INTEGER NOT NULL,
-    group_id INTEGER,
+    group_id INTEGER DEFAULT 0,
 
     PRIMARY KEY (user_id, contact_id),
     CHECK (user_id != contact_id)
