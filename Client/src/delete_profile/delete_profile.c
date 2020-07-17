@@ -1,0 +1,24 @@
+#include "client.h"
+
+void mx_delete_profile_build(t_info *info, t_delete_profile *dp) {
+    if (dp == NULL)
+        info->windows->dp = dp = malloc(sizeof(t_group_create));
+
+    dp->builder = gtk_builder_new();
+    gtk_builder_add_from_file(dp->builder, "./Resources/glade/del_profile.glade", NULL);
+
+    dp->dialog = GTK_WIDGET(gtk_builder_get_object(dp->builder, "dialog"));
+    dp->pass1 = GTK_WIDGET(gtk_builder_get_object(dp->builder, "pass1"));
+    dp->pass2 = GTK_WIDGET(gtk_builder_get_object(dp->builder, "pass2"));
+    gtk_builder_connect_signals(dp->builder, dp);
+
+    dp->info = info;
+
+    gtk_widget_show(dp->dialog);
+}
+
+void mx_delete_profile_destroy(t_info *info) {
+    gtk_widget_destroy(info->windows->dp->dialog);
+    free(info->windows->dp);
+    info->windows->dp = NULL;
+}

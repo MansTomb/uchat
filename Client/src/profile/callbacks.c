@@ -1,12 +1,12 @@
 #include "client.h"
 
 static void set_editables(t_profile *profile, gboolean is_editable) {
-    gtk_editable_set_editable(GTK_EDITABLE(profile->login), is_editable);
+    // gtk_editable_set_editable(GTK_EDITABLE(profile->login), is_editable);
     gtk_editable_set_editable(GTK_EDITABLE(profile->fname), is_editable);
     gtk_editable_set_editable(GTK_EDITABLE(profile->lname), is_editable);
     gtk_editable_set_editable(GTK_EDITABLE(profile->email), is_editable);
     // gtk_editable_set_editable(GTK_EDITABLE(profile->status), is_editable);
-    gtk_entry_set_has_frame(GTK_ENTRY(profile->login), is_editable);
+    // gtk_entry_set_has_frame(GTK_ENTRY(profile->login), is_editable);
     gtk_entry_set_has_frame(GTK_ENTRY(profile->fname), is_editable);
     gtk_entry_set_has_frame(GTK_ENTRY(profile->lname), is_editable);
     gtk_entry_set_has_frame(GTK_ENTRY(profile->email), is_editable);
