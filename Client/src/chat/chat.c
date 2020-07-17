@@ -31,7 +31,7 @@ void mx_chat_destroy(t_list_node *chat_node) {
 
     gtk_widget_destroy(chat->main_box);
     free(chat_node->data);
-    
+
     prev->next = next;
     next->prev = prev;
 }

@@ -4,6 +4,34 @@ static void wrong_usage() {
     printf("Wrong Usage Client\n");
 }
 
+static void reconnect(int *sockfd, t_info *info) {
+    // struct sockaddr addr;
+    // socklen_t clientlen;
+    struct sockaddr_in serv_addr = info->sock->serv_addr;
+    int i;
+
+    printf("%s","Lost connection to the server\n");
+    // int name = getpeername(sockfd, (struct sockaddr*)&addr, (socklen_t *)&clientlen);
+    for (i = 0; i < 10; ++i) {
+        if (connect(*sockfd, (struct sockaddr*)&serv_addr,
+            sizeof(serv_addr)) < 0) {
+            printf("%u\n", serv_addr.sin_addr.s_addr);
+            printf("%s", "Reconnecting...\n");
+            close(*sockfd);
+            *sockfd = socket(AF_INET, SOCK_STREAM, 0);
+            sleep(3);
+        }
+        else
+            break;
+    }
+    if (i == 10) {
+        puts("\nGood bye, see you soon...\n");
+        close(*sockfd);
+        // mx_destroy
+        exit(0);   //destroy && exit
+    }
+}
+
 static void *read_from_server(void *info) {
     t_info *info1 = (t_info *)info;
     int n;
@@ -11,11 +39,8 @@ static void *read_from_server(void *info) {
     char *responce = NULL;
 
     while (1) {
-        if ((n = read(info1->sock->sock, buff, sizeof(buff))) < 0) {
-            // perror(MX_ERR_CL_RE);
-            puts("\nGood bye, see you soon...\n");
-            pthread_exit(0);
-            mx_destroy(NULL, NULL, info1);
+        if ((n = read(info1->sock->sock, buff, sizeof(buff))) <= 0) {
+            reconnect(&info1->sock->sock, info1);
         }
         else if (n > 0) {
             mx_receive_message_handler(buff, &responce, info);
