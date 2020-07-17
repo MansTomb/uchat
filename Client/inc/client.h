@@ -371,6 +371,7 @@ void mx_edit_message_t1_json_wrapper(t_message *msg, char *content);
 void mx_delete_message_t1_json_wrapper(t_message *msg);
 void mx_get_json_chat_history(t_info *info, t_chat *chat);
 void mx_create_room_wrap(t_info *info);
+void mx_delete_user_wrapper(t_info *info);
 
     /* Package transferring */
 void mx_json_to_sending_buffer(char *buff, cJSON *json);

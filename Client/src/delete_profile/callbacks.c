@@ -25,7 +25,7 @@ void mx_del_profile_delete(GtkWidget *widget, gpointer data) {
     t_delete_profile *dp = data;
 
     if (validate(dp)) {
-
+        mx_delete_user_wrapper(dp->info);
         mx_delete_profile_destroy(dp->info);
     }
 }
