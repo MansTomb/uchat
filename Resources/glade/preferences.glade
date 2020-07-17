@@ -19,6 +19,9 @@
         <child>
           <placeholder/>
         </child>
+        <style>
+          <class name="preferences_header"/>
+        </style>
       </object>
       <packing>
         <property name="expand">False</property>
@@ -28,6 +31,9 @@
     </child>
     <child>
       <object class="GtkBox">
+        <style>
+          <class name="preferences_box"/>
+        </style>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="halign">center</property>
@@ -123,6 +129,9 @@
     </child>
     <child>
       <object class="GtkBox">
+        <style>
+          <class name="preferences_box2"/>
+        </style>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="halign">center</property>
@@ -174,6 +183,9 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <signal name="clicked" handler="mx_on_change_password" swapped="no"/>
+            <style>
+              <class name="change_password_button"/>
+            </style>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -188,6 +200,9 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <signal name="clicked" handler="mx_on_del_profile" swapped="no"/>
+            <style>
+              <class name="delete_profile_button"/>
+            </style>
           </object>
           <packing>
             <property name="expand">False</property>

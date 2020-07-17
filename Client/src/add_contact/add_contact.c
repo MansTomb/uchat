@@ -33,7 +33,7 @@ void mx_add_contact_build(t_info *info, t_contact_add *ac) {
     ac->addbt = GTK_WIDGET(gtk_builder_get_object(ac->builder, "add"));
     ac->cancelbt = GTK_WIDGET(gtk_builder_get_object(ac->builder, "cancel"));
     ac->entry = GTK_WIDGET(gtk_builder_get_object(ac->builder, "entry"));
-    ac->combobox = GTK_WIDGET(gtk_builder_get_object(ac->builder, "combo_box"));
+    ac->combobox = GTK_WIDGET(gtk_builder_get_object(ac->builder, "combobox"));
     ac->nameslist = GTK_TREE_STORE(gtk_builder_get_object(ac->builder, "names"));
     ac->e_comp = GTK_ENTRY_COMPLETION(gtk_builder_get_object(ac->builder, "e_comp"));
     gtk_builder_connect_signals(ac->builder, ac);
@@ -44,7 +44,7 @@ void mx_add_contact_build(t_info *info, t_contact_add *ac) {
     set_group_names(ac);
 
     gtk_widget_show(ac->dialog);
-} 
+}
 
 void mx_add_contact_destroy(t_info *info) {
     gtk_widget_destroy(info->windows->ac->dialog);

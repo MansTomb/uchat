@@ -24,6 +24,9 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <signal name="clicked" handler="mx_on_add_contact_cancel" swapped="no"/>
+                <style>
+                  <class name="create_group_cancel_buttons"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -38,6 +41,9 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <signal name="clicked" handler="mx_on_add_contact_add" swapped="no"/>
+                <style>
+                  <class name="create_group_cancel_buttons"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -99,7 +105,7 @@
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Choose to which group add contacnt</property>
+                    <property name="label" translatable="yes">Choose to which group add contact</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -109,7 +115,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkComboBoxText" id="combo_box">
+                  <object class="GtkComboBoxText" id="combobox">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                   </object>
@@ -138,6 +144,9 @@
     <child type="titlebar">
       <placeholder/>
     </child>
+    <style>
+      <class name="add_contact_box"/>
+    </style>
   </object>
   <object class="GtkTreeStore" id="names">
     <columns>
