@@ -5,8 +5,8 @@ cJSON *mx_add_new_contact(sqlite3 *db, cJSON *jsn) {
     char *err = NULL;
     int rc = 0;
 
-    asprintf(&query, "INSERT INTO contacts_lists VALUES (%i, %i, '%s');",
-            MX_VINT(jsn, "uid"), MX_VINT(jsn, "coid"), MX_VSTR(jsn, "gname"));
+    asprintf(&query, "INSERT INTO contacts_lists VALUES (%i, %i, %i);",
+            MX_VINT(jsn, "uid"), MX_VINT(jsn, "coid"), MX_VSTR(jsn, "gid"));
 
     rc = sqlite3_exec(db, query, NULL, NULL, &err);
     if (mx_check(rc, err, "adding new contact") != SQLITE_OK) {
