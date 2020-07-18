@@ -49,6 +49,13 @@ CREATE TABLE IF NOT EXISTS users_groups (
     PRIMARY KEY (user_id, group_id)
 );
 
+-- надо тестить
+-- CREATE TRIGGER IF NOT EXISTS del_group
+--     AFTER DELETE ON users_groups
+-- BEGIN
+--     UPDATE contacts_lists SET group_id = 0 WHERE user_id = OLD.user_id AND group_id = OLD.group_id;
+-- END;
+
 CREATE TABLE IF NOT EXISTS contacts_lists (
     user_id INTEGER NOT NULL,
     contact_id INTEGER NOT NULL,
@@ -118,7 +125,7 @@ INSERT INTO contacts_groups VALUES (NULL, '__NEW_GROUP_NAME__');
 INSERT INTO users_groups VALUES (__UID__, __GID__);
 
 -- добавление нового контакта
-INSERT INTO contacts_lists VALUES (__UID__, __COID__, __GID__); -- __UID__, __COID__, NULL
+INSERT INTO contacts_lists VALUES (__UID__, __COID__, __GID__);
 
 -- удаление из контактов
 DELETE FROM contacts_lists WHERE user_id = __UID__ AND contact_id = __COID__;
@@ -161,12 +168,21 @@ SELECT u.id, u.login, up.first_name, up.second_name, up.email, up.status, uns.so
 
 -- создание личной переписки
 INSERT INTO chats VALUES (NULL, 1, '');
-INSERT INTO users_chats VALUES (__UID1__, last_insert_rowid(), 1);
-INSERT INTO users_chats VALUES (__UID2__, (SELECT max(id) FROM chats), 1);
+INSERT INTO users_chats VALUES
+    (__UID1__, last_insert_rowid(), 1),
+    (__UID2__, (SELECT max(id) FROM chats), 1);
 
 -- создание нового группового чата / канала
 INSERT INTO chats VALUES (NULL, __CHAT_TYPE__, '__NEW_CHAT_NAME__');
 INSERT INTO users_chats VALUES (__UID__, last_insert_rowid(), 2);
+
+-- создание группы контактов у юзера
+INSERT INTO contacts_groups VALUES (NULL, '__NEW_GROUP_NAME__');
+INSERT INTO users_groups VALUES (__UID__, last_insert_rowid());
+
+-- удаление группы контактов у юзера
+DELETE FROM users_groups WHERE user_id = __UID__ AND group_id = __GID__;
+UPDATE contacts_lists SET group_id = 0 WHERE user_id = __UID__ AND group_id = __GID__;
 
 -- загрузка групп контактов юзера
 SELECT ug.group_id, cg.name FROM users_groups AS ug
