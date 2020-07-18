@@ -47,7 +47,7 @@ static int create_contacts(sqlite3 *db) {
         MX_CREATE(contacts_lists)
         "user_id INTEGER NOT NULL, "
         "contact_id INTEGER NOT NULL, "
-        "group_id INTEGER DEFAULT 0, "
+        "group_id INTEGER DEFAULT 0 NOT NULL, "
         "PRIMARY KEY (user_id, contact_id), "
         "CHECK (user_id != contact_id));";
     char *err = NULL;
