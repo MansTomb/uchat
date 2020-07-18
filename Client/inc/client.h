@@ -190,6 +190,7 @@ struct s_preferences {
 struct s_chat {
     char *chat_name;
     int cid;
+    int ctype;
     bool edit;
     t_message *editedmsg;
     t_list *msg_list;
@@ -536,9 +537,9 @@ void mx_del_profile_cancel(GtkWidget *widget, gpointer data);
 void mx_del_profile_delete(GtkWidget *widget, gpointer data);
 
 /*                             CHAT SCREEN */
-t_chat *mx_chat_build(t_info *info, char *chat_name, int cid);
+t_chat *mx_chat_build(t_info *info, char *chat_name, int cid, int ctype);
 void mx_chat_destroy(t_list_node *chat_node);
-void mx_chat_put(t_info *info, char *chat_name, int cid);
+void mx_chat_put(t_info *info, char *chat_name, int cid, int ctype);
 
 void mx_message_put(t_info *info, t_message *msg, int cid);
 void mx_message_img_put(t_info *info, t_message_img *msg, int cid);

@@ -1,7 +1,7 @@
 #include "client.h"
 
-void mx_chat_put(t_info *info, char *chat_name, int cid) {
-    t_chat *chat = mx_chat_build(info, chat_name, cid);
+void mx_chat_put(t_info *info, char *chat_name, int cid, int ctype) {
+    t_chat *chat = mx_chat_build(info, chat_name, cid, ctype);
     char name[64];
 
     sprintf(name, "%d", cid);
