@@ -15,10 +15,9 @@ static void create_new_chat(sqlite3 *db, cJSON *jsn) {
     char *err = NULL;
     int rc = 0;
 
-    asprintf(&query, "INSERT INTO chats VALUES (NULL, 1, ''); INSERT INTO "
-            "users_chats VALUES (%i, last_insert_rowid(), 1); INSERT INTO "
-            "users_chats VALUES (%i, (SELECT max(id) FROM chats), 1); "
-            "SELECT max(id) FROM chats;",
+    asprintf(&query, "INSERT INTO chats VALUES (NULL, 1, ''); SELECT "
+            "last_insert_rowid(); INSERT INTO users_chats VALUES (%i, "
+            "last_insert_rowid(), 1), (%i, (SELECT max(id) FROM chats), 1);",
             cJSON_GetObjectItem(jsn, "uid1")->valueint,
             cJSON_GetObjectItem(jsn, "uid2")->valueint);
 
