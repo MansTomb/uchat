@@ -42,10 +42,17 @@ CREATE TABLE IF NOT EXISTS contacts_groups (
     name VARCHAR(64) NOT NULL UNIQUE
 );
 
+CREATE TABLE IF NOT EXISTS users_groups (
+    user_id INTEGER NOT NULL,
+    group_id INTEGER NOT NULL,
+
+    PRIMARY KEY (user_id, group_id)
+);
+
 CREATE TABLE IF NOT EXISTS contacts_lists (
     user_id INTEGER NOT NULL,
     contact_id INTEGER NOT NULL,
-    group_id INTEGER,
+    group_id INTEGER DEFAULT 0,
 
     PRIMARY KEY (user_id, contact_id),
     CHECK (user_id != contact_id)
@@ -107,8 +114,11 @@ UPDATE users_profiles SET status = '__NEW_STATUS__' WHERE user_id = __UID__;
 -- создание новой группы контактов
 INSERT INTO contacts_groups VALUES (NULL, '__NEW_GROUP_NAME__');
 
+-- добавление новой группы контактов у юзера
+INSERT INTO users_groups VALUES (__UID__, __GID__);
+
 -- добавление нового контакта
-INSERT INTO contacts_lists VALUES (__UID__, __COID__, NULL);
+INSERT INTO contacts_lists VALUES (__UID__, __COID__, __GID__); -- __UID__, __COID__, NULL
 
 -- удаление из контактов
 DELETE FROM contacts_lists WHERE user_id = __UID__ AND contact_id = __COID__;
@@ -158,17 +168,22 @@ INSERT INTO users_chats VALUES (__UID2__, (SELECT max(id) FROM chats), 1);
 INSERT INTO chats VALUES (NULL, __CHAT_TYPE__, '__NEW_CHAT_NAME__');
 INSERT INTO users_chats VALUES (__UID__, last_insert_rowid(), 2);
 
+-- загрузка групп контактов юзера
+SELECT ug.group_id, cg.name FROM users_groups AS ug
+    JOIN contacts_groups AS cg
+        ON ug.user_id = __UID__ AND cg.id = ug.group_id;
+
+SELECT ug.group_id, cg.name FROM users_groups AS ug JOIN contacts_groups AS cg ON ug.user_id = __UID__ AND cg.id = ug.group_id;
+
 -- загрузка контактов юзера
-SELECT cl.contact_id, u.login, up.first_name, up.second_name, up.email, up.status, cl.group_id, cg.name
+SELECT cl.contact_id, u.login, up.first_name, up.second_name, up.email, up.status, cl.group_id
 FROM contacts_lists AS cl
     JOIN users AS u
         ON cl.contact_id = u.id AND cl.user_id = __UID__
     JOIN users_profiles AS up
-        ON cl.contact_id = up.user_id
-    LEFT JOIN contacts_groups AS cg
-        ON cl.group_id = cg.id;
+        ON cl.contact_id = up.user_id;
 
-SELECT cl.contact_id, u.login, up.first_name, up.second_name, up.email, up.status, cl.group_id, cg.name FROM contacts_lists AS cl JOIN users AS u ON cl.contact_id = u.id AND cl.user_id = __UID__ JOIN users_profiles AS up ON cl.contact_id = up.user_id LEFT JOIN contacts_groups AS cg ON cl.group_id = cg.id;
+SELECT cl.contact_id, u.login, up.first_name, up.second_name, up.email, up.status, cl.group_id FROM contacts_lists AS cl JOIN users AS u ON cl.contact_id = u.id AND cl.user_id = __UID__ JOIN users_profiles AS up ON cl.contact_id = up.user_id;
 
 -- загрузка активных чатов юзера. подтягивает логин собеседника в название чатика, если лс чат
 SELECT uc.chat_id, uc.role, c.type,

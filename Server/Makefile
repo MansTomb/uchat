@@ -16,7 +16,7 @@ sql = authorization check_error close_db create_tables init_db \
 	change_password send_message add_new_contact del_contact \
 	if_message_on_email get_contact_list update_profile get_clients_chats \
 	get_client_chat_messages edit_message search_user \
-	create_group_chat_channel
+	create_group_chat_channel delete_user
 
 utils = initialize_zero message_on_email print_serv_out json
 

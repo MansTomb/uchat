@@ -18,7 +18,7 @@ void mx_main_screen_build(t_info *info, t_main_screen *ms) {
     mx_contacts_build(info, info->windows->cont);
     mx_get_json_chats_list(info);
     MX_GSIG_CON(ms->window, "delete-event", G_CALLBACK(mx_destroy), info);
-    mx_css_from_file(info, "./Resources/css/main.css");
+    mx_css_from_file(info, "./Resources/css/chat_light.css");
     gtk_widget_show(ms->window);
 }
 

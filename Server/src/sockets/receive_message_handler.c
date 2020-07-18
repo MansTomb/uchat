@@ -46,8 +46,10 @@ void mx_receive_message_handler(t_info *info, t_peer *peer) {
     if (mx_check_err_json(get))
         return;
 
+    printf("%s\n", cJSON_Print(get));
+
     type = MX_PTYPE(get);
-    // printf("%s\n", peer->recv_buff);
+    // printf("%s\n", peer->recv_buff);                 //test
     if (type == one_msg)
         one_message_handler(info, peer, get);
     else if (type == big_msg || type == big_msg_end)
@@ -58,6 +60,6 @@ void mx_receive_message_handler(t_info *info, t_peer *peer) {
     }
     else
         printf("ERROR p_type\n");
-    // bzero(peer->recv_buff, sizeof(peer->recv_buff));
+    // bzero(peer->recv_buff, sizeof(peer->recv_buff));        //test
     cJSON_Delete(get);
 }

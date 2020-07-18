@@ -32,6 +32,8 @@ contacts = contacts callbacks json create_table get_json_list_contacts
 
 profile = profile json callbacks
 
+delete_profile = delete_profile callbacks json
+
 preferences = preferences callbacks chg_pass_json
 
 add_contact = add_contact json callbacks add_json_user_to_contacts
@@ -39,11 +41,11 @@ add_contact = add_contact json callbacks add_json_user_to_contacts
 create_group = create_group callbacks
 
 utils = css wait_for_json create_hash json_get_type dialog entry toggle       \
-	set_vnotify find_something
+	set_vnotify find_something validate_chars
 
 dirs = base login register admin add_contact chat create_group main_chat_screen \
 	profile preferences contacts message message_img room_creation utils      \
-	change_pass handlers
+	change_pass handlers delete_profile
 
 FILES = $(foreach dir, $(dirs), $($(dir):%=$(dir)/%))
 

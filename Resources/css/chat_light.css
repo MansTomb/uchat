@@ -1,174 +1,184 @@
-.scrollable {
-    background-color: rgba(255, 219, 219, 0.071);
-    opacity: 1;
+* {
+    box-shadow: none;
+    text-shadow: none;
+    border: none;
 }
-
-.main_window {
-    background-color: rgb(199, 199, 199);
+.stack-switcher * {
+    background: #52141c;
+    color: #db707d;
+}
+.sidebar * {
+    background:#290a0e;
+    color: #db707d;
+}
+entry {
+    color: antiquewhite;
+    background: #52141c;
+    border-radius: 5px;
+}
+textview * {
+    color: antiquewhite;
+    background: #52141c;
+    border-radius: 5px;
+}
+combobox * {
+    color: antiquewhite;
+    background: #52141c;
+    border-radius: 5px;
+}
+.main_chat_screen_window {
+    background:#290a0e;
+    color: antiquewhite;
     /* background-image: url('./Resources/images/back.jpg'); */
 }
-
-.message_list {
-    background-color: rgba(255, 255, 255, 0.495);
+.main_menu_button {
+    background: #52141c;
+    color: #db707d;
+}
+.create_room_button {
+    background: #52141c;
+    color: #db707d;
+}
+.exit_button {
+    background: #52141c;
+    color: #db707d;
+}
+/* --------------------- chat screen */
+.chat_fon {
+    /* background: #290a0e; */
+    color: antiquewhite;
+}
+/* --------------------- create room */
+.create_room_box {
+    background: rgba(144, 35, 49, 0.5);
+    color: antiquewhite;
+}
+.create_room_cancel_buttons {
+    background: #3e0f15;
+    color: #db707d;
+}
+.create_room_create_buttons {
+    background: #3e0f15;
+    color: #db707d;
+}
+/* --------------------- add contact */
+.add_contact_box {
+    background: rgba(144, 35, 49, 0.5);
+    color: antiquewhite;
+}
+.add_contact_cancel_buttons {
+    background: #3e0f15;
+    color: #db707d;
+}
+.add_contact_add_buttons {
+    background: #3e0f15;
+    color: #db707d;
+}
+/* --------------------- create group */
+.create_group_box {
+    background: rgba(144, 35, 49, 0.5);
+    color: antiquewhite;
+}
+.create_group_cancel_buttons {
+    background: #3e0f15;
+    color: #db707d;
+}
+.create_group_create_buttons {
+    background: #3e0f15;
+    color: #db707d;
+}
+/* --------------------- contacts */
+                                 /*странно*/
+.contact_window {
+    background: #290a0e;
+    color: #db707d;
+}
+.contact_header {
+    background:#3e0f15;
+    color: #db707d;
+    font-size: 25px;
+}
+treeview.view * {
+    background:#290a0e;
+    color: #db707d;
+}
+.add_contact_button {
+    background: #52141c;
+    color: #db707d;
+}
+.create_group_button {
+    background: #52141c;
+    color: #db707d;
+}
+.contact_tree.view header {
+    background: #290a0e;
+    color: antiquewhite;
 }
 
-.chat_name_label {
-    font-size: 35px;
-    color: black;
+/* --------------------- preferences */
+.preferences_header {
+    background:#3e0f15;
+    color: #db707d;
+    font-size: 25px;
+}
+.preferences_box {
+    background: #290a0e;
+    color: antiquewhite;
+}
+.preferences_box2 {
+    background: #290a0e;
+    color: antiquewhite;
+}
+.change_password_button {
+    background: #52141c;
+    color: #db707d;
+}
+.delete_profile_button {
+    background: #52141c;
+    color: #db707d;
 }
 
-#message_text:hover {
-    border-radius: 30px;
-    border-color: black;
-    background-color: white;
+/* --------------------- profile */
+.profile_header {
+    background:#3e0f15;
+    color: #db707d;
+    font-size: 25px;
+}
+.profile_label2 {
+    font-size: 15px;
+    color: #db707d;
+    font-style: italic;
+}
+.profile_label {
+    color: antiquewhite;
+}
+.profile_edit_button {
+    background: #52141c;
+    color: #db707d;
+}
+.change_avatar_button {
+    background: #52141c;
+    color: #db707d;
 }
 
-#message_text:active {
-    border-radius: 30px;
-    background-color: white;
-    border-color: black;
+/* --------------------- chat screen (chat) */
+.chat_header {
+    background:#3e0f15;
+    color: #db707d;
+    font-size: 25px;
 }
-
-#message_text {
-    border-radius: 30px;
-    background-color: white;
-    font-size: 20px;
-    border-color: black;
+.text_view_box {
+    background: #290a0e;
 }
-
-.username_inmsg {
-    font-size: 20px;
+.left_room_button {
+    background: #52141c;
+    color: #db707d;
 }
-
 .send_button {
-    background-image: none;
-    background-color: whitesmoke;
-    border-radius: 20px;
-    font-size: 20px;
+    background: #52141c;
+    color: #db707d;
 }
-
-.chat_chooser_button:hover:active {
-    background-image: none;
-    background-color: whitesmoke;
-    border-radius: 20px;
-    font-size: 20px;
-}
-
-.main_menu_buttons:hover:active {
-    background-image: none;
-    background-color: whitesmoke;
-    border-radius: 20px;
-    font-size: 20px;
-}
-
-.chat_chooser_button {
-    background-color: whitesmoke;
-    border-radius: 20px;
-    font-size: 20px;
-}
-
-.main_menu_buttons {
-    background-color: whitesmoke;
-    border-radius: 20px;
-    font-size: 20px;
-}
-
-
-.profile_scrollable {
-    background-color: rgba(255, 255, 255, 0.495);
-    opacity: 1;
-}
-
-.profile_name {
-    font-size: 30px;
-    color: whitesmoke;
-    margin-left: 10px;
-    background-color: darkblue;
-    opacity: 0.5;
-}
-
-.profile_id {
-    font-size: 30px;
-    color: whitesmoke;
-    margin-left: 10px;
-    background-color: darkblue;
-    opacity: 0.5;
-}
-
-.profile_name_label {
-    font-size: 20px;
-    color: whitesmoke;
-}
-
-.profile_id_label {
-    font-size: 20px;
-    color: whitesmoke;
-}
-
-.profile_button_edit {
-    font-size: 25px;
-    border-radius: 20px;
-}
-
-.profile_button_save {
-    background-image: none;
-    font-size: 25px;
-    background-color: green;
-    color: white;
-    border-radius: 20px;
-}
-
-.profile_button_cancel {
-    background-image: none;
-    font-size: 25px;
-    background-color: red;
-    color: white;
-    border-radius: 20px;
-}
-
-.profile_button_save:hover {
-    background-image: none;
-    font-size: 30px;
-    background-color: green;
-    border-radius: 20px;
-}
-
-.profile_button_cancel:hover {
-    background-image: none;
-    font-size: 30px;
-    background-color: red;
-    border-radius: 20px;
-}
-
-.contacts_button_add {
-    background-color: white;
-    border-radius: 20px;
-    font-size: 20px;
-}
-
-.contacts_button_add:hover:active {
-    background-color: whitesmoke;
-    border-radius: 20px;
-    font-size: 20px;
-}
-
-.contacts_button_cancel {
-    background-color: white;
-    border-radius: 20px;
-    font-size: 20px;
-}
-
-.contacts_button_cancel:hover:active {
-    background-color: whitesmoke;
-    border-radius: 20px;
-    font-size: 20px;
-}
-
-.treeview.view {
-    font-size: 40px;
-}
-
-.preferences_scroll {
-    background-color: rgba(255, 255, 255, 0.495);
-    opacity: 1;
+.send_img_button {
+    background: #52141c;
+    color: #db707d;
 }

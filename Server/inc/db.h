@@ -22,7 +22,8 @@ typedef enum {
     success_update_profile,
 
     get_client_contacts,
-    send_client_contacts,
+    failed_client_contacts,
+    success_client_contacts,
 
     get_client_chats,
     send_client_chats,

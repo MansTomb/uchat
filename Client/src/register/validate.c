@@ -9,17 +9,6 @@ static gboolean validate_entry(t_register *reg) {
     return false;
 }
 
-static gboolean validate_entry_chars(GtkWidget *entry) {
-    const char *text = mx_entry_get_text(entry);
-    size_t len = strlen(text);
-
-    for (size_t i = 0; i < len; ++i) {
-        if (!isprint(text[i]))
-            return false;
-    }
-    return true;
-}
-
 static gboolean password_match(t_register *reg) {
     const char *text1 = mx_entry_get_text(reg->password_entry);
     const char *text2 = mx_entry_get_text(reg->passwordc_entry);
@@ -31,11 +20,11 @@ static gboolean password_match(t_register *reg) {
 }
 
 static gboolean validate_entryes(t_register *reg) {
-    if (validate_entry_chars(reg->username_entry) 
-            && validate_entry_chars(reg->password_entry)
-            && validate_entry_chars(reg->passwordc_entry))
-            return true;
-    mx_dialog_warning_create(NULL, "Username and password must be printable!");
+    if (mx_validate_chars((char *)mx_entry_get_text(reg->username_entry))
+        && mx_validate_chars((char *)mx_entry_get_text(reg->password_entry))
+        && mx_validate_chars((char *)mx_entry_get_text(reg->passwordc_entry)))
+        return true;
+    mx_dialog_warning_create(NULL, "Wrong characters in fields!");
     return false;
 }
 

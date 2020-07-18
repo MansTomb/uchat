@@ -15,6 +15,7 @@ static t_windows *create_windows() {
         new->pref = NULL;
         new->prof = NULL;
         new->cont = NULL;
+        new->dp = NULL;
     }
     return new;
 }

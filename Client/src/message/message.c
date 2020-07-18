@@ -16,14 +16,16 @@ static void set_preferences(t_message *new, char *msg, int msgheight) {
 
 static void json_sets(t_message *msg, cJSON *json, int cid) {
     char *content = cJSON_GetObjectItem(json, "content")->valuestring;
-    // char *username = cJSON_GetObjectItem(json, "name")->valuestring;
+    char *username = cJSON_GetObjectItem(json, "login")->valuestring;
     char *time = cJSON_GetObjectItem(json, "time")->valuestring;
 
     msg->mid = cJSON_GetObjectItem(json, "mid")->valueint;
     msg->cid = cid;
 
     set_preferences(msg, content, MX_MSGHEIGHT(content));
-    gtk_label_set_text(GTK_LABEL(msg->name_label), "User");
+    // if (strcmp(username, msg->info->cl_data->profile->login) == 0)
+        // gtk_widget_set_margin_start(msg->main_fixed, 400);
+    gtk_label_set_text(GTK_LABEL(msg->name_label), username);
     gtk_label_set_text(GTK_LABEL(msg->date_label), time);
 }
 
