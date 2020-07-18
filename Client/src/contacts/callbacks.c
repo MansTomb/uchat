@@ -55,7 +55,7 @@ static void printlist(t_list_node *node) {
 }
 
 static void printlist2(t_list_node *node) {
-    printf("gname -> %s\n", node->data);
+    printf("gname -> %s\n", ((t_group *)node->data)->name);
 }
 
 void mx_on_add_contact(GtkWidget *widget, gpointer data) {
@@ -63,6 +63,7 @@ void mx_on_add_contact(GtkWidget *widget, gpointer data) {
 
     info->cl_data->tmp_users = mx_create_list();
     mx_get_list_users_json_wrapper(info);
+    // mx_get_list_groups
     mx_foreach_list(info->cl_data->tmp_users, printlist);
     mx_foreach_list(info->cl_data->cont_grp_names, printlist2);
     mx_add_contact_build(info, info->windows->ac);

@@ -32,9 +32,16 @@ typedef struct s_del_msg t_del_msg;
 typedef struct s_edit_msg t_edit_msg;
 typedef struct s_send_msg t_send_msg;
 typedef struct s_send_msg_img t_send_msg_img;
+typedef struct s_group t_group; // json
+
+struct s_group {
+    int id;
+    char *name;
+};
 
 struct s_giter {
     char *gname;
+    int id;
     GtkTreeIter iter;
 };
 
@@ -75,7 +82,6 @@ struct s_contact {
     char *stat;
     int active;
     int grp_id;
-    char *grp_name;
 };
 
 // client profile data
@@ -355,6 +361,7 @@ void mx_handle_send_message(t_info *info, cJSON *json);
 void mx_save_login_data(t_info *info);
 void mx_get_json_contacts(t_info *info);
 void mx_get_json_chats_list(t_info *info);
+void mx_upd_groups_list(const t_info *info);
 void mx_chg_pass_json(t_info *info, const char *old_pass, const char *new_pass);
 int mx_check_err_json(cJSON *new);
 

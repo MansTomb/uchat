@@ -10,23 +10,6 @@ static void send_contacts_request(const t_info *info) {
     cJSON_Delete(jobj);
 }
 
-static void chk_add_exist_grp(char *g_name, t_list *g_list) {
-    t_list_node *node = g_list ? g_list->head : NULL;
-    bool exist = false;
-
-    for (; node; node = node->next) {
-        if (strcmp((char *)node->data, g_name) == 0) {
-            exist = true;
-            printf("Exist! -> %s\n", g_name);
-            break;
-        }
-    }
-    if (!exist) {
-        printf("Not Exist! -> %s\n", g_name);
-        mx_push_back(g_list, g_name);
-    }
-}
-
 static t_contact *get_contact(const cJSON *iterator) {
     t_contact *c = malloc(sizeof(t_contact));
 
@@ -36,9 +19,8 @@ static t_contact *get_contact(const cJSON *iterator) {
     c->s_name = cJSON_GetObjectItemCaseSensitive(iterator, "sname")->valuestring;
     c->email = cJSON_GetObjectItemCaseSensitive(iterator, "email")->valuestring;
     c->stat = cJSON_GetObjectItemCaseSensitive(iterator, "status")->valuestring;
-    // c->active = cJSON_GetObjectItemCaseSensitive(iterator, "active")->valuestring;
+    c->active = cJSON_GetObjectItemCaseSensitive(iterator, "active")->valueint;
     c->grp_id = cJSON_GetObjectItemCaseSensitive(iterator, "gid")->valueint;
-    c->grp_name = cJSON_GetObjectItemCaseSensitive(iterator, "gname")->valuestring;
     return c;
 }
 
@@ -66,18 +48,20 @@ static void save_contacts(const t_info *info) {
         if (cJSON_IsArray(contacts)) {
             cJSON_ArrayForEach(iterator, contacts) {
                 exist_cntct(info->cl_data->contacts, info, iterator);
-                chk_add_exist_grp(((t_contact *)info->cl_data->contacts->tail->data)->grp_name, info->cl_data->cont_grp_names);
             }
         }
         else
-            fprintf(stderr, "json saving error\n");
+            fprintf(stderr, "user contact json saving error\n");
     }
     else
-        fprintf(stderr, "json saving error\n");
+        fprintf(stderr, "user contact json saving error\n");
 }
 
 void mx_get_json_contacts(t_info *info) {
     send_contacts_request(info);
-    mx_wait_for_json(info, send_client_contacts, send_client_contacts);
-    save_contacts(info);
+    mx_wait_for_json(info, success_client_contacts, failed_client_contacts);
+    if (mx_get_jtype(info, success_client_contacts)) {
+        save_contacts(info);
+        mx_upd_groups_list(info);
+    }
 }

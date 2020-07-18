@@ -44,7 +44,6 @@ void mx_contacts_build(t_info *info, t_contacts *cont) {
 
     cont->builder = gtk_builder_new();
     gtk_builder_add_from_file(cont->builder, "./Resources/glade/contacts.glade", NULL);
-
     cont->box = GTK_WIDGET(gtk_builder_get_object(cont->builder, "box"));
     cont->addbt = GTK_WIDGET(gtk_builder_get_object(cont->builder, "addbt"));
     cont->crtbt = GTK_WIDGET(gtk_builder_get_object(cont->builder, "crtbt"));
