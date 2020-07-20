@@ -3,181 +3,181 @@
     text-shadow: none;
     border: none;
 }
-
-/* .scrollable {
-    background-color: rgba(233, 225, 225, 0.071);
-    opacity: 1;
-} */
-
-/* .main_window {
-    background-color: rgba(0, 0, 0, 0.057);
+.stack-switcher * {
+    background: #1d1d1d;
+    color: #6e666c;
 }
-
-.message_list {
-    background: rgb(0,0,0);
-    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(74,167,171,1) 0%, rgba(154,152,200,1) 49%, rgba(38,171,193,1) 100%);
+.sidebar * {
+    background: #121212;
+    color: #6e666c;
 }
-
-.chat_name_label {
-    font-size: 35px;
-    color: whitesmoke;
+entry {
+    color: #1a756a;
+    background: #1d1d1d;
+    border-radius: 5px;
 }
-
-#message_text:hover {
-    border-radius: 20px;
-    border-color: black;
-    background-color: white;
+textview * {
+    color: #1a756a;
+    background: #1d1d1d;
+    padding: 5px;
+    /* border-radius: 5px; */
 }
-
-#message_text:active {
-    border-radius: 20px;
-    background-color: white;
-    border-color: black;
+combobox * {
+    color: #1a756a;
+    background: #1d1d1d;
+    border-radius: 5px;
 }
-
-#message_text {
-    border-radius: 20px;
-    background-color: white;
-    font-size: 20px;
-    border-color: black;
+.main_chat_screen_window {
+    background:#121212;
+    /* background-image: url('./Resources/images/uchan.jpg');
+    background-size: 20% 20%; */
+    color: #6e666c;
+    /* font-size: 18px; */
 }
-
-.username_inmsg {
-    font-size: 20px;
+.main_menu_button {
+    background: #1d1d1d;
+    color: #6e666c;
 }
+.create_room_button {
+    background: #1d1d1d;
+    color: #6e666c;
+}
+.exit_button {
+    background: #1d1d1d;
+    color: #6e666c;
+}
+/* --------------------- chat screen */
 
+.chat_screen_header {
+    background: #1d1d1d;
+    color: #6e666c;
+    font-size: 25px;
+}
+list {
+    background:#121212;
+}
+.left_room_button {
+    background: #05ad9c;
+    color: #121212;
+}
 .send_button {
-    background-color: whitesmoke;
-    border-radius: 20px;
-    font-size: 20px;
+    background: #05ad9c;
+    color: #121212;
 }
-
-.chat_chooser_button:hover:active {
-    background-color: whitesmoke;
-    border-radius: 20px;
-    font-size: 20px;
+.send_img_button {
+    background: #05ad9c;
+    color: #121212;
 }
-
-.chat_chooser_button {
-    background-color: white;
-    border-radius: 20px;
-    font-size: 20px;
+/* --------------------- messages */
+.message_date {
+    color: #6e666c;
 }
-
-.main_menu_buttons:hover:active {
-    background-color: whitesmoke;
-    border-radius: 20px;
-    font-size: 30px;
+.message_username {
+    font-size: 16px;
+    font-weight: bold;
+    color: #6e666c;
 }
-
-.main_menu_buttons {
-    background-color: white;
-    border-radius: 20px;
-    font-size: 30px;
-}
-
-.profile_scrollable {
-    background-color: grey;
-    opacity: 1;
-}
-
-.profile_field {
-    font-size: 20px;
-    background-color: darkblue;
-}
-
-.profile_label {
-    font-size: 20px;
-}
-
-.profile_status {
-    font-size: 20px;
-}
-
-.profile_button_edit {
-    font-size: 25px;
-    border-radius: 20px;
-}
-
-.profile_button_save {
-    background-image: none;
-    font-size: 25px;
-    background-color: green;
-    color: white;
-    border-radius: 20px;
-}
-
-.profile_button_cancel {
-    background-image: none;
-    font-size: 25px;
-    background-color: red;
-    color: white;
-    border-radius: 20px;
-}
-
-.profile_button_save:hover {
-    background-image: none;
-    font-size: 30px;
-    background-color: green;
-    border-radius: 20px;
-}
-
-.profile_button_cancel:hover {
-    background-image: none;
-    font-size: 30px;
-    background-color: red;
-    border-radius: 20px;
-}
-
-.contacts_button_add {
-    background-color: white;
-    border-radius: 20px;
-    font-size: 20px;
-}
-
-.contacts_button_add:hover:active {
-    background-color: whitesmoke;
-    border-radius: 20px;
-    font-size: 20px;
-}
-
-.contacts_create_group {
-    background-color: white;
-    border-radius: 20px;
-    font-size: 20px;
-}
-
-.contacts_create_group:hover:active {
-    background-color: white;
-    border-radius: 20px;
-    font-size: 20px;
-}
-
-.contacts_button_cancel {
-    background-color: white;
-    border-radius: 20px;
-    font-size: 20px;
-}
-
-.contacts_button_cancel:hover:active {
-    background-color: whitesmoke;
-    border-radius: 20px;
-    font-size: 20px;
-}
-
-.treeview.view {
-    font-size: 40px;
-}
-
-.preferences_scroll {
-    background-color: grey;
-    opacity: 1;
-}
-
-.change_password:hover:active {
-    background-color: whitesmoke;
-}
-
-.change_password {
-    background-color: whitesmoke;
+/* .message_img_button {
+    background: #3e0f15;
+    color: #db707d;
 } */
+.message_button {
+    background: #1d1d1d;
+    color: #05ad9c;
+}
+/* --------------------- create room */
+.create_room_box {
+    background: rgba(110, 103, 108, 0.5);
+    color: antiquewhite;
+}
+.create_room_cancel_buttons {
+    background: #05ad9c;
+    color: #121212;
+}
+.create_room_create_buttons {
+    background: #05ad9c;
+    color: #121212;
+}
+/* --------------------- add contact */
+.add_contact_box {
+    background: rgba(110, 103, 108, 0.5);
+    color: antiquewhite;
+}
+.add_contact_cancel_buttons {
+    background: #05ad9c;
+    color: #121212;
+}
+.add_contact_add_buttons {
+    background: #05ad9c;
+    color: #121212;
+}
+/* --------------------- create group */
+.create_group_box {
+    background: rgba(110, 103, 108, 0.5);
+    color: antiquewhite;
+}
+.create_group_cancel_buttons {
+    background: #05ad9c;
+    color: #121212;
+}
+.create_group_create_buttons {
+    background: #05ad9c;
+    color: #121212;
+}
+/* --------------------- contacts */
+.contact_header {
+    background: #1d1d1d;
+    color: #6e666c;
+    font-size: 25px;
+}
+treeview.view * {
+    background: #121212;
+    color: #6e666c;
+}
+.add_contact_button {
+    background: #1d1d1d;
+    color: #6e666c;
+}
+.create_group_button {
+    background: #1d1d1d;
+    color: #6e666c;
+}
+.contact_tree.view header {
+    background: #290a0e;
+    color: antiquewhite;
+}
+
+/* --------------------- preferences */
+.preferences_header {
+    background: #1d1d1d;
+    color: #6e666c;
+    font-size: 25px;
+}
+.preferences_box {
+    color: #6e666c;
+}
+.change_password_button {
+    background: #1d1d1d;
+    color: #6e666c;
+}
+.delete_profile_button {
+    background: #1d1d1d;
+    color: #6e666c;
+}
+/* --------------------- profile */
+.profile_header {
+    background: #1d1d1d;
+    color: #6e666c;
+    font-size: 25px;
+}
+.profile_label {
+    color: #6e666c;
+}
+.profile_edit_button {
+    background: #1d1d1d;
+    color: #6e666c;
+}
+.change_avatar_button {
+    background: #1d1d1d;
+    color: #6e666c;
+}
