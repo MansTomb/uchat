@@ -107,6 +107,8 @@ cJSON *mx_del_contact(sqlite3 *db, cJSON *jsn);
 cJSON *mx_create_personal_chat(sqlite3 *db, cJSON *jsn);
 void mx_get_present_chat(sqlite3 *db, cJSON *jsn);
 cJSON *mx_create_group_chat_channel(sqlite3 *db, cJSON *jsn);
+cJSON *mx_create_contact_group(sqlite3 *db, cJSON *jsn);
+cJSON *mx_del_contact_group(sqlite3 *db, cJSON *jsn);
 
 cJSON *mx_get_contact_list(sqlite3 *db, cJSON *jsn);
 cJSON *mx_get_clients_chats(sqlite3 *db, cJSON *jsn);
@@ -114,4 +116,3 @@ cJSON *mx_get_client_chat_messages(sqlite3 *db, cJSON *jsn);
 
 cJSON *mx_search_user(sqlite3 *db, cJSON *jsn);
 cJSON *mx_delete_user(sqlite3 *db, cJSON *jsn);
-

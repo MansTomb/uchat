@@ -22,7 +22,6 @@
 { "json_type": 6, "uid": 6, "login": "rar", "hash": "fb131bc57a477c8c9d068f1ee5622ac304195a77164ccc2d75d82dfe1a727ba8"}
 
 
-
 -- get contact_list
 { "json_type": 14, "uid": 3}
 -- create personal chat
@@ -38,7 +37,14 @@
 { "json_type": 32, "uid": 3, "coid": 1}
 
 
--- send message
+-- add new contact group // make_add_new_contact_group
+{ "json_type": 28, "uid": 1, "gname": "hhhh"}
+-- del contact group
+{ "json_type": 31, "uid": 1, "gid": 1}
+
+
+
+-- send message make_add_new_contact_group
 { "json_type": 42, "uid": 1, "cid": 1, "type": 1, "content": "Hello, dear friend!"}
 -- edit message
 { "json_type": 44, "uid": 2, "cid": 1, "mid": 2, "content": "Hello!"}

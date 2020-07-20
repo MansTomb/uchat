@@ -4,143 +4,140 @@
     border: none;
 }
 .stack-switcher * {
-    background: #1d1d1d;
+    background: lightgray;
     color: #6e666c;
 }
 .sidebar * {
-    background: #121212;
+    background: lightgray;
     color: #6e666c;
 }
 entry {
-    color: #1a756a;
-    background: #1d1d1d;
+    background: #d5f6f2;
+    color: #6e666c;
     border-radius: 5px;
 }
 combobox * {
-    color: #1a756a;
-    background: #1d1d1d;
+    background: #d5f6f2;
+    color: #6e666c;
     border-radius: 5px;
 }
 .main_chat_screen_window {
-    background:#121212;
-    /* background-image: url('./Resources/images/uchan.jpg');
-    background-size: 20% 20%; */
-    color: #6e666c;
+    background:white;
     /* font-size: 18px; */
 }
 .main_menu_button {
-    background: #1d1d1d;
+    background: #d5f6f2;
     color: #6e666c;
 }
 .create_room_button {
-    background: #1d1d1d;
+    background: #d5f6f2;
     color: #6e666c;
 }
 .exit_button {
-    background: #1d1d1d;
+    background: #d5f6f2;
     color: #6e666c;
 }
 /* --------------------- chat screen */
 
 .chat_screen_header {
-    background: #1d1d1d;
-    color: #6e666c;
+    background: #f5d6da;
+    color: #290a0e;
     font-size: 25px;
 }
 list {
-    background:#121212;
+    background:white;
 }
 textview * {
-    color: #1a756a;
-    background: #1d1d1d;
+    background: #f5d6da;
+    color: #6e666c;
     padding: 5px;
     /* border-radius: 5px; */
 }
 .left_room_button {
-    background: #05ad9c;
-    color: #121212;
+    background: #ebadb5;
+    color: #290a0e;
 }
 .send_button {
-    background: #05ad9c;
-    color: #121212;
+    background: #ebadb5;
+    color: #290a0e;
 }
 .send_img_button {
-    background: #05ad9c;
-    color: #121212;
+    background: #ebadb5;
+    color: #290a0e;
 }
 /* --------------------- messages */
 .message_date {
-    color: #6e666c;
+    color: lightgrey;
 }
 .message_username {
     font-size: 16px;
     font-weight: bold;
-    color: #6e666c;
+    color: #290a0e;
 }
 /* .message_img_button {
-    background: #3e0f15;
-    color: #db707d;
+    background: #ebadb5;
+    color: #290a0e;
 } */
 .message_button {
-    background: #1d1d1d;
-    color: #05ad9c;
+    background: lightgrey;
+    color: #290a0e;
 }
 /* --------------------- create room */
 .create_room_box {
-    background: rgba(110, 103, 108, 0.5);
+    background: rgba(144, 35, 49, 0.5);
     color: antiquewhite;
 }
 .create_room_cancel_buttons {
-    background: #05ad9c;
-    color: #121212;
+    background: #ebadb5;
+    color: #290a0e;
 }
 .create_room_create_buttons {
-    background: #05ad9c;
-    color: #121212;
+    background: #ebadb5;
+    color: #290a0e;
 }
 /* --------------------- add contact */
 .add_contact_box {
-    background: rgba(110, 103, 108, 0.5);
+    background: rgba(144, 35, 49, 0.5);
     color: antiquewhite;
 }
 .add_contact_cancel_buttons {
-    background: #05ad9c;
-    color: #121212;
+    background: #ebadb5;
+    color: #290a0e;
 }
 .add_contact_add_buttons {
-    background: #05ad9c;
-    color: #121212;
+    background: #ebadb5;
+    color: #290a0e;
 }
 /* --------------------- create group */
 .create_group_box {
-    background: rgba(110, 103, 108, 0.5);
+    background: rgba(144, 35, 49, 0.5);
     color: antiquewhite;
 }
 .create_group_cancel_buttons {
-    background: #05ad9c;
-    color: #121212;
+    background: #ebadb5;
+    color: #290a0e;
 }
 .create_group_create_buttons {
-    background: #05ad9c;
-    color: #121212;
+    background: #ebadb5;
+    color: #290a0e;
 }
 /* --------------------- contacts */
 .contact_header {
-    background: #1d1d1d;
-    color: #6e666c;
+    background: #f5d6da;
+    color: #290a0e;
     font-size: 25px;
 }
 treeview.view * {
-    background: #121212;
-    color: #6e666c;
+    background: white;
+    color: #290a0e;
 }
 .add_contact_button {
-    background: #1d1d1d;
-    color: #6e666c;
+    background: #ebadb5;
+    color: #290a0e;
 }
 .create_group_button {
-    background: #1d1d1d;
-    color: #6e666c;
+    background: #ebadb5;
+    color: #290a0e;
 }
 .contact_tree.view header {
     background: #290a0e;
@@ -149,35 +146,35 @@ treeview.view * {
 
 /* --------------------- preferences */
 .preferences_header {
-    background: #1d1d1d;
-    color: #6e666c;
+    background: #f5d6da;
+    color: #290a0e;
     font-size: 25px;
 }
 .preferences_box {
-    color: #6e666c;
+    color: #290a0e;
 }
 .change_password_button {
-    background: #1d1d1d;
-    color: #6e666c;
+    background: #ebadb5;
+    color: #290a0e;
 }
 .delete_profile_button {
-    background: #1d1d1d;
-    color: #6e666c;
+    background: #ebadb5;
+    color: #290a0e;
 }
 /* --------------------- profile */
 .profile_header {
-    background: #1d1d1d;
-    color: #6e666c;
+    background: #f5d6da;
+    color: #290a0e;
     font-size: 25px;
 }
 .profile_label {
-    color: #6e666c;
+    color: gray;
 }
 .profile_edit_button {
-    background: #1d1d1d;
-    color: #6e666c;
+    background: #ebadb5;
+    color: #290a0e;
 }
 .change_avatar_button {
-    background: #1d1d1d;
-    color: #6e666c;
+    background: #ebadb5;
+    color: #290a0e;
 }
