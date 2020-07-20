@@ -40,17 +40,17 @@ typedef enum {
     failed_add_new_contact,
     success_add_new_contact,
 
-    make_add_new_contact_group,
-    failed_add_contact_group,
-    success_add_contact_group,
-
-    make_del_new_contact_group,
-    failed_del_contact_group,
-    success_del_contact_group,
-
     make_del_contact,
     failed_del_contact,         // when contact doesn't exist in contacts_list
     success_del_contact,
+
+    make_add_contact_group,
+    failed_add_contact_group,
+    success_add_contact_group,
+
+    make_del_contact_group,
+    failed_del_contact_group,
+    success_del_contact_group,
 
     make_new_personal_chat,
     failed_new_personal_chat,

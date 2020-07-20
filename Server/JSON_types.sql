@@ -37,14 +37,14 @@
 { "json_type": 32, "uid": 3, "coid": 1}
 
 
--- add new contact group // make_add_new_contact_group
+-- add new contact group // make_add_contact_group
 { "json_type": 28, "uid": 1, "gname": "hhhh"}
 -- del contact group
 { "json_type": 31, "uid": 1, "gid": 1}
 
 
 
--- send message make_add_new_contact_group
+-- send message make_add_contact_group
 { "json_type": 42, "uid": 1, "cid": 1, "type": 1, "content": "Hello, dear friend!"}
 -- edit message
 { "json_type": 44, "uid": 2, "cid": 1, "mid": 2, "content": "Hello!"}

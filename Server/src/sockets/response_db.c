@@ -5,9 +5,9 @@ static void auditor2(t_info *info, t_peer *peer, int type, cJSON *get) {
         mx_db_get_self_response(info, peer, get, &mx_search_user);
     else if (type == make_new_group_chat_channel)
         mx_db_get_self_response(info, peer, get, &mx_create_group_chat_channel);
-    else if (type == make_add_new_contact_group)
+    else if (type == make_add_contact_group)
         mx_db_get_self_response(info, peer, get, &mx_create_contact_group);
-    else if (type == make_del_new_contact_group)
+    else if (type == make_del_contact_group)
         mx_db_get_self_response(info, peer, get, &mx_del_contact_group);
     else
         printf("unknown type of message\n");

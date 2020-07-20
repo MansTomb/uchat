@@ -63,11 +63,11 @@ typedef enum {
     failed_add_new_contact,
     success_add_new_contact,
 
-    make_add_new_contact_group,
+    make_add_contact_group,
     failed_add_new_contact_group,
     success_add_new_contact_group,
 
-    make_del_new_contact_group,
+    make_del_contact_group,
     failed_del_new_contact_group,
     success_del_new_contact_group,
 
