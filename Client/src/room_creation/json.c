@@ -19,13 +19,13 @@ static void push_chat(t_info *info) {
     char *cname = cJSON_GetObjectItem(info->json, "cname")->valuestring;
     
     if (jtype != failed_new_group_chat_channel) {};
-        // mx_chat_put();
+        mx_chat_put(info, cname, cid, ctype);
+    mx_strdel(&cname);
 }
 
 void mx_create_room_wrap(t_info *info) {
     t_room_creation *rc = info->windows->rc;
-    int ctype = gtk_toggle_button_get_active(
-                                    GTK_TOGGLE_BUTTON(rc->roomcheck)) ? 1 : 2;
+    int ctype = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(rc->roomcheck)) ? 1 : 2;
 
     request(info, ctype, (char *)mx_entry_get_text(rc->entry));
     mx_wait_for_json(info, success_new_group_chat_channel, failed_new_group_chat_channel);

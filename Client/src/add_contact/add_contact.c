@@ -5,7 +5,7 @@ static void set_group_names(t_contact_add *ac) {
     char *tmp = NULL;
 
     for (size_t i = 0; i < grp_list->size; ++i) {
-        tmp = mx_get_index(grp_list, i)->data;
+        tmp = ((t_group *)(mx_get_index(grp_list, i)->data))->name;
         gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(ac->combobox), tmp);
     }
 }

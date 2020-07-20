@@ -4,7 +4,7 @@ static void get_list_bld_json(const int id, int s_sock) {
     cJSON *jobj = cJSON_CreateObject();
 
     cJSON_AddNumberToObject(jobj, "json_type", make_search_user);
-    cJSON_AddNumberToObject(jobj, "id", id);
+    cJSON_AddNumberToObject(jobj, "uid", id);
 
     mx_send_message_handler(jobj, s_sock);
     cJSON_Delete(jobj);

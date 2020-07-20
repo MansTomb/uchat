@@ -33,6 +33,8 @@ static void upd_prof_data(const t_info *info) {
 
 void mx_upd_prof_build_json_wrapper(t_info *info) {
     upd_prof_bld_json(info, &info->sock->sock);
-    mx_wait_for_json(info, success_update_profile, success_update_profile);
-    upd_prof_data(info);
+    mx_wait_for_json(info, success_update_profile, failed_update_profile);
+    if (mx_get_jtype(info, success_update_profile)) {
+        upd_prof_data(info);
+    }
 }

@@ -1,4 +1,21 @@
+* {
+    box-shadow: none;
+    text-shadow: none;
+    border: none;
+}
+
 .main_window {
     background-image: url('../images/backA.jpg');
     background-size: 100% 100%;
+}
+
+.register_button {
+    background: #52141c;
+    color: #db707d;
+}
+
+entry {
+    color: antiquewhite;
+    background: #52141c;
+    border-radius: 5px;
 }

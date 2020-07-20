@@ -20,6 +20,7 @@ typedef enum {
 
     make_update_profile,
     success_update_profile,
+    failed_update_profile,
 
     get_client_contacts,
     failed_client_contacts,
@@ -73,9 +74,6 @@ typedef enum {
 
     file_msg,
     failed_receiving_file,
-
-    failed_update_profile,
-
 } t_actions;
 
 typedef enum {

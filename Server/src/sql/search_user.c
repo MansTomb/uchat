@@ -4,7 +4,7 @@ static int callback(void *data, int argc, char **argv, char **cols) {
     cJSON *contact = cJSON_CreateObject();
     int uid = atoi(argv[0]);
 
-    if (uid == MX_VINT(data, "uid")) {
+    if (uid != MX_VINT(data, "uid")) {
         cJSON_AddNumberToObject(contact, "uid", uid);
         cJSON_AddStringToObject(contact, "login", argv[1]);
         cJSON_AddItemToArray(cJSON_GetObjectItem(data, "users"), contact);

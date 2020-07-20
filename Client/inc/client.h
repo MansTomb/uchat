@@ -32,9 +32,16 @@ typedef struct s_del_msg t_del_msg;
 typedef struct s_edit_msg t_edit_msg;
 typedef struct s_send_msg t_send_msg;
 typedef struct s_send_msg_img t_send_msg_img;
+typedef struct s_group t_group; // json
+
+struct s_group {
+    int id;
+    char *name;
+};
 
 struct s_giter {
     char *gname;
+    int id;
     GtkTreeIter iter;
 };
 
@@ -75,7 +82,6 @@ struct s_contact {
     char *stat;
     int active;
     int grp_id;
-    char *grp_name;
 };
 
 // client profile data
@@ -184,6 +190,7 @@ struct s_preferences {
 struct s_chat {
     char *chat_name;
     int cid;
+    int ctype;
     bool edit;
     t_message *editedmsg;
     t_list *msg_list;
@@ -355,6 +362,7 @@ void mx_handle_send_message(t_info *info, cJSON *json);
 void mx_save_login_data(t_info *info);
 void mx_get_json_contacts(t_info *info);
 void mx_get_json_chats_list(t_info *info);
+void mx_upd_groups_list(const t_info *info);
 void mx_chg_pass_json(t_info *info, const char *old_pass, const char *new_pass);
 int mx_check_err_json(cJSON *new);
 
@@ -529,9 +537,9 @@ void mx_del_profile_cancel(GtkWidget *widget, gpointer data);
 void mx_del_profile_delete(GtkWidget *widget, gpointer data);
 
 /*                             CHAT SCREEN */
-t_chat *mx_chat_build(t_info *info, char *chat_name, int cid);
-void mx_chat_destroy(t_list_node *chat_node);
-void mx_chat_put(t_info *info, char *chat_name, int cid);
+t_chat *mx_chat_build(t_info *info, char *chat_name, int cid, int ctype);
+void mx_chat_destroy(t_info *info, int cid);
+void mx_chat_put(t_info *info, char *chat_name, int cid, int ctype);
 
 void mx_message_put(t_info *info, t_message *msg, int cid);
 void mx_message_img_put(t_info *info, t_message_img *msg, int cid);

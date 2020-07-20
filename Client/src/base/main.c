@@ -27,8 +27,8 @@ static void reconnect(int *sockfd, t_info *info) {
     if (i == 10) {
         puts("\nGood bye, see you soon...\n");
         close(*sockfd);
-        // mx_destroy
-        exit(0);   //destroy && exit
+        mx_destroy(NULL, NULL, info);
+        // exit(0);   //destroy && exit
     }
 }
 
@@ -76,8 +76,7 @@ static void *login_timeout(void *data) {
         // printf("Time left for timeout: %d\n", 60 - (int)g_timer_elapsed(info->timer, NULL));
         if (g_timer_elapsed(info->timer, NULL) > 60) {
             printf("leave\n");
-            pthread_kill(info->thread.data, 0);
-            gtk_main_quit();
+            mx_destroy(NULL, NULL, info);
         }
         if (!g_timer_is_active(info->timer))
             pthread_exit(0);
