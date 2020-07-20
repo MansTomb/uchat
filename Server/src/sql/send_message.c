@@ -65,7 +65,7 @@ cJSON *mx_send_message(sqlite3 *db, cJSON *jsn) {
             "datetime('now', 'localtime'), '%s'); "
             "SELECT u.login, m.id, m.send_time, m.type "
             "FROM messages AS m JOIN users AS u ON u.id = m.user_id "
-            "WHERE m.id = last_insert_rowid()",
+            "AND m.id = last_insert_rowid();",
             MX_VINT(jsn, "uid"), MX_VINT(jsn, "cid"),
             MX_VINT(jsn, "type"), MX_VSTR(jsn, "content"));
     rc = sqlite3_exec(db, query, get_mid, jsn, &err);

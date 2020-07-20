@@ -14,9 +14,8 @@ cJSON *mx_get_clients_chats(sqlite3 *db, cJSON *jsn) {
     int rc = 0;
 
     asprintf(&query, "SELECT uc.chat_id, c.name "
-            "FROM users_chats AS uc JOIN chats AS c ON c.id=uc.chat_id "
-            "WHERE uc.user_id = %i;",
-            MX_VINT(jsn, "uid"));
+            "FROM users_chats AS uc JOIN chats AS c ON c.id = uc.chat_id "
+            "AND uc.user_id = %i;", MX_VINT(jsn, "uid"));
     cJSON_AddArrayToObject(jsn, "chats");
     rc = sqlite3_exec(db, query, callback, jsn, &err);
     if (mx_check(rc, err, "get chats list") != SQLITE_OK) {
