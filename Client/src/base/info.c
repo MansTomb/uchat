@@ -35,6 +35,7 @@ t_info *mx_create_info() {
 
     new->timer = NULL;
     new->json = NULL;
+    new->response = NULL;
     new->wchange = 0;
     new->windows = create_windows();
     new->chat_list = mx_create_list();

@@ -24,6 +24,9 @@ void mx_main_screen_build(t_info *info, t_main_screen *ms) {
 
 void mx_main_screen_destroy(t_info *info) {
     info->wchange = 1;
+    mx_contacts_destroy(info);
+    mx_profile_destroy(info);
+    mx_preferences_destroy(info);
     gtk_widget_destroy(info->windows->ms->window);
     free(info->windows->ms);
     info->windows->ms = NULL;
@@ -49,5 +52,5 @@ void mx_on_click_exit(GtkWidget *widget, gpointer data) {
     t_info *info = data;
 
 printf("mx_on_click_exit\n");
-    gtk_main_quit();
+    mx_destroy(NULL, NULL, info);
 }

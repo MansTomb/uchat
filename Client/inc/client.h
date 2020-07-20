@@ -538,7 +538,7 @@ void mx_del_profile_delete(GtkWidget *widget, gpointer data);
 
 /*                             CHAT SCREEN */
 t_chat *mx_chat_build(t_info *info, char *chat_name, int cid, int ctype);
-void mx_chat_destroy(t_list_node *chat_node);
+void mx_chat_destroy(t_info *info, int cid);
 void mx_chat_put(t_info *info, char *chat_name, int cid, int ctype);
 
 void mx_message_put(t_info *info, t_message *msg, int cid);

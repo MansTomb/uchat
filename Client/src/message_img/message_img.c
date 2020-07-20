@@ -1,15 +1,35 @@
 #include "client.h"
 
+static GtkWidget *get_image_if_image(cJSON *json) {
+    char *content = cJSON_GetObjectItem(json, "content")->valuestring;
+    GdkPixbufAnimation *anim = NULL;
+    GtkWidget *image = NULL;
+
+    if (strstr(content, ".png") || strstr(content, ".jpg") || 
+        strstr(content, ".mbp") || strstr(content, ".jpeg")) {
+        anim = gdk_pixbuf_animation_new_from_file(content, NULL);
+        image = gtk_image_new_from_animation(anim);
+        return image;
+    }
+    return image;
+}
+
 static void json_sets(t_message_img *msg, cJSON *json, int cid) {
     char *content = cJSON_GetObjectItem(json, "content")->valuestring;
     char *username = cJSON_GetObjectItem(json, "login")->valuestring;
     char *time = cJSON_GetObjectItem(json, "time")->valuestring;
-    GtkWidget *image = gtk_image_new_from_animation(gdk_pixbuf_animation_new_from_file(content, NULL));
+    GtkWidget *image = get_image_if_image(json);
 
     msg->mid = cJSON_GetObjectItem(json, "mid")->valueint;
     msg->cid = cid;
 
-    gtk_button_set_image(GTK_BUTTON(msg->msg_bt), image);
+    
+    if (image)
+        gtk_button_set_image(GTK_BUTTON(msg->msg_bt), image);
+    else
+        gtk_button_set_label(GTK_BUTTON(msg->msg_bt), 
+                                                mx_strjoin(MX_RECV_FILES_DIR,
+                                                g_path_get_basename(content)));
     gtk_label_set_text(GTK_LABEL(msg->name_label), username);
     gtk_label_set_text(GTK_LABEL(msg->date_label), time);
 }

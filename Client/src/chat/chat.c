@@ -25,14 +25,17 @@ t_chat *mx_chat_build(t_info *info, char *chat_name, int cid, int ctype) {
     return chat;
 }
 
-void mx_chat_destroy(t_list_node *chat_node) {
-    t_chat *chat = chat_node->data;
-    t_list_node *next = chat_node->next;
-    t_list_node *prev = chat_node->prev;
+void mx_chat_destroy(t_info *info, int cid) {
+    t_chat *chat = NULL;
+    size_t i = 0;
 
+    for (; i < info->chat_list->size; ++i) {
+        chat = mx_get_index(info->chat_list, i)->data;
+        if (chat->cid == cid)
+            break;
+    }
+    mx_strdel(&chat->chat_name);
     gtk_widget_destroy(chat->main_box);
-    free(chat_node->data);
-
-    prev->next = next;
-    next->prev = prev;
+    free(chat);
+    mx_pop_index(info->chat_list, i);
 }
