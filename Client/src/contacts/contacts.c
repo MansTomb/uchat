@@ -1,6 +1,6 @@
 #include "client.h"
 
-static void create_menu_items(t_contacts *contacts, GtkWidget *menu) {
+static void create_menu_items(GtkWidget *menu, t_info *info) {
     GtkWidget *items[4];
 
     items[0] = gtk_menu_item_new_with_label("User profile");
@@ -18,10 +18,10 @@ static void create_menu_items(t_contacts *contacts, GtkWidget *menu) {
     gtk_widget_show(items[2]);
     gtk_widget_show(items[3]);
 
-    MX_GSIG_CON(items[0], "activate", MX_CB(mx_contacts_open_prof), contacts);
-    MX_GSIG_CON(items[1], "activate", MX_CB(mx_contacts_send_message), contacts);
-    MX_GSIG_CON(items[2], "activate", MX_CB(mx_contacts_block), contacts);
-    MX_GSIG_CON(items[2], "activate", MX_CB(mx_contacts_delete), contacts);
+    MX_GSIG_CON(items[0], "activate", MX_CB(mx_contacts_open_prof), info);
+    MX_GSIG_CON(items[1], "activate", MX_CB(mx_contacts_send_message), info);
+    MX_GSIG_CON(items[2], "activate", MX_CB(mx_contacts_block), info);
+    MX_GSIG_CON(items[3], "activate", MX_CB(mx_contacts_delete), info);
 }
 
 static GtkWidget *create_menu(t_info *info) {
@@ -33,7 +33,7 @@ static GtkWidget *create_menu(t_info *info) {
     display = gdk_display_get_default();
     screen = gdk_display_get_default_screen(display);
     gtk_menu_set_screen(GTK_MENU(menu), screen);
-    create_menu_items(info->windows->cont, menu);
+    create_menu_items(menu, info);
     MX_GSIG_CON(tv, "row-activated", MX_CB(mx_contacts_tree_on_click), info);
     return menu;
 }

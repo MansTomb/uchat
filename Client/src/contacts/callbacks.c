@@ -31,21 +31,23 @@ void mx_contacts_tree_on_click(GtkTreeView *tree_view, GtkTreePath *path,
 }
 
 void mx_contacts_open_prof(GtkWidget *widget, gpointer data) {
-
+    printf("mx_contacts_open_prof\n");
 }
 
 void mx_contacts_send_message(GtkWidget *widget, gpointer data) {
-
+    printf("mx_contacts_send_message\n");
 }
 
 void mx_contacts_block(GtkWidget *widget, gpointer data) {
-    
+    printf("mx_contacts_block\n");
 }
 
 void mx_contacts_delete(GtkWidget *widget, gpointer data) {
+    t_info *info = data;
     // GtkTreeModel *model = gtk_tree_view_get_model(GTK_TREE_VIEW(contacts->treeview));
-
-    // // check if this is a grp_name if it is make request to delete like a grp;
+    printf("mx_contacts_delete\n");
+    mx_del_cnt_json(info);
+    // // check if this is a grp_name if it is, make request to delete like a grp;
     // gtk_tree_store_remove(GTK_TREE_STORE(model), &contacts->choosen_contact);
 }
 

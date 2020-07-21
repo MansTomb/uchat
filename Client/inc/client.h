@@ -372,6 +372,7 @@ void mx_clr_tmp_usr_lst(t_list *list);
 void mx_clr_cnt_lst(t_list *list);
 void mx_clr_grp_lst(t_list *list);
 void mx_clr_profile(t_profile_data *p, int type);
+void mx_del_cnt_json(t_info *info);
 
     /* Json wrappers */
 bool mx_get_jtype(t_info *info, int type);
