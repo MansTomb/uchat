@@ -27,14 +27,14 @@ void mx_login_build_json_wrapper(t_info *info) {
 void mx_save_login_data(t_info *info) {
     t_profile_data *p = info->cl_data->profile;
 
-    p->id = cJSON_GetObjectItem(info->json, "uid")->valueint;
-    p->login = cJSON_GetObjectItem(info->json, "login")->valuestring;
-    p->first_name = cJSON_GetObjectItem(info->json, "fname")->valuestring;
-    p->sec_name = cJSON_GetObjectItem(info->json, "sname")->valuestring;
-    p->user_email = cJSON_GetObjectItem(info->json, "email")->valuestring;
-    p->status = cJSON_GetObjectItem(info->json, "status")->valuestring;
+    p->id = cJSON_GetObjectItemCaseSensitive(info->json, "uid")->valueint;
+    p->login = cJSON_GetObjectItemCaseSensitive(info->json, "login")->valuestring;
+    p->first_name = cJSON_GetObjectItemCaseSensitive(info->json, "fname")->valuestring;
+    p->sec_name = cJSON_GetObjectItemCaseSensitive(info->json, "sname")->valuestring;
+    p->user_email = cJSON_GetObjectItemCaseSensitive(info->json, "email")->valuestring;
+    p->status = cJSON_GetObjectItemCaseSensitive(info->json, "status")->valuestring;
 
-    p->sound_noty = cJSON_GetObjectItem(info->json, "snot")->valueint;
-    p->vs_noty = cJSON_GetObjectItem(info->json, "vnot")->valueint;
-    p->email_noty = cJSON_GetObjectItem(info->json, "enot")->valueint;
+    p->sound_noty = cJSON_GetObjectItemCaseSensitive(info->json, "snot")->valueint;
+    p->vs_noty = cJSON_GetObjectItemCaseSensitive(info->json, "vnot")->valueint;
+    p->email_noty = cJSON_GetObjectItemCaseSensitive(info->json, "enot")->valueint;
 }

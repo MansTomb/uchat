@@ -39,7 +39,7 @@ static void full_destroy(t_info *info) {
         mx_login_screen_destroy(info);
     if (info->windows->reg)
         mx_register_screen_destroy(info);
-    if (info->json)
+    if (MX_MALLOC_SIZE(info->json) > 0)
         cJSON_Delete(info->json);
     if (info->response)
         mx_strdel(&info->response);

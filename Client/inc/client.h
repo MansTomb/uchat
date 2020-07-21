@@ -363,8 +363,17 @@ void mx_save_login_data(t_info *info);
 void mx_get_json_contacts(t_info *info);
 void mx_get_json_chats_list(t_info *info);
 void mx_upd_groups_list(const t_info *info);
+void mx_send_json_group(t_info *info, const char *gname);
 void mx_chg_pass_json(t_info *info, const char *old_pass, const char *new_pass);
 int mx_check_err_json(cJSON *new);
+void mx_start_chat_json(t_info *info);
+
+    /* t_data clear */
+void mx_clr_tmp_usr_lst(t_list *list);
+void mx_clr_cnt_lst(t_list *list);
+void mx_clr_grp_lst(t_list *list);
+void mx_clr_profile(t_profile_data *p, int type);
+void mx_del_cnt_json(t_info *info);
 
     /* Json wrappers */
 bool mx_get_jtype(t_info *info, int type);

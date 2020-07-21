@@ -8,19 +8,20 @@ t_group *get_grp(const cJSON *i) {
     return g;
 }
 
-static void exist_grp(t_list *g_list, const t_info *info, const cJSON *i) {
-    t_list_node *node = g_list ? g_list->head : NULL;
-    int g_id = cJSON_GetObjectItemCaseSensitive(i, "gid")->valueint;
-    bool exist = false;
+void mx_clr_grp_lst(t_list *list) {
+    if (list) {
+        t_list_node *head = list->head;
+        t_list_node *next = list->tail;
 
-    for (; node; node = node->next) {
-        if (((t_group *)node->data)->id == g_id) {
-            exist = true;
-            break;
+        while (head) {
+            next = head->next;
+            MX_STRDEL(((t_group *)head->data)->name);
+            free(head);
+            head = next;
         }
-    }
-    if (!exist) {
-        mx_push_back(info->cl_data->cont_grp_names, get_grp(i));
+        head = NULL;
+        list->tail = NULL;
+        list->size = 0;
     }
 }
 
@@ -29,9 +30,13 @@ void mx_upd_groups_list(const t_info *info) {
         cJSON *iterator = NULL;
         cJSON *groups = cJSON_GetObjectItem(info->json, "groups");
 
+        if (MX_MALLOC_SIZE(info->cl_data->cont_grp_names) > 0) {
+            mx_clr_grp_lst(info->cl_data->cont_grp_names);
+        }
+        info->cl_data->cont_grp_names = mx_create_list();
         if (cJSON_IsArray(groups)) {
             cJSON_ArrayForEach(iterator, groups) {
-                exist_grp(info->cl_data->cont_grp_names, info, iterator);
+                mx_push_back(info->cl_data->cont_grp_names, get_grp(iterator));
             }
         }
         else

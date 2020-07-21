@@ -24,19 +24,24 @@ static t_contact *get_contact(const cJSON *iterator) {
     return c;
 }
 
-static void exist_cntct(t_list *c_list, const t_info *info, const cJSON *i) {
-    t_list_node *node = c_list ? c_list->head : NULL;
-    char *c_login = cJSON_GetObjectItemCaseSensitive(i, "login")->valuestring;
-    bool exist = false;
+void mx_clr_cnt_lst(t_list *list) {
+    if (list) {
+        t_list_node *head = list->head;
+        t_list_node *next = list->tail;
 
-    for (; node; node = node->next) {
-        if (strcmp(((t_contact *)node->data)->login, c_login) == 0) {
-            exist = true;
-            break;
+        while (head) {
+            next = head->next;
+            MX_STRDEL(((t_contact *)head->data)->login);
+            MX_STRDEL(((t_contact *)head->data)->f_name);
+            MX_STRDEL(((t_contact *)head->data)->s_name);
+            MX_STRDEL(((t_contact *)head->data)->email);
+            MX_STRDEL(((t_contact *)head->data)->stat);
+            free(head);
+            head = next;
         }
-    }
-    if (!exist) {
-        mx_push_back(info->cl_data->contacts, get_contact(i));
+        head = NULL;
+        list->tail = NULL;
+        list->size = 0;
     }
 }
 
@@ -47,7 +52,7 @@ static void save_contacts(const t_info *info) {
 
         if (cJSON_IsArray(contacts)) {
             cJSON_ArrayForEach(iterator, contacts) {
-                exist_cntct(info->cl_data->contacts, info, iterator);
+                mx_push_back(info->cl_data->contacts, get_contact(iterator));
             }
         }
         else
@@ -61,6 +66,10 @@ void mx_get_json_contacts(t_info *info) {
     send_contacts_request(info);
     mx_wait_for_json(info, success_client_contacts, failed_client_contacts);
     if (mx_get_jtype(info, success_client_contacts)) {
+        if (MX_MALLOC_SIZE(info->cl_data->contacts) > 0) {
+            mx_clr_cnt_lst(info->cl_data->contacts);
+        }
+        info->cl_data->contacts = mx_create_list();
         save_contacts(info);
         mx_upd_groups_list(info);
     }

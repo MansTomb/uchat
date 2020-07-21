@@ -29,7 +29,7 @@ change_pass = change_pass callbacks validate
 main_chat_screen = main_screen
 
 contacts = contacts callbacks json create_table get_json_list_contacts \
-	save_json_groups
+	save_json_groups del_cnt_json start_chat_json
 
 profile = profile json callbacks
 
@@ -37,7 +37,7 @@ delete_profile = delete_profile callbacks json
 
 preferences = preferences callbacks chg_pass_json
 
-add_contact = add_contact callbacks add_json_user_to_contacts
+add_contact = add_contact callbacks add_json_user_to_contacts add_group
 
 create_group = create_group callbacks
 

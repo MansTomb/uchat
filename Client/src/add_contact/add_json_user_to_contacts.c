@@ -46,9 +46,11 @@ void mx_add_cnt_json_wrapper(t_contact_add *ac) {
         if (mx_get_jtype(ac->info, success_add_new_contact)) {
             mx_get_json_contacts(ac->info);
         }
+        else {
+            mx_dialog_warning_create(NULL, "Failed add new_contact!\n");
+        }
     }
     else {
         mx_dialog_warning_create(NULL, "The contact does not exist or this is your login!\n");
     }
-    
 }
