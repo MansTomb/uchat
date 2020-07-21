@@ -366,6 +366,7 @@ void mx_upd_groups_list(const t_info *info);
 void mx_send_json_group(t_info *info, const char *gname);
 void mx_chg_pass_json(t_info *info, const char *old_pass, const char *new_pass);
 int mx_check_err_json(cJSON *new);
+void mx_start_chat_json(t_info *info);
 
     /* t_data clear */
 void mx_clr_tmp_usr_lst(t_list *list);

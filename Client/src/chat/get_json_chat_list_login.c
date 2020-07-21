@@ -20,7 +20,7 @@ static void save_chats(t_info *info) {
                 mx_chat_put(info,
                             cJSON_GetObjectItem(i, "cname")->valuestring,
                             cJSON_GetObjectItem(i, "cid")->valueint,
-                            cJSON_GetObjectItem(i, "ctype")->valueint
+                            1//cJSON_GetObjectItem(i, "ctype")->valueint
                             );
             }
         }

@@ -31,10 +31,13 @@ void mx_contacts_tree_on_click(GtkTreeView *tree_view, GtkTreePath *path,
 }
 
 void mx_contacts_open_prof(GtkWidget *widget, gpointer data) {
+    t_info *info = data;
     printf("mx_contacts_open_prof\n");
 }
 
 void mx_contacts_send_message(GtkWidget *widget, gpointer data) {
+    t_info *info = data;
+    mx_start_chat_json(info);
     printf("mx_contacts_send_message\n");
 }
 

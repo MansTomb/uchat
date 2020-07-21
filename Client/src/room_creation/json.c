@@ -13,13 +13,11 @@ static void request(t_info *info, int ctype, char *cname) {
 }
 
 static void push_chat(t_info *info) {
-    int jtype = cJSON_GetObjectItem(info->json, "json_type")->valueint;
     int cid = cJSON_GetObjectItem(info->json, "cid")->valueint;
     int ctype = cJSON_GetObjectItem(info->json, "ctype")->valueint;
     char *cname = cJSON_GetObjectItem(info->json, "cname")->valuestring;
     
-    if (jtype != failed_new_group_chat_channel) {};
-        mx_chat_put(info, cname, cid, ctype);
+    mx_chat_put(info, cname, cid, ctype);
     mx_strdel(&cname);
 }
 
@@ -29,5 +27,11 @@ void mx_create_room_wrap(t_info *info) {
 
     request(info, ctype, (char *)mx_entry_get_text(rc->entry));
     mx_wait_for_json(info, success_new_group_chat_channel, failed_new_group_chat_channel);
-    push_chat(info);
+    if (mx_get_jtype(info, success_new_personal_chat)) {
+        push_chat(info);
+        mx_dialog_warning_create(NULL, "Channel successfully created!");
+    }
+    else {
+        mx_dialog_warning_create(NULL, "Error creating channel!");
+    }
 }
