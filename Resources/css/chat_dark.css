@@ -85,45 +85,6 @@ textview * {
     background: #1d1d1d;
     color: #05ad9c;
 }
-/* --------------------- create room */
-.create_room_box {
-    background: rgba(110, 103, 108, 0.5);
-    color: antiquewhite;
-}
-.create_room_cancel_buttons {
-    background: #05ad9c;
-    color: #121212;
-}
-.create_room_create_buttons {
-    background: #05ad9c;
-    color: #121212;
-}
-/* --------------------- add contact */
-.add_contact_box {
-    background: rgba(110, 103, 108, 0.5);
-    color: antiquewhite;
-}
-.add_contact_cancel_buttons {
-    background: #05ad9c;
-    color: #121212;
-}
-.add_contact_add_buttons {
-    background: #05ad9c;
-    color: #121212;
-}
-/* --------------------- create group */
-.create_group_box {
-    background: rgba(110, 103, 108, 0.5);
-    color: antiquewhite;
-}
-.create_group_cancel_buttons {
-    background: #05ad9c;
-    color: #121212;
-}
-.create_group_create_buttons {
-    background: #05ad9c;
-    color: #121212;
-}
 /* --------------------- contacts */
 .contact_header {
     background: #1d1d1d;
@@ -177,7 +138,82 @@ treeview.view * {
     background: #1d1d1d;
     color: #6e666c;
 }
+.profile_save_button {
+    background: #1d1d1d;
+    color: #6e666c;
+}
+.profile_cancel_button {
+    background: #1d1d1d;
+    color: #6e666c;
+}
 .change_avatar_button {
     background: #1d1d1d;
     color: #6e666c;
+}
+
+/* -------------------------------------------------- small windows*/
+/* --------------------- create room */
+.create_room_box {
+    background: rgba(110, 103, 108, 0.5);
+    color: antiquewhite;
+}
+.create_room_cancel_buttons {
+    background: #05ad9c;
+    color: #121212;
+}
+.create_room_create_buttons {
+    background: #05ad9c;
+    color: #121212;
+}
+/* --------------------- add contact */
+.add_contact_box {
+    background: rgba(110, 103, 108, 0.5);
+    color: antiquewhite;
+}
+.add_contact_cancel_buttons {
+    background: #05ad9c;
+    color: #121212;
+}
+.add_contact_add_buttons {
+    background: #05ad9c;
+    color: #121212;
+}
+/* --------------------- create group */
+.create_group_box {
+    background: rgba(110, 103, 108, 0.5);
+    color: antiquewhite;
+}
+.create_group_cancel_buttons {
+    background: #05ad9c;
+    color: #121212;
+}
+.create_group_create_buttons {
+    background: #05ad9c;
+    color: #121212;
+}
+/* --------------------- change password */
+.change_pass_box {
+    background: rgba(110, 103, 108, 0.5);
+    color: antiquewhite;
+}
+.change_pass_cancel_buttons {
+    background: #05ad9c;
+    color: #121212;
+}
+.change_pass_change_buttons {
+    background: #05ad9c;
+    color: #121212;
+}
+/* --------------------- delete profile */
+.del_profile_box {
+    background: rgba(110, 103, 108, 0.5);
+    color: antiquewhite;
+}
+.del_profile_cancel_buttons {
+    background: #05ad9c;
+    color: #121212;
+}
+.del_profile_delete_buttons {
+    background: #05ad9c;
+    color: #121212;
 }
