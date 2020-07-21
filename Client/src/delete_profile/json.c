@@ -12,6 +12,7 @@ static void request(t_info *info, const char *password, int s_sock) {
 
     cJSON_AddNumberToObject(jlogin, "json_type", make_delete_user);
     cJSON_AddStringToObject(jlogin, "login", info->cl_data->profile->login);
+    cJSON_AddNumberToObject(jlogin, "uid", info->cl_data->profile->id);
     cJSON_AddStringToObject(jlogin, "hash", hash_pass);
 
     mx_send_message_handler(jlogin, s_sock);
