@@ -224,14 +224,16 @@ INSERT INTO messages VALUES (NULL, __UID__, __CID__, __TYPE__, datetime('now', '
 SELECT user_id FROM users_chats WHERE chat_id = __CID__ AND user_id != __UID__;
 
 -- найти id чата между двумя юзерами
-SELECT c.id, uc1.role FROM users_chats AS uc1
+SELECT c.id, uc1.role, u.login FROM users_chats AS uc1
     JOIN users_chats AS uc2
         ON uc1.user_id = __UID1__ AND uc2.user_id = __UID2__
             AND uc1.chat_id = uc2.chat_id
     JOIN chats AS c
-        ON c.type = 1 AND uc1.chat_id = c.id;
+        ON c.type = 1 AND uc1.chat_id = c.id
+    JOIN users AS u
+        ON uc2.user_id = u.id;
 
-SELECT c.id, uc1.role FROM users_chats AS uc1 JOIN users_chats AS uc2 ON uc1.user_id = __UID1__ AND uc2.user_id = __UID2__ AND uc1.chat_id = uc2.chat_id JOIN chats AS c ON c.type = 1 AND uc1.chat_id = c.id;
+SELECT c.id, uc1.role, u.login FROM users_chats AS uc1 JOIN users_chats AS uc2 ON uc1.user_id = __UID1__ AND uc2.user_id = __UID2__ AND uc1.chat_id = uc2.chat_id JOIN chats AS c ON c.type = 1 AND uc1.chat_id = c.id JOIN users AS u ON uc2.user_id = u.id;
 
 -- вибрати дані для відправки повідомлень
 SELECT uc.user_id, up.email
