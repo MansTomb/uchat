@@ -50,11 +50,11 @@ CREATE TABLE IF NOT EXISTS users_groups (
 );
 
 -- надо тестить
--- CREATE TRIGGER IF NOT EXISTS del_group
---     AFTER DELETE ON users_groups
--- BEGIN
---     UPDATE contacts_lists SET group_id = 0 WHERE user_id = OLD.user_id AND group_id = OLD.group_id;
--- END;
+CREATE TRIGGER IF NOT EXISTS del_group
+    AFTER DELETE ON users_groups
+BEGIN
+    UPDATE contacts_lists SET group_id = 0 WHERE user_id = OLD.user_id AND group_id = OLD.group_id;
+END;
 
 CREATE TABLE IF NOT EXISTS contacts_lists (
     user_id INTEGER NOT NULL,
@@ -104,25 +104,20 @@ INSERT INTO users VALUES (NULL, '__NEW_USER_LOGIN__', '__NEW_USER_PASSWORD__');
 SELECT * FROM users WHERE login = '__NEW_USER_LOGIN__';
 
 -- удаление юзера
-DELETE FROM users WHERE id = __UID__ AND hash = __HASH__;
+DELETE FROM users WHERE id = __UID__ AND login = __LOGIN__ AND hash = __HASH__;
 
 -- изменение пароля
 UPDATE users SET hash = '__NEW_USER_PASSWORD__' WHERE id = __UID__;
 
 -- получение профиля
 SELECT * FROM users_profiles WHERE user_id = __UID__;
+SELECT * FROM users JOIN users_profiles AS up ON id = up.user_id JOIN users_notify_settings AS uns ON id = uns.user_id;
 
 -- обновление профиля
 UPDATE users_profiles SET first_name = '__NEW_FIRST_NAME__' WHERE user_id = __UID__;
 UPDATE users_profiles SET second_name = '__NEW_SECOND_NAME__' WHERE user_id = __UID__;
 UPDATE users_profiles SET email = '__NEW_EMAIL__' WHERE user_id = __UID__;
 UPDATE users_profiles SET status = '__NEW_STATUS__' WHERE user_id = __UID__;
-
--- создание новой группы контактов
-INSERT INTO contacts_groups VALUES (NULL, '__NEW_GROUP_NAME__');
-
--- добавление новой группы контактов у юзера
-INSERT INTO users_groups VALUES (__UID__, __GID__);
 
 -- добавление нового контакта
 INSERT INTO contacts_lists VALUES (__UID__, __COID__, __GID__);
@@ -134,7 +129,7 @@ DELETE FROM contacts_lists WHERE user_id = __UID__ AND contact_id = __COID__;
 UPDATE contacts_lists SET group_id = GROUP_ID WHERE user_id = __UID__ AND contact_id = __COID__;
 
 -- удаление контакта из группы
-UPDATE contacts_lists SET group_id = NULL WHERE user_id = __UID__ AND contact_id = __COID__;
+UPDATE contacts_lists SET group_id = 0 WHERE user_id = __UID__ AND contact_id = __COID__;
 
 -- создание чата
 INSERT INTO chats VALUES (NULL, __CHAT_TYPE__, '__NEW_CHAT_NAME__');
@@ -142,7 +137,7 @@ INSERT INTO chats VALUES (NULL, __CHAT_TYPE__, '__NEW_CHAT_NAME__');
 -- добавление юзера в чат
 INSERT INTO users_chats VALUES (__UID__, __CID__);
 
--- изменение роли (бан / выход / новый админ / новый создатель)
+-- изменение роли (бан / выход / очередняра / админ)
 UPDATE users_chats SET role = __NEW_ROLE__ WHERE user_id = __UID__ AND chat_id = __CID__;
 
 -- отправка сообщения
@@ -174,11 +169,13 @@ INSERT INTO users_chats VALUES
 
 -- создание нового группового чата / канала
 INSERT INTO chats VALUES (NULL, __CHAT_TYPE__, '__NEW_CHAT_NAME__');
-INSERT INTO users_chats VALUES (__UID__, last_insert_rowid(), 2);
+INSERT INTO users_chats VALUES (__UID__, __CID__, __CHAT_TYPE__);
+-- INSERT INTO users_chats VALUES (__UID__, last_insert_rowid(), __CHAT_TYPE__);
 
 -- создание группы контактов у юзера
 INSERT INTO contacts_groups VALUES (NULL, '__NEW_GROUP_NAME__');
-INSERT INTO users_groups VALUES (__UID__, last_insert_rowid());
+INSERT INTO users_groups VALUES (__UID__, __GID__);
+-- INSERT INTO users_groups VALUES (__UID__, last_insert_rowid());
 
 -- удаление группы контактов у юзера
 DELETE FROM users_groups WHERE user_id = __UID__ AND group_id = __GID__;
@@ -242,3 +239,7 @@ FROM users_chats AS uc
         ON uc.user_id = up.user_id AND uc.chat_id = __CID__ AND uc.user_id != __UID__;
 
 SELECT uc.user_id, up.email FROM users_chats AS uc JOIN users_profiles AS up ON uc.user_id = up.user_id AND uc.chat_id = __CID__ AND uc.user_id != __UID__;
+
+-- добавить юзера в групповой чат / канал
+
+-- забанить юзера в групповом чате / канале
