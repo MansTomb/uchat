@@ -10,8 +10,8 @@ static void add_others(cJSON *jsn) {
 static int get_groups(void *data, int argc, char **argv, char **cols) {
     cJSON *group = cJSON_CreateObject();
 
-    cJSON_AddNumberToObject(group, "gid", atoi(argv[1]));
-    cJSON_AddStringToObject(group, "gname", argv[2]);
+    cJSON_AddNumberToObject(group, "gid", atoi(argv[0]));
+    cJSON_AddStringToObject(group, "gname", argv[1]);
     cJSON_AddItemToArray(cJSON_GetObjectItem(data, "groups"), group);
     return 0;
 }

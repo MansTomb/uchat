@@ -37,7 +37,7 @@ delete_profile = delete_profile callbacks json
 
 preferences = preferences callbacks chg_pass_json
 
-add_contact = add_contact callbacks add_json_user_to_contacts
+add_contact = add_contact callbacks add_json_user_to_contacts add_group
 
 create_group = create_group callbacks
 

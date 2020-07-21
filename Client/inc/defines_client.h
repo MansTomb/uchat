@@ -23,6 +23,8 @@
 #define MX_SEND_FILES_DIR "Client/files_send/"
 #define MX_RECV_FILES_DIR "Client/files_recv/"
 
+#define MX_STRDEL(str) (MX_MALLOC_SIZE(str) > 0 ? free(str) : (void)0)
+
 /* Types for sending jsons */
 typedef enum {
     make_register,
@@ -63,17 +65,17 @@ typedef enum {
     failed_add_new_contact,
     success_add_new_contact,
 
-    make_add_contact_group,
-    failed_add_new_contact_group,
-    success_add_new_contact_group,
-
-    make_del_contact_group,
-    failed_del_new_contact_group,
-    success_del_new_contact_group,
-
     make_del_contact,
     failed_del_contact,         // when contact doesn't exist in contacts_list
     success_del_contact,
+
+    make_add_contact_group,
+    failed_add_contact_group,
+    success_add_contact_group,
+
+    make_del_contact_group,
+    failed_del_contact_group,
+    success_del_contact_group,
 
     make_new_personal_chat,
     failed_new_personal_chat,
@@ -98,4 +100,3 @@ typedef enum {
     file_msg,
     failed_receiving_file,
 } t_actions;
-
