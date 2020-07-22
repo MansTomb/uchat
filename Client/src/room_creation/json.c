@@ -13,12 +13,7 @@ static void request(t_info *info, int ctype, char *cname) {
 }
 
 static void push_chat(t_info *info) {
-    int cid = cJSON_GetObjectItem(info->json, "cid")->valueint;
-    int ctype = cJSON_GetObjectItem(info->json, "ctype")->valueint;
-    char *cname = cJSON_GetObjectItem(info->json, "cname")->valuestring;
-    
-    mx_chat_put(info, cname, cid, ctype);
-    mx_strdel(&cname);
+    mx_chat_put(info, info->json);
 }
 
 void mx_create_room_wrap(t_info *info) {

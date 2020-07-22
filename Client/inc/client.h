@@ -192,6 +192,7 @@ struct s_chat {
     char *chat_name;
     int cid;
     int ctype;
+    int role;
     bool edit;
     t_message *editedmsg;
     t_list *msg_list;
@@ -202,6 +203,8 @@ struct s_chat {
     GtkWidget *message_box;
     GtkWidget *entry;
     GtkFileFilter *ffilter;
+    GtkWidget *banbt;
+    GtkWidget *invbt;
 
     t_info *info;
 };
@@ -565,9 +568,9 @@ void mx_del_profile_cancel(GtkWidget *widget, gpointer data);
 void mx_del_profile_delete(GtkWidget *widget, gpointer data);
 
 /*                             CHAT SCREEN */
-t_chat *mx_chat_build(t_info *info, char *chat_name, int cid, int ctype);
+t_chat *mx_chat_build(t_info *info, cJSON *json);
 void mx_chat_destroy(t_info *info, int cid);
-void mx_chat_put(t_info *info, char *chat_name, int cid, int ctype);
+void mx_chat_put(t_info *info, cJSON *json);
 
 void mx_message_put(t_info *info, t_message *msg, int cid);
 void mx_message_img_put(t_info *info, t_message_img *msg, int cid);

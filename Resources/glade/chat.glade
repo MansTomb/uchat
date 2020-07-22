@@ -94,7 +94,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton">
+          <object class="GtkButton" id="invite">
             <property name="label" translatable="yes">Invite</property>
             <property name="width_request">80</property>
             <property name="visible">True</property>
@@ -109,7 +109,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton">
+          <object class="GtkButton" id="ban">
             <property name="label" translatable="yes">Ban</property>
             <property name="width_request">80</property>
             <property name="visible">True</property>
