@@ -1,35 +1,33 @@
 #include "client.h"
 
-static void clear_data(t_list_node *node) {
-    free(node->data);
-}
 
 void mx_clr_tmp_usr_lst(t_list *list) {
-    system("leaks -q uchat");
-    mx_foreach_list(list, clear_data);
-    mx_delete_list(list);
+    printf("MALLOC SIZE %zu\n", MX_MALLOC_SIZE(list));
 
-    // if (list) {
-    //     t_list_node *head = list->head;
-    //     t_list_node *next = list->tail;
+    if (list) {
+        t_list_node *head = list->head;
+        t_list_node *next = list->tail;
 
-    //     while (head) {
-    //         next = head->next;
-    //         // MX_STRDEL(((t_user *)head->data)->login);
-    //         free(head->data);
-    //         free(head);
-    //         head = next;
-    //     }
-    //     head = NULL;
-    //     list->tail = NULL;
-    //     list->size = 0;
-    // }
+        while (head) {
+            next = head->next;
+            free(head->data);
+            free(head);
+            head = next;
+        }
+        head = NULL;
+        list->tail = NULL;
+        list->size = 0;
+        free(list);
+    }
+    printf("MALLOC SIZE %zu\n", MX_MALLOC_SIZE(list));
 }
 
 void mx_on_add_contact_cancel(GtkWidget *widget, gpointer data) {
     t_contact_add *ac = data;
 
-    mx_clr_tmp_usr_lst(ac->info->cl_data->tmp_users);
+    if (MX_MALLOC_SIZE(ac->info->cl_data->tmp_users) > 0) {
+        mx_clr_tmp_usr_lst(ac->info->cl_data->tmp_users);
+    }
     mx_add_contact_destroy(ac->info);
 }
 
