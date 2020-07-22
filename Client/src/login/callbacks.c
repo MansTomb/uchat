@@ -19,9 +19,9 @@ void mx_on_click_login(GtkWidget *widget, gpointer user_data) {
             pthread_join(info->thread.timer, NULL);
             mx_save_login_data(info);
             mx_login_screen_destroy(info);
-            if (info->cl_data->profile->id == 1)
-                mx_admin_screen_build(info, info->windows->adm);
-            else
+            // if (info->cl_data->profile->id == 1)
+            //     mx_admin_screen_build(info, info->windows->adm);
+            // else
                 mx_main_screen_build(info, info->windows->ms);
         }
         else if (mx_get_jtype(info, failed_authorization))

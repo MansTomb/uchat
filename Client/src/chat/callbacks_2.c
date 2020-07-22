@@ -46,3 +46,16 @@ void mx_on_scroll_edge(GtkWidget *widget, GtkPositionType pos, gpointer data) {
         /* Load message */
     }
 }
+
+gboolean mx_chat_stack_click(GObject *gobject, GParamSpec *pspec, gpointer user_data) {
+    t_info *info = user_data;
+    GValue val = G_VALUE_INIT;
+    GtkWidget *vchild = gtk_stack_get_visible_child(GTK_STACK(info->windows->ms->chat_stack));
+
+    g_assert(!G_VALUE_HOLDS_BOOLEAN(&val));
+    g_value_init(&val, G_TYPE_BOOLEAN);
+    g_value_set_boolean(&val, FALSE);
+
+    gtk_container_child_set_property(GTK_CONTAINER(info->windows->ms->chat_stack), vchild, "needs-attention", &val);
+    return FALSE;
+}

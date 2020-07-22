@@ -160,6 +160,7 @@
                 <child>
                   <placeholder/>
                 </child>
+                <signal name="notify::visible-child" handler="mx_chat_stack_click" swapped="no"/>
               </object>
               <packing>
                 <property name="name">page4</property>
