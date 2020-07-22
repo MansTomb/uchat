@@ -16,5 +16,6 @@ void mx_send_json_group(t_info *info, const char *gname) {
     mx_wait_for_json(info, success_add_contact_group, failed_add_contact_group);
     if (mx_get_jtype(info, success_add_contact_group)) {
         mx_get_json_contacts(info);
+        mx_create_table(info, info->windows->cont);
     }
 }

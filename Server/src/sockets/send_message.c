@@ -67,9 +67,6 @@ void mx_send_msg_clients(t_sock *sock, t_peer *peer, cJSON *bd, int *uid) {
 
     for (i = 0; uid[i] != -1; ++i)
         len++;
-
-    for (i = 0; i < len; ++i) {
+    for (i = 0; i < len; ++i)
         mx_send_msg_client(sock, peer, bd, uid[i]);
-        // printf("111\n");
-    }
 }

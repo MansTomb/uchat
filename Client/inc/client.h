@@ -13,8 +13,11 @@ typedef struct s_admin t_admin;
 typedef struct s_preferences t_preferences;
 typedef struct s_change_password t_change_password;
 typedef struct s_chat t_chat;
+typedef struct s_invite_user t_invite_user;
+typedef struct s_ban_user t_ban_user;
 typedef struct s_main_screen t_main_screen;
 typedef struct s_profile t_profile;
+typedef struct s_other_profile t_other_profile;
 typedef struct s_contact_add t_contact_add;
 typedef struct s_group_create t_group_create;
 typedef struct s_contacts t_contacts;
@@ -191,6 +194,7 @@ struct s_chat {
     char *chat_name;
     int cid;
     int ctype;
+    int role;
     bool edit;
     t_message *editedmsg;
     t_list *msg_list;
@@ -201,7 +205,25 @@ struct s_chat {
     GtkWidget *message_box;
     GtkWidget *entry;
     GtkFileFilter *ffilter;
+    GtkWidget *banbt;
+    GtkWidget *invbt;
 
+    t_info *info;
+};
+
+struct s_invite_user {
+    GtkBuilder *builder;
+    GtkWidget *dialog;
+    GtkWidget *entry;
+    
+    t_info *info;
+};
+
+struct s_ban_user {
+    GtkBuilder *builder;
+    GtkWidget *dialog;
+    GtkWidget *entry;
+    
     t_info *info;
 };
 
@@ -226,6 +248,19 @@ struct s_profile {
     GtkWidget *fname;
     GtkWidget *lname;
     GtkWidget *email;
+};
+
+struct s_other_profile {
+    GtkBuilder *builder;
+    GtkWidget *window;
+    GtkWidget *box;
+    GtkWidget *image;
+    GtkWidget *login;
+    GtkWidget *fname;
+    GtkWidget *lname;
+    GtkWidget *email;
+
+    t_info *info;
 };
 
 struct s_delete_profile {
@@ -268,12 +303,14 @@ struct s_contacts {
     GtkWidget *crtbt;
     GtkWidget *tree_view;
     GtkWidget *menu;
+    GtkWidget *gmenu;
     GtkTreeStore *tree_store;
     GtkTreeViewColumn *log_col;
     GtkTreeViewColumn *stat_col;
     GtkCellRenderer *log_render;
     GtkCellRendererPixbuf *stat_render;
 
+    char *clicked_cont;
     GtkTreeIter main_iter;
     t_list *giters;
 };
@@ -487,9 +524,12 @@ void mx_profile_destroy(t_info *info);
 /*                              Contacts screen */
 void mx_contacts_build(t_info *info, t_contacts *cont);
 void mx_contacts_destroy(t_info *info);
+GtkWidget *mx_create_menu(t_info *info);
+GtkWidget *mx_create_gmenu(t_info *info);
 void mx_create_table(t_info *info, t_contacts *cont);
 void mx_add_contact_build(t_info *info, t_contact_add *ac);
 void mx_add_contact_destroy(t_info *info);
+void mx_other_profile_build(t_info *info, t_contact *cont);
 
 /*  Callbacks */
 void mx_contacts_tree_on_click(GtkTreeView *tree_view, GtkTreePath *path, GtkTreeViewColumn *column, gpointer user_data);
@@ -546,9 +586,13 @@ void mx_del_profile_cancel(GtkWidget *widget, gpointer data);
 void mx_del_profile_delete(GtkWidget *widget, gpointer data);
 
 /*                             CHAT SCREEN */
-t_chat *mx_chat_build(t_info *info, char *chat_name, int cid, int ctype);
+t_chat *mx_chat_build(t_info *info, cJSON *json);
 void mx_chat_destroy(t_info *info, int cid);
-void mx_chat_put(t_info *info, char *chat_name, int cid, int ctype);
+void mx_chat_put(t_info *info, cJSON *json);
+void mx_invite_user_build(t_info *info);
+void mx_invite_user_destroy(t_invite_user *inv);
+void mx_ban_user_build(t_info *info);
+void mx_ban_user_destroy(t_ban_user *ban);
 
 void mx_message_put(t_info *info, t_message *msg, int cid);
 void mx_message_img_put(t_info *info, t_message_img *msg, int cid);

@@ -18,6 +18,10 @@ admin = admin
 chat = chat interface callbacks get_json_chat_list_login callbacks_2          \
 	json_send_msg_1 get_json_history
 
+ban = callbacks ban
+
+invite = callbacks invite
+
 message = message callbacks interface edit_json delete_json
 
 message_img = message_img callbacks interface
@@ -29,9 +33,11 @@ change_pass = change_pass callbacks validate
 main_chat_screen = main_screen
 
 contacts = contacts callbacks json create_table get_json_list_contacts \
-	save_json_groups del_cnt_json start_chat_json
+	save_json_groups del_cnt_json start_chat_json create_menus
 
 profile = profile json callbacks
+
+other_profile = other_profile
 
 delete_profile = delete_profile callbacks json
 
@@ -46,7 +52,7 @@ utils = css wait_for_json create_hash json_get_type dialog entry toggle       \
 
 dirs = base login register admin add_contact chat create_group main_chat_screen \
 	profile preferences contacts message message_img room_creation utils      \
-	change_pass handlers delete_profile
+	change_pass handlers delete_profile other_profile ban invite
 
 FILES = $(foreach dir, $(dirs), $($(dir):%=$(dir)/%))
 

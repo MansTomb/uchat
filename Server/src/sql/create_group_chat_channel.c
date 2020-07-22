@@ -2,6 +2,7 @@
 
 static int callback(void *data, int argc, char **argv, char **cols) {
     cJSON_AddNumberToObject(data, "cid", atoi(argv[0]));
+    cJSON_AddNumberToObject(data, "role", 2);
     return 0;
 }
 

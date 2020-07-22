@@ -25,7 +25,5 @@ t_info *mx_init_info() {
     else
         printf("info malloc error\n");
 
-    // mx_init_ssl(info->sock->ctx);
-
     return info;
 }

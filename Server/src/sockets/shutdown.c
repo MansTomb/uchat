@@ -8,7 +8,6 @@ void mx_shutdown_properly(t_info *info, int code) {
              close(info->sock->connection_list[i].socket);
     // mx_close_db(info->sock);
 
-    // mx_destroy_ssl(info->sock->ctx);
     printf("Shutdown server properly.\n");
     exit(code);
 }

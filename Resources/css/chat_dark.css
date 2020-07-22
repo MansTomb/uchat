@@ -56,17 +56,30 @@ textview * {
     padding: 5px;
     /* border-radius: 5px; */
 }
+.invite_button {
+    background: #05ad9c;
+    color: #121212;
+    border: 1px solid #121212;
+}
+.ban_button {
+    background: #05ad9c;
+    color: #121212;
+    border: 1px solid #121212;
+}
 .left_room_button {
     background: #05ad9c;
     color: #121212;
+    border: 1px solid #121212;
 }
 .send_button {
     background: #05ad9c;
     color: #121212;
+    border: 1px solid #121212;
 }
 .send_img_button {
     background: #05ad9c;
     color: #121212;
+    border: 1px solid #121212;
 }
 /* --------------------- messages */
 .message_date {
@@ -214,6 +227,32 @@ treeview.view * {
     color: #121212;
 }
 .del_profile_delete_buttons {
+    background: #05ad9c;
+    color: #121212;
+}
+/* --------------------- ban */
+.ban_box {
+    background: rgba(110, 103, 108, 0.5);
+    color: antiquewhite;
+}
+.mx_ban_cancel {
+    background: #05ad9c;
+    color: #121212;
+}
+.mx_ban_ban {
+    background: #05ad9c;
+    color: #121212;
+}
+/* --------------------- invite */
+.invite_box {
+    background: rgba(110, 103, 108, 0.5);
+    color: antiquewhite;
+}
+.invite_cancel_buttons {
+    background: #05ad9c;
+    color: #121212;
+}
+.invite_invite_buttons {
     background: #05ad9c;
     color: #121212;
 }

@@ -28,12 +28,12 @@ static char *get_chat_name(t_info *info) {
 }
 
 static void push_chat(t_info *info) {
-    int cid = cJSON_GetObjectItem(info->json, "cid")->valueint;
-    int role = cJSON_GetObjectItem(info->json, "role")->valueint;
     char *cname = get_chat_name(info);
+
+    cJSON_AddStringToObject(info->json, "cname", cname);
     
     if (MX_MALLOC_SIZE(cname) > 0) {
-        mx_chat_put(info, cname, cid, 1);
+        mx_chat_put(info, info->json);
         mx_strdel(&cname);
     }
     else {
