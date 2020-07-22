@@ -48,6 +48,10 @@ typedef enum {
     failed_add_contact_group,
     success_add_contact_group,
 
+    make_change_contact_group,
+    failed_change_contact_group,
+    success_change_contact_group,
+
     make_del_contact_group,
     failed_del_contact_group,
     success_del_contact_group,
@@ -77,6 +81,14 @@ typedef enum {
     failed_block_user,
     success_block_user,
 
+    make_unblock_user,
+    failed_unblock_user,
+    success_unblock_user,
+
+    make_leave_chat,
+    failed_leave_chat,
+    success_leave_chat,
+
     this_uid_login,   // два єнама без запроса
     this_uid_logout,
 
@@ -91,6 +103,11 @@ typedef enum {
     file,
     file_end
 } t_datatype;
+
+typedef struct {
+    sqlite3 *db;
+    cJSON *jsn;
+} t_sql;
 
 int mx_check(int rc, char *err, char *desc);
 
