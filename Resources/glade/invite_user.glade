@@ -28,6 +28,7 @@
                 <style>
                   <class name="create_group_cancel_buttons"/>
                 </style>
+                <signal name="clicked" handler="mx_inv_cancel" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -44,6 +45,7 @@
                 <style>
                   <class name="create_group_create_buttons"/>
                 </style>
+                <signal name="clicked" handler="mx_inv_invite" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">True</property>

@@ -13,6 +13,8 @@ typedef struct s_admin t_admin;
 typedef struct s_preferences t_preferences;
 typedef struct s_change_password t_change_password;
 typedef struct s_chat t_chat;
+typedef struct s_invite_user t_invite_user;
+typedef struct s_ban_user t_ban_user;
 typedef struct s_main_screen t_main_screen;
 typedef struct s_profile t_profile;
 typedef struct s_other_profile t_other_profile;
@@ -206,6 +208,22 @@ struct s_chat {
     GtkWidget *banbt;
     GtkWidget *invbt;
 
+    t_info *info;
+};
+
+struct s_invite_user {
+    GtkBuilder *builder;
+    GtkWidget *dialog;
+    GtkWidget *entry;
+    
+    t_info *info;
+};
+
+struct s_ban_user {
+    GtkBuilder *builder;
+    GtkWidget *dialog;
+    GtkWidget *entry;
+    
     t_info *info;
 };
 
@@ -571,6 +589,10 @@ void mx_del_profile_delete(GtkWidget *widget, gpointer data);
 t_chat *mx_chat_build(t_info *info, cJSON *json);
 void mx_chat_destroy(t_info *info, int cid);
 void mx_chat_put(t_info *info, cJSON *json);
+void mx_invite_user_build(t_info *info);
+void mx_invite_user_destroy(t_invite_user *inv);
+void mx_ban_user_build(t_info *info);
+void mx_ban_user_destroy(t_ban_user *ban);
 
 void mx_message_put(t_info *info, t_message *msg, int cid);
 void mx_message_img_put(t_info *info, t_message_img *msg, int cid);

@@ -26,8 +26,9 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <style>
-                  <class name="create_group_cancel_buttons"/>
+                  <class name="mx_ban_cancel"/>
                 </style>
+                <signal name="clicked" handler="mx_ban_cancel" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -42,8 +43,9 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <style>
-                  <class name="create_group_create_buttons"/>
+                  <class name="mx_ban_ban"/>
                 </style>
+                <signal name="clicked" handler="mx_ban_ban" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">True</property>
