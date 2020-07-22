@@ -106,7 +106,7 @@
       <placeholder/>
     </child>
     <style>
-      <class name="create_group_box"/>
+      <class name="ban_box"/>
     </style>
   </object>
 </interface>

@@ -7,7 +7,6 @@ static void socket_new_accept(int *new_sock, t_sock *sock) {
         perror("Accept new connection error!\n");
         exit(EXIT_FAILURE);
     }
-    // mx_accept_ssl(sock, new_sock);
     printf("New connection, socket fd is %d, ip is %s:%d\n",
            *new_sock, inet_ntoa(sock->address.sin_addr),
            ntohs(sock->address.sin_port));
@@ -20,7 +19,6 @@ static void socket_new_add_to_arr_of_sockets(t_sock *sock, int *new_socket) {
         if (sock->connection_list[i].socket == MX_NO_SOCKET) {
             sock->connection_list[i].socket = *new_socket;
             sock->connection_list[i].addres = sock->address;
-
             printf("Adding to list of sockets as %d\n", i);
             break;
         }

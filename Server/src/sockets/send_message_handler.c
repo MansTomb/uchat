@@ -43,17 +43,13 @@ static void send_large(t_sock *sock, t_peer *p, int sd, char *large_message) {
     unsigned long i = 0;
     char str[MX_MAX_SEND_SIZE / 2];
 
-    // bzero(str, strlen(str));
     while (large_message[i]) {
         strncpy(str, &large_message[i], MX_MAX_SEND_SIZE / 2 - 1);
         i += strlen(str);
-        // printf("i = %lu\n", i);                    //// for test
-
         if (i == strlen(large_message)) {
             mx_json_to_sending_buffer(p->send_buff,
                                       create_peice(big_msg_end, str));
             send_one(sock, p, sd);
-            // puts(send_buff);                       //// for test
             break;
         }
         else {
@@ -62,7 +58,6 @@ static void send_large(t_sock *sock, t_peer *p, int sd, char *large_message) {
             send_one(sock, p, sd);
         }
         sleep(1);
-        // puts(send_buff);                       //// for test
     }
 }
 
@@ -74,7 +69,6 @@ void mx_send_message_handler(t_sock *sock, t_peer *peer, cJSON *bd, int sd) {
     mx_print_serv_out(bd, root);
     // printf("root size = %lu\n", strlen(root));        //// for test
     // printf("%s\n", root);                     //// for test
-
     if (MX_TYPE(bd) == file_msg)
         mx_send_file(sock, peer, bd, sd);
     else {
@@ -85,7 +79,7 @@ void mx_send_message_handler(t_sock *sock, t_peer *peer, cJSON *bd, int sd) {
         else {
             large_message = strdup(root);
             len = strlen(large_message);
-            // printf("message = %s\n", large_message);             //// for test
+            // printf("message = %s\n", large_message);      //// for test
             send_large(sock, peer, sd, large_message);
             mx_strdel(&large_message);
         }
