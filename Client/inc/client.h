@@ -1,5 +1,11 @@
 #pragma once
 
+#include "fmod.h"
+#include "fmod_codec.h"
+#include "fmod_dsp.h"
+#include "fmod_memoryinfo.h"
+#include "fmod_errors.h"
+#include "fmod_output.h"
 #include "uchat.h"
 #include "defines_client.h"
 
@@ -31,6 +37,15 @@ typedef struct s_del_msg t_del_msg;
 typedef struct s_edit_msg t_edit_msg;
 typedef struct s_send_msg t_send_msg;
 typedef struct s_send_msg_img t_send_msg_img;
+typedef struct s_fmod t_fmod;
+
+struct s_fmod {
+    FMOD_SOUND *sound;
+    FMOD_RESULT result;
+    FMOD_SYSTEM *fmod_sys;
+    FMOD_CHANNEL *channel;
+    FMOD_BOOL pause;
+};
 
 struct s_giter {
     char *gname;
@@ -534,3 +549,5 @@ t_message_img *mx_message_img_build(t_info *info, cJSON *json, int cid);
     /* Message callbacks */
 void mx_msg_img_menu_show(GtkWidget *widget, GdkEvent *event, gpointer data);
 void mx_msg_img_delete(GtkWidget *widget, gpointer data);
+
+void notif();

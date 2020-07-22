@@ -39,7 +39,7 @@ add_contact = add_contact json callbacks add_json_user_to_contacts
 create_group = create_group callbacks
 
 utils = css wait_for_json create_hash json_get_type dialog entry toggle       \
-	set_vnotify find_something
+	set_vnotify find_something player
 
 dirs = base login register admin add_contact chat create_group main_chat_screen \
 	profile preferences contacts message message_img room_creation utils      \
@@ -59,7 +59,7 @@ WFLAGS = -Wall -Wextra -Werror -Wpedantic -Wno-unused-command-line-argument \
 	-Wno-unused-variable -Wno-unused-function -Wno-unused-parameter
 
 LFLAGS = -Iinc -I$(LIB_DIR)inc -I/usr/local/opt/openssl/include \
-	-L/usr/local/opt/openssl/lib -lssl -lcrypto
+	-L/usr/local/opt/openssl/lib -lssl -lcrypto -L . -lfmodex -I.
 
 CFLAGS = -Os -march=native -fomit-frame-pointer -flto
 
