@@ -29,6 +29,13 @@ static void free_windows(t_info *info) {
     free(info->windows);
 }
 
+static void clear_data(t_info *info) {
+    mx_clr_cnt_lst(info->cl_data->contacts);
+    mx_clr_grp_lst(info->cl_data->cont_grp_names);
+    mx_clr_profile(info->cl_data->profile, 1);
+    free(info->cl_data);
+}
+
 static void full_destroy(t_info *info) {
     pthread_kill(info->thread.data, 0);
     pthread_kill(info->thread.timer, 0);
@@ -45,7 +52,9 @@ static void full_destroy(t_info *info) {
         mx_strdel(&info->response);
     clear_chats(info);
     free_windows(info);
+    clear_data(info);
     g_timer_destroy(info->timer);
+    free(info);
 }
 
 gboolean mx_destroy(GtkWidget *widget, GdkEvent *event, gpointer data) {

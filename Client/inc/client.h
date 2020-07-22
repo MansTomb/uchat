@@ -600,6 +600,7 @@ void mx_message_img_put(t_info *info, t_message_img *msg, int cid);
     /* Chat callbacks */
 void mx_send_message(GtkWidget *widget, gpointer data);
 void mx_on_scroll_edge(GtkWidget *widget, GtkPositionType pos, gpointer data);
+gboolean mx_chat_stack_click(GObject *gobject, GParamSpec *pspec, gpointer user_data);
 
     /* Chat error dialogs */
 
