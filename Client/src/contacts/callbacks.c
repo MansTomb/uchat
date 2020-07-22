@@ -1,22 +1,19 @@
 #include "client.h"
 
-static bool check_if_parent(GtkTreeView *tree_view, GtkTreePath *path) {
-    GtkTreeIter iter;
-    GtkTreeModel *model = gtk_tree_view_get_model(tree_view);
-
-    gtk_tree_model_get_iter_from_string(model, &iter,
-                                        gtk_tree_path_to_string(path));
-    if (gtk_tree_model_iter_has_child(model, &iter))
-        return true;
-    return false;
-}
-
 static char *get_cname(GtkTreeModel *model, GtkTreeIter iter) {
     GValue value = G_VALUE_INIT;
 
     gtk_tree_model_get_value(model, &iter, 0, &value);
     
     return (char *)g_value_get_string(&value);
+}
+
+static gpointer get_status(GtkTreeModel *model, GtkTreeIter iter) {
+    GValue value = G_VALUE_INIT;
+
+    gtk_tree_model_get_value(model, &iter, 1, &value);
+    
+    return g_value_get_object(&value);
 }
 
 void mx_contacts_tree_on_click(GtkTreeView *tree_view, GtkTreePath *path,
@@ -29,12 +26,12 @@ void mx_contacts_tree_on_click(GtkTreeView *tree_view, GtkTreePath *path,
     gtk_tree_model_get_iter_from_string(model, &iter,
                                         gtk_tree_path_to_string(path));
 
-    if (check_if_parent(tree_view, path))
-        printf("est' child\n");
-    else {
-        printf("Nazata kolonka\n");
+    if (!get_status(model, iter)) {
         info->windows->cont->clicked_cont = get_cname(model, iter);
-        printf("cont name -> %s\n", info->windows->cont->clicked_cont);
+        gtk_menu_popup_at_pointer(GTK_MENU(info->windows->cont->gmenu), NULL);
+    }
+    else {
+        info->windows->cont->clicked_cont = get_cname(model, iter);
         gtk_menu_popup_at_pointer(GTK_MENU(info->windows->cont->menu), NULL);
     }
 }

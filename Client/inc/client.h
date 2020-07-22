@@ -268,6 +268,7 @@ struct s_contacts {
     GtkWidget *crtbt;
     GtkWidget *tree_view;
     GtkWidget *menu;
+    GtkWidget *gmenu;
     GtkTreeStore *tree_store;
     GtkTreeViewColumn *log_col;
     GtkTreeViewColumn *stat_col;
@@ -488,6 +489,8 @@ void mx_profile_destroy(t_info *info);
 /*                              Contacts screen */
 void mx_contacts_build(t_info *info, t_contacts *cont);
 void mx_contacts_destroy(t_info *info);
+GtkWidget *mx_create_menu(t_info *info);
+GtkWidget *mx_create_gmenu(t_info *info);
 void mx_create_table(t_info *info, t_contacts *cont);
 void mx_add_contact_build(t_info *info, t_contact_add *ac);
 void mx_add_contact_destroy(t_info *info);

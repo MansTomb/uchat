@@ -1,42 +1,5 @@
 #include "client.h"
 
-static void create_menu_items(GtkWidget *menu, t_info *info) {
-    GtkWidget *items[4];
-
-    items[0] = gtk_menu_item_new_with_label("User profile");
-    items[1] = gtk_menu_item_new_with_label("Send message");
-    items[2] = gtk_menu_item_new_with_label("Block contact");
-    items[3] = gtk_menu_item_new_with_label("Delete contact");
-
-    gtk_menu_attach(GTK_MENU(menu), items[0], 0, 1, 0, 1);
-    gtk_menu_attach(GTK_MENU(menu), items[1], 0, 1, 1, 2);
-    gtk_menu_attach(GTK_MENU(menu), items[2], 0, 1, 2, 3);
-    gtk_menu_attach(GTK_MENU(menu), items[3], 0, 1, 3, 4);
-
-    gtk_widget_show(items[0]);
-    gtk_widget_show(items[1]);
-    gtk_widget_show(items[2]);
-    gtk_widget_show(items[3]);
-
-    MX_GSIG_CON(items[0], "activate", MX_CB(mx_contacts_open_prof), info);
-    MX_GSIG_CON(items[1], "activate", MX_CB(mx_contacts_send_message), info);
-    MX_GSIG_CON(items[2], "activate", MX_CB(mx_contacts_block), info);
-    MX_GSIG_CON(items[3], "activate", MX_CB(mx_contacts_delete), info);
-}
-
-static GtkWidget *create_menu(t_info *info) {
-    GdkDisplay *display;
-    GdkScreen *screen;
-    GtkWidget *menu = gtk_menu_new();
-    GtkWidget *tv = info->windows->cont->tree_view;
-
-    display = gdk_display_get_default();
-    screen = gdk_display_get_default_screen(display);
-    gtk_menu_set_screen(GTK_MENU(menu), screen);
-    create_menu_items(menu, info);
-    MX_GSIG_CON(tv, "row-activated", MX_CB(mx_contacts_tree_on_click), info);
-    return menu;
-}
 
 void mx_contacts_build(t_info *info, t_contacts *cont) {
     if (cont == NULL)
@@ -53,7 +16,8 @@ void mx_contacts_build(t_info *info, t_contacts *cont) {
     cont->stat_render = GTK_CELL_RENDERER_PIXBUF(gtk_builder_get_object(cont->builder, "pr"));
     cont->log_col = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(cont->builder, "login_column"));
     cont->stat_col = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(cont->builder, "status"));
-    cont->menu = create_menu(info);
+    cont->menu = mx_create_menu(info);
+    cont->gmenu = mx_create_gmenu(info);
     cont->giters = mx_create_list();
     gtk_builder_connect_signals(cont->builder, info);
 
