@@ -11,15 +11,6 @@ static void send_request(const t_info *info, int coid) {
     cJSON_Delete(jobj);
 }
 
-static void clr_cnt(t_list_node *head) {
-    MX_STRDEL(((t_contact *)head->data)->login);
-    MX_STRDEL(((t_contact *)head->data)->f_name);
-    MX_STRDEL(((t_contact *)head->data)->s_name);
-    MX_STRDEL(((t_contact *)head->data)->email);
-    MX_STRDEL(((t_contact *)head->data)->stat);
-    free(head->data);
-}
-
 static void del_cnt(t_list *list, const cJSON *i) {
     if (list) {
         int cid = cJSON_GetObjectItemCaseSensitive(i, "coid")->valueint;
@@ -27,7 +18,7 @@ static void del_cnt(t_list *list, const cJSON *i) {
 
         for (int i = 0; node; node = node->next, ++i) {
             if (((t_contact *)node->data)->cid == cid) {
-                clr_cnt(node);
+                free(node->data);
                 mx_pop_index(list, i);
                 break;
             }
