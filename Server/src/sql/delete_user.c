@@ -10,7 +10,7 @@ static void accept_deletion(sqlite3 *db, cJSON *jsn) {
     int rc = 0;
 
     asprintf(&query, "DELETE FROM users WHERE id = %i;", MX_VINT(jsn, "uid"));
-    rc = sqlite3_exec(db, NULL, NULL, jsn, &err);
+    rc = sqlite3_exec(db, query, NULL, NULL, &err);
 
     if (mx_check(rc, err, "delete user") != SQLITE_OK) {
         MX_SET_TYPE(jsn, failed_delete_user);
