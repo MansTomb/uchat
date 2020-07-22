@@ -12,7 +12,7 @@ sockets = handle_incoming_data handle_new_connection loop \
 	send_message_handler receive_file send_file
 
 sql = authorization check_error close_db create_tables init_db \
-	receive_message registration create_personal_chat get_present_chat \
+	registration create_personal_chat get_present_chat \
 	change_password send_message add_new_contact del_contact \
 	if_message_on_email get_contact_list update_profile get_clients_chats \
 	get_client_chat_messages edit_message search_user delete_user \

@@ -51,6 +51,9 @@ INSERT INTO contacts_groups VALUES
     (NULL, 'whores'),
     (NULL, 'milfs');
 
+INSERT INTO users_groups VALUES (1, 4);
+UPDATE contacts_lists SET group_id = 4 WHERE user_id = 1;
+
 INSERT INTO chats VALUES (NULL, 1, '');
 INSERT INTO users_chats VALUES (1, last_insert_rowid(), 1), (2, (SELECT max(id) FROM chats), 1);
 
