@@ -11,6 +11,14 @@ static bool check_if_parent(GtkTreeView *tree_view, GtkTreePath *path) {
     return false;
 }
 
+static char *get_cname(GtkTreeModel *model, GtkTreeIter iter) {
+    GValue value = G_VALUE_INIT;
+
+    gtk_tree_model_get_value(model, &iter, 0, &value);
+    
+    return (char *)g_value_get_string(&value);
+}
+
 void mx_contacts_tree_on_click(GtkTreeView *tree_view, GtkTreePath *path,
                                 GtkTreeViewColumn *column,
                                 gpointer user_data) {
@@ -25,7 +33,8 @@ void mx_contacts_tree_on_click(GtkTreeView *tree_view, GtkTreePath *path,
         printf("est' child\n");
     else {
         printf("Nazata kolonka\n");
-        // contacts->choosen_contact = iter; запомнить по итеру какой контакт выбор для коллбеков в меню
+        info->windows->cont->clicked_cont = get_cname(model, iter);
+        printf("cont name -> %s\n", info->windows->cont->clicked_cont);
         gtk_menu_popup_at_pointer(GTK_MENU(info->windows->cont->menu), NULL);
     }
 }

@@ -274,6 +274,7 @@ struct s_contacts {
     GtkCellRenderer *log_render;
     GtkCellRendererPixbuf *stat_render;
 
+    char *clicked_cont;
     GtkTreeIter main_iter;
     t_list *giters;
 };
