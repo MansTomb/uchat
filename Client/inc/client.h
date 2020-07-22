@@ -404,6 +404,7 @@ void mx_send_json_group(t_info *info, const char *gname);
 void mx_chg_pass_json(t_info *info, const char *old_pass, const char *new_pass);
 int mx_check_err_json(cJSON *new);
 void mx_start_chat_json(t_info *info);
+int mx_get_cnt_id_by_login(const char *login, t_list *list);
 
     /* t_data clear */
 void mx_clr_tmp_usr_lst(t_list *list);

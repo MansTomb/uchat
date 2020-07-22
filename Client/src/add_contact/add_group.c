@@ -18,4 +18,7 @@ void mx_send_json_group(t_info *info, const char *gname) {
         mx_get_json_contacts(info);
         mx_create_table(info, info->windows->cont);
     }
+    else {
+        mx_dialog_warning_create(NULL, "Failed add contact group!");
+    }
 }

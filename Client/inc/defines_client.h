@@ -94,6 +94,14 @@ typedef enum {
     failed_new_group_chat_channel,
     success_new_group_chat_channel,
 
+    make_add_user_in_chat,
+    failed_add_user_in_chat,
+    success_add_user_in_chat,
+
+    make_block_user,
+    failed_block_user,
+    success_block_user,
+
     this_uid_login,   // два єнама без запроса
     this_uid_logout,
 
