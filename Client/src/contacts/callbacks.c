@@ -38,7 +38,15 @@ void mx_contacts_tree_on_click(GtkTreeView *tree_view, GtkTreePath *path,
 
 void mx_contacts_open_prof(GtkWidget *widget, gpointer data) {
     t_info *info = data;
-    printf("mx_contacts_open_prof\n");
+    t_contact *cont = NULL;
+
+    for (size_t i = 0; i < info->cl_data->contacts->size; ++i) {
+        cont = mx_get_index(info->cl_data->contacts, i)->data;
+        if (strcmp(info->windows->cont->clicked_cont, cont->login) == 0) {
+            mx_other_profile_build(info, cont);
+            break;
+        }
+    }
 }
 
 void mx_contacts_send_message(GtkWidget *widget, gpointer data) {

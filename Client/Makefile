@@ -33,6 +33,8 @@ contacts = contacts callbacks json create_table get_json_list_contacts \
 
 profile = profile json callbacks
 
+other_profile = other_profile
+
 delete_profile = delete_profile callbacks json
 
 preferences = preferences callbacks chg_pass_json
@@ -46,7 +48,7 @@ utils = css wait_for_json create_hash json_get_type dialog entry toggle       \
 
 dirs = base login register admin add_contact chat create_group main_chat_screen \
 	profile preferences contacts message message_img room_creation utils      \
-	change_pass handlers delete_profile
+	change_pass handlers delete_profile other_profile
 
 FILES = $(foreach dir, $(dirs), $($(dir):%=$(dir)/%))
 

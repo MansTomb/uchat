@@ -15,6 +15,7 @@ typedef struct s_change_password t_change_password;
 typedef struct s_chat t_chat;
 typedef struct s_main_screen t_main_screen;
 typedef struct s_profile t_profile;
+typedef struct s_other_profile t_other_profile;
 typedef struct s_contact_add t_contact_add;
 typedef struct s_group_create t_group_create;
 typedef struct s_contacts t_contacts;
@@ -226,6 +227,19 @@ struct s_profile {
     GtkWidget *fname;
     GtkWidget *lname;
     GtkWidget *email;
+};
+
+struct s_other_profile {
+    GtkBuilder *builder;
+    GtkWidget *window;
+    GtkWidget *box;
+    GtkWidget *image;
+    GtkWidget *login;
+    GtkWidget *fname;
+    GtkWidget *lname;
+    GtkWidget *email;
+
+    t_info *info;
 };
 
 struct s_delete_profile {
@@ -494,6 +508,7 @@ GtkWidget *mx_create_gmenu(t_info *info);
 void mx_create_table(t_info *info, t_contacts *cont);
 void mx_add_contact_build(t_info *info, t_contact_add *ac);
 void mx_add_contact_destroy(t_info *info);
+void mx_other_profile_build(t_info *info, t_contact *cont);
 
 /*  Callbacks */
 void mx_contacts_tree_on_click(GtkTreeView *tree_view, GtkTreePath *path, GtkTreeViewColumn *column, gpointer user_data);
