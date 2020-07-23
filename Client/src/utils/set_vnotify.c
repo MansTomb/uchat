@@ -16,4 +16,5 @@ void mx_set_vnoti(t_info *info, t_main_screen *ms, int cid, gboolean value) {
 
     if (child != vchild || (child == vchild && value == 0))
         gtk_container_child_set_property(GTK_CONTAINER(ms->chat_stack), child, "needs-attention", &val);
+        notif();
 }
