@@ -65,6 +65,7 @@ t_chat *mx_chat_build(t_info *info, cJSON *json) {
     set_preferences(chat);
     chat->edit = 0;
     chat->info = info;
+    printf("users in chat -> %zu\n", chat->users->size);
 
     gtk_widget_show(chat->main_box);
     return chat;
