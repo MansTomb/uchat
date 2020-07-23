@@ -420,7 +420,7 @@ void mx_handle_edit_message(t_info *info, cJSON *json);
 void mx_handle_send_message(t_info *info, cJSON *json);
 void mx_handle_invite_user(t_info *info, cJSON *json);
 void mx_handle_being_invited(t_info *info, cJSON *json);
-void mx_left_chat_wrapper(t_chat *chat);
+void mx_handle_leave_room(t_info *info, cJSON *json);
 
     /* Jsons */
 void mx_save_login_data(t_info *info);
@@ -434,6 +434,7 @@ int mx_check_err_json(cJSON *new);
 void mx_start_chat_json(t_info *info);
 int mx_get_cnt_id_by_login(const char *login, t_list *list);
 void mx_invite_json_wrapper(t_invite_user *inv);
+void mx_left_chat_wrapper(t_chat *chat);
 
     /* t_data clear */
 void mx_clr_custom_lst(t_list *list);
