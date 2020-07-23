@@ -390,6 +390,8 @@ t_info *mx_create_info();
 void mx_info_create_css(t_info *new);
 bool mx_handle_if_not_requested(t_info *info, cJSON *json);
 
+    /* Sounds */
+
     /* Handlers */
 void mx_handle_delete_message(t_info *info, cJSON *json);
 void mx_handle_edit_message(t_info *info, cJSON *json);
@@ -444,6 +446,7 @@ t_sock *mx_client_socket_create(char *ip, int port);
 
 t_chat *mx_find_chat(t_info *info, int cid);
 t_message *mx_find_message(t_chat *chat, int mid);
+GtkWidget *mx_gobject_builder(GtkBuilder *builder, char *name);
 
 gboolean mx_validate_chars(char *text);
 

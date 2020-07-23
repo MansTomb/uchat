@@ -47,12 +47,14 @@ add_contact = add_contact callbacks add_json_user_to_contacts add_group
 
 create_group = create_group callbacks
 
+sounds = sounds
+
 utils = css wait_for_json create_hash json_get_type dialog entry toggle       \
-	set_vnotify find_something validate_chars
+	set_vnotify find_something validate_chars gobject_builder
 
 dirs = base login register admin add_contact chat create_group main_chat_screen \
 	profile preferences contacts message message_img room_creation utils      \
-	change_pass handlers delete_profile other_profile ban invite
+	change_pass handlers delete_profile other_profile ban invite sounds
 
 FILES = $(foreach dir, $(dirs), $($(dir):%=$(dir)/%))
 
@@ -70,7 +72,7 @@ WFLAGS = -Wall -Wextra -Werror -Wpedantic -Wno-unused-command-line-argument \
 LFLAGS = -Iinc -I$(LIB_DIR)inc -I/usr/local/opt/openssl/include \
 	-L/usr/local/opt/openssl/lib -lssl -lcrypto
 
-CFLAGS = -Os -march=native -fomit-frame-pointer -flto
+# CFLAGS = -Os -march=native -fomit-frame-pointer -flto
 
 CFLAGS = -O0 -g3 -glldb -ftrapv -fno-omit-frame-pointer -fsanitize=address    \
 	-fsanitize=undefined

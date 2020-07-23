@@ -5,8 +5,8 @@ void mx_invite_user_build(t_info *info) {
 
     inv->builder = gtk_builder_new();
     gtk_builder_add_from_file(inv->builder, "./Resources/glade/invite_user.glade", NULL);
-    inv->dialog = GTK_WIDGET(gtk_builder_get_object(inv->builder, "dialog"));
-    inv->entry = GTK_WIDGET(gtk_builder_get_object(inv->builder, "entry"));
+    inv->dialog = mx_gobject_builder(inv->builder, "dialog");
+    inv->entry = mx_gobject_builder(inv->builder, "entry");
     gtk_builder_connect_signals(inv->builder, inv);
 
     inv->info = info;

@@ -35,11 +35,11 @@ t_message *mx_message_build(t_info *info, cJSON *json, int cid) {
     message->builder = gtk_builder_new();
     gtk_builder_add_from_file(message->builder, "./Resources/glade/message.glade", NULL);
 
-    message->name_label = GTK_WIDGET(gtk_builder_get_object(message->builder, "username_label"));
-    message->date_label = GTK_WIDGET(gtk_builder_get_object(message->builder, "date_label"));
-    message->msg_bt = GTK_WIDGET(gtk_builder_get_object(message->builder, "msg_button"));
-    message->menu = GTK_WIDGET(gtk_builder_get_object(message->builder, "menu"));
-    message->main_fixed = GTK_WIDGET(gtk_builder_get_object(message->builder, "main_fixed"));
+    message->name_label = mx_gobject_builder(message->builder, "username_label");
+    message->date_label = mx_gobject_builder(message->builder, "date_label");
+    message->msg_bt = mx_gobject_builder(message->builder, "msg_button");
+    message->menu = mx_gobject_builder(message->builder, "menu");
+    message->main_fixed = mx_gobject_builder(message->builder, "main_fixed");
     gtk_builder_connect_signals(message->builder, message);
 
     message->info = info;

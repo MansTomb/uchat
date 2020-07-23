@@ -21,13 +21,13 @@ void mx_other_profile_build(t_info *info, t_contact *cont) {
     prof->builder = gtk_builder_new();
     gtk_builder_add_from_file(prof->builder, "./Resources/glade/other_user_profile.glade", NULL);
 
-    prof->window = GTK_WIDGET(gtk_builder_get_object(prof->builder, "window"));
-    prof->box = GTK_WIDGET(gtk_builder_get_object(prof->builder, "profile"));
-    prof->image = GTK_WIDGET(gtk_builder_get_object(prof->builder, "avatar"));
-    prof->login = GTK_WIDGET(gtk_builder_get_object(prof->builder, "login"));
-    prof->fname = GTK_WIDGET(gtk_builder_get_object(prof->builder, "fname"));
-    prof->lname = GTK_WIDGET(gtk_builder_get_object(prof->builder, "lname"));
-    prof->email = GTK_WIDGET(gtk_builder_get_object(prof->builder, "email"));
+    prof->window = mx_gobject_builder(prof->builder, "window");
+    prof->box = mx_gobject_builder(prof->builder, "profile");
+    prof->image = mx_gobject_builder(prof->builder, "avatar");
+    prof->login = mx_gobject_builder(prof->builder, "login");
+    prof->fname = mx_gobject_builder(prof->builder, "fname");
+    prof->lname = mx_gobject_builder(prof->builder, "lname");
+    prof->email = mx_gobject_builder(prof->builder, "email");
     gtk_builder_connect_signals(prof->builder, prof);
     MX_GSIG_CON(prof->window, "delete-event", G_CALLBACK(profile_destroy), prof);
 

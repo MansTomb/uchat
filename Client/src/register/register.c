@@ -7,10 +7,10 @@ void mx_register_screen_build(t_info *info, t_register *reg) {
     reg->builder = gtk_builder_new();
     gtk_builder_add_from_file(reg->builder, "./Resources/glade/register_screen.glade", NULL);
 
-    reg->password_entry = GTK_WIDGET(gtk_builder_get_object(reg->builder, "password_entry"));
-    reg->passwordc_entry = GTK_WIDGET(gtk_builder_get_object(reg->builder, "passwordc_entry"));
-    reg->username_entry = GTK_WIDGET(gtk_builder_get_object(reg->builder, "username_entry"));
-    reg->window = GTK_WIDGET(gtk_builder_get_object(reg->builder, "register_window"));
+    reg->password_entry = mx_gobject_builder(reg->builder, "password_entry");
+    reg->passwordc_entry = mx_gobject_builder(reg->builder, "passwordc_entry");
+    reg->username_entry = mx_gobject_builder(reg->builder, "username_entry");
+    reg->window = mx_gobject_builder(reg->builder, "register_window");
     gtk_builder_connect_signals(reg->builder, info);
 
     MX_GSIG_CON(reg->window, "delete-event", G_CALLBACK(mx_destroy), info);

@@ -7,10 +7,10 @@ void mx_contacts_build(t_info *info, t_contacts *cont) {
 
     cont->builder = gtk_builder_new();
     gtk_builder_add_from_file(cont->builder, "./Resources/glade/contacts.glade", NULL);
-    cont->box = GTK_WIDGET(gtk_builder_get_object(cont->builder, "box"));
-    cont->addbt = GTK_WIDGET(gtk_builder_get_object(cont->builder, "addbt"));
-    cont->crtbt = GTK_WIDGET(gtk_builder_get_object(cont->builder, "crtbt"));
-    cont->tree_view = GTK_WIDGET(gtk_builder_get_object(cont->builder, "view"));
+    cont->box = mx_gobject_builder(cont->builder, "box");
+    cont->addbt = mx_gobject_builder(cont->builder, "addbt");
+    cont->crtbt = mx_gobject_builder(cont->builder, "crtbt");
+    cont->tree_view = mx_gobject_builder(cont->builder, "view");
     cont->tree_store = GTK_TREE_STORE(gtk_builder_get_object(cont->builder, "contacts_tree"));
     cont->log_render = GTK_CELL_RENDERER(gtk_builder_get_object(cont->builder, "cr1"));
     cont->stat_render = GTK_CELL_RENDERER_PIXBUF(gtk_builder_get_object(cont->builder, "pr"));

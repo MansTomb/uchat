@@ -7,9 +7,9 @@ void mx_login_screen_build(t_info *info, t_login *log) {
     log->builder = gtk_builder_new();
     gtk_builder_add_from_file(log->builder, "./Resources/glade/login_screen.glade", NULL);
 
-    log->password_entry = GTK_WIDGET(gtk_builder_get_object(log->builder, "password_entry"));
-    log->username_entry = GTK_WIDGET(gtk_builder_get_object(log->builder, "username_entry"));
-    log->window = GTK_WIDGET(gtk_builder_get_object(log->builder, "login_window"));
+    log->password_entry = mx_gobject_builder(log->builder, "password_entry");
+    log->username_entry = mx_gobject_builder(log->builder, "username_entry");
+    log->window = mx_gobject_builder(log->builder, "login_window");
     gtk_builder_connect_signals(log->builder, info);
 
     MX_GSIG_CON(log->window, "delete-event", G_CALLBACK(mx_destroy), info);
