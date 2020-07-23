@@ -3,7 +3,7 @@
 static void request(const t_chat *chat) {
     cJSON *jprof = cJSON_CreateObject();
 
-    cJSON_AddNumberToObject(jprof, "json_type", make_add_user_in_chat);
+    cJSON_AddNumberToObject(jprof, "json_type", make_leave_chat);
     cJSON_AddNumberToObject(jprof, "uid", chat->info->cl_data->profile->id);
     cJSON_AddNumberToObject(jprof, "cid", chat->cid);
 

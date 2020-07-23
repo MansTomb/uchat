@@ -14,7 +14,7 @@ bool mx_handle_if_not_requested(t_info *info, cJSON *json) {
         mx_handle_delete_message(info, json);
     else if (type == success_add_user_in_chat && !(ret = 0))
         mx_handle_invite_user(info, json);
-    else if (type == add_user_in_chat_return_chat && !(ret = 0))
+    else if (type == success_leave_chat && !(ret = 0))
         mx_handle_being_invited(info, json);
     cJSON_Delete(json);
     return ret;
