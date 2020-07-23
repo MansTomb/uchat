@@ -62,6 +62,9 @@
 { "json_type": 53, "path": "Client/im.png"}
 
 
+-- invite
+{ "json_type": 52, "login": "5", "cid": 2}
+
 --------------------------other
 
 {"p_type": 0, "piece": "{\"json_type\": 3, \"login\": \"ooo\", \"hash\": \"222\"}"}
