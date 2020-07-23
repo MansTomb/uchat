@@ -34,8 +34,8 @@ void mx_add_contact_build(t_info *info, t_contact_add *ac) {
     ac->cancelbt = mx_gobject_builder(ac->builder, "cancel");
     ac->entry = mx_gobject_builder(ac->builder, "entry");
     ac->combobox = mx_gobject_builder(ac->builder, "combobox");
-    ac->nameslist = GTK_TREE_STORE(mx_gobject_builder(ac->builder, "names"));
-    ac->e_comp = GTK_ENTRY_COMPLETION(mx_gobject_builder(ac->builder, "e_comp"));
+    ac->nameslist = GTK_TREE_STORE(gtk_builder_get_object(ac->builder, "names"));
+    ac->e_comp = GTK_ENTRY_COMPLETION(gtk_builder_get_object(ac->builder, "e_comp"));
     gtk_builder_connect_signals(ac->builder, ac);
 
     gtk_entry_set_completion(GTK_ENTRY(ac->entry), ac->e_comp);

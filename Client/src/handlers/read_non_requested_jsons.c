@@ -1,20 +1,21 @@
 #include "client.h"
 
 bool mx_handle_if_not_requested(t_info *info, cJSON *json) {
-    switch (cJSON_GetObjectItem(json, "json_type")->valueint) {
-        case send_message:
-            mx_handle_send_message(info, json);
-            return 0;
-        case file_msg:
-            mx_handle_send_message(info, json);
-            return 0;
-        case edit_message:
-            mx_handle_edit_message(info, json);
-            return 0;
-        case delete_message:
-            mx_handle_delete_message(info, json);
-            return 0;
-    }
+    int type = cJSON_GetObjectItem(json, "json_type")->valueint;
+    int ret = 1;
+
+    if (type == send_message && !(ret = 0))
+        mx_handle_send_message(info, json);
+    else if (type == file_msg && !(ret = 0))
+        mx_handle_send_message(info, json);
+    else if (type == edit_message && !(ret = 0))
+        mx_handle_edit_message(info, json);
+    else if (type == delete_message && !(ret = 0))
+        mx_handle_delete_message(info, json);
+    else if (type == success_add_user_in_chat && !(ret = 0))
+        mx_handle_invite_user(info, json);
+    else if (type == success_leave_chat && !(ret = 0))
+        mx_handle_being_invited(info, json);
     cJSON_Delete(json);
-    return 1;
+    return ret;
 }

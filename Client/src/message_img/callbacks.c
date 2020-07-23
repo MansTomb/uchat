@@ -11,3 +11,11 @@ void mx_msg_img_delete(GtkWidget *widget, gpointer data) {
 
     printf("Delete\n");
 }
+
+void mx_msg_open_folder(GtkWidget *widget, gpointer data) {
+    t_message_img *message = data;
+    char *command = mx_strjoin("open ", MX_RECV_FILES_DIR);
+
+    system(command);
+    mx_strdel(&command);
+}

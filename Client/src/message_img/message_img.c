@@ -6,7 +6,8 @@ static GtkWidget *get_image_if_image(cJSON *json) {
     GtkWidget *image = NULL;
 
     if (strstr(content, ".png") || strstr(content, ".jpg") || 
-        strstr(content, ".mbp") || strstr(content, ".jpeg")) {
+        strstr(content, ".mbp") || strstr(content, ".jpeg") ||
+        strstr(content, ".gif")) {
         anim = gdk_pixbuf_animation_new_from_file(content, NULL);
         image = gtk_image_new_from_animation(anim);
         return image;
@@ -23,13 +24,10 @@ static void json_sets(t_message_img *msg, cJSON *json, int cid) {
     msg->mid = cJSON_GetObjectItem(json, "mid")->valueint;
     msg->cid = cid;
 
-    
     if (image)
         gtk_button_set_image(GTK_BUTTON(msg->msg_bt), image);
     else
-        gtk_button_set_label(GTK_BUTTON(msg->msg_bt), 
-                                                mx_strjoin(MX_RECV_FILES_DIR,
-                                                g_path_get_basename(content)));
+        gtk_button_set_label(GTK_BUTTON(msg->msg_bt), MX_RECV_FILES_DIR);
     gtk_label_set_text(GTK_LABEL(msg->name_label), username);
     gtk_label_set_text(GTK_LABEL(msg->date_label), time);
 }
@@ -49,11 +47,12 @@ t_message_img *mx_message_img_build(t_info *info, cJSON *json, int cid) {
 
     message->info = info;
     json_sets(message, json, cid);
-
+    
     gtk_widget_show(message->main_fixed);
     return message;
 }
 
 void mx_message_img_destroy(t_chat *chat, t_message_img *msg) {
     gtk_container_remove(GTK_CONTAINER(chat->message_box), gtk_widget_get_parent(msg->main_fixed));
+    free(msg);
 }

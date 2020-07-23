@@ -5,7 +5,7 @@ static void create_menu_items(GtkWidget *menu, t_info *info) {
 
     items[0] = gtk_menu_item_new_with_label("User profile");
     items[1] = gtk_menu_item_new_with_label("Send message");
-    items[2] = gtk_menu_item_new_with_label("Block contact");
+    items[2] = gtk_menu_item_new_with_label("Move contact");
     items[3] = gtk_menu_item_new_with_label("Delete contact");
 
     gtk_menu_attach(GTK_MENU(menu), items[0], 0, 1, 0, 1);
@@ -20,7 +20,7 @@ static void create_menu_items(GtkWidget *menu, t_info *info) {
 
     MX_GSIG_CON(items[0], "activate", MX_CB(mx_contacts_open_prof), info);
     MX_GSIG_CON(items[1], "activate", MX_CB(mx_contacts_send_message), info);
-    MX_GSIG_CON(items[2], "activate", MX_CB(mx_contacts_block), info);
+    MX_GSIG_CON(items[2], "activate", MX_CB(mx_contacts_move), info);
     MX_GSIG_CON(items[3], "activate", MX_CB(mx_contacts_delete), info);
 }
 

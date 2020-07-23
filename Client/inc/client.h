@@ -15,6 +15,7 @@ typedef struct s_change_password t_change_password;
 typedef struct s_chat t_chat;
 typedef struct s_invite_user t_invite_user;
 typedef struct s_ban_user t_ban_user;
+typedef struct s_unban_user t_unban_user;
 typedef struct s_main_screen t_main_screen;
 typedef struct s_profile t_profile;
 typedef struct s_other_profile t_other_profile;
@@ -36,6 +37,12 @@ typedef struct s_edit_msg t_edit_msg;
 typedef struct s_send_msg t_send_msg;
 typedef struct s_send_msg_img t_send_msg_img;
 typedef struct s_group t_group; // json
+typedef struct s_chat_member t_chat_member;
+
+struct s_chat_member {
+    char *login;
+    int uid;
+};
 
 struct s_group {
     int id;
@@ -206,7 +213,11 @@ struct s_chat {
     GtkWidget *entry;
     GtkFileFilter *ffilter;
     GtkWidget *banbt;
+    GtkWidget *unbanbt;
     GtkWidget *invbt;
+    GtkWidget *leavebt;
+
+    t_list *users;
 
     t_info *info;
 };
@@ -217,6 +228,7 @@ struct s_invite_user {
     GtkWidget *entry;
     
     t_info *info;
+    t_chat *chat;
 };
 
 struct s_ban_user {
@@ -225,6 +237,16 @@ struct s_ban_user {
     GtkWidget *entry;
     
     t_info *info;
+    t_chat *chat;
+};
+
+struct s_unban_user {
+    GtkBuilder *builder;
+    GtkWidget *dialog;
+    GtkWidget *entry;
+    
+    t_info *info;
+    t_chat *chat;
 };
 
 struct s_main_screen {
@@ -396,9 +418,13 @@ bool mx_handle_if_not_requested(t_info *info, cJSON *json);
 void mx_handle_delete_message(t_info *info, cJSON *json);
 void mx_handle_edit_message(t_info *info, cJSON *json);
 void mx_handle_send_message(t_info *info, cJSON *json);
+void mx_handle_invite_user(t_info *info, cJSON *json);
+void mx_handle_being_invited(t_info *info, cJSON *json);
+void mx_handle_leave_room(t_info *info, cJSON *json);
 
     /* Jsons */
 void mx_save_login_data(t_info *info);
+void mx_save_chat_users(t_chat *chat, const cJSON *users);
 void mx_get_json_contacts(t_info *info);
 void mx_get_json_chats_list(t_info *info);
 void mx_upd_groups_list(const t_info *info);
@@ -407,6 +433,8 @@ void mx_chg_pass_json(t_info *info, const char *old_pass, const char *new_pass);
 int mx_check_err_json(cJSON *new);
 void mx_start_chat_json(t_info *info);
 int mx_get_cnt_id_by_login(const char *login, t_list *list);
+void mx_invite_json_wrapper(t_invite_user *inv);
+void mx_left_chat_wrapper(t_chat *chat);
 
     /* t_data clear */
 void mx_clr_custom_lst(t_list *list);
@@ -537,7 +565,7 @@ void mx_other_profile_build(t_info *info, t_contact *cont);
 void mx_contacts_tree_on_click(GtkTreeView *tree_view, GtkTreePath *path, GtkTreeViewColumn *column, gpointer user_data);
 void mx_contacts_open_prof(GtkWidget *widget, gpointer data);
 void mx_contacts_send_message(GtkWidget *widget, gpointer data);
-void mx_contacts_block(GtkWidget *widget, gpointer data);
+void mx_contacts_move(GtkWidget *widget, gpointer data);
 void mx_contacts_delete(GtkWidget *widget, gpointer data);
 
 void mx_on_add_contact_cancel(GtkWidget *widget, gpointer data);
@@ -591,10 +619,12 @@ void mx_del_profile_delete(GtkWidget *widget, gpointer data);
 t_chat *mx_chat_build(t_info *info, cJSON *json);
 void mx_chat_destroy(t_info *info, int cid);
 void mx_chat_put(t_info *info, cJSON *json);
-void mx_invite_user_build(t_info *info);
+void mx_invite_user_build(t_info *info, t_chat *chat);
 void mx_invite_user_destroy(t_invite_user *inv);
-void mx_ban_user_build(t_info *info);
+void mx_ban_user_build(t_info *info, t_chat *chat);
 void mx_ban_user_destroy(t_ban_user *ban);
+void mx_unban_user_build(t_info *info, t_chat *chat);
+void mx_unban_user_destroy(t_unban_user *unban);
 
 void mx_message_put(t_info *info, t_message *msg, int cid);
 void mx_message_img_put(t_info *info, t_message_img *msg, int cid);
@@ -603,6 +633,14 @@ void mx_message_img_put(t_info *info, t_message_img *msg, int cid);
 void mx_send_message(GtkWidget *widget, gpointer data);
 void mx_on_scroll_edge(GtkWidget *widget, GtkPositionType pos, gpointer data);
 gboolean mx_chat_stack_click(GObject *gobject, GParamSpec *pspec, gpointer user_data);
+void mx_unban_user(GtkWidget *widget, gpointer data);
+void mx_left_room(GtkWidget *widget, gpointer data);
+void mx_ban_user(GtkWidget *widget, gpointer data);
+void mx_invite_user(GtkWidget *widget, gpointer data);
+void mx_unban_cancel(GtkWidget *widget, gpointer data);
+void mx_unban_ban(GtkWidget *widget, gpointer data);
+void mx_ban_cancel(GtkWidget *widget, gpointer data);
+void mx_ban_ban(GtkWidget *widget, gpointer data);
 
     /* Chat error dialogs */
 

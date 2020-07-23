@@ -1,9 +1,24 @@
 #include "client.h"
 
+static bool user_exist(t_invite_user *inv) {
+    t_chat_member *member = NULL;
+    char *username = (char *)mx_entry_get_text(inv->entry);
+
+    for (size_t i = 0; i < inv->chat->users->size; ++i) {
+        member = mx_get_index(inv->chat->users, i)->data;
+        if (strcmp(username, member->login) == 0)
+            return true;
+    }
+    return false;
+}
+
 static bool validate(t_invite_user *inv) {
     if (mx_entry_text_exist(inv->entry)) {
         if (mx_validate_chars((char *)mx_entry_get_text(inv->entry))) {
-            return true;
+            if (!user_exist(inv))
+                return true;
+            else
+                mx_dialog_warning_create(NULL, "User already in chat!");
         }
         else
             mx_dialog_warning_create(NULL, "Not valid characters in field!");
@@ -24,6 +39,7 @@ void mx_inv_invite(GtkWidget *widget, gpointer data) {
 
     if (validate(inv)) {
         /* zapros */
+        mx_invite_json_wrapper(inv);
         mx_invite_user_destroy(inv);
     }
 }

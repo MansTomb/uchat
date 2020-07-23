@@ -1,6 +1,6 @@
 #include "client.h"
 
-static bool validate(t_ban_user *ban) {
+static bool validate(t_unban_user *ban) {
     if (mx_entry_text_exist(ban->entry)) {
         if (mx_validate_chars((char *)mx_entry_get_text(ban->entry))) {
             return true;
@@ -13,21 +13,21 @@ static bool validate(t_ban_user *ban) {
     return false;
 }
 
-void mx_ban_cancel(GtkWidget *widget, gpointer data) {
-    t_ban_user *ban = data;
+void mx_unban_cancel(GtkWidget *widget, gpointer data) {
+    t_unban_user *ban = data;
 
-    mx_ban_user_destroy(ban);
+    mx_unban_user_destroy(ban);
 }
 
-void mx_ban_ban(GtkWidget *widget, gpointer data) {
-    t_ban_user *ban = data;
+void mx_unban_ban(GtkWidget *widget, gpointer data) {
+    t_unban_user *ban = data;
 
     if (validate(ban) && ban->chat->ctype == 1) {
-        /* zapros bana v ls */
-        mx_ban_user_destroy(ban);
+        /* zapros unbana v ls */
+        mx_unban_user_destroy(ban);
     }
     if (validate(ban) && ban->chat->ctype > 1) {
-        /* zapros bana v ne ls */
-        mx_ban_user_destroy(ban);
+        /* zapros unbana v ne ls */
+        mx_unban_user_destroy(ban);
     }
 }
