@@ -430,6 +430,7 @@ void mx_chg_pass_json(t_info *info, const char *old_pass, const char *new_pass);
 int mx_check_err_json(cJSON *new);
 void mx_start_chat_json(t_info *info);
 int mx_get_cnt_id_by_login(const char *login, t_list *list);
+void mx_invite_json_wrapper(t_invite_user *inv);
 
     /* t_data clear */
 void mx_clr_custom_lst(t_list *list);

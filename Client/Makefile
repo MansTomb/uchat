@@ -22,7 +22,7 @@ ban = callbacks ban
 
 unban = callbacks unban
 
-invite = callbacks invite
+invite = callbacks invite json
 
 message = message callbacks interface edit_json delete_json
 
