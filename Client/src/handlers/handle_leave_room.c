@@ -3,10 +3,12 @@
 static int find_user(t_chat *chat, int uid) {
     t_chat_member *member = NULL;
 
-    for (size_t i = 0; i < chat->users->size; ++i) {
-        member = mx_get_index(chat->users, i)->data;
-        if (member->uid = uid)
-            return i;
+    if (chat) {
+        for (size_t i = 0; i < chat->users->size; ++i) {
+            member = mx_get_index(chat->users, i)->data;
+            if (member->uid == uid)
+                return i;
+        }
     }
     return -1;
 }
