@@ -130,6 +130,7 @@ void mx_strip_newline(char *s);
 void mx_json_to_sending_buffer(char *buff, cJSON *json);
 int mx_check_err_json(cJSON *new);
 cJSON *mx_this_uid_login_or_logout(int uid, int type);
+cJSON *mx_server_msg(cJSON *bd, char *s);
 
 void mx_message_on_mail(char *email, char *path);
 

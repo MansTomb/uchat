@@ -45,12 +45,12 @@ void mx_db_invite_send_message(t_info *info, t_peer *peer, cJSON *get) {
     else {
         len = cJSON_GetArraySize(cJSON_GetObjectItem(bd, "clients_id"));
         uid = get_arr_exept(bd);
-        // cJSON_Delete(bd, "clients_id");
-
         mx_send_msg_clients(info->sock, peer, bd, uid);
         bd = mx_get_chat_for_invite(info->sock->db, bd);
         printf("%s", cJSON_Print(bd));
         mx_send_msg_client(info->sock, peer, bd, MX_VINT(bd, "uid"));
+        mx_response_db(info, peer,
+                       mx_server_msg(bd, " явил свою личность в этом чате!"));
         free(uid);
     }
     cJSON_Delete(bd);
@@ -69,8 +69,9 @@ void mx_db_leave_send_message(t_info *info, t_peer *peer, cJSON *get) {
     else {
         len = cJSON_GetArraySize(cJSON_GetObjectItem(bd, "clients_id"));
         uid = get_arr(bd);
-        // cJSON_Delete(bd, "clients_id");
         mx_send_msg_clients(info->sock, peer, bd, uid);
+        mx_response_db(info, peer,
+                       mx_server_msg(bd, " изволил покинуть ваше общество!"));
         free(uid);
     }
     cJSON_Delete(bd);

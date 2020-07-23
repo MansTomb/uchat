@@ -29,12 +29,12 @@ static void get_users(sqlite3 *db, cJSON *jsn) {
 static int get_chat(void *data, int argc, char **argv, char **cols) {
     t_sql *sql = data;
 
-    cJSON_AddNumberToObject(data, "cid", atoi(argv[0]));
-    cJSON_AddNumberToObject(data, "role", atoi(argv[1]));
-    cJSON_AddNumberToObject(data, "ctype", atoi(argv[2]));
-    cJSON_AddStringToObject(data, "cname", argv[3]);
+    cJSON_AddNumberToObject(sql->jsn, "cid", atoi(argv[0]));
+    cJSON_AddNumberToObject(sql->jsn, "role", atoi(argv[1]));
+    cJSON_AddNumberToObject(sql->jsn, "ctype", atoi(argv[2]));
+    cJSON_AddStringToObject(sql->jsn, "cname", argv[3]);
 
-    get_users(sql->db, data);
+    get_users(sql->db, sql->jsn);
     return 0;
 }
 
