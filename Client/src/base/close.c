@@ -30,9 +30,9 @@ static void free_windows(t_info *info) {
 }
 
 static void clear_data(t_info *info) {
-    mx_clr_cnt_lst(info->cl_data->contacts);
-    mx_clr_grp_lst(info->cl_data->cont_grp_names);
-    mx_clr_profile(info->cl_data->profile, 1);
+    mx_clr_custom_lst(info->cl_data->contacts);
+    mx_clr_custom_lst(info->cl_data->cont_grp_names);
+    free(info->cl_data->profile);
     free(info->cl_data);
 }
 
