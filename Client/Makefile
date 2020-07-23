@@ -7,7 +7,7 @@ base = main socket info close \
 	receive_file send_file
 
 handlers = read_non_requested_jsons handle_del_msg handle_edit_msg            \
-	handle_send_msg
+	handle_send_msg handle_invite_user
 
 login = login validate callbacks json
 
