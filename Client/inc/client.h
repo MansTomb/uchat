@@ -37,6 +37,12 @@ typedef struct s_edit_msg t_edit_msg;
 typedef struct s_send_msg t_send_msg;
 typedef struct s_send_msg_img t_send_msg_img;
 typedef struct s_group t_group; // json
+typedef struct s_chat_member t_chat_member;
+
+struct s_chat_member {
+    char *login;
+    int uid;
+};
 
 struct s_group {
     int id;
@@ -412,6 +418,7 @@ bool mx_handle_if_not_requested(t_info *info, cJSON *json);
 void mx_handle_delete_message(t_info *info, cJSON *json);
 void mx_handle_edit_message(t_info *info, cJSON *json);
 void mx_handle_send_message(t_info *info, cJSON *json);
+void mx_handle_invite_user(t_info *info, cJSON *json);
 
     /* Jsons */
 void mx_save_login_data(t_info *info);

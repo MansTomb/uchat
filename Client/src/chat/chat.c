@@ -59,6 +59,7 @@ t_chat *mx_chat_build(t_info *info, cJSON *json) {
     gtk_builder_connect_signals(chat->builder, chat);
     gtk_file_filter_add_pixbuf_formats(chat->ffilter);
 
+    chat->users = mx_create_list();
     set_jsons(chat, json);
     set_preferences(chat);
     chat->edit = 0;
