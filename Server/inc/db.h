@@ -76,6 +76,7 @@ typedef enum {
     make_add_user_in_chat,
     failed_add_user_in_chat,
     success_add_user_in_chat,
+    add_user_in_chat_return_chat,
 
     make_block_user,
     failed_block_user,
@@ -145,3 +146,4 @@ cJSON *mx_delete_user(sqlite3 *db, cJSON *jsn);
 
 cJSON *mx_invite(sqlite3 *db, cJSON *jsn);
 void mx_insert_invite(sqlite3 *db, cJSON *jsn);
+cJSON *mx_get_chat_for_invite(sqlite3 *db, cJSON *jsn);

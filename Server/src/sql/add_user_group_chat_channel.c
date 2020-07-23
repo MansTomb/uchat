@@ -6,7 +6,7 @@ cJSON *mx_add_user_group_chat_channel(sqlite3 *db, cJSON *jsn) {
     int rc = 0;
 
     asprintf(&query, "INSERT INTO users_chats VALUES (%i, %i, 1);",
-            MX_VINT(jsn, "uid"), MX_VSTR(jsn, "cid"));
+            MX_VINT(jsn, "uid"), MX_VINT(jsn, "cid"));
     rc = sqlite3_exec(db, query, NULL, NULL, &err);
 
     if (mx_check(rc, err, "add user to group chat / channel") != SQLITE_OK) {
