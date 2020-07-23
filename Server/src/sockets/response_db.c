@@ -10,14 +10,15 @@ static void auditor2(t_info *info, t_peer *peer, int type, cJSON *get) {
     else if (type == make_del_contact_group)
         mx_db_get_self_response(info, peer, get, &mx_del_contact_group);
 
-    else if (type == make_add_user_in_chat) // раскинуть всем сообщение с -1
+    else if (type == make_add_user_in_chat)
         mx_db_invite_send_message(info, peer, get);
+    else if (type == make_leave_chat)
+        mx_db_leave_send_message(info, peer, get);
     // else if (type == make_block_user)
     //     mx_db_get_self_response(info, peer, get, &mx_del_contact_group);
     // else if (type == make_unblock_user)
     //     mx_db_get_self_response(info, peer, get, &mx_del_contact_group);
-    // else if (type == make_leave_chat)
-    //     mx_db_get_self_response(info, peer, get, &mx_del_contact_group);
+
     else
         printf("unknown type of message\n");
 }

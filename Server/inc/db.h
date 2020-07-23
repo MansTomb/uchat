@@ -126,6 +126,8 @@ void mx_insert_message_in_db(sqlite3 *db, cJSON *jsn);
 cJSON *mx_edit_message(sqlite3 *db, cJSON *jsn);
 cJSON *mx_if_message_on_mail(sqlite3 *db, cJSON *jsn);
 
+void mx_get_all_users_in_chat(sqlite3 *db, cJSON *jsn, int cid);
+
 cJSON *mx_file_manage(sqlite3 *db, cJSON *jsn);
 
 cJSON *mx_add_new_contact(sqlite3 *db, cJSON *jsn);
@@ -145,5 +147,6 @@ cJSON *mx_search_user(sqlite3 *db, cJSON *jsn);
 cJSON *mx_delete_user(sqlite3 *db, cJSON *jsn);
 
 cJSON *mx_invite(sqlite3 *db, cJSON *jsn);
-void mx_insert_invite(sqlite3 *db, cJSON *jsn);
 cJSON *mx_get_chat_for_invite(sqlite3 *db, cJSON *jsn);
+
+cJSON *mx_leave_chat(sqlite3 *db, cJSON *jsn);
