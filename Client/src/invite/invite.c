@@ -1,6 +1,6 @@
 #include "client.h"
 
-void mx_invite_user_build(t_info *info) {
+void mx_invite_user_build(t_info *info, t_chat *chat) {
     t_invite_user *inv = malloc(sizeof(t_invite_user));
 
     inv->builder = gtk_builder_new();
@@ -10,6 +10,7 @@ void mx_invite_user_build(t_info *info) {
     gtk_builder_connect_signals(inv->builder, inv);
 
     inv->info = info;
+    inv->chat = chat;
 
     gtk_widget_show(inv->dialog);
 }

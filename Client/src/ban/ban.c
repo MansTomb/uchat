@@ -1,6 +1,6 @@
 #include "client.h"
 
-void mx_ban_user_build(t_info *info) {
+void mx_ban_user_build(t_info *info, t_chat *chat) {
     t_ban_user *ban = malloc(sizeof(t_ban_user));
 
     ban->builder = gtk_builder_new();
@@ -10,6 +10,7 @@ void mx_ban_user_build(t_info *info) {
     gtk_builder_connect_signals(ban->builder, ban);
 
     ban->info = info;
+    ban->chat = chat;
 
     gtk_widget_show(ban->dialog);
 }

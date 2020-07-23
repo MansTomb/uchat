@@ -1,6 +1,6 @@
 #include "client.h"
 
-void mx_unban_user_build(t_info *info) {
+void mx_unban_user_build(t_info *info, t_chat *chat) {
     t_unban_user *unban = malloc(sizeof(t_unban_user));
 
     unban->builder = gtk_builder_new();
@@ -10,6 +10,7 @@ void mx_unban_user_build(t_info *info) {
     gtk_builder_connect_signals(unban->builder, unban);
 
     unban->info = info;
+    unban->chat = chat;
 
     gtk_widget_show(unban->dialog);
 }

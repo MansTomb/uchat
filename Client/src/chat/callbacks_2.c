@@ -28,19 +28,33 @@ void mx_left_room(GtkWidget *widget, gpointer data) {
 void mx_ban_user(GtkWidget *widget, gpointer data) {
     t_chat *chat = data;
 
-    mx_ban_user_build(chat->info);
+    if (chat->ctype > 1)
+        mx_ban_user_build(chat->info, chat);
+    else {
+        gtk_widget_hide(chat->banbt);
+        gtk_widget_show(chat->unbanbt);
+
+        // zaprosi
+    }
 }
 
 void mx_unban_user(GtkWidget *widget, gpointer data) {
     t_chat *chat = data;
 
-    mx_unban_user_build(chat->info);
+    if (chat->ctype > 1)
+        mx_unban_user_build(chat->info, chat);
+    else {
+        gtk_widget_hide(chat->unbanbt);
+        gtk_widget_show(chat->banbt);
+
+        // zaprosi
+    }
 }
 
 void mx_invite_user(GtkWidget *widget, gpointer data) {
     t_chat *chat = data;
 
-    mx_invite_user_build(chat->info);
+    mx_invite_user_build(chat->info, chat);
 }
 
 void mx_on_scroll_edge(GtkWidget *widget, GtkPositionType pos, gpointer data) {

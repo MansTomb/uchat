@@ -209,6 +209,9 @@ struct s_chat {
     GtkWidget *banbt;
     GtkWidget *unbanbt;
     GtkWidget *invbt;
+    GtkWidget *leavebt;
+
+    t_list *users;
 
     t_info *info;
 };
@@ -219,6 +222,7 @@ struct s_invite_user {
     GtkWidget *entry;
     
     t_info *info;
+    t_chat *chat;
 };
 
 struct s_ban_user {
@@ -227,6 +231,7 @@ struct s_ban_user {
     GtkWidget *entry;
     
     t_info *info;
+    t_chat *chat;
 };
 
 struct s_unban_user {
@@ -235,6 +240,7 @@ struct s_unban_user {
     GtkWidget *entry;
     
     t_info *info;
+    t_chat *chat;
 };
 
 struct s_main_screen {
@@ -601,11 +607,11 @@ void mx_del_profile_delete(GtkWidget *widget, gpointer data);
 t_chat *mx_chat_build(t_info *info, cJSON *json);
 void mx_chat_destroy(t_info *info, int cid);
 void mx_chat_put(t_info *info, cJSON *json);
-void mx_invite_user_build(t_info *info);
+void mx_invite_user_build(t_info *info, t_chat *chat);
 void mx_invite_user_destroy(t_invite_user *inv);
-void mx_ban_user_build(t_info *info);
+void mx_ban_user_build(t_info *info, t_chat *chat);
 void mx_ban_user_destroy(t_ban_user *ban);
-void mx_unban_user_build(t_info *info);
+void mx_unban_user_build(t_info *info, t_chat *chat);
 void mx_unban_user_destroy(t_unban_user *unban);
 
 void mx_message_put(t_info *info, t_message *msg, int cid);

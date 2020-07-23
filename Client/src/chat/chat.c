@@ -7,21 +7,33 @@ static void set_jsons(t_chat *chat, cJSON *json) {
     chat->role = cJSON_GetObjectItem(json, "role")->valueint;
 }
 
-static void set_preferences(t_chat *chat) {
-    if (chat->ctype == 2) {
-        if (chat->role == 1) {
-            gtk_widget_hide(chat->banbt);
-            gtk_widget_hide(chat->invbt);
-        }
-        else if (chat->role == -1) {
-            gtk_widget_hide(chat->banbt);
-            gtk_widget_hide(chat->invbt);
-            gtk_widget_hide(chat->entry);
-        }
+static void set_preferences_ctype2(t_chat *chat) {
+    if (chat->role == 1) {
+        gtk_widget_hide(chat->banbt);
+        gtk_widget_hide(chat->unbanbt);
+        gtk_widget_hide(chat->invbt);
     }
+    else if (chat->role == -1) {
+        gtk_widget_hide(chat->banbt);
+        gtk_widget_hide(chat->unbanbt);
+        gtk_widget_hide(chat->invbt);
+        gtk_widget_hide(chat->entry);
+    }
+}
+
+static void set_preferences(t_chat *chat) {
+    if (chat->cid == 1)
+        gtk_widget_hide(chat->leavebt);
+    if (chat->ctype == 1) {
+        gtk_widget_hide(chat->invbt);
+        gtk_widget_hide(chat->unbanbt);
+    }
+    else if (chat->ctype == 2)
+        set_preferences_ctype2(chat);
     else if (chat->ctype == 3) {
         if (chat->role != 2) {
             gtk_widget_hide(chat->banbt);
+            gtk_widget_hide(chat->unbanbt);
             gtk_widget_hide(chat->invbt);
             gtk_widget_hide(chat->entry);
         }
@@ -36,8 +48,9 @@ t_chat *mx_chat_build(t_info *info, cJSON *json) {
 
     chat->entry = mx_gobject_builder(chat->builder, "entry");
     chat->banbt = mx_gobject_builder(chat->builder, "ban");
-    chat->banbt = mx_gobject_builder(chat->builder, "unban");
+    chat->unbanbt = mx_gobject_builder(chat->builder, "unban");
     chat->invbt = mx_gobject_builder(chat->builder, "invite");
+    chat->leavebt = mx_gobject_builder(chat->builder, "leave");
     chat->main_box = mx_gobject_builder(chat->builder, "main_box");
     chat->message_box = mx_gobject_builder(chat->builder, "message_box");
     chat->img_dialog = mx_gobject_builder(chat->builder, "img_dialog");
