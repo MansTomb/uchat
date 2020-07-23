@@ -51,8 +51,12 @@ INSERT INTO contacts_groups VALUES
     (NULL, 'whores'),
     (NULL, 'milfs');
 
+INSERT INTO users_groups VALUES (1, 2);
 INSERT INTO users_groups VALUES (1, 4);
-UPDATE contacts_lists SET group_id = 4 WHERE user_id = 1;
+UPDATE contacts_lists SET group_id = 2 WHERE user_id = 1;
+UPDATE contacts_lists SET group_id = 4 WHERE user_id = 1 AND (contact_id = 3 OR contact_id = 5);
+UPDATE contacts_lists SET group_id = 6 WHERE user_id = 1 AND (contact_id = 7 OR contact_id = 9);
+UPDATE contacts_lists SET group_id = 0 WHERE user_id = 1 AND group_id = 4;
 
 INSERT INTO chats VALUES (NULL, 1, '');
 INSERT INTO users_chats VALUES (1, last_insert_rowid(), 1), (2, (SELECT max(id) FROM chats), 1);
@@ -107,3 +111,32 @@ INSERT INTO users_chats VALUES (1, last_insert_rowid(), 1), (18, (SELECT max(id)
 
 INSERT INTO chats VALUES (NULL, 1, '');
 INSERT INTO users_chats VALUES (1, last_insert_rowid(), 1), (19, (SELECT max(id) FROM chats), 1);
+
+INSERT INTO chats VALUES (NULL, 3, 'LOLKEK');
+INSERT INTO users_chats VALUES
+    (1, (SELECT max(id) FROM chats), 2),
+    (2, (SELECT max(id) FROM chats), 1),
+    (3, (SELECT max(id) FROM chats), 1),
+    (4, (SELECT max(id) FROM chats), 1),
+    (5, (SELECT max(id) FROM chats), 1),
+    (6, (SELECT max(id) FROM chats), 1),
+    (7, (SELECT max(id) FROM chats), 1),
+    (8, (SELECT max(id) FROM chats), 1),
+    (9, (SELECT max(id) FROM chats), 1),
+    (10, (SELECT max(id) FROM chats), 1),
+    (11, (SELECT max(id) FROM chats), 1),
+    (12, (SELECT max(id) FROM chats), 1),
+    (13, (SELECT max(id) FROM chats), 1),
+    (14, (SELECT max(id) FROM chats), 1),
+    (15, (SELECT max(id) FROM chats), 1),
+    (16, (SELECT max(id) FROM chats), 1),
+    (17, (SELECT max(id) FROM chats), 1),
+    (18, (SELECT max(id) FROM chats), 1),
+    (19, (SELECT max(id) FROM chats), 1);
+
+UPDATE users_chats SET role = -1 WHERE user_id = 3 AND chat_id = (SELECT max(id) FROM chats);
+UPDATE users_chats SET role = -1 WHERE user_id = 6 AND chat_id = (SELECT max(id) FROM chats);
+UPDATE users_chats SET role = -1 WHERE user_id = 9 AND chat_id = (SELECT max(id) FROM chats);
+UPDATE users_chats SET role = -1 WHERE user_id = 12 AND chat_id = (SELECT max(id) FROM chats);
+UPDATE users_chats SET role = -1 WHERE user_id = 15 AND chat_id = (SELECT max(id) FROM chats);
+UPDATE users_chats SET role = -1 WHERE user_id = 18 AND chat_id = (SELECT max(id) FROM chats);
