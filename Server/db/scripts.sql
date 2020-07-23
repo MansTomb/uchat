@@ -11,7 +11,8 @@ CREATE TABLE IF NOT EXISTS users_profiles (
     first_name VARCHAR(64) DEFAULT '' NOT NULL,
     second_name VARCHAR(64) DEFAULT '' NOT NULL,
     email VARCHAR(64) DEFAULT '' NOT NULL,
-    status VARCHAR(32) DEFAULT '' NOT NULL
+    status VARCHAR(32) DEFAULT '' NOT NULL,
+    avatar VARCHAR(256) DEFAULT '' NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS users_notify_settings (
@@ -49,7 +50,6 @@ CREATE TABLE IF NOT EXISTS users_groups (
     PRIMARY KEY (user_id, group_id)
 );
 
--- надо тестить
 CREATE TRIGGER IF NOT EXISTS del_group
     AFTER DELETE ON users_groups
 BEGIN
@@ -133,9 +133,6 @@ UPDATE contacts_lists SET group_id = 0 WHERE user_id = __UID__ AND contact_id = 
 
 -- создание чата
 INSERT INTO chats VALUES (NULL, __CHAT_TYPE__, '__NEW_CHAT_NAME__');
-
--- добавление юзера в чат
-INSERT INTO users_chats VALUES (__UID__, __CID__, __ROLE__);
 
 -- изменение роли (бан / выход / очередняра / админ)
 UPDATE users_chats SET role = __NEW_ROLE__ WHERE user_id = __UID__ AND chat_id = __CID__;
@@ -241,5 +238,14 @@ FROM users_chats AS uc
 SELECT uc.user_id, up.email FROM users_chats AS uc JOIN users_profiles AS up ON uc.user_id = up.user_id AND uc.chat_id = __CID__ AND uc.user_id != __UID__;
 
 -- добавить юзера в групповой чат / канал
+INSERT INTO users_chats VALUES (__UID__, __CID__, __ROLE__);
 
 -- забанить юзера в групповом чате / канале
+UPDATE users_chats SET role = -1 WHERE user_id = __UID__ AND chat_id = __CID__;
+
+-- загрузка юзеров в одном чате
+SELECT u.id, u.login FROM users AS u
+    JOIN users_chats AS uc
+        ON uc.chat_id = __CID__ AND u.id = uc.user_id AND uc.role > 0;
+
+SELECT u.id, u.login FROM users AS u JOIN users_chats AS uc ON uc.chat_id = __CID__ AND u.id = uc.user_id AND uc.role > 0;
