@@ -24,27 +24,6 @@ static t_contact *get_contact(const cJSON *iterator) {
     return c;
 }
 
-void mx_clr_cnt_lst(t_list *list) {
-    if (list) {
-        t_list_node *head = list->head;
-        t_list_node *next = list->tail;
-
-        while (head) {
-            next = head->next;
-            MX_STRDEL(((t_contact *)head->data)->login);
-            MX_STRDEL(((t_contact *)head->data)->f_name);
-            MX_STRDEL(((t_contact *)head->data)->s_name);
-            MX_STRDEL(((t_contact *)head->data)->email);
-            MX_STRDEL(((t_contact *)head->data)->stat);
-            free(head);
-            head = next;
-        }
-        head = NULL;
-        list->tail = NULL;
-        list->size = 0;
-    }
-}
-
 static void save_contacts(const t_info *info) {
     if (cJSON_IsObject(info->json)) {
         cJSON *iterator = NULL;
@@ -67,7 +46,7 @@ void mx_get_json_contacts(t_info *info) {
     mx_wait_for_json(info, success_client_contacts, failed_client_contacts);
     if (mx_get_jtype(info, success_client_contacts)) {
         if (MX_MALLOC_SIZE(info->cl_data->contacts) > 0) {
-            mx_clr_cnt_lst(info->cl_data->contacts);
+            mx_clr_custom_lst(info->cl_data->contacts);
         }
         info->cl_data->contacts = mx_create_list();
         save_contacts(info);

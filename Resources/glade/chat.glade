@@ -101,6 +101,9 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <signal name="clicked" handler="mx_invite_user" swapped="no"/>
+            <style>
+              <class name="invite_button"/>
+            </style>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -116,6 +119,9 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <signal name="clicked" handler="mx_ban_user" swapped="no"/>
+            <style>
+              <class name="ban_button"/>
+            </style>
           </object>
           <packing>
             <property name="expand">False</property>

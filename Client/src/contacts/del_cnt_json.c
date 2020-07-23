@@ -11,15 +11,6 @@ static void send_request(const t_info *info, int coid) {
     cJSON_Delete(jobj);
 }
 
-static void clr_cnt(t_list_node *head) {
-    MX_STRDEL(((t_contact *)head->data)->login);
-    MX_STRDEL(((t_contact *)head->data)->f_name);
-    MX_STRDEL(((t_contact *)head->data)->s_name);
-    MX_STRDEL(((t_contact *)head->data)->email);
-    MX_STRDEL(((t_contact *)head->data)->stat);
-    free(head->data);
-}
-
 static void del_cnt(t_list *list, const cJSON *i) {
     if (list) {
         int cid = cJSON_GetObjectItemCaseSensitive(i, "coid")->valueint;
@@ -27,7 +18,7 @@ static void del_cnt(t_list *list, const cJSON *i) {
 
         for (int i = 0; node; node = node->next, ++i) {
             if (((t_contact *)node->data)->cid == cid) {
-                clr_cnt(node);
+                free(node->data);
                 mx_pop_index(list, i);
                 break;
             }
@@ -35,14 +26,23 @@ static void del_cnt(t_list *list, const cJSON *i) {
     }
 }
 
-// TODO send request 2nd argument coid
 void mx_del_cnt_json(t_info *info) {
-    send_request(info, 3);
-    mx_wait_for_json(info, success_del_contact, failed_del_contact);
-    if (mx_get_jtype(info, success_del_contact)) {
-        if (MX_MALLOC_SIZE(info->cl_data->contacts) > 0) {
-            del_cnt(info->cl_data->contacts, info->json);
+    int uid2 = mx_get_cnt_id_by_login(info->windows->cont->clicked_cont, info->cl_data->contacts);
+
+    if (uid2 > 0) {
+        send_request(info, 3);
+        mx_wait_for_json(info, success_del_contact, failed_del_contact);
+        if (mx_get_jtype(info, success_del_contact)) {
+            if (MX_MALLOC_SIZE(info->cl_data->contacts) > 0) {
+                del_cnt(info->cl_data->contacts, info->json);
+            }
+            mx_create_table(info, info->windows->cont);
         }
-        mx_create_table(info, info->windows->cont);
+        else {
+            mx_dialog_warning_create(NULL, "Failed del contact!");
+        }
+    }
+    else {
+        mx_dialog_warning_create(NULL, "Failed del contact!");
     }
 }

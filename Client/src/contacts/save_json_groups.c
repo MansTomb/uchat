@@ -8,30 +8,13 @@ t_group *get_grp(const cJSON *i) {
     return g;
 }
 
-void mx_clr_grp_lst(t_list *list) {
-    if (list) {
-        t_list_node *head = list->head;
-        t_list_node *next = list->tail;
-
-        while (head) {
-            next = head->next;
-            MX_STRDEL(((t_group *)head->data)->name);
-            free(head);
-            head = next;
-        }
-        head = NULL;
-        list->tail = NULL;
-        list->size = 0;
-    }
-}
-
 void mx_upd_groups_list(const t_info *info) {
     if (cJSON_IsObject(info->json)) {
         cJSON *iterator = NULL;
         cJSON *groups = cJSON_GetObjectItem(info->json, "groups");
 
         if (MX_MALLOC_SIZE(info->cl_data->cont_grp_names) > 0) {
-            mx_clr_grp_lst(info->cl_data->cont_grp_names);
+            mx_clr_custom_lst(info->cl_data->cont_grp_names);
         }
         info->cl_data->cont_grp_names = mx_create_list();
         if (cJSON_IsArray(groups)) {

@@ -31,22 +31,13 @@ static void upd_prof_data(const t_info *info) {
     p->email_noty = cJSON_GetObjectItemCaseSensitive(info->json, "enot")->valueint;
 }
 
-void mx_clr_profile(t_profile_data *p, int type) {
-    if (MX_MALLOC_SIZE(p) > 0) {
-        MX_STRDEL(p->first_name);
-        MX_STRDEL(p->sec_name);
-        MX_STRDEL(p->user_email);
-        MX_STRDEL(p->status);
-        if (type == 1 && (MX_MALLOC_SIZE(p) > 0))
-            free(p);
-    }
-}
-
 void mx_upd_prof_build_json_wrapper(t_info *info) {
     upd_prof_bld_json(info, &info->sock->sock);
     mx_wait_for_json(info, success_update_profile, failed_update_profile);
     if (mx_get_jtype(info, success_update_profile)) {
-        mx_clr_profile(info->cl_data->profile, 0);
         upd_prof_data(info);
+    }
+    else {
+        mx_dialog_warning_create(NULL, "Failed update profile!");
     }
 }

@@ -14,17 +14,6 @@ static void build_fd_sets(t_sock *sock) {
         if (sd > sock->max_sd)
             sock->max_sd = sd;
     }
-    FD_ZERO(&sock->writefds);
-    for (i = 0; i < MAX_CLIENTS; ++i)
-        // if (sock->connection_list[i].socket > MX_NO_SOCKET
-        //     && sock->connection_list[i].send_buffer.current > 0)
-        //     FD_SET(sock->connection_list[i].socket, &sock->writefds);
-        // if (sock->connection_list[i].socket > MX_NO_SOCKET
-        //         && sock->valread > 0)
-        //     FD_SET(sock->connection_list[i].socket, &sock->writefds);
-        if (sock->connection_list[i].socket > MX_NO_SOCKET)
-            FD_SET(sock->connection_list[i].socket, &sock->writefds);
-
     FD_ZERO(&sock->exceptfds);
     FD_SET(sock->master_socket, &sock->exceptfds);
     for (i = 0; i < MAX_CLIENTS; ++i)
@@ -53,11 +42,9 @@ void mx_sockets_loop(t_info *info) {
         case -1:
             perror("select()");
             mx_shutdown_properly(info, EXIT_FAILURE);
-
         case 0:  // should never get here
             printf("select() returns 0.\n");
             mx_shutdown_properly(info, EXIT_FAILURE);
-
         default:
             loop_handler(info);
         }

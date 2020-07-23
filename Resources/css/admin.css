@@ -1,27 +1,35 @@
+* {
+    box-shadow: none;
+    text-shadow: none;
+    border: none;
+}
 .main_window {
-    background-color: black;
+    background: #1d1d1d;
+    color: #6e666c;
+}
+textview * {
+    color: #1a756a;
+    background: #6e666c;
 }
 
 .admin_send {
-    background-color: white;
+    background: #05ad9c;
+    color: #121212;
 }
-
 .admin_send:hover {
-    background-color: white;
+    background: #08ecd6;
 }
-
 .admin_send:active {
-    background-color: white;
+    background: #08ecd6;
 }
 
 .admin_logout {
-    background-color: white;
+    background: #05ad9c;
+    color: #121212;
 }
-
 .admin_logout:hover {
-    background-color: white;
+    background: #08ecd6;
 }
-
 .admin_logout:active {
-    background-color: white;
+    background: #08ecd6;
 }

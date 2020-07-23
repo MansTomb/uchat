@@ -135,7 +135,7 @@ UPDATE contacts_lists SET group_id = 0 WHERE user_id = __UID__ AND contact_id = 
 INSERT INTO chats VALUES (NULL, __CHAT_TYPE__, '__NEW_CHAT_NAME__');
 
 -- добавление юзера в чат
-INSERT INTO users_chats VALUES (__UID__, __CID__);
+INSERT INTO users_chats VALUES (__UID__, __CID__, __ROLE__);
 
 -- изменение роли (бан / выход / очередняра / админ)
 UPDATE users_chats SET role = __NEW_ROLE__ WHERE user_id = __UID__ AND chat_id = __CID__;

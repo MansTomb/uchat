@@ -51,5 +51,10 @@ printf("mx_on_click_room_creation\n");
 void mx_on_click_exit(GtkWidget *widget, gpointer data) {
     t_info *info = data;
 
+    mx_clr_custom_lst(info->cl_data->contacts);
+    mx_clr_custom_lst(info->cl_data->cont_grp_names);
+    free(info->cl_data->profile);
+    free(info->cl_data);
+printf("mx_on_click_exit\n");
     mx_destroy(NULL, NULL, info);
 }

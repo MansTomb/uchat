@@ -11,43 +11,32 @@ static void send_request(const t_info *info, int uid2) {
     cJSON_Delete(jobj);
 }
 
-static char *get_chat_name(t_info *info) {
-    int uid2 = cJSON_GetObjectItem(info->json, "uid2")->valueint;
-
-    if (info->cl_data->contacts) {
-        t_list *list = info->cl_data->contacts;
+int mx_get_cnt_id_by_login(const char *login, t_list *list) {
+    if (list) {
         t_list_node *node = list ? list->head : NULL;
 
         for (int i = 0; node; node = node->next, ++i) {
-            if (((t_contact *)node->data)->cid == uid2) {
-                return mx_strdup(((t_contact *)node->data)->login);
+            if (strcmp(((t_contact *)node->data)->login, login) == 0) {
+                return (((t_contact *)node->data)->cid);
             }
         }
     }
-    return NULL;
+    return -1;
 }
 
-static void push_chat(t_info *info) {
-    char *cname = get_chat_name(info);
-
-    cJSON_AddStringToObject(info->json, "cname", cname);
-    
-    if (MX_MALLOC_SIZE(cname) > 0) {
-        mx_chat_put(info, info->json);
-        mx_strdel(&cname);
-    }
-    else {
-        mx_dialog_warning_create(NULL, "Chat name error!");
-    }
-}
-
-// TODO get true uid2
 void mx_start_chat_json(t_info *info) {
-    send_request(info, 2);
-    mx_wait_for_json(info, success_new_personal_chat, failed_new_personal_chat);
-    if (mx_get_jtype(info, success_new_personal_chat)) {
-        push_chat(info);
-        mx_dialog_warning_create(NULL, "Chat created!");
+    int uid2 = mx_get_cnt_id_by_login(info->windows->cont->clicked_cont, info->cl_data->contacts);
+
+    if (uid2 >= 0) {
+        send_request(info, uid2);
+        mx_wait_for_json(info, success_new_personal_chat, failed_new_personal_chat);
+        if (mx_get_jtype(info, success_new_personal_chat)) {
+            mx_chat_put(info, info->json);
+            mx_dialog_warning_create(NULL, "Chat created!");
+        }
+        else {
+            mx_dialog_warning_create(NULL, "Chat create error!");
+        }
     }
     else {
         mx_dialog_warning_create(NULL, "Chat create error!");

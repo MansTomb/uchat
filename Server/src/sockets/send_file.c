@@ -49,7 +49,7 @@ void mx_send_file(t_sock *sock, t_peer *peer, cJSON *bd, int sd) {
         // printf("%s\n", peer->send_buff);
         sleep(1);
         while (!feof(fp)) {
-            int n = fread(peer->send_buff, 1, MX_MAX_SEND_SIZE, fp);   // ->n
+            fread(peer->send_buff, 1, MX_MAX_SEND_SIZE, fp);   // ->n
             // printf("---\n%s\n strlen = %d\n---", peer->send_buff, n);
             send_one(sock, peer, sd);
             bzero(peer->send_buff, sizeof(peer->send_buff));

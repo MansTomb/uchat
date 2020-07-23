@@ -1,5 +1,5 @@
--- .headers on
--- .mode column
+.headers on
+.mode column
 
 INSERT INTO users VALUES
     (NULL, 'admin', 'admin'),
