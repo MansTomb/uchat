@@ -94,6 +94,9 @@ void mx_send_message_all(t_sock *sock, t_peer *peer, cJSON *bd, int uid);
 int mx_send_msg_client(t_sock *sock, t_peer *peer, cJSON *bd, int uid);
 void mx_send_msg_clients(t_sock *sock, t_peer *peer, cJSON *bd, int *uid);
 
+    /* Invite.c */
+void mx_db_invite_send_message(t_info *info, t_peer *peer, cJSON *get);
+
     /* message_handler.c */
 int mx_send_check(t_sock *sock, t_peer *client, int n);
 int mx_recv_check(int n);

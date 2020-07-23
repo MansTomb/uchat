@@ -121,6 +121,7 @@ cJSON *mx_change_password(sqlite3 *db, cJSON *jsn);
 cJSON *mx_update_profile(sqlite3 *db, cJSON *jsn);
 
 cJSON *mx_send_message(sqlite3 *db, cJSON *jsn);
+void mx_insert_message_in_db(sqlite3 *db, cJSON *jsn);
 cJSON *mx_edit_message(sqlite3 *db, cJSON *jsn);
 cJSON *mx_if_message_on_mail(sqlite3 *db, cJSON *jsn);
 
@@ -141,3 +142,6 @@ cJSON *mx_get_client_chat_messages(sqlite3 *db, cJSON *jsn);
 
 cJSON *mx_search_user(sqlite3 *db, cJSON *jsn);
 cJSON *mx_delete_user(sqlite3 *db, cJSON *jsn);
+
+cJSON *mx_invite(sqlite3 *db, cJSON *jsn);
+void mx_insert_invite(sqlite3 *db, cJSON *jsn);

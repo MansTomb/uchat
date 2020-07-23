@@ -41,38 +41,35 @@ static void get_all_users(sqlite3 *db, cJSON *jsn) {
 
     rc = sqlite3_exec(db, query, get_id, uid, &err);
     if (mx_check(rc, err, "get all users") != SQLITE_OK)
-        MX_SET_TYPE(jsn, failed_send_message);
+        MX_SET_TYPE(jsn, failed_add_user_in_chat);
     else
         get_arr_users(db, jsn, uid);
     free(query);
 }
 
-static int get_mid(void *data, int argc, char **argv, char **cols) {
-    cJSON_AddStringToObject(data, "login", argv[0]);
-    cJSON_AddNumberToObject(data, "mid", atoi(argv[1]));
-    cJSON_AddStringToObject(data, "time", argv[2]);
-    cJSON_AddNumberToObject(data, "type", atoi(argv[3]));
-
-    return 0;
+static int callback(void *data, int argc, char **argv, char **cols) {
+    return strcmp(argv[0], "0") != 0;
 }
 
-void mx_insert_message_in_db(sqlite3 *db, cJSON *jsn) {
+void mx_insert_invite(sqlite3 *db, cJSON *jsn) {
     char *query = NULL;
     char *err = NULL;
     int rc = 0;
 
-    asprintf(&query, "INSERT INTO messages VALUES (NULL, %i, %i, %i, "
-            "datetime('now', 'localtime'), '%s'); "
-            "SELECT u.login, m.id, m.send_time, m.type "
-            "FROM messages AS m JOIN users AS u ON u.id = m.user_id "
-            "AND m.id = last_insert_rowid();",
-            MX_VINT(jsn, "uid"), MX_VINT(jsn, "cid"),
-            MX_VINT(jsn, "type"), MX_VSTR(jsn, "content"));
-    rc = sqlite3_exec(db, query, get_mid, jsn, &err);
-
-    if (mx_check(rc, err, "send message") != SQLITE_OK)
-        MX_SET_TYPE(jsn, failed_send_message);
-    else
-        get_all_users(db, jsn);
+    asprintf(&query, "SELECT count(*) FROM users_chats WHERE user_id = %i AND "
+             "chat_id = %i;", MX_VINT(jsn, "uid"), MX_VINT(jsn, "cid"));
+    rc = sqlite3_exec(db, query, callback, jsn, &err);
+    if (mx_check(rc, err, "invite") != SQLITE_OK)
+        MX_SET_TYPE(jsn, failed_add_user_in_chat);
+    else {
+        free(query);
+        asprintf(&query, "INSERT INTO users_chats VALUES (%i, %i, 1);",
+                 MX_VINT(jsn, "uid"), MX_VINT(jsn, "cid"));
+        rc = sqlite3_exec(db, query, NULL, NULL, &err);
+        if (mx_check(rc, err, "invite") != SQLITE_OK)
+            MX_SET_TYPE(jsn, failed_add_user_in_chat);
+        else
+            get_all_users(db, jsn);
+    }
     free(query);
 }
