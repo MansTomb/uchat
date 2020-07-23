@@ -24,7 +24,7 @@ static void free_windows(t_info *info) {
         free(info->windows->ac);
     if (info->windows->cp)
         free(info->windows->cp);
-    if (info->windows->dp)
+    if (info->windows->dp)  
         free(info->windows->dp);
     free(info->windows);
 }

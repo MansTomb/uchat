@@ -31,6 +31,12 @@ void mx_ban_user(GtkWidget *widget, gpointer data) {
     mx_ban_user_build(chat->info);
 }
 
+void mx_unban_user(GtkWidget *widget, gpointer data) {
+    t_chat *chat = data;
+
+    mx_unban_user_build(chat->info);
+}
+
 void mx_invite_user(GtkWidget *widget, gpointer data) {
     t_chat *chat = data;
 

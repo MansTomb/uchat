@@ -20,6 +20,8 @@ chat = chat interface callbacks get_json_chat_list_login callbacks_2          \
 
 ban = callbacks ban
 
+unban = callbacks unban
+
 invite = callbacks invite
 
 message = message callbacks interface edit_json delete_json
@@ -54,7 +56,7 @@ utils = css wait_for_json create_hash json_get_type dialog entry toggle       \
 
 dirs = base login register admin add_contact chat create_group main_chat_screen \
 	profile preferences contacts message message_img room_creation utils      \
-	change_pass handlers delete_profile other_profile ban invite sounds
+	change_pass handlers delete_profile other_profile ban invite sounds unban
 
 FILES = $(foreach dir, $(dirs), $($(dir):%=$(dir)/%))
 

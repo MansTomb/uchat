@@ -55,8 +55,8 @@ void mx_contacts_send_message(GtkWidget *widget, gpointer data) {
     printf("mx_contacts_send_message\n");
 }
 
-void mx_contacts_block(GtkWidget *widget, gpointer data) {
-    printf("mx_contacts_block\n");
+void mx_contacts_move(GtkWidget *widget, gpointer data) {
+    printf("mx_contacts_move\n");
 }
 
 void mx_contacts_delete(GtkWidget *widget, gpointer data) {

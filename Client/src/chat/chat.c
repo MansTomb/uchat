@@ -35,7 +35,8 @@ t_chat *mx_chat_build(t_info *info, cJSON *json) {
     gtk_builder_add_from_file(chat->builder, "./Resources/glade/chat.glade", NULL);
 
     chat->entry = mx_gobject_builder(chat->builder, "entry");
-    chat->banbt = mx_gobject_builder(chat->builder, "bat");
+    chat->banbt = mx_gobject_builder(chat->builder, "ban");
+    chat->banbt = mx_gobject_builder(chat->builder, "unban");
     chat->invbt = mx_gobject_builder(chat->builder, "invite");
     chat->main_box = mx_gobject_builder(chat->builder, "main_box");
     chat->message_box = mx_gobject_builder(chat->builder, "message_box");
