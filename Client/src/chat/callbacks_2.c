@@ -23,6 +23,8 @@ void mx_on_dialog_cancel(GtkWidget *widget, gpointer data) {
 
 void mx_left_room(GtkWidget *widget, gpointer data) {
     t_chat *chat = data;
+
+    
 }
 
 void mx_ban_user(GtkWidget *widget, gpointer data) {

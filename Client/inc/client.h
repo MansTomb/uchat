@@ -419,6 +419,8 @@ void mx_handle_delete_message(t_info *info, cJSON *json);
 void mx_handle_edit_message(t_info *info, cJSON *json);
 void mx_handle_send_message(t_info *info, cJSON *json);
 void mx_handle_invite_user(t_info *info, cJSON *json);
+void mx_handle_being_invited(t_info *info, cJSON *json);
+void mx_left_chat_wrapper(t_chat *chat);
 
     /* Jsons */
 void mx_save_login_data(t_info *info);

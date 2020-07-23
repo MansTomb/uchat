@@ -7,7 +7,7 @@ base = main socket info close \
 	receive_file send_file
 
 handlers = read_non_requested_jsons handle_del_msg handle_edit_msg            \
-	handle_send_msg handle_invite_user
+	handle_send_msg handle_invite_user handle_being_invited
 
 login = login validate callbacks json
 
@@ -16,7 +16,7 @@ register = register validate json
 admin = admin
 
 chat = chat interface callbacks get_json_chat_list_login callbacks_2          \
-	json_send_msg_1 get_json_history
+	json_send_msg_1 get_json_history json_left_chat
 
 ban = callbacks ban
 
