@@ -28,15 +28,13 @@ static void get_users(sqlite3 *db, cJSON *jsn) {
 
 static int get_chat(void *data, int argc, char **argv, char **cols) {
     t_sql *sql = data;
-    cJSON *chat = cJSON_CreateObject();
 
-    cJSON_AddNumberToObject(chat, "cid", atoi(argv[0]));
-    cJSON_AddNumberToObject(chat, "role", atoi(argv[1]));
-    cJSON_AddNumberToObject(chat, "ctype", atoi(argv[2]));
-    cJSON_AddStringToObject(chat, "cname", argv[3]);
+    cJSON_AddNumberToObject(data, "cid", atoi(argv[0]));
+    cJSON_AddNumberToObject(data, "role", atoi(argv[1]));
+    cJSON_AddNumberToObject(data, "ctype", atoi(argv[2]));
+    cJSON_AddStringToObject(data, "cname", argv[3]);
 
-    get_users(sql->db, chat);
-    cJSON_AddItemToArray(cJSON_GetObjectItem(sql->jsn, "chat"), chat);
+    get_users(sql->db, data);
     return 0;
 }
 
@@ -50,7 +48,6 @@ cJSON *mx_get_chat_for_invite(sqlite3 *db, cJSON *jsn) {
              "FROM users_chats AS uc JOIN chats AS c ON uc.chat_id = c.id "
              "AND uc.user_id = %i AND uc.chat_id = %i ;",
              MX_VINT(jsn, "uid"), MX_VINT(jsn, "cid"));
-    cJSON_AddArrayToObject(jsn, "chat");
     rc = sqlite3_exec(db, query, get_chat, &sql, &err);
     if (mx_check(rc, err, "get chats list") == SQLITE_OK) {
         MX_SET_TYPE(jsn, add_user_in_chat_return_chat);
