@@ -422,6 +422,7 @@ void mx_handle_invite_user(t_info *info, cJSON *json);
 
     /* Jsons */
 void mx_save_login_data(t_info *info);
+void mx_save_chat_users(t_chat *chat, const cJSON *users);
 void mx_get_json_contacts(t_info *info);
 void mx_get_json_chats_list(t_info *info);
 void mx_upd_groups_list(const t_info *info);
