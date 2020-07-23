@@ -34,12 +34,12 @@ t_chat *mx_chat_build(t_info *info, cJSON *json) {
     chat->builder = gtk_builder_new();
     gtk_builder_add_from_file(chat->builder, "./Resources/glade/chat.glade", NULL);
 
-    chat->entry = GTK_WIDGET(gtk_builder_get_object(chat->builder, "entry"));
-    chat->banbt = GTK_WIDGET(gtk_builder_get_object(chat->builder, "bat"));
-    chat->invbt = GTK_WIDGET(gtk_builder_get_object(chat->builder, "invite"));
-    chat->main_box = GTK_WIDGET(gtk_builder_get_object(chat->builder, "main_box"));
-    chat->message_box = GTK_WIDGET(gtk_builder_get_object(chat->builder, "message_box"));
-    chat->img_dialog = GTK_WIDGET(gtk_builder_get_object(chat->builder, "img_dialog"));
+    chat->entry = mx_gobject_builder(chat->builder, "entry");
+    chat->banbt = mx_gobject_builder(chat->builder, "bat");
+    chat->invbt = mx_gobject_builder(chat->builder, "invite");
+    chat->main_box = mx_gobject_builder(chat->builder, "main_box");
+    chat->message_box = mx_gobject_builder(chat->builder, "message_box");
+    chat->img_dialog = mx_gobject_builder(chat->builder, "img_dialog");
     chat->ffilter = GTK_FILE_FILTER(gtk_builder_get_object(chat->builder, "filter"));
     chat->msg_list = mx_create_list();
     gtk_builder_connect_signals(chat->builder, chat);

@@ -7,14 +7,14 @@ void mx_preferences_build(t_info *info, t_preferences *pref) {
     pref->builder = gtk_builder_new();
     gtk_builder_add_from_file(pref->builder, "./Resources/glade/preferences.glade", NULL);
 
-    pref->box = GTK_WIDGET(gtk_builder_get_object(pref->builder, "box"));
-    pref->change_pass = GTK_WIDGET(gtk_builder_get_object(pref->builder, "change_pass"));
-    pref->del_prof = GTK_WIDGET(gtk_builder_get_object(pref->builder, "delete_profile"));
-    pref->themeswitch = GTK_WIDGET(gtk_builder_get_object(pref->builder, "theme_switcher"));
-    pref->volume = GTK_WIDGET(gtk_builder_get_object(pref->builder, "volume"));
-    pref->vnotify = GTK_WIDGET(gtk_builder_get_object(pref->builder, "vnotify"));
-    pref->snotify = GTK_WIDGET(gtk_builder_get_object(pref->builder, "snotify"));
-    pref->enotify = GTK_WIDGET(gtk_builder_get_object(pref->builder, "enotify"));
+    pref->box = mx_gobject_builder(pref->builder, "box");
+    pref->change_pass = mx_gobject_builder(pref->builder, "change_pass");
+    pref->del_prof = mx_gobject_builder(pref->builder, "delete_profile");
+    pref->themeswitch = mx_gobject_builder(pref->builder, "theme_switcher");
+    pref->volume = mx_gobject_builder(pref->builder, "volume");
+    pref->vnotify = mx_gobject_builder(pref->builder, "vnotify");
+    pref->snotify = mx_gobject_builder(pref->builder, "snotify");
+    pref->enotify = mx_gobject_builder(pref->builder, "enotify");
     gtk_builder_connect_signals(pref->builder, info);
 
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pref->vnotify), info->cl_data->profile->vs_noty);

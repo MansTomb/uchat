@@ -7,12 +7,12 @@ void mx_room_creation_build(t_info *info, t_room_creation *rc) {
     rc->builder = gtk_builder_new();
     gtk_builder_add_from_file(rc->builder, "./Resources/glade/room_creation.glade", NULL);
 
-    rc->dialog = GTK_WIDGET(gtk_builder_get_object(rc->builder, "dialog"));
-    rc->createbt = GTK_WIDGET(gtk_builder_get_object(rc->builder, "create"));
-    rc->cancelbt = GTK_WIDGET(gtk_builder_get_object(rc->builder, "cancel"));
-    rc->entry = GTK_WIDGET(gtk_builder_get_object(rc->builder, "name"));
-    rc->roomcheck = GTK_WIDGET(gtk_builder_get_object(rc->builder, "room"));
-    rc->channelcheck = GTK_WIDGET(gtk_builder_get_object(rc->builder, "channel"));
+    rc->dialog = mx_gobject_builder(rc->builder, "dialog");
+    rc->createbt = mx_gobject_builder(rc->builder, "create");
+    rc->cancelbt = mx_gobject_builder(rc->builder, "cancel");
+    rc->entry = mx_gobject_builder(rc->builder, "name");
+    rc->roomcheck = mx_gobject_builder(rc->builder, "room");
+    rc->channelcheck = mx_gobject_builder(rc->builder, "channel");
     gtk_builder_connect_signals(rc->builder, rc);
 
     rc->info = info;

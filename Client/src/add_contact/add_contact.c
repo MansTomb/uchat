@@ -29,13 +29,13 @@ void mx_add_contact_build(t_info *info, t_contact_add *ac) {
     ac->builder = gtk_builder_new();
     gtk_builder_add_from_file(ac->builder, "./Resources/glade/add_contact.glade", NULL);
 
-    ac->dialog = GTK_WIDGET(gtk_builder_get_object(ac->builder, "dialog"));
-    ac->addbt = GTK_WIDGET(gtk_builder_get_object(ac->builder, "add"));
-    ac->cancelbt = GTK_WIDGET(gtk_builder_get_object(ac->builder, "cancel"));
-    ac->entry = GTK_WIDGET(gtk_builder_get_object(ac->builder, "entry"));
-    ac->combobox = GTK_WIDGET(gtk_builder_get_object(ac->builder, "combobox"));
-    ac->nameslist = GTK_TREE_STORE(gtk_builder_get_object(ac->builder, "names"));
-    ac->e_comp = GTK_ENTRY_COMPLETION(gtk_builder_get_object(ac->builder, "e_comp"));
+    ac->dialog = mx_gobject_builder(ac->builder, "dialog");
+    ac->addbt = mx_gobject_builder(ac->builder, "add");
+    ac->cancelbt = mx_gobject_builder(ac->builder, "cancel");
+    ac->entry = mx_gobject_builder(ac->builder, "entry");
+    ac->combobox = mx_gobject_builder(ac->builder, "combobox");
+    ac->nameslist = GTK_TREE_STORE(mx_gobject_builder(ac->builder, "names"));
+    ac->e_comp = GTK_ENTRY_COMPLETION(mx_gobject_builder(ac->builder, "e_comp"));
     gtk_builder_connect_signals(ac->builder, ac);
 
     gtk_entry_set_completion(GTK_ENTRY(ac->entry), ac->e_comp);

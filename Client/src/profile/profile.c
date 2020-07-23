@@ -16,16 +16,16 @@ void mx_profile_build(t_info *info, t_profile *prof) {
     prof->builder = gtk_builder_new();
     gtk_builder_add_from_file(prof->builder, "./Resources/glade/profile.glade", NULL);
 
-    prof->box = GTK_WIDGET(gtk_builder_get_object(prof->builder, "profile"));
-    prof->image = GTK_WIDGET(gtk_builder_get_object(prof->builder, "avatar"));
-    prof->avatartbt = GTK_WIDGET(gtk_builder_get_object(prof->builder, "avatarbt"));
-    prof->save = GTK_WIDGET(gtk_builder_get_object(prof->builder, "save"));
-    prof->edit = GTK_WIDGET(gtk_builder_get_object(prof->builder, "edit"));
-    prof->cancel = GTK_WIDGET(gtk_builder_get_object(prof->builder, "cancel"));
-    prof->login = GTK_WIDGET(gtk_builder_get_object(prof->builder, "login"));
-    prof->fname = GTK_WIDGET(gtk_builder_get_object(prof->builder, "fname"));
-    prof->lname = GTK_WIDGET(gtk_builder_get_object(prof->builder, "lname"));
-    prof->email = GTK_WIDGET(gtk_builder_get_object(prof->builder, "email"));
+    prof->box = mx_gobject_builder(prof->builder, "profile");
+    prof->image = mx_gobject_builder(prof->builder, "avatar");
+    prof->avatartbt = mx_gobject_builder(prof->builder, "avatarbt");
+    prof->save = mx_gobject_builder(prof->builder, "save");
+    prof->edit = mx_gobject_builder(prof->builder, "edit");
+    prof->cancel = mx_gobject_builder(prof->builder, "cancel");
+    prof->login = mx_gobject_builder(prof->builder, "login");
+    prof->fname = mx_gobject_builder(prof->builder, "fname");
+    prof->lname = mx_gobject_builder(prof->builder, "lname");
+    prof->email = mx_gobject_builder(prof->builder, "email");
     gtk_builder_connect_signals(prof->builder, info);
 
     set_fields(info, prof);
