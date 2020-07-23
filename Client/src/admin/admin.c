@@ -51,6 +51,12 @@ void mx_on_send_everyone(GtkWidget *widget, gpointer data) {
     delete_text(info->windows->adm);
 }
 
+void mx_admin_exit(GtkWidget *widget, gpointer data) {
+    t_info *info = data;
+
+    mx_destroy(NULL, NULL, info);
+}
+
 gboolean mx_admin_on_key_press(GtkWidget *widget, GdkEvent *event, gpointer data) {
     if (event->key.keyval == GDK_KEY_Return && !(event->key.state & GDK_SHIFT_MASK)) {
         mx_on_send_everyone(widget, data);

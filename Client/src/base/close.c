@@ -30,8 +30,10 @@ static void free_windows(t_info *info) {
 }
 
 static void clear_data(t_info *info) {
-    mx_clr_custom_lst(info->cl_data->contacts);
-    mx_clr_custom_lst(info->cl_data->cont_grp_names);
+    if (info->cl_data->contacts)
+        mx_clr_custom_lst(info->cl_data->contacts);
+    if (info->cl_data->cont_grp_names)
+        mx_clr_custom_lst(info->cl_data->cont_grp_names);
     free(info->cl_data->profile);
     free(info->cl_data);
 }
@@ -51,8 +53,8 @@ static void full_destroy(t_info *info) {
     if (info->response)
         mx_strdel(&info->response);
     clear_chats(info);
-    free_windows(info);
     clear_data(info);
+    free_windows(info);
     g_timer_destroy(info->timer);
     free(info);
 }

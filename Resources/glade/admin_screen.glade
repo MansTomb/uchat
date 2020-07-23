@@ -66,6 +66,7 @@
                 <property name="receives_default">True</property>
                 <property name="halign">center</property>
                 <property name="valign">center</property>
+                <signal name="clicked" handler="mx_admin_exit" swapped="no"/>
                 <style>
                   <class name="admin_logout"/>
                 </style>
