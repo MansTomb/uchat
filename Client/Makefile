@@ -16,7 +16,7 @@ register = register validate json
 admin = admin
 
 chat = chat interface callbacks get_json_chat_list_login callbacks_2          \
-	json_send_msg_1 get_json_history json_left_chat
+	json_send_msg_1 get_json_history json_left_chat get_users_from_chat_to_list
 
 ban = callbacks ban
 

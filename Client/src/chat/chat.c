@@ -2,9 +2,10 @@
 
 static void set_jsons(t_chat *chat, cJSON *json) {
     chat->cid = cJSON_GetObjectItem(json, "cid")->valueint;
+    chat->role = cJSON_GetObjectItem(json, "role")->valueint;
     chat->ctype = cJSON_GetObjectItem(json, "ctype")->valueint;
     chat->chat_name = cJSON_GetObjectItem(json, "cname")->valuestring;
-    chat->role = cJSON_GetObjectItem(json, "role")->valueint;
+    mx_save_chat_users(chat, cJSON_GetObjectItem(json, "users"));
 }
 
 static void set_preferences_ctype2(t_chat *chat) {
@@ -80,6 +81,7 @@ void mx_chat_destroy(t_info *info, int cid) {
     }
     mx_strdel(&chat->chat_name);
     gtk_widget_destroy(chat->main_box);
+    mx_clr_custom_lst(chat->users);
     free(chat);
     mx_pop_index(info->chat_list, i);
 }
