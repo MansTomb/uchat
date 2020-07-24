@@ -88,10 +88,10 @@ void mx_db_block_unblock(t_info *info, t_peer *peer, cJSON *get) {
     // printf("%s", cJSON_Print(bd));
     if (type != failed_block_user || type != failed_unblock_user) {
         mx_send_msg_client(info->sock, peer, bd, MX_VINT(bd, "uid"));
-        if (type == success_block_user)
-            mx_response_db(info, peer, mx_server_msg(bd, " - забанен!"));
-        else
-            mx_response_db(info, peer, mx_server_msg(bd, " - разбанен!"));
+        // if (type == success_block_user)
+        //     mx_response_db(info, peer, mx_server_msg(bd, " - забанен!"));
+        // else
+        //     mx_response_db(info, peer, mx_server_msg(bd, " - разбанен!"));
     }
     cJSON_Delete(bd);
 }

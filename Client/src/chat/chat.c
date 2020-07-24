@@ -15,7 +15,8 @@ static void set_data(t_info *info, t_chat *chat, cJSON *json) {
     set_jsons(chat, json);
     mx_set_chat_preferences(chat);
     chat->edit = 0;
-    gtk_widget_hide(chat->unbanbt);
+    if (chat->ctype == 1)
+        gtk_widget_hide(chat->unbanbt);
     gtk_widget_show(chat->main_box);
 }
 

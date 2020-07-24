@@ -13,6 +13,7 @@ static t_chat_member *get_user(const cJSON *iterator) {
 
     c->uid = cJSON_GetObjectItemCaseSensitive(iterator, "uid")->valueint;
     c->login = cJSON_GetObjectItemCaseSensitive(iterator, "login")->valuestring;
+    printf("c.uid -> %d\n c.login -> %s", c->uid, c->login);
     return c;
 }
 

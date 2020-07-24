@@ -16,6 +16,11 @@ static void set_preferences_ctype1(t_chat *chat) {
 }
 
 static void set_preferences_ctype2(t_chat *chat) {
+    if (chat->role == 2) {
+        gtk_widget_show(chat->banbt);
+        gtk_widget_show(chat->unbanbt);
+        gtk_widget_show(chat->invbt);
+    }
     if (chat->role == 1) {
         gtk_widget_hide(chat->banbt);
         gtk_widget_hide(chat->unbanbt);
