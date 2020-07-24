@@ -4,7 +4,7 @@
     border: none;
 }
 
-.main_window {
+/* .main_window { */
     /* background-image: url("../images/reg.jpg");
     background-repeat: no-repeat, repeat;
     background-size: 100% 100%; */
@@ -14,7 +14,7 @@
     background-size: auto; */
     /* animation: play 1s steps(4) infinite; */
     /* display: inline-block; */
-}
+/* } */
 /* 
 @keyframes play {
     100% { background-position: -5120px; }

@@ -14,6 +14,7 @@ void mx_handle_ulogin(t_info *info, cJSON *json) {
     int uid = cJSON_GetObjectItem(json, "uid")->valueint;
     t_contact *contact = mx_find_contant(info, uid);
 
-    contact->active = 1;
+    if (contact)
+        contact->active = 1;
     gdk_threads_add_idle(wrap, info);
 }
