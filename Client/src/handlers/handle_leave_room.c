@@ -13,14 +13,29 @@ static int find_user(t_chat *chat, int uid) {
     return -1;
 }
 
+static int wrap(void *data) {
+    t_left_room *lr = data;
+
+    mx_chat_destroy(lr->info, lr->cid);
+    return 0;
+}
+
 void mx_handle_leave_room(t_info *info, cJSON *json) {
-    int cid = cJSON_GetObjectItem(json, "cid")->valueint;
+    if (!info->windows->ms)
+        return;
+
+    t_left_room *lr = malloc(sizeof(t_left_room));
+    t_chat *chat = NULL;
     int uid = cJSON_GetObjectItem(json, "uid")->valueint;
-    t_chat *chat = mx_find_chat(info, cid);
-    int lid = find_user(chat, uid);
+    int lid = 0;
+
+    lr->cid = cJSON_GetObjectItem(json, "cid")->valueint;
+    lr->info = info;
+    chat = mx_find_chat(info, lr->cid);
+    lid = find_user(chat, uid);
 
     if (lid > 0 && chat->info->cl_data->profile->id != uid)
         mx_pop_index(chat->users, lid);
     else if (chat->info->cl_data->profile->id == uid)
-        mx_chat_destroy(info, cid);
+        gdk_threads_add_idle(wrap, lr);
 }

@@ -40,7 +40,6 @@ static void clear_data(t_info *info) {
 
 static void full_destroy(t_info *info) {
     pthread_kill(info->thread.data, 0);
-    pthread_kill(info->thread.timer, 0);
 
     if (info->windows->ms)
         mx_main_screen_destroy(info);
@@ -55,7 +54,6 @@ static void full_destroy(t_info *info) {
     clear_chats(info);
     clear_data(info);
     free_windows(info);
-    g_timer_destroy(info->timer);
     free(info);
 }
 

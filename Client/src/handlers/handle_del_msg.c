@@ -11,6 +11,9 @@ static int wrap(void *data) {
     return 0;
 }
 void mx_handle_delete_message(t_info *info, cJSON *json) {
+    if (!info->windows->ms)
+        return;
+
     t_del_msg *dmsg = malloc(sizeof(t_del_msg));
     t_message *node = NULL;
 

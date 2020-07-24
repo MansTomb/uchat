@@ -10,12 +10,12 @@
     background-size: 100% 100%; */
     /* width: 720px; */
     /* height: 1280px; */
-    background: url('../images/2.jpg') left center;
-    background-size: auto;
-    animation: play 1s steps(4) infinite;
+    /* background: url('../images/2.jpg') left center;
+    background-size: auto; */
+    /* animation: play 1s steps(4) infinite; */
     /* display: inline-block; */
 }
-
+/* 
 @keyframes play {
     100% { background-position: -5120px; }
-}
+} */

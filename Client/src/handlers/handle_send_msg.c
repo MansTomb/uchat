@@ -10,6 +10,9 @@ static int wrap(void *data) {
 }
 
 static void text_message(t_info *info, cJSON *json) {
+    if (!info->windows->ms)
+        return;
+
     t_send_msg *msg = malloc(sizeof(t_send_msg));
 
     msg->cid = cJSON_GetObjectItem(json, "cid")->valueint;
@@ -31,6 +34,9 @@ static int wrap2(void *data) {
 }
 
 static void img_message(t_info *info, cJSON *json) {
+    if (!info->windows->ms)
+        return;
+
     t_send_msg_img *msg = malloc(sizeof(t_send_msg));
 
     msg->cid = cJSON_GetObjectItem(json, "cid")->valueint;

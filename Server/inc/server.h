@@ -121,6 +121,8 @@ void mx_db_get_contact_list(t_info *info, t_peer *peer, cJSON *get);
 void mx_db_invite_send_message(t_info *info, t_peer *peer, cJSON *get);
 void mx_db_leave_send_message(t_info *info, t_peer *peer, cJSON *get);
 
+void mx_db_block_unblock(t_info *info, t_peer *peer, cJSON *get);
+
 /* Utils */
 
     /* True utils for easy init */

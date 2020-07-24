@@ -93,6 +93,8 @@ typedef enum {
     this_uid_login,   // два єнама без запроса
     this_uid_logout,
 
+    superuser_message,
+
     file_msg,
     failed_receiving_file,
 } t_actions;
@@ -125,6 +127,7 @@ cJSON *mx_send_message(sqlite3 *db, cJSON *jsn);
 void mx_insert_message_in_db(sqlite3 *db, cJSON *jsn);
 cJSON *mx_edit_message(sqlite3 *db, cJSON *jsn);
 cJSON *mx_if_message_on_mail(sqlite3 *db, cJSON *jsn);
+cJSON *mx_superuser_message(sqlite3 *db, cJSON *jsn);
 
 void mx_get_all_users_in_chat(sqlite3 *db, cJSON *jsn, int cid);
 
@@ -148,5 +151,7 @@ cJSON *mx_delete_user(sqlite3 *db, cJSON *jsn);
 
 cJSON *mx_invite(sqlite3 *db, cJSON *jsn);
 cJSON *mx_get_chat_for_invite(sqlite3 *db, cJSON *jsn);
-
 cJSON *mx_leave_chat(sqlite3 *db, cJSON *jsn);
+
+cJSON *mx_block_user(sqlite3 *db, cJSON *jsn);
+cJSON *mx_unblock_user(sqlite3 *db, cJSON *jsn);

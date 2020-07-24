@@ -33,10 +33,9 @@ void mx_ban_user(GtkWidget *widget, gpointer data) {
     if (chat->ctype > 1)
         mx_ban_user_build(chat->info, chat);
     else {
+        mx_ban_user_wrapper(chat, mx_find_uid_private(chat)->uid);
         gtk_widget_hide(chat->banbt);
         gtk_widget_show(chat->unbanbt);
-
-        // zaprosi
     }
 }
 
