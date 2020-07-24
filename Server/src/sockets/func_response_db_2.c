@@ -28,7 +28,7 @@ void mx_db_send_message(t_info *info, t_peer *peer, cJSON *get) {
     int *uid;
     int len;
 
-    if (MX_TYPE(bd) == superuser_message)
+    if (MX_TYPE(get) == superuser_message)
         bd = mx_superuser_message(info->sock->db, get);
     else
         bd = mx_send_message(info->sock->db, get);
