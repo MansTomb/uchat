@@ -149,7 +149,7 @@
         </child>
         <child>
           <object class="GtkButton" id="leave">
-            <property name="label" translatable="yes">Left Room</property>
+            <property name="label" translatable="yes">Leave Room</property>
             <property name="width_request">80</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
