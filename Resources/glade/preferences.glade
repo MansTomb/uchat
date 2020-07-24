@@ -82,7 +82,7 @@
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
             <property name="draw_indicator">True</property>
-            <signal name="toggled" handler="mx_on_toggle_vnoti" swapped="no"/>
+            <signal name="toggled" handler="mx_change_profile_noty" swapped="no"/>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -97,7 +97,7 @@
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
             <property name="draw_indicator">True</property>
-            <signal name="toggled" handler="mx_on_toggle_snoti" swapped="no"/>
+            <signal name="toggled" handler="mx_change_profile_noty" swapped="no"/>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -112,7 +112,7 @@
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
             <property name="draw_indicator">True</property>
-            <signal name="toggled" handler="mx_on_toggle_enoti" swapped="no"/>
+            <signal name="toggled" handler="mx_change_profile_noty" swapped="no"/>
           </object>
           <packing>
             <property name="expand">False</property>

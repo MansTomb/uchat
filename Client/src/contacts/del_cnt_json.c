@@ -30,7 +30,7 @@ void mx_del_cnt_json(t_info *info) {
     int uid2 = mx_get_cnt_id_by_login(info->windows->cont->clicked_cont, info->cl_data->contacts);
 
     if (uid2 > 0) {
-        send_request(info, 3);
+        send_request(info, uid2);
         mx_wait_for_json(info, success_del_contact, failed_del_contact);
         if (mx_get_jtype(info, success_del_contact)) {
             if (MX_MALLOC_SIZE(info->cl_data->contacts) > 0) {

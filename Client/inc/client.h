@@ -443,12 +443,13 @@ void mx_send_json_group(t_info *info, const char *gname);
 void mx_chg_pass_json(t_info *info, const char *old_pass, const char *new_pass);
 int mx_check_err_json(cJSON *new);
 void mx_start_chat_json(t_info *info);
-int mx_get_cnt_id_by_login(const char *login, t_list *list);
+int mx_get_cnt_id_by_login(const char *login, const t_list *list);
 
     /* t_data clear */
 void mx_clr_custom_lst(t_list *list);
 void mx_clr_profile(t_profile_data *p, int type);
 void mx_del_cnt_json(t_info *info);
+void mx_del_group_json(t_info *info);
 
     /* Json wrappers */
 bool mx_get_jtype(t_info *info, int type);
@@ -468,6 +469,7 @@ void mx_invite_json_wrapper(t_invite_user *inv);
 void mx_left_chat_wrapper(t_chat *chat);
 void mx_ban_user_wrapper(t_chat *chat, int uid);
 void mx_unban_user_wrapper(t_chat *chat, int uid);
+void mx_admin_send_wrapper(t_info *info, char *content);
 
     /* Package transferring */
 void mx_json_to_sending_buffer(char *buff, cJSON *json);
@@ -584,6 +586,7 @@ void mx_contacts_open_prof(GtkWidget *widget, gpointer data);
 void mx_contacts_send_message(GtkWidget *widget, gpointer data);
 void mx_contacts_move(GtkWidget *widget, gpointer data);
 void mx_contacts_delete(GtkWidget *widget, gpointer data);
+void mx_group_delete(GtkWidget *widget, gpointer data);
 
 void mx_on_add_contact_cancel(GtkWidget *widget, gpointer data);
 void mx_on_add_contact_add(GtkWidget *widget, gpointer data);
@@ -610,9 +613,7 @@ void mx_preferences_destroy(t_info *info);
 
     /* Callbacks */
 void mx_on_click_theme_switch(GtkWidget *widget, gboolean state, gpointer data);
-void mx_on_toggle_vnoti(GtkWidget *widget, gpointer data);
-void mx_on_toggle_snoti(GtkWidget *widget, gpointer data);
-void mx_on_toggle_enoti(GtkWidget *widget, gpointer data);
+void mx_change_profile_noty(GtkWidget *widget, gpointer data);
 void mx_on_change_password(GtkWidget *widget, gpointer data);
 
 /*                               Change Password */

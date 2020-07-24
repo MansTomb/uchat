@@ -11,7 +11,7 @@ static void send_request(const t_info *info, int uid2) {
     cJSON_Delete(jobj);
 }
 
-int mx_get_cnt_id_by_login(const char *login, t_list *list) {
+int mx_get_cnt_id_by_login(const char *login, const t_list *list) {
     if (list) {
         t_list_node *node = list ? list->head : NULL;
 

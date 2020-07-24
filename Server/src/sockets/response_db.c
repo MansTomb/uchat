@@ -9,7 +9,8 @@ static void auditor2(t_info *info, t_peer *peer, int type, cJSON *get) {
         mx_db_get_self_response(info, peer, get, &mx_create_contact_group);
     else if (type == make_del_contact_group)
         mx_db_get_self_response(info, peer, get, &mx_del_contact_group);
-
+    else if (type == logout)
+        mx_db_logout(info, peer, get);
     else if (type == make_add_user_in_chat)
         mx_db_invite_send_message(info, peer, get);
     else if (type == make_leave_chat)
@@ -50,15 +51,16 @@ void mx_response_db(t_info *info, t_peer *peer, cJSON *get) {
         mx_db_authorization(info, peer, get);
     else if (type == make_delete_user)
         mx_db_get_self_response(info, peer, get, &mx_delete_user);
-    else if (type == send_message
-             || type == file_msg
-             || type == superuser_message)
+    else if (type == send_message || type == superuser_message) {
+        if (MX_VSTR(get, "content")[0] == '/')
+            mx_db_commands(info, peer, get);
+        else
+            mx_db_send_message(info, peer, get);
+    }
+    else if (type == file_msg)
         mx_db_send_message(info, peer, get);
     else if (type == edit_message || type == delete_message)
         mx_db_edit_message(info, peer, get);
-    else if (type == logout) {
-        mx_db_logout(info, peer, get);
-    }
     else
         auditor1(info, peer, type, get);
 }

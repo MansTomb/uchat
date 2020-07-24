@@ -26,7 +26,7 @@ cJSON *mx_this_uid_login_or_logout(int uid, int type) {
     return json;
 }
 
-cJSON *mx_server_msg(cJSON *bd, char *s) {
+cJSON *mx_su_msg(cJSON *bd, char *s) {
     cJSON *json = cJSON_CreateObject();
     char *str;
 

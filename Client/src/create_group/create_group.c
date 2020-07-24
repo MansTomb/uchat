@@ -3,6 +3,8 @@
 void mx_create_group_build(t_info *info, t_group_create *cg) {
     if (cg == NULL)
         info->windows->cg = cg = malloc(sizeof(t_group_create));
+    else
+        return;
 
     cg->builder = gtk_builder_new();
     gtk_builder_add_from_file(cg->builder, "./Resources/glade/create_group.glade", NULL);

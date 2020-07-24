@@ -25,6 +25,8 @@ static void set_search_completetion(t_contact_add *ac) {
 void mx_add_contact_build(t_info *info, t_contact_add *ac) {
     if (ac == NULL)
         info->windows->ac = ac = malloc(sizeof(t_contact_add));
+    else
+        return;
 
     ac->builder = gtk_builder_new();
     gtk_builder_add_from_file(ac->builder, "./Resources/glade/add_contact.glade", NULL);
