@@ -63,7 +63,7 @@
 
 
 -- invite
-{ "json_type": 52, "login": "4", "cid": 2}
+{ "json_type": 52, "login": "3", "cid": 2}
 
 --------------------------other
 

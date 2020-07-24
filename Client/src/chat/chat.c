@@ -60,11 +60,11 @@ t_chat *mx_chat_build(t_info *info, cJSON *json) {
     gtk_builder_connect_signals(chat->builder, chat);
     gtk_file_filter_add_pixbuf_formats(chat->ffilter);
 
+    chat->info = info;
     chat->users = mx_create_list();
     set_jsons(chat, json);
     set_preferences(chat);
     chat->edit = 0;
-    chat->info = info;
     printf("users in chat -> %zu\n", chat->users->size);
 
     gtk_widget_show(chat->main_box);
@@ -80,7 +80,6 @@ void mx_chat_destroy(t_info *info, int cid) {
         if (chat->cid == cid)
             break;
     }
-    mx_strdel(&chat->chat_name);
     gtk_widget_destroy(chat->main_box);
     mx_clr_custom_lst(chat->users);
     free(chat);

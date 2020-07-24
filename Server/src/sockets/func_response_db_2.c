@@ -8,24 +8,40 @@ static void send_on_email(t_info *info, t_peer *peer, cJSON *bd, int uidzero) {
         bd = mx_if_message_on_mail(info->sock->db, bd);
 }
 
+static int *get_arr(cJSON *bd) {
+    int len;
+    int *uid;
+
+    len = cJSON_GetArraySize(cJSON_GetObjectItem(bd, "clients_id"));
+    uid = malloc((len + 1) * sizeof(int));
+    for (int i = 0; i < len; ++i)
+        uid[i] = cJSON_GetNumberValue
+                (cJSON_GetArrayItem(cJSON_GetObjectItem(bd, "clients_id"), i));
+    uid[len] = -1;
+
+    return uid;
+}
+
 void mx_db_send_message(t_info *info, t_peer *peer, cJSON *get) {
     cJSON *bd;
     char *email = NULL;
     int *uid;
     int len;
 
-    bd = mx_send_message(info->sock->db, get);
-    if (MX_VINT(bd, "role") == -1)
+    if (MX_TYPE(bd) == superuser_message)
+        bd = mx_superuser_message(info->sock->db, get);
+    else
+        bd = mx_send_message(info->sock->db, get);
+    if (MX_TYPE(bd) == failed_send_message) {
         // printf("%s", cJSON_Print(bd));
         mx_send_message_handler(info->sock, peer, bd, peer->socket);
+        mx_response_db(info, peer, mx_server_msg(bd,
+                       "Вы забанены или не можете писать в этом чате!"));
+    }
     else {
         len = cJSON_GetArraySize(cJSON_GetObjectItem(bd, "clients_id"));
-        uid = malloc((len + 1) * sizeof(int));
-        for (int i = 0; i < len; ++i)
-            uid[i] = cJSON_GetNumberValue
-                    (cJSON_GetArrayItem(cJSON_GetObjectItem(bd, "clients_id"), i));
-        uid[len] = -1;
-        if (len == 1)
+        uid = get_arr(bd);
+        if (len == 1 && MX_TYPE(bd) != superuser_message)
             send_on_email(info, peer, bd, uid[0]);
         else
             mx_send_msg_clients(info->sock, peer, bd, uid);
@@ -42,47 +58,9 @@ void mx_db_edit_message(t_info *info, t_peer *peer, cJSON *get) {
 
     bd = mx_edit_message(info->sock->db, get);
     len = cJSON_GetArraySize(cJSON_GetObjectItem(bd, "clients_id"));
-    uid = malloc((len + 1) * sizeof(int));
-
-    for (int i = 0; i < len; ++i) {
-        uid[i] = cJSON_GetNumberValue
-                (cJSON_GetArrayItem(cJSON_GetObjectItem(bd, "clients_id"), i));
-    }
-    uid[len] = -1;
+    uid = get_arr(bd);
     mx_send_msg_clients(info->sock, peer, bd, uid);
 
     free(uid);
-    cJSON_Delete(bd);
-}
-
-void mx_db_invite_send_message(t_info *info, t_peer *peer, cJSON *get) {
-    cJSON *bd;
-    int *uid;
-    int len;
-    int id = 0;
-
-    bd = mx_invite(info->sock->db, get);
-    // printf("%s", cJSON_Print(bd));
-
-    len = cJSON_GetArraySize(cJSON_GetObjectItem(bd, "clients_id"));
-    uid = malloc((len + 1 - 1) * sizeof(int));
-    for (int i = 0; i < len; ++i) {
-        id = cJSON_GetNumberValue(cJSON_GetArrayItem(
-             cJSON_GetObjectItem(bd, "clients_id"), i));
-        if (id != MX_VINT(bd, "uid"))
-            uid[i] = id;
-    }
-    uid[len - 1] = -1;
-    // cJSON_Delete(bd, "clients_id");
-    if (MX_TYPE(bd) == failed_add_user_in_chat)
-        mx_send_message_handler(info->sock, peer, bd, peer->socket);
-    else {
-        mx_send_msg_clients(info->sock, peer, bd, uid);
-        bd = mx_get_chat_for_invite(info->sock->db, bd);
-        printf("%s", cJSON_Print(bd));
-        mx_send_msg_client(info->sock, peer, bd, MX_VINT(bd, "uid"));
-    }
-    free(uid);
-
     cJSON_Delete(bd);
 }

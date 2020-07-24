@@ -94,9 +94,6 @@ void mx_send_message_all(t_sock *sock, t_peer *peer, cJSON *bd, int uid);
 int mx_send_msg_client(t_sock *sock, t_peer *peer, cJSON *bd, int uid);
 void mx_send_msg_clients(t_sock *sock, t_peer *peer, cJSON *bd, int *uid);
 
-    /* Invite.c */
-void mx_db_invite_send_message(t_info *info, t_peer *peer, cJSON *get);
-
     /* message_handler.c */
 int mx_send_check(t_sock *sock, t_peer *client, int n);
 int mx_recv_check(int n);
@@ -121,6 +118,9 @@ void mx_db_get_self_response(t_info *info, t_peer *peer, cJSON *get,
                             cJSON *(*func)(sqlite3 *, cJSON *));
 void mx_db_get_contact_list(t_info *info, t_peer *peer, cJSON *get);
 
+void mx_db_invite_send_message(t_info *info, t_peer *peer, cJSON *get);
+void mx_db_leave_send_message(t_info *info, t_peer *peer, cJSON *get);
+
 /* Utils */
 
     /* True utils for easy init */
@@ -130,6 +130,7 @@ void mx_strip_newline(char *s);
 void mx_json_to_sending_buffer(char *buff, cJSON *json);
 int mx_check_err_json(cJSON *new);
 cJSON *mx_this_uid_login_or_logout(int uid, int type);
+cJSON *mx_server_msg(cJSON *bd, char *s);
 
 void mx_message_on_mail(char *email, char *path);
 
