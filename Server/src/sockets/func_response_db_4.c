@@ -50,7 +50,7 @@ void mx_db_invite_send_message(t_info *info, t_peer *peer, cJSON *get) {
         // printf("%s", cJSON_Print(bd));
         mx_send_msg_client(info->sock, peer, bd, MX_VINT(bd, "uid"));
         mx_response_db(info, peer,
-                       mx_server_msg(bd, " явил свою личность в этом чате!"));
+                       mx_su_msg(bd, " явил свою личность в этом чате!"));
         free(uid);
     }
     cJSON_Delete(bd);
@@ -70,28 +70,29 @@ void mx_db_leave_send_message(t_info *info, t_peer *peer, cJSON *get) {
         uid = get_arr(bd);
         mx_send_msg_clients(info->sock, peer, bd, uid);
         mx_response_db(info, peer,
-                       mx_server_msg(bd, " изволил покинуть ваше общество!"));
+                       mx_su_msg(bd, " изволил покинуть ваше общество!"));
         free(uid);
     }
     cJSON_Delete(bd);
 }
 
 void mx_db_block_unblock(t_info *info, t_peer *peer, cJSON *get) {
-    cJSON *bd;
+    cJSON *bd = NULL;
     int type = MX_TYPE(get);
 
     if (type == make_block_user)
         bd = mx_block_user(info->sock->db, get);
-    else
+    else if (type == make_unblock_user)
         bd = mx_unblock_user(info->sock->db, get);
+
     type = MX_TYPE(bd);
     // printf("%s", cJSON_Print(bd));
     if (type != failed_block_user || type != failed_unblock_user) {
         mx_send_msg_client(info->sock, peer, bd, MX_VINT(bd, "uid"));
         if (type == success_block_user)
-            mx_response_db(info, peer, mx_server_msg(bd, " - забанен!"));
-        else
-            mx_response_db(info, peer, mx_server_msg(bd, " - разбанен!"));
+            mx_response_db(info, peer, mx_su_msg(bd, " - забанен!"));
+        else if (type == success_unblock_user)
+            mx_response_db(info, peer, mx_su_msg(bd, " - разбанен!"));
     }
     cJSON_Delete(bd);
 }
