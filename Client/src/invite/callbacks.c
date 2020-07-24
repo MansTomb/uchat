@@ -6,8 +6,7 @@ static bool user_exist(t_invite_user *inv) {
 
     for (size_t i = 0; i < inv->chat->users->size; ++i) {
         member = mx_get_index(inv->chat->users, i)->data;
-        if (strcmp(username,
-                   member->login) == 0)
+        if (strcmp(username, member->login) == 0)
             return true;
     }
     return false;

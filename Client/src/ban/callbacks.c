@@ -26,8 +26,6 @@ void mx_ban_ban(GtkWidget *widget, gpointer data) {
     t_ban_user *ban = data;
     char *name = (char *)mx_entry_get_text(ban->entry);
 
-    printf("entry name ban -> %s\n", name);
-
     if (validate(ban, name)) {
         mx_ban_user_wrapper(ban->chat, mx_find_cmember(ban->chat, name)->uid);
         mx_ban_user_destroy(ban);

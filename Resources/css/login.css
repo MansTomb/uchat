@@ -19,14 +19,14 @@
     /* display: inline-block; */
     /* animation: pulse 15s infinite; */
 
-.main_window {
+/* .main_window { */
     /* width: 720px; */
     /* height: 1280px; */
-    background: url('../images/fon.jpg') left center;
-    background-size: auto;
+    /* background: url('../images/fon.jpg') left center;
+    background-size: auto; */
     /* animation: play 1s steps(4) infinite; */
     /* display: inline-block; */
-}
+/* } */
 
 /* @keyframes play {
     100% { background-position: -5120px; }
