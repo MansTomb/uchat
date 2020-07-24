@@ -39,6 +39,12 @@ typedef struct s_send_msg_img t_send_msg_img;
 typedef struct s_group t_group; // json
 typedef struct s_chat_member t_chat_member;
 typedef struct s_left_room t_left_room;
+typedef struct s_ibear_info_json t_ibear_info_json;
+
+struct s_ibear_info_json {
+    t_info *info;
+    cJSON *json;
+};
 
 struct s_left_room {
     t_info *info;
@@ -443,6 +449,7 @@ void mx_send_json_group(t_info *info, const char *gname);
 void mx_chg_pass_json(t_info *info, const char *old_pass, const char *new_pass);
 int mx_check_err_json(cJSON *new);
 void mx_start_chat_json(t_info *info);
+void mx_handle_ucreate_personal_chat(t_info *info, cJSON *json);
 int mx_get_cnt_id_by_login(const char *login, const t_list *list);
 
     /* t_data clear */

@@ -11,6 +11,8 @@ static void handlers2(t_info *info, cJSON *json, int type, int *ret) {
         mx_handle_ulogin(info, json);
     else if (type == this_uid_logout && !(*ret = 0))
         mx_handle_ulogout(info, json);
+    else if (type == this_uid_logout && !(*ret = 0))
+        mx_handle_ucreate_personal_chat(info, json);
 }
 
 bool mx_handle_if_not_requested(t_info *info, cJSON *json) {

@@ -17,11 +17,6 @@ static void text_message(t_info *info, cJSON *json) {
 
     msg->cid = cJSON_GetObjectItem(json, "cid")->valueint;
     msg->chat = mx_find_chat(info, msg->cid);
-    if (msg->chat == NULL) {
-        mx_chat_put(info, info->json);
-        msg->chat = mx_find_chat(info, msg->cid);
-        mx_dialog_warning_create(NULL, "Chat created!");
-    }
     msg->msg = mx_message_build(info, json, msg->cid);
     msg->info = info;
 
