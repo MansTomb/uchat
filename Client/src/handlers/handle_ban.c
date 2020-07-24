@@ -1,7 +1,9 @@
 #include "client.h"
 
 static int wrap(void *data) {
-    mx_set_chat_preferences(data);
+    t_chat *chat = data;
+
+    mx_set_chat_preferences(chat);
     return 0;
 }
 
