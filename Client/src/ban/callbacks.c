@@ -21,7 +21,8 @@ void mx_ban_cancel(GtkWidget *widget, gpointer data) {
 
 void mx_ban_ban(GtkWidget *widget, gpointer data) {
     t_ban_user *ban = data;
+    char *name = (char *)mx_entry_get_text(ban->entry);
 
-    /* zapros bana v ne ls */
+    mx_ban_user_wrapper(ban->chat, mx_find_cmember(ban->chat, name)->uid);
     mx_ban_user_destroy(ban);
 }
