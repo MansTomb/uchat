@@ -1,26 +1,6 @@
 #include "client.h"
 
-void mx_on_toggle_vnoti(GtkWidget *widget, gpointer data) {
-    t_info *info = data;
-    t_preferences *pref = info->windows->pref;
-
-    info->cl_data->profile->vs_noty = mx_get_tactive(pref->vnotify);
-    info->cl_data->profile->sound_noty = mx_get_tactive(pref->snotify);
-    info->cl_data->profile->email_noty = mx_get_tactive(pref->enotify);
-    mx_upd_prof_build_json_wrapper(info);
-}
-
-void mx_on_toggle_snoti(GtkWidget *widget, gpointer data) {
-    t_info *info = data;
-    t_preferences *pref = info->windows->pref;
-
-    info->cl_data->profile->vs_noty = mx_get_tactive(pref->vnotify);
-    info->cl_data->profile->sound_noty = mx_get_tactive(pref->snotify);
-    info->cl_data->profile->email_noty = mx_get_tactive(pref->enotify);
-    mx_upd_prof_build_json_wrapper(info);
-}
-
-void mx_on_toggle_enoti(GtkWidget *widget, gpointer data) {
+void mx_change_profile_noty(GtkWidget *widget, gpointer data) {
     t_info *info = data;
     t_preferences *pref = info->windows->pref;
 

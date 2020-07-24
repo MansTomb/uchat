@@ -33,7 +33,7 @@ static void create_gmenu_items(GtkWidget *menu, t_info *info) {
 
     gtk_widget_show(item);
 
-    MX_GSIG_CON(item, "activate", MX_CB(mx_contacts_delete), info);
+    MX_GSIG_CON(item, "activate", MX_CB(mx_group_delete), info);
 }
 
 GtkWidget *mx_create_menu(t_info *info) {
