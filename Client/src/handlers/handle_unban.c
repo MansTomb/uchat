@@ -12,6 +12,8 @@ void mx_handle_unban(t_info *info, cJSON *json) {
     int role = cJSON_GetObjectItem(json, "role")->valueint;
     t_chat *chat = mx_find_chat(info, cid);
 
-    chat->role = role;
-    gdk_threads_add_idle(wrap, chat);
+    if (chat) {
+        chat->role = role;
+        gdk_threads_add_idle(wrap, chat);
+    }
 }

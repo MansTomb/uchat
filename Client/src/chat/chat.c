@@ -17,6 +17,8 @@ static void set_data(t_info *info, t_chat *chat, cJSON *json) {
     chat->edit = 0;
     if (chat->ctype == 1)
         gtk_widget_hide(chat->unbanbt);
+    if (chat->cid == 1)
+        gtk_widget_hide(chat->leavebt);
     gtk_widget_show(chat->main_box);
 }
 

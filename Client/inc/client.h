@@ -468,6 +468,7 @@ void mx_invite_json_wrapper(t_invite_user *inv);
 void mx_left_chat_wrapper(t_chat *chat);
 void mx_ban_user_wrapper(t_chat *chat, int uid);
 void mx_unban_user_wrapper(t_chat *chat, int uid);
+void mx_admin_send_wrapper(t_info *info, char *content);
 
     /* Package transferring */
 void mx_json_to_sending_buffer(char *buff, cJSON *json);
