@@ -1,4 +1,8 @@
 #include "client.h"
+static int wrap(void *data) {
+    mx_set_chat_preferences(data);
+    return 0;
+}
 
 void mx_handle_unban(t_info *info, cJSON *json) {
     if (!info->windows->ms)
@@ -9,5 +13,5 @@ void mx_handle_unban(t_info *info, cJSON *json) {
     t_chat *chat = mx_find_chat(info, cid);
 
     chat->role = role;
-    mx_set_chat_preferences(chat);
+    gdk_threads_add_idle(wrap, chat);
 }
