@@ -65,6 +65,9 @@
 -- invite
 { "json_type": 52, "login": "3", "cid": 2}
 
+-- block personal
+{ "json_type": 56, "login": "3", "cid": 2}
+
 --------------------------other
 
 {"p_type": 0, "piece": "{\"json_type\": 3, \"login\": \"ooo\", \"hash\": \"222\"}"}

@@ -14,6 +14,9 @@ static int find_user(t_chat *chat, int uid) {
 }
 
 void mx_handle_leave_room(t_info *info, cJSON *json) {
+    if (!info->windows->ms)
+        return;
+
     int cid = cJSON_GetObjectItem(json, "cid")->valueint;
     int uid = cJSON_GetObjectItem(json, "uid")->valueint;
     t_chat *chat = mx_find_chat(info, cid);

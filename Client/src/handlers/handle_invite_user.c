@@ -1,6 +1,9 @@
 #include "client.h"
 
 void mx_handle_invite_user(t_info *info, cJSON *json) {
+    if (!info->windows->ms)
+        return;
+
     int cid = cJSON_GetObjectItem(json, "cid")->valueint;
     int uid = cJSON_GetObjectItem(json, "uid")->valueint;
     char *login = cJSON_GetObjectItem(json, "login")->valuestring;
