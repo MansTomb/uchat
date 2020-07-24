@@ -151,5 +151,7 @@ cJSON *mx_delete_user(sqlite3 *db, cJSON *jsn);
 
 cJSON *mx_invite(sqlite3 *db, cJSON *jsn);
 cJSON *mx_get_chat_for_invite(sqlite3 *db, cJSON *jsn);
-
 cJSON *mx_leave_chat(sqlite3 *db, cJSON *jsn);
+
+cJSON *mx_block_user(sqlite3 *db, cJSON *jsn);
+cJSON *mx_unblock_user(sqlite3 *db, cJSON *jsn);
