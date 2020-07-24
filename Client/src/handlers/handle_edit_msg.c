@@ -10,6 +10,9 @@ static int wrap(void *data) {
 }
 
 void mx_handle_edit_message(t_info *info, cJSON *json) {
+    if (!info->windows->ms)
+        return;
+
     t_edit_msg *edit = malloc(sizeof(t_edit_msg));
 
     edit->chat = mx_find_chat(info, cJSON_GetObjectItem(json, "cid")->valueint);

@@ -1,6 +1,9 @@
 #include "client.h"
 
 void mx_chat_put(t_info *info, cJSON *json) {
+    if (!info->windows->ms)
+        return;
+
     t_chat *chat = mx_chat_build(info, json);
     char name[64];
 
