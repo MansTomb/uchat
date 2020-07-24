@@ -52,7 +52,7 @@ create_group = create_group callbacks
 sounds = sounds
 
 utils = css wait_for_json create_hash json_get_type dialog entry toggle       \
-	set_vnotify find_something validate_chars gobject_builder
+	set_vnotify find_something validate_chars gobject_builder get_image
 
 dirs = base login register admin add_contact chat create_group main_chat_screen \
 	profile preferences contacts message message_img room_creation utils      \

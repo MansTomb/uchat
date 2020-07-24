@@ -455,6 +455,7 @@ void mx_delete_message_t1_json_wrapper(t_message *msg);
 void mx_get_json_chat_history(t_info *info, t_chat *chat);
 void mx_create_room_wrap(t_info *info);
 void mx_delete_user_wrapper(t_info *info);
+void mx_ban_user_wrapper(t_chat *chat);
 
     /* Package transferring */
 void mx_json_to_sending_buffer(char *buff, cJSON *json);
@@ -474,6 +475,7 @@ t_sock *mx_client_socket_create(char *ip, int port);
 t_chat *mx_find_chat(t_info *info, int cid);
 t_message *mx_find_message(t_chat *chat, int mid);
 GtkWidget *mx_gobject_builder(GtkBuilder *builder, char *name);
+GdkPixbuf *mx_get_image(char *filepath, int width, int height);
 
 gboolean mx_validate_chars(char *text);
 

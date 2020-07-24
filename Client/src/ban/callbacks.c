@@ -22,12 +22,6 @@ void mx_ban_cancel(GtkWidget *widget, gpointer data) {
 void mx_ban_ban(GtkWidget *widget, gpointer data) {
     t_ban_user *ban = data;
 
-    if (validate(ban) && ban->chat->ctype == 1) {
-        /* zapros bana v ls */
-        mx_ban_user_destroy(ban);
-    }
-    if (validate(ban) && ban->chat->ctype > 1) {
-        /* zapros bana v ne ls */
-        mx_ban_user_destroy(ban);
-    }
+    /* zapros bana v ne ls */
+    mx_ban_user_destroy(ban);
 }
