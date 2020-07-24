@@ -15,7 +15,7 @@ void mx_msg_menu_show(GtkWidget *widget, GdkEvent *event, gpointer data) {
     t_message *message = data;
     char *login = message->info->cl_data->profile->login;
 
-    // if (!strcmp(login, gtk_label_get_text(GTK_LABEL(message->name_label))));
+    if (!strcmp(login, gtk_label_get_text(GTK_LABEL(message->name_label))))
         gtk_popover_popup(GTK_POPOVER(message->menu));
 }
 
