@@ -3,6 +3,8 @@
 void mx_change_password_build(t_info *info, t_change_password *cp) {
     if (cp == NULL)
         info->windows->cp = cp = malloc(sizeof(t_change_password));
+    else
+        return;
 
     cp->builder = gtk_builder_new();
     gtk_builder_add_from_file(cp->builder, "./Resources/glade/change_pass.glade", NULL);
