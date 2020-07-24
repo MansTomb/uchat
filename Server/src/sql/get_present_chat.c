@@ -5,6 +5,7 @@ static int get_role(void *data, int argc, char **argv, char **cols) {
     cJSON_AddNumberToObject(data, "role", atoi(argv[1]));
     cJSON_AddStringToObject(data, "cname", argv[2]);
     cJSON_AddNumberToObject(data, "ctype", 1);
+    printf("%s,%s,%s\n", argv[0], argv[1], argv[2]);
     return 0;
 }
 

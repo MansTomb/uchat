@@ -24,7 +24,6 @@ static void delete_text(t_chat *chat) {
 void mx_send_message(GtkWidget *widget, gpointer data) {
     t_chat *chat = data;
 
-    if (chat->ctype != 3) {
         if (strlen(get_text(chat))) {
             if (chat->edit) {
                 mx_edit_message_t1_json_wrapper(chat->editedmsg, get_text(chat));
@@ -35,9 +34,6 @@ void mx_send_message(GtkWidget *widget, gpointer data) {
                 mx_send_message_t1_json_wrapper(chat, get_text(chat));
         }
         delete_text(chat);
-    }
-    else
-        mx_dialog_warning_create(NULL, "You cant send messages here!");
 }
 
 void mx_chat_img_send(GtkWidget *widget, gpointer data) {
