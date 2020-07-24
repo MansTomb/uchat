@@ -438,7 +438,6 @@ void mx_save_login_data(t_info *info);
 void mx_save_chat_users(t_chat *chat, const cJSON *users);
 void mx_get_json_contacts(t_info *info);
 void mx_get_json_chats_list(t_info *info);
-void mx_del_group_json(t_info *info);
 void mx_upd_groups_list(const t_info *info);
 void mx_send_json_group(t_info *info, const char *gname);
 void mx_chg_pass_json(t_info *info, const char *old_pass, const char *new_pass);
@@ -450,6 +449,7 @@ int mx_get_cnt_id_by_login(const char *login, const t_list *list);
 void mx_clr_custom_lst(t_list *list);
 void mx_clr_profile(t_profile_data *p, int type);
 void mx_del_cnt_json(t_info *info);
+void mx_del_group_json(t_info *info);
 
     /* Json wrappers */
 bool mx_get_jtype(t_info *info, int type);
@@ -612,9 +612,7 @@ void mx_preferences_destroy(t_info *info);
 
     /* Callbacks */
 void mx_on_click_theme_switch(GtkWidget *widget, gboolean state, gpointer data);
-void mx_on_toggle_vnoti(GtkWidget *widget, gpointer data);
-void mx_on_toggle_snoti(GtkWidget *widget, gpointer data);
-void mx_on_toggle_enoti(GtkWidget *widget, gpointer data);
+void mx_change_profile_noty(GtkWidget *widget, gpointer data);
 void mx_on_change_password(GtkWidget *widget, gpointer data);
 
 /*                               Change Password */
