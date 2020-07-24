@@ -3,13 +3,13 @@
 static void add_defaults(sqlite3 *db) {
     char *query1 = "INSERT INTO users VALUES (1, 'root', "
         "'99adc231b045331e514a516b4b7680f588e3823213abe901738bc3ad67b2f6fc');"
-        "INSERT INTO chats VALUES (1, 3, 'UCHAT');";
+        "INSERT INTO chats VALUES (1, 3, 'UCHAT'); INSERT INTO users_chats "
+        "VALUES (1, 1, 2);";
     char *err = NULL;
 
     if (sqlite3_exec(db, query1, NULL, NULL, &err) != SQLITE_OK) {
         fprintf(stderr, "db defaults error: %s\n", err);
         free(err);
-        // exit(EXIT_FAILURE);
     }
 }
 
