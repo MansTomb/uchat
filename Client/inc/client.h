@@ -38,6 +38,12 @@ typedef struct s_send_msg t_send_msg;
 typedef struct s_send_msg_img t_send_msg_img;
 typedef struct s_group t_group; // json
 typedef struct s_chat_member t_chat_member;
+typedef struct s_left_room t_left_room;
+
+struct s_left_room {
+    t_info *info;
+    int cid;
+};
 
 struct s_chat_member {
     char *login;
