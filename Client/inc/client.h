@@ -444,13 +444,7 @@ void mx_send_json_group(t_info *info, const char *gname);
 void mx_chg_pass_json(t_info *info, const char *old_pass, const char *new_pass);
 int mx_check_err_json(cJSON *new);
 void mx_start_chat_json(t_info *info);
-<<<<<<< HEAD
 int mx_get_cnt_id_by_login(const char *login, const t_list *list);
-void mx_invite_json_wrapper(t_invite_user *inv);
-void mx_left_chat_wrapper(t_chat *chat);
-=======
-int mx_get_cnt_id_by_login(const char *login, t_list *list);
->>>>>>> f7c70eba511eb2d77399c6db428a4e5180d45759
 
     /* t_data clear */
 void mx_clr_custom_lst(t_list *list);
