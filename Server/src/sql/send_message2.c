@@ -17,10 +17,11 @@ cJSON *mx_send_message(sqlite3 *db, cJSON *jsn) {
     if (mx_check(rc, err, "non-block user") != SQLITE_OK)
         MX_SET_TYPE(jsn, failed_send_message);
     else {
-        if (MX_VINT(jsn, "role") != -1)
-            mx_insert_message_in_db(db, jsn);
-        else {
+        if (MX_VINT(jsn, "role") == -1 
+            || (MX_VINT(jsn, "cid") == 1 && MX_VINT(jsn, "uid") != 1))
             MX_SET_TYPE(jsn, failed_send_message);
+        else {
+           mx_insert_message_in_db(db, jsn);
         }
     }
     free(query);

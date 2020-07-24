@@ -28,14 +28,20 @@ void mx_db_send_message(t_info *info, t_peer *peer, cJSON *get) {
     int *uid;
     int len;
 
-    bd = mx_send_message(info->sock->db, get);
-    if (MX_VINT(bd, "role") == -1)
+    if (MX_TYPE(bd) == superuser_message)
+        bd = mx_superuser_message(info->sock->db, get);
+    else
+        bd = mx_send_message(info->sock->db, get);
+    if (MX_TYPE(bd) == failed_send_message) {
         // printf("%s", cJSON_Print(bd));
         mx_send_message_handler(info->sock, peer, bd, peer->socket);
+        mx_response_db(info, peer, mx_server_msg(bd,
+                       "Вы забанены или не можете писать в этом чате!"));
+    }
     else {
         len = cJSON_GetArraySize(cJSON_GetObjectItem(bd, "clients_id"));
         uid = get_arr(bd);
-        if (len == 1)
+        if (len == 1 && MX_TYPE(bd) != superuser_message)
             send_on_email(info, peer, bd, uid[0]);
         else
             mx_send_msg_clients(info->sock, peer, bd, uid);

@@ -118,6 +118,8 @@ typedef enum {
     this_uid_login,   // два єнама без запроса
     this_uid_logout,
 
+    superuser_message,
+
     file_msg,
     failed_receiving_file,
 } t_actions;
