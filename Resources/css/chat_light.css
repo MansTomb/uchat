@@ -14,6 +14,9 @@ textview * {
 .ban_button {
     border: 1px solid lightgray;
 }
+.unban_button {
+    border: 1px solid lightgray;
+}
 .left_room_button {
     border: 1px solid lightgray;
 }

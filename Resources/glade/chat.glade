@@ -137,6 +137,9 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <signal name="clicked" handler="mx_unban_user" swapped="no"/>
+            <style>
+              <class name="unban_button"/>
+            </style>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -146,7 +149,7 @@
         </child>
         <child>
           <object class="GtkButton" id="leave">
-            <property name="label" translatable="yes">Left Room</property>
+            <property name="label" translatable="yes">Leave Room</property>
             <property name="width_request">80</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>

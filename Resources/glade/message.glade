@@ -63,7 +63,6 @@
             <signal name="button-press-event" handler="mx_msg_menu_show" swapped="no"/>
             <style>
               <class name="message_button"/>
-              <class name="button"/>
             </style>
           </object>
           <packing>
