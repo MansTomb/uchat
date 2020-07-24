@@ -52,10 +52,12 @@ t_contact *mx_find_contant(t_info *info, int uid) {
     t_list *contacts = info->cl_data->contacts;
     t_contact *node = NULL;
 
-    for (size_t i = 0; i < contacts->size; ++i) {
-        node = mx_get_index(contacts, i)->data;
-        if (node->cid == uid)
-            return node;
+    if (contacts) {
+        for (size_t i = 0; i < contacts->size; ++i) {
+            node = mx_get_index(contacts, i)->data;
+            if (node->cid == uid)
+                return node;
+        }
     }
     return NULL;
 }
