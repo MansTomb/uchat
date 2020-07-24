@@ -66,6 +66,11 @@ textview * {
     color: #121212;
     border: 1px solid #121212;
 }
+.unban_button {
+    background: #05ad9c;
+    color: #121212;
+    border: 1px solid #121212;
+}
 .left_room_button {
     background: #05ad9c;
     color: #121212;
