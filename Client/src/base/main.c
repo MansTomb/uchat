@@ -68,22 +68,6 @@ static void *read_from_stdin(void *info) {   // for testing server
     pthread_exit(0);
 }
 
-static void *login_timeout(void *data) {
-    t_info *info = data;
-    info->timer = g_timer_new();
-
-    while (1) {
-        // printf("Time left for timeout: %d\n", 60 - (int)g_timer_elapsed(info->timer, NULL));
-        if (g_timer_elapsed(info->timer, NULL) > 60) {
-            printf("leave\n");
-            mx_destroy(NULL, NULL, info);
-        }
-        if (!g_timer_is_active(info->timer))
-            pthread_exit(0);
-        sleep(1);
-    }
-}
-
 int main(int argc, char *argv[]) {
     if (argc != 3) {
         wrong_usage();
@@ -99,10 +83,6 @@ int main(int argc, char *argv[]) {
     mx_login_screen_build(info, info->windows->log);
 
     pthread_create(&info->thread.data, NULL, &read_from_server, (void *)info);
-    // // g_idle_add(read_from_server, info);
-    // info->thread.data = g_thread_new("read", read_from_server, info);
-    pthread_create(&info->thread.timer, NULL, &login_timeout, (void *)info);
-
     pthread_create(&info->thread.data, NULL, &read_from_stdin, (void *)info);  // for testing server
 
     gtk_main();

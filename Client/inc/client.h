@@ -387,7 +387,6 @@ struct s_windows {
 
 struct s_info {
     struct {
-        pthread_t timer;
         pthread_t data;
     } thread;
 
