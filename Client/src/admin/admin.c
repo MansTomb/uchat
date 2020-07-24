@@ -47,7 +47,6 @@ static void delete_text(t_admin *adm) {
 void mx_on_send_everyone(GtkWidget *widget, gpointer data) {
     t_info *info = data;
 
-    printf("sended %s\n", get_text(info->windows->adm));
     delete_text(info->windows->adm);
 }
 

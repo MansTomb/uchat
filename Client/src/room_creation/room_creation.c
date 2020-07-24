@@ -3,6 +3,8 @@
 void mx_room_creation_build(t_info *info, t_room_creation *rc) {
     if (rc == NULL)
         info->windows->rc = rc = malloc(sizeof(t_room_creation));
+    else
+        return;
 
     rc->builder = gtk_builder_new();
     gtk_builder_add_from_file(rc->builder, "./Resources/glade/room_creation.glade", NULL);

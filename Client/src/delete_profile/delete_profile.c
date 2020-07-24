@@ -3,6 +3,8 @@
 void mx_delete_profile_build(t_info *info, t_delete_profile *dp) {
     if (dp == NULL)
         info->windows->dp = dp = malloc(sizeof(t_group_create));
+    else
+        return;
 
     dp->builder = gtk_builder_new();
     gtk_builder_add_from_file(dp->builder, "./Resources/glade/del_profile.glade", NULL);
