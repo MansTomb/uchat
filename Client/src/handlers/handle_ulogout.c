@@ -8,6 +8,9 @@ static int wrap(void *data) {
 }
 
 void mx_handle_ulogout(t_info *info, cJSON *json) {
+    if (!info->windows->ms)
+        return;
+
     int uid = cJSON_GetObjectItem(json, "uid")->valueint;
     t_contact *contact = mx_find_contant(info, uid);
 
