@@ -11,8 +11,8 @@ static void handlers2(t_info *info, cJSON *json, int type, int *ret) {
         mx_handle_ulogin(info, json);
     else if (type == this_uid_logout && !(*ret = 0))
         mx_handle_ulogout(info, json);
-    else if (type == this_uid_logout && !(*ret = 0))
-        mx_handle_ucreate_personal_chat(info, json);
+    else if (type == success_new_personal_chat && !(*ret = 0))
+        mx_handle_ucreate_chat(info, json);
 }
 
 bool mx_handle_if_not_requested(t_info *info, cJSON *json) {
@@ -30,7 +30,7 @@ bool mx_handle_if_not_requested(t_info *info, cJSON *json) {
     else if (type == success_add_user_in_chat && !(ret = 0))
         mx_handle_invite_user(info, json);
     else if (type == add_user_in_chat_return_chat && !(ret = 0))
-        mx_handle_being_invited(info, json);
+        mx_handle_ucreate_chat(info, json);
     else
         handlers2(info, json, type, &ret);
     return ret;

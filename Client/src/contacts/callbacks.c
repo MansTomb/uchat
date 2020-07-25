@@ -57,6 +57,7 @@ void mx_contacts_send_message(GtkWidget *widget, gpointer data) {
 
 void mx_contacts_move(GtkWidget *widget, gpointer data) {
     printf("mx_contacts_move\n");
+    // mx_change_contact_group(info);
 }
 
 void mx_contacts_delete(GtkWidget *widget, gpointer data) {

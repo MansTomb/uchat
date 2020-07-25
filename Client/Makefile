@@ -37,7 +37,7 @@ change_pass = change_pass callbacks validate
 main_chat_screen = main_screen
 
 contacts = contacts callbacks json create_table get_json_list_contacts \
-	save_json_groups del_cnt_json start_chat_json create_menus
+	save_json_groups del_cnt_json start_chat_json create_menus move_cnt
 
 profile = profile json callbacks
 

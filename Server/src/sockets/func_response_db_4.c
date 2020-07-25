@@ -42,7 +42,6 @@ void mx_db_invite_send_message(t_info *info, t_peer *peer, cJSON *get) {
     // printf("%s", cJSON_Print(bd));
     if (MX_TYPE(bd) == failed_add_user_in_chat)
         mx_send_message_handler(info->sock, peer, bd, peer->socket);
-        mx_dialog_warning_create(NULL, "Failed add user in chat!");
     else {
         len = cJSON_GetArraySize(cJSON_GetObjectItem(bd, "clients_id"));
         uid = get_arr_exept(bd);

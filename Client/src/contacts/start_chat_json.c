@@ -28,11 +28,11 @@ static int wrap(void *data) {
     t_ibear_info_json *info = data;
 
     mx_chat_put(info->info, info->json);
-    mx_dialog_warning_create(NULL, "Chat created!");
+    free(data);
     return 0;
 }
 
-void mx_handle_ucreate_personal_chat(t_info *info, cJSON *json) {
+void mx_handle_ucreate_chat(t_info *info, cJSON *json) {
     if (!info->windows->ms)
         return;
 
@@ -42,7 +42,6 @@ void mx_handle_ucreate_personal_chat(t_info *info, cJSON *json) {
     info_v2->json = json;
 
     gdk_threads_add_idle(wrap, info_v2);
-    free(info_v2);
 }
 
 void mx_start_chat_json(t_info *info) {
@@ -50,16 +49,5 @@ void mx_start_chat_json(t_info *info) {
 
     if (uid2 >= 0) {
         send_request(info, uid2);
-        mx_wait_for_json(info, success_new_personal_chat, failed_new_personal_chat);
-        if (mx_get_jtype(info, success_new_personal_chat)) {
-            mx_chat_put(info, info->json);
-            mx_dialog_warning_create(NULL, "Chat created!");
-        }
-        else {
-            mx_dialog_warning_create(NULL, "Chat create error!");
-        }
-    }
-    else {
-        mx_dialog_warning_create(NULL, "Chat create error!");
     }
 }
