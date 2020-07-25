@@ -23,7 +23,7 @@ static void check_role(cJSON *jsn) {
                 "ND user_id = %i;", MX_VINT(jsn, "cid"), MX_VINT(jsn, "uid1"));
 
         cJSON_SetNumberValue(cJSON_GetObjectItem(jsn, "role"), 1);
-        MX_SET_TYPE(jsn, failed_new_personal_chat);
+        MX_SET_TYPE(jsn, success_new_personal_chat);
         mx_check(rc, err, "update role");
         free(query);
     }

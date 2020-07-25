@@ -37,9 +37,10 @@ cJSON *mx_create_personal_chat(sqlite3 *db, cJSON *jsn) {
     int rc = 0;
 
     asprintf(&query, "SELECT count(uc1.chat_id) FROM users_chats AS uc1 JOIN "
-            "users_chats AS uc2 ON uc1.user_id = %i AND uc2.user_id = %i AND "
-            "uc1.chat_id = uc2.chat_id JOIN chats AS c ON c.type = 1 AND c.id = uc1.chat_id;",
-            MX_VINT(jsn, "uid1"), MX_VINT(jsn, "uid2"));
+            "users_chats AS uc2 ON uc1.user_id = %i AND uc2.user_id = %i JOIN "
+            "chats AS c ON c.type = 1 AND c.id = uc1.chat_id AND "
+            "c.id = uc2.chat_id;", MX_VINT(jsn, "uid1"), MX_VINT(jsn, "uid2"));
+            
     rc = sqlite3_exec(db, query, callback, jsn, &err);
     if (mx_check(rc, err, "create personal chat") != SQLITE_OK) {
         mx_get_present_chat(db, jsn);
