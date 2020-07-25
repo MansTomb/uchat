@@ -24,7 +24,10 @@ static void send_request(const t_info *info, const char *old_pass, const char *n
 void mx_chg_pass_json(t_info *info, const char *old_pass, const char *new_pass) {
     send_request(info, old_pass, new_pass);
     mx_wait_for_json(info, success_change_password, failed_change_password);
-    if (mx_get_jtype(info, failed_change_password)) {
+    if (mx_get_jtype(info, success_change_password)) {
+        mx_dialog_warning_create(NULL, "Success change password!\n");
+    }
+    else {
         mx_dialog_warning_create(NULL, "Failed change password!\n");
     }
 }

@@ -42,7 +42,7 @@ void mx_reg_user_on_click(GtkWidget *widget, gpointer user_data) {
         mx_register_build_json_wrapper(info);
         mx_wait_for_json(info, failed_register, success_register);
         if (mx_get_jtype(info, success_register)) {
-            
+            mx_dialog_warning_create(NULL, "Successfully registered!");
         }
         else if (mx_get_jtype(info, failed_register))
             mx_dialog_warning_create(NULL, "Username already on use!");

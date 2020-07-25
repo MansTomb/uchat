@@ -52,4 +52,7 @@ void mx_get_json_contacts(t_info *info) {
         save_contacts(info);
         mx_upd_groups_list(info);
     }
+    else {
+        mx_dialog_warning_create(NULL, "Failed get client contacts!");
+    }
 }
