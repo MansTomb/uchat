@@ -40,6 +40,7 @@ typedef struct s_group t_group; // json
 typedef struct s_chat_member t_chat_member;
 typedef struct s_left_room t_left_room;
 typedef struct s_ibear_info_json t_ibear_info_json;
+typedef struct s_cont_move t_cont_move;
 
 struct s_ibear_info_json {
     t_info *info;
@@ -84,6 +85,7 @@ struct s_send_msg {
     int cid;
     t_message *msg;
     t_chat *chat;
+    cJSON *json;
     t_info *info;
 };
 
@@ -91,6 +93,7 @@ struct s_send_msg_img {
     int cid;
     t_message_img *msg;
     t_chat *chat;
+    cJSON *json;
     t_info *info;
 };
 
@@ -317,6 +320,14 @@ struct s_contact_add {
     GtkWidget *combobox;
     GtkTreeStore *nameslist;
     GtkEntryCompletion *e_comp;
+
+    t_info *info;
+};
+
+struct s_cont_move {
+    GtkBuilder *builder;
+    GtkWidget *dialog;
+    GtkWidget *combo;
 
     t_info *info;
 };
@@ -587,6 +598,8 @@ void mx_create_table(t_info *info, t_contacts *cont);
 void mx_add_contact_build(t_info *info, t_contact_add *ac);
 void mx_add_contact_destroy(t_info *info);
 void mx_other_profile_build(t_info *info, t_contact *cont);
+void mx_cont_move_build(t_info *info);
+void mx_cont_move_destroy(t_cont_move *cmove);
 
 /*  Callbacks */
 void mx_contacts_tree_on_click(GtkTreeView *tree_view, GtkTreePath *path, GtkTreeViewColumn *column, gpointer user_data);
@@ -604,6 +617,9 @@ void mx_create_group_destroy(t_info *info);
 
 void mx_on_crt_group_cancel(GtkWidget *widget, gpointer data);
 void mx_on_crt_group_create(GtkWidget *widget, gpointer data);
+
+void mx_cont_move_cancel(GtkWidget *widget, gpointer data);
+void mx_cont_move_move(GtkWidget *widget, gpointer data);
 
 /*                              Room Creation */
 void mx_room_creation_build(t_info *info, t_room_creation *rc);

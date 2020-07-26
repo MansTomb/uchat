@@ -8,7 +8,7 @@ base = main socket info close \
 
 handlers = read_non_requested_jsons handle_del_msg handle_edit_msg            \
 	handle_send_msg handle_invite_user handle_being_invited handle_leave_room \
-	handle_ban handle_unban handle_ulogin handle_ulogout
+	handle_ban handle_unban handle_ulogin handle_ulogout handle_ucreate
 
 login = login validate callbacks json
 
@@ -37,7 +37,9 @@ change_pass = change_pass callbacks validate
 main_chat_screen = main_screen
 
 contacts = contacts callbacks json create_table get_json_list_contacts \
-	save_json_groups del_cnt_json start_chat_json create_menus move_cnt
+	save_json_groups del_cnt_json start_chat_json create_menus
+
+cont_move = cont_move move_cnt callbacks
 
 profile = profile json callbacks
 
@@ -58,7 +60,8 @@ utils = css wait_for_json create_hash json_get_type dialog entry toggle       \
 
 dirs = base login register admin add_contact chat create_group main_chat_screen \
 	profile preferences contacts message message_img room_creation utils      \
-	change_pass handlers delete_profile other_profile ban invite sounds unban
+	change_pass handlers delete_profile other_profile ban invite sounds unban \
+	cont_move
 
 FILES = $(foreach dir, $(dirs), $($(dir):%=$(dir)/%))
 

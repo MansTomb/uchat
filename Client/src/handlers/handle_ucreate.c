@@ -4,11 +4,11 @@ static int wrap(void *data) {
     t_ibear_info_json *info = data;
 
     mx_chat_put(info->info, info->json);
-    free(info);
+    free(data);
     return 0;
 }
 
-void mx_handle_being_invited(t_info *info, cJSON *json) { 
+void mx_handle_ucreate_chat(t_info *info, cJSON *json) {
     if (!info->windows->ms)
         return;
 
