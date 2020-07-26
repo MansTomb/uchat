@@ -12,15 +12,15 @@
 #define MX_NO_PEER -1
 
 #define MX_DB_PATH "Server/db/uchat.db"
-#define MX_SERVERLOG_PATH "Server/db/serverlogs"
-#define MX_EMAIL_PATH "Server/db/sendmail"
-#define MX_EMAIL_PATH_LOGIN "Server/db/sendmail_login"
+#define MX_SERVERLOG_PATH "Resources/server_files/serverlogs"
+#define MX_EMAIL_PATH "Resources/server_files/sendmail"
+#define MX_EMAIL_PATH_LOGIN "Resources/server_files/sendmail_login"
 
 #define MX_FILES_DIR "Server/tmp/"
 
 #define MX_LIST_SIZE 100
-#define MX_ANIME_LIST_DIR "Server/db/anime.txt"
-#define MX_JOKES_LIST_DIR "Server/db/jokes.txt"
+#define MX_ANIME_LIST_DIR "Resources/server_files/anime"
+#define MX_JOKES_LIST_DIR "Resources/server_files/jokes"
 
 typedef struct sockaddr_in t_saddr;
 

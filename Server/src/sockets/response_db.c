@@ -1,5 +1,9 @@
 #include "server.h"
 
+static void auditor3(t_info *info, t_peer *peer, int type, cJSON *get) {
+    printf("unknown type of message\n");
+}
+
 static void auditor2(t_info *info, t_peer *peer, int type, cJSON *get) {
     if (type == make_search_user)
         mx_db_get_self_response(info, peer, get, &mx_search_user);
@@ -20,7 +24,7 @@ static void auditor2(t_info *info, t_peer *peer, int type, cJSON *get) {
     else if (type == make_change_contact_group)
         mx_db_get_self_response(info, peer, get, &mx_change_contact_group);
     else
-        printf("unknown type of message\n");
+        auditor3(info, peer, type, get);
 }
 
 static void auditor1(t_info *info, t_peer *peer, int type, cJSON *get) {
