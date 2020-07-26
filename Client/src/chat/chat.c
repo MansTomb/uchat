@@ -6,6 +6,8 @@ static void set_jsons(t_chat *chat, cJSON *json) {
     chat->ctype = cJSON_GetObjectItem(json, "ctype")->valueint;
     chat->chat_name = cJSON_GetObjectItem(json, "cname")->valuestring;
     mx_save_chat_users(chat, cJSON_GetObjectItem(json, "users"));
+    if (chat->ctype == 1)
+        chat->chat_name = mx_find_uid_private(chat)->login;
 }
 
 static void set_data(t_info *info, t_chat *chat, cJSON *json) {

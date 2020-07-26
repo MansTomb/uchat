@@ -20,9 +20,9 @@ cJSON *mx_unblock_user(sqlite3 *db, cJSON *jsn) {
         MX_SET_TYPE(jsn, failed_unblock_user);
     }
     else {
+        jsn = mx_get_chat_for_invite(db, jsn);
         MX_SET_TYPE(jsn, success_unblock_user);
     }
-    jsn = mx_get_chat_for_invite(db, jsn);
     free(query);
     return jsn;
 }
