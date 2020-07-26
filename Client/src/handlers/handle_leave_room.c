@@ -32,9 +32,11 @@ void mx_handle_leave_room(t_info *info, cJSON *json) {
     lr->cid = cJSON_GetObjectItem(json, "cid")->valueint;
     lr->info = info;
     chat = mx_find_chat(info, lr->cid);
-    lid = find_user(chat, uid);
-    if (lid > 0 && chat->info->cl_data->profile->id != uid)
-        mx_pop_index(chat->users, lid);
-    else if (chat->info->cl_data->profile->id == uid)
-        gdk_threads_add_idle(wrap, lr);
+    if (chat) {
+        lid = find_user(chat, uid);
+        if (lid > 0 && chat->info->cl_data->profile->id != uid)
+            mx_pop_index(chat->users, lid);
+        else if (chat->info->cl_data->profile->id == uid)
+            gdk_threads_add_idle(wrap, lr);
+    }
 }

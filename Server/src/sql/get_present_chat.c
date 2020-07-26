@@ -9,7 +9,7 @@ static int get_role(void *data, int argc, char **argv, char **cols) {
     return 0;
 }
 
-static void check_role(cJSON *jsn) {
+static void check_role(sqlite3 *db, cJSON *jsn) {
     if (cJSON_GetObjectItem(jsn, "role")->valueint < 0) {
         cJSON_SetNumberValue(cJSON_GetObjectItem(jsn, "json_type"),
                             failed_new_personal_chat);
@@ -22,6 +22,7 @@ static void check_role(cJSON *jsn) {
         asprintf(&query, "UPDATE users_chats SET role = 1 WHERE chat_id = %i A"
                 "ND user_id = %i;", MX_VINT(jsn, "cid"), MX_VINT(jsn, "uid1"));
 
+        rc = sqlite3_exec(db, query, NULL, NULL, &err);
         cJSON_SetNumberValue(cJSON_GetObjectItem(jsn, "role"), 1);
         MX_SET_TYPE(jsn, success_new_personal_chat);
         mx_check(rc, err, "update role");
@@ -45,7 +46,7 @@ void mx_get_present_chat(sqlite3 *db, cJSON *jsn) {
         MX_SET_TYPE(jsn, failed_new_personal_chat);
     }
     else {
-        check_role(jsn);
+        check_role(db, jsn);
     }
     free(query);
 }

@@ -23,6 +23,7 @@ cJSON *mx_unblock_user(sqlite3 *db, cJSON *jsn) {
     else {
         MX_SET_TYPE(jsn, success_unblock_user);
     }
+    jsn = mx_get_chat_for_invite(db, jsn);
     free(query);
     return jsn;
 }
