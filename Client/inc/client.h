@@ -558,6 +558,10 @@ void mx_dialog_warning_create(GtkWidget *parent, char *message);
     /* Set vnotify */
 void mx_set_vnoti(t_info *info, t_main_screen *ms, int cid, gboolean value);
 
+    /* Set snotify */
+void mx_snotify(t_info *info, t_main_screen *ms, int cid);
+void mx_start_snotify(void);
+
 /* Windows */
 
 /*                             LOGIN SCREEN */

@@ -19,5 +19,21 @@ void mx_set_vnoti(t_info *info, t_main_screen *ms, int cid, gboolean value) {
 
     if (child != vchild || (child == vchild && value == 0))
         gtk_container_child_set_property(GTK_CONTAINER(ms->chat_stack), child, "needs-attention", &val);
-        notif();
+}
+
+void mx_snotify(t_info *info, t_main_screen *ms, int cid) {
+    if (info->cl_data->profile->sound_noty == 0)
+        return;
+
+    char name[64];
+    GtkWidget *vchild = NULL;
+    GtkWidget *child = NULL;
+
+    sprintf(name, "%d", cid);
+
+    vchild = gtk_stack_get_visible_child(GTK_STACK(ms->chat_stack));
+    child = gtk_stack_get_child_by_name(GTK_STACK(ms->chat_stack), name);
+
+    if (child != vchild)
+        mx_start_snotify();
 }

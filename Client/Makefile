@@ -53,14 +53,12 @@ add_contact = add_contact callbacks add_json_user_to_contacts add_group
 
 create_group = create_group callbacks delete_group_json
 
-sounds = sounds
-
 utils = css wait_for_json create_hash json_get_type dialog entry toggle       \
-	set_vnotify find_something player validate_chars gobject_builder get_image \
+	notify find_something player validate_chars gobject_builder get_image     \
 
 dirs = base login register admin add_contact chat create_group main_chat_screen \
 	profile preferences contacts message message_img room_creation utils      \
-	change_pass handlers delete_profile other_profile ban invite sounds unban \
+	change_pass handlers delete_profile other_profile ban invite unban        \
 	cont_move
 
 FILES = $(foreach dir, $(dirs), $($(dir):%=$(dir)/%))
