@@ -30,6 +30,8 @@ void mx_add_contact_build(t_info *info, t_contact_add *ac) {
     else
         return;
 
+    info->cl_data->tmp_users = mx_create_list();
+    mx_get_list_users_json_wrapper(info);
     ac->builder = gtk_builder_new();
     gtk_builder_add_from_file(ac->builder, MX_GLADE_AC, NULL);
     ac->dialog = mx_gobject_builder(ac->builder, "dialog");
