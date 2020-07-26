@@ -1,7 +1,6 @@
 #include "server.h"
 
 static int callback(void *data, int argc, char **argv, char **cols) {
-    cJSON_AddNumberToObject(data, "role", 1);
     cJSON_AddStringToObject(data, "login", argv[0]);
 
     return 0;
@@ -23,6 +22,7 @@ cJSON *mx_unblock_user(sqlite3 *db, cJSON *jsn) {
     else {
         MX_SET_TYPE(jsn, success_unblock_user);
     }
+    jsn = mx_get_chat_for_invite(db, jsn);
     free(query);
     return jsn;
 }
