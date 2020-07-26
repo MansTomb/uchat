@@ -25,6 +25,7 @@ static void socket_type_set(t_saddr *sock, int port) {
 
 void mx_sockets_initialize(t_sock *sock, int port) {
     mx_init_db(&sock->db);
+    mx_init_lists(sock);
     socket_master_create(&sock->master_socket);
     socket_master_allow_multiple_connections(&sock->master_socket, &sock->opt);
     socket_type_set(&sock->address, port);

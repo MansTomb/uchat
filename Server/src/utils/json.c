@@ -38,7 +38,17 @@ cJSON *mx_su_msg(cJSON *bd, char *s) {
     cJSON_AddNumberToObject(json, "role", 2);
     cJSON_AddStringToObject(json, "content", str);
     mx_strdel(&str);
+    return json;
+}
 
+cJSON *mx_bot_msg(cJSON *bd, char *s) {
+    cJSON *json = cJSON_CreateObject();
 
+    cJSON_AddNumberToObject(json, "json_type", send_message);
+    cJSON_AddNumberToObject(json, "uid", 1);
+    cJSON_AddNumberToObject(json, "cid", MX_VINT(bd, "cid"));
+    cJSON_AddNumberToObject(json, "type", 1);
+    cJSON_AddNumberToObject(json, "role", 2);
+    cJSON_AddStringToObject(json, "content", s);
     return json;
 }

@@ -4,7 +4,7 @@ NAME = uchat_server
 
 base = main
 
-init = daemonize init_info sockets_initialize sockets_initialize_2
+init = daemonize init_info sockets_initialize sockets_initialize_2 init_lists
 
 sockets = handle_incoming_data handle_new_connection loop \
 	receive_message send_message shutdown signals receive_message_handler \
@@ -19,7 +19,7 @@ sql = authorization check_error close_db create_tables init_db \
 	get_client_chat_messages edit_message search_user delete_user \
 	create_group_chat_channel create_contact_group del_contact_group \
 	invite get_chat_for_invite leave_chat superuser_message \
-	block_user unblock_user
+	block_user unblock_user change_contact_group
 
 utils = initialize_zero message_on_email print_serv_out json
 
