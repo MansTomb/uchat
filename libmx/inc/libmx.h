@@ -22,7 +22,6 @@
 #include <sqlite3.h>
 
 #include "cJSON.h"
-#include "cvector.h"
 #include "list.h"
 #include "macroses.h"
 
