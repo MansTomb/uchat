@@ -26,6 +26,5 @@ void mx_save_chat_users(t_chat *chat, const cJSON *users) {
     }
     else {
         fprintf(stderr, "user from chat saving error\n");
-        mx_push_back(chat->users, get_myself(chat));
     }
 }
