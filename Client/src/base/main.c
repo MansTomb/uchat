@@ -4,14 +4,17 @@ static void wrong_usage() {
     printf("Wrong Usage Client\n");
 }
 
+static int wrap(void *data) {
+    t_info *info = data;
+
+    mx_destroy(NULL, NULL, info);
+    return 0;
+}
+
 static void reconnect(int *sockfd, t_info *info) {
-    // struct sockaddr addr;
-    // socklen_t clientlen;
     struct sockaddr_in serv_addr = info->sock->serv_addr;
     int i;
 
-    printf("%s","Lost connection to the server\n");
-    // int name = getpeername(sockfd, (struct sockaddr*)&addr, (socklen_t *)&clientlen);
     for (i = 0; i < 10; ++i) {
         if (connect(*sockfd, (struct sockaddr*)&serv_addr,
             sizeof(serv_addr)) < 0) {
@@ -27,8 +30,7 @@ static void reconnect(int *sockfd, t_info *info) {
     if (i == 10) {
         puts("\nGood bye, see you soon...\n");
         close(*sockfd);
-        mx_destroy(NULL, NULL, info);
-        // exit(0);   //destroy && exit
+        gdk_threads_add_idle(wrap, info);
     }
 }
 
@@ -40,7 +42,10 @@ static void *read_from_server(void *info) {
 
     while (1) {
         if ((n = read(info1->sock->sock, buff, sizeof(buff))) <= 0) {
-            reconnect(&info1->sock->sock, info1);
+            if (info1->reconnect)
+                reconnect(&info1->sock->sock, info1);
+            else
+                pthread_exit(0);
         }
         else if (n > 0) {
             mx_receive_message_handler(buff, &responce, info);
@@ -50,23 +55,23 @@ static void *read_from_server(void *info) {
     pthread_exit(0);
 }
 
-static void *read_from_stdin(void *info) {   // for testing server
-    t_info *info1 = (t_info *)info;
-    int n;
-    char buff[MX_MAX_SEND_SIZE];
-    char *responce = NULL;
+// static void *read_from_stdin(void *info) {   // for testing server
+//     t_info *info1 = (t_info *)info;
+//     int n;
+//     char buff[MX_MAX_SEND_SIZE];
+//     char *responce = NULL;
 
-    while (1) {
-        fgets(buff, sizeof(buff), stdin);
-        cJSON *json = cJSON_Parse(buff);
-        if (mx_check_err_json(json))
-            puts(buff);     // вивід в термінал
-        else
-            mx_send_message_handler(json, info1->sock->sock);
-        bzero(buff, sizeof(buff));
-    }
-    pthread_exit(0);
-}
+//     while (1) {
+//         fgets(buff, sizeof(buff), stdin);
+//         cJSON *json = cJSON_Parse(buff);
+//         if (mx_check_err_json(json))
+//             puts(buff);     // вивід в термінал
+//         else
+//             mx_send_message_handler(json, info1->sock->sock);
+//         bzero(buff, sizeof(buff));
+//     }
+//     pthread_exit(0);
+// }
 
 int main(int argc, char *argv[]) {
     if (argc != 3) {
@@ -75,16 +80,12 @@ int main(int argc, char *argv[]) {
     }
 
     t_info *info = mx_create_info();
-    info->sock = mx_client_socket_create(argv[1], atoi((argv[2])));
 
+    info->sock = mx_client_socket_create(argv[1], atoi((argv[2])));
     gtk_init(&argc, &argv);
     mx_info_create_css(info);
-
     mx_login_screen_build(info, info->windows->log);
-
     pthread_create(&info->thread.data, NULL, &read_from_server, (void *)info);
-    pthread_create(&info->thread.data, NULL, &read_from_stdin, (void *)info);  // for testing server
-
     gtk_main();
 
     return 0;

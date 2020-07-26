@@ -27,7 +27,8 @@ void mx_info_create_css(t_info *new) {
     display = gdk_display_get_default();
     screen = gdk_display_get_default_screen(display);
     new->css = gtk_css_provider_new();
-    gtk_style_context_add_provider_for_screen(screen, GTK_STYLE_PROVIDER(new->css), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+    gtk_style_context_add_provider_for_screen(screen, 
+        GTK_STYLE_PROVIDER(new->css), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 }
 
 t_info *mx_create_info() {
@@ -37,6 +38,7 @@ t_info *mx_create_info() {
     new->json = NULL;
     new->response = NULL;
     new->wchange = 0;
+    new->reconnect = 1;
     new->windows = create_windows();
     new->chat_list = mx_create_list();
     new->cl_data = (t_data *)malloc(sizeof(t_data));

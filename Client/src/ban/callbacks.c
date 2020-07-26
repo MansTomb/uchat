@@ -9,7 +9,7 @@ static bool validate(t_ban_user *ban, char *name) {
                 mx_dialog_warning_create(NULL, "User not exist!");
         }
         else
-            mx_dialog_warning_create(NULL, "Not valid characters in field!");
+            mx_dialog_warning_create(NULL, MX_NONPRINT);
     }
     else
         mx_dialog_warning_create(NULL, MX_FIELDS_NOTEMPTY);

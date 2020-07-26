@@ -7,7 +7,6 @@ static char *get_text(t_chat *chat) {
 
     gtk_text_buffer_get_start_iter(buff, &start);
     gtk_text_buffer_get_end_iter(buff, &end);
-
     return gtk_text_buffer_get_text(buff, &start, &end, FALSE);
 }
 
@@ -26,7 +25,8 @@ void mx_send_message(GtkWidget *widget, gpointer data) {
 
         if (strlen(get_text(chat))) {
             if (chat->edit) {
-                mx_edit_message_t1_json_wrapper(chat->editedmsg, get_text(chat));
+                mx_edit_message_t1_json_wrapper(chat->editedmsg,
+                                                            get_text(chat));
                 chat->edit = 0;
                 chat->editedmsg = NULL;
             }
@@ -41,9 +41,9 @@ void mx_chat_img_send(GtkWidget *widget, gpointer data) {
     char *name;
 
     if (chat->ctype != 3) {
-        name = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(chat->img_dialog));
+        name = gtk_file_chooser_get_filename(
+                                          GTK_FILE_CHOOSER(chat->img_dialog));
         mx_send_message_t2_json_wrapper(chat, name);
-
         gtk_widget_hide(chat->img_dialog);
     }
     else

@@ -14,9 +14,9 @@ gboolean mx_cp_validate(t_change_password *cp) {
         mx_entry_text_exist(cp->newpass2)) {
             if (strcmp(mx_entry_get_text(cp->newpass1),
                        mx_entry_get_text(cp->newpass2)) == 0) {
-                if (check_isprint(mx_entry_get_text(cp->oldpass)) &&
-                    check_isprint(mx_entry_get_text(cp->newpass1)) &&
-                    check_isprint(mx_entry_get_text(cp->newpass2)))
+                if (mx_validate_chars(mx_entry_get_text(cp->oldpass))
+                 && mx_validate_chars(mx_entry_get_text(cp->newpass1))
+                 && mx_validate_chars(mx_entry_get_text(cp->newpass2)))
                     return true;
                 else
                     mx_dialog_warning_create(NULL, MX_PASS_NONPRINT);

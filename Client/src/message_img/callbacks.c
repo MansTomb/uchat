@@ -11,7 +11,7 @@ void mx_msg_img_menu_show(GtkWidget *widget, GdkEvent *event, gpointer data) {
 void mx_msg_img_delete(GtkWidget *widget, gpointer data) {
     t_message_img *message = data;
 
-    printf("Delete\n");
+    mx_delete_message_t2_json_wrapper(message);
 }
 
 void mx_msg_open_folder(GtkWidget *widget, gpointer data) {

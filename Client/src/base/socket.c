@@ -7,16 +7,14 @@ t_sock *mx_client_socket_create(char *ip, int port) {
         printf("Socket Creation Error\n");
         exit(EXIT_FAILURE);
     }
-
     new->serv_addr.sin_family = AF_INET;
     new->serv_addr.sin_port = htons(port);
-
-    if(inet_pton(AF_INET, ip, &new->serv_addr.sin_addr)<=0) {
+    if(inet_pton(AF_INET, ip, &new->serv_addr.sin_addr) <= 0) {
         printf("\nInvalid address/ Address not supported \n");
         exit(EXIT_FAILURE);
     }
-
-    if (connect(new->sock, (struct sockaddr *)&new->serv_addr, sizeof(new->serv_addr)) < 0) {
+    if (connect(new->sock, 
+            (struct sockaddr *)&new->serv_addr, sizeof(new->serv_addr)) < 0) {
         printf("\nConnection Failed \n");
         exit(EXIT_FAILURE);
     }

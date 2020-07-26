@@ -27,7 +27,8 @@ static void del_cnt(t_list *list, const cJSON *i) {
 }
 
 void mx_del_cnt_json(t_info *info) {
-    int uid2 = mx_get_cnt_id_by_login(info->windows->cont->clicked_cont, info->cl_data->contacts);
+    int uid2 = mx_get_cnt_id_by_login(info->windows->cont->clicked_cont,
+                                                     info->cl_data->contacts);
 
     if (uid2 > 0) {
         send_request(info, uid2);

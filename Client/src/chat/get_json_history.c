@@ -15,32 +15,28 @@ static void save(t_info *info, t_chat *chat) {
     if (cJSON_IsObject(info->json)) {
         cJSON *i = NULL;
         cJSON *messages = cJSON_GetObjectItem(info->json, "messages");
-        int type = -1;
         t_message *msg = NULL;
         t_message_img *msg_img = NULL;
 
         if (cJSON_IsArray(messages)) {
             cJSON_ArrayForEach(i, messages) {
-                type = cJSON_GetObjectItem(i, "mtype")->valueint;
-                if (type == 1) {
+                if (cJSON_GetObjectItem(i, "mtype")->valueint == 1) {
                     msg = mx_message_build(info, i, chat->cid);
                     mx_message_put(info, msg, chat->cid);
                 }
-                else {
+                else if (cJSON_GetObjectItem(i, "mtype")->valueint == 2) {
                     msg_img = mx_message_img_build(info, i, chat->cid);
                     mx_message_img_put(info, msg_img, chat->cid);
                 }
             }
         }
-        else
-            fprintf(stderr, "json saving error\n");
     }
-    else
-        fprintf(stderr, "json saving error\n");
 }
 
 void mx_get_json_chat_history(t_info *info, t_chat *chat) {
     request(info, chat);
-    mx_wait_for_json(info, send_client_chat_messages, send_client_chat_messages);
+    mx_wait_for_json(info, send_client_chat_messages,
+                                                 send_client_chat_messages);
     save(info, chat);
+    info->json = NULL;
 }

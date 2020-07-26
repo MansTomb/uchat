@@ -24,7 +24,6 @@ void mx_on_click_profile_edit(GtkWidget *widget, gpointer *data) {
     t_profile *profile = ((t_info *)data)->windows->prof;
 
     set_editables(profile, TRUE);
-
     gtk_widget_hide(profile->edit);
     gtk_widget_show(profile->save);
     gtk_widget_show(profile->cancel);

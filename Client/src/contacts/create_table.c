@@ -26,8 +26,8 @@ static void push_contacts_with_group(t_info *info, t_contacts *cont,
                                      char *gname, int gid) {
     t_contact *contact = NULL;
     t_giter *iter = get_giter_from_list_by_name(cont, gid);
-    GdkPixbuf *on = mx_get_image("./Resources/images/online.png", 20, 20);
-    GdkPixbuf *off = mx_get_image("./Resources/images/offline.png", 10, 10);
+    GdkPixbuf *on = mx_get_image(MX_ONLINE, 20, 20);
+    GdkPixbuf *off = mx_get_image(MX_OFFLINE, 10, 10);
 
     for (size_t i = 0; i < info->cl_data->contacts->size; ++i) {
         contact = (mx_get_index(info->cl_data->contacts, i))->data;

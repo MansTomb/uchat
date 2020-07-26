@@ -26,16 +26,15 @@ static void one_message_handler(char *receiving_buff, t_info *info) {
     bzero(receiving_buff, strlen(receiving_buff));
 }
 
-static void large_message_handler(cJSON *json, char **large_message, t_info *info) {
+static void large_message_handler(cJSON *json, char **large_message,
+                                                             t_info *info) {
     int ptype = cJSON_GetObjectItem(json, "p_type")->valueint;
     char *piece;
     cJSON *all_json;
 
     piece = cJSON_GetObjectItem(json, "piece")->valuestring;
     *large_message = mx_strjoin_free(*large_message, piece);
-    // puts(*large_message);                            ///test
     if (ptype == 2) {
-        // printf("large = %s\n", *large_message);      ///test
         all_json = cJSON_Parse(*large_message);
         if (mx_check_err_json(all_json))
             return;
@@ -51,22 +50,16 @@ void mx_receive_message_handler(char *receiving_buff, char **large_message,
     int type;
 
     json = cJSON_Parse(receiving_buff);
-    if (mx_check_err_json(json)) {
-        // puts(receiving_buff);            ///test
+    if (mx_check_err_json(json))
         return;
-    }
     type = cJSON_GetObjectItem(json, "p_type")->valueint;
-    if (type == 0) {
-        one_message_handler(cJSON_GetObjectItem(json, "piece")->valuestring, info);
-    }
-    else if (type == 1 || type == 2) {
-        // puts(cJSON_Print(json));         ///test
-        // puts("111\n");                   ///test
+    if (type == 0)
+        one_message_handler(cJSON_GetObjectItem(json, "piece")->valuestring,
+                                                                         info);
+    else if (type == 1 || type == 2)
         large_message_handler(json, large_message, info);
-    }
-    else if (type == 3) {
+    else if (type == 3)
         mx_receive_file(json, info);
-    }
     else
         printf("receive handler error\n");
     cJSON_Delete(json);

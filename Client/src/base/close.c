@@ -39,8 +39,6 @@ static void clear_data(t_info *info) {
 }
 
 static void full_destroy(t_info *info) {
-    pthread_kill(info->thread.data, 0);
-
     if (info->windows->ms)
         mx_main_screen_destroy(info);
     if (info->windows->log)
@@ -54,6 +52,8 @@ static void full_destroy(t_info *info) {
     clear_chats(info);
     clear_data(info);
     free_windows(info);
+    close(info->sock->sock);
+    free(info->sock);
     free(info);
 }
 
@@ -61,6 +61,7 @@ gboolean mx_destroy(GtkWidget *widget, GdkEvent *event, gpointer data) {
     t_info *info = data;
     
     if (info->wchange == 0) {
+        info->reconnect = 0;
         full_destroy(info);
         gtk_main_quit();
         return FALSE;

@@ -11,7 +11,6 @@ static void file_loop(t_info *info, FILE *new, int fsize) {
             pthread_exit(0);
         }
         else if (n > 0) {
-            // printf("\n---\n%s\nn = %d\n---\n", buff, fsize);
             if (fsize <= MX_MAX_SEND_SIZE) {
                 fwrite(buff, 1, fsize, new);
                 break;

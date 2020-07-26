@@ -3,13 +3,15 @@
 void mx_on_click_create_room_channel(GtkWidget *widget, gpointer data) {
     t_room_creation *dialog = data;
 
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(dialog->roomcheck), FALSE);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(dialog->roomcheck),
+                                                                       FALSE);
 }
 
 void mx_on_click_create_room_group(GtkWidget *widget, gpointer data) {
     t_room_creation *dialog = data;
 
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(dialog->channelcheck), FALSE);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(dialog->channelcheck),
+                                                                       FALSE);
 }
 
 void mx_on_click_create_room_create(GtkWidget *widget, gpointer data) {

@@ -14,14 +14,40 @@
 #define MX_GSIG_CON g_signal_connect
 
 #define MX_PASS_NONPRINT "Password contain non printable characters!"
+#define MX_NONPRINT "Not valid characters in field!!"
 #define MX_NEWPASS_NOTEQUAL "New password wont match!"
 #define MX_FIELDS_NOTEMPTY "Fields cant be empty!"
+#define MX_CNEXIST_OR_LOGIN "The contact does not exist or this is your login!"
+#define MX_USE_OR_GRP_EMPTY "Contact username or group cant be empty!"
 
 #define MX_MSGHEIGHT(msg) (strlen(msg) + 20 * 10)
 #define MX_MSGWIDTH(msg) (strlen(msg) * 4 > 400 ? 400 : strlen(msg) * 4)
 
 #define MX_SEND_FILES_DIR "Client/files_send/"
 #define MX_RECV_FILES_DIR "Client/files_recv/"
+#define MX_ONLINE "./Resources/images/online.png"
+#define MX_OFFLINE "./Resources/images/offline.png"
+#define MX_SNOTIFY "./Resources/sounds/message.mp3"
+
+#define MX_GLADE_AC "./Resources/glade/add_contact.glade"
+#define MX_GLADE_CM "./Resources/glade/contact_move.glade"
+#define MX_GLADE_ADMIN "./Resources/glade/admin_screen.glade"
+#define MX_GLADE_BAN "./Resources/glade/ban_user.glade"
+#define MX_GLADE_CHAT "./Resources/glade/chat.glade"
+#define MX_GLADE_CONT "./Resources/glade/contacts.glade"
+#define MX_GLADE_CG "./Resources/glade/create_group.glade"
+#define MX_GLADE_LOGIN "./Resources/glade/login_screen.glade"
+#define MX_GLADE_REG "./Resources/glade/register_screen.glade"
+#define MX_GLADE_MS "./Resources/glade/main_chat_screen.glade"
+#define MX_GLADE_MSG "./Resources/glade/message.glade"
+#define MX_GLADE_MSGIMG "./Resources/glade/message_img.glade"
+#define MX_GLADE_OTPROF "./Resources/glade/other_user_profile.glade"
+#define MX_GLADE_PREF "./Resources/glade/preferences.glade"
+#define MX_GLADE_CP "./Resources/glade/change_pass.glade"
+#define MX_GLADE_DP "./Resources/glade/del_profile.glade"
+#define MX_GLADE_PROF "./Resources/glade/profile.glade"
+#define MX_GLADE_RC "./Resources/glade/room_creation.glade"
+#define MX_GLADE_UNBAN "./Resources/glade/unban_user.glade"
 
 #define MX_STRDEL(str) (MX_MALLOC_SIZE(str) > 0 ? free(str) : (void)0)
 

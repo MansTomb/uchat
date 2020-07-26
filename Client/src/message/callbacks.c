@@ -34,7 +34,6 @@ void mx_on_msg_edit(GtkWidget *widget, gpointer data) {
     GtkWidget *lable;
 
     lable = gtk_bin_get_child(GTK_BIN(message->msg_bt));
-
     chat->edit = 1;
     chat->editedmsg = message;
     set_text(chat, (char *)gtk_label_get_text(GTK_LABEL(lable)));

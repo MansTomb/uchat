@@ -7,17 +7,14 @@ static void create_menu_items(GtkWidget *menu, t_info *info) {
     items[1] = gtk_menu_item_new_with_label("Send message");
     items[2] = gtk_menu_item_new_with_label("Move contact");
     items[3] = gtk_menu_item_new_with_label("Delete contact");
-
     gtk_menu_attach(GTK_MENU(menu), items[0], 0, 1, 0, 1);
     gtk_menu_attach(GTK_MENU(menu), items[1], 0, 1, 1, 2);
     gtk_menu_attach(GTK_MENU(menu), items[2], 0, 1, 2, 3);
     gtk_menu_attach(GTK_MENU(menu), items[3], 0, 1, 3, 4);
-
     gtk_widget_show(items[0]);
     gtk_widget_show(items[1]);
     gtk_widget_show(items[2]);
     gtk_widget_show(items[3]);
-
     MX_GSIG_CON(items[0], "activate", MX_CB(mx_contacts_open_prof), info);
     MX_GSIG_CON(items[1], "activate", MX_CB(mx_contacts_send_message), info);
     MX_GSIG_CON(items[2], "activate", MX_CB(mx_contacts_move), info);
@@ -28,11 +25,8 @@ static void create_gmenu_items(GtkWidget *menu, t_info *info) {
     GtkWidget *item = NULL;
 
     item = gtk_menu_item_new_with_label("Delete Group");
-
     gtk_menu_attach(GTK_MENU(menu), item, 0, 1, 0, 1);
-
     gtk_widget_show(item);
-
     MX_GSIG_CON(item, "activate", MX_CB(mx_group_delete), info);
 }
 

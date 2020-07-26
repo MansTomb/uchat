@@ -46,7 +46,8 @@ void mx_del_group_json(t_info *info) {
 
     if (gid > 0) {
         send_request(info, gid);
-        mx_wait_for_json(info, success_del_contact_group, failed_del_contact_group);
+        mx_wait_for_json(info, success_del_contact_group,
+                                                     failed_del_contact_group);
         if (mx_get_jtype(info, success_del_contact_group)
             && MX_MALLOC_SIZE(info->cl_data->cont_grp_names) > 0) {
             del_grp(info->cl_data->cont_grp_names, info->json);

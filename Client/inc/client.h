@@ -1,5 +1,11 @@
 #pragma once
 
+#include "fmod.h"
+#include "fmod_codec.h"
+#include "fmod_dsp.h"
+#include "fmod_memoryinfo.h"
+#include "fmod_errors.h"
+#include "fmod_output.h"
 #include "uchat.h"
 #include "defines_client.h"
 
@@ -40,6 +46,16 @@ typedef struct s_group t_group; // json
 typedef struct s_chat_member t_chat_member;
 typedef struct s_left_room t_left_room;
 typedef struct s_ibear_info_json t_ibear_info_json;
+typedef struct s_cont_move t_cont_move;
+typedef struct s_fmod t_fmod;
+
+struct s_fmod {
+    FMOD_SOUND *sound;
+    FMOD_RESULT result;
+    FMOD_SYSTEM *fmod_sys;
+    FMOD_CHANNEL *channel;
+    FMOD_BOOL pause;
+};
 
 struct s_ibear_info_json {
     t_info *info;
@@ -84,6 +100,7 @@ struct s_send_msg {
     int cid;
     t_message *msg;
     t_chat *chat;
+    cJSON *json;
     t_info *info;
 };
 
@@ -91,6 +108,7 @@ struct s_send_msg_img {
     int cid;
     t_message_img *msg;
     t_chat *chat;
+    cJSON *json;
     t_info *info;
 };
 
@@ -321,6 +339,14 @@ struct s_contact_add {
     t_info *info;
 };
 
+struct s_cont_move {
+    GtkBuilder *builder;
+    GtkWidget *dialog;
+    GtkWidget *combo;
+
+    t_info *info;
+};
+
 struct s_group_create {
     GtkBuilder *builder;
     GtkWidget *dialog;
@@ -417,6 +443,7 @@ struct s_info {
 
     t_data *cl_data;
 
+    gboolean reconnect;
     gboolean wchange;
 };
 
@@ -438,6 +465,7 @@ void mx_handle_ban(t_info *info, cJSON *json);
 void mx_handle_unban(t_info *info, cJSON *json);
 void mx_handle_ulogin(t_info *info, cJSON *json);
 void mx_handle_ulogout(t_info *info, cJSON *json);
+void mx_handle_img_message(t_info *info, cJSON *json);
 
     /* Jsons */
 void mx_save_login_data(t_info *info);
@@ -451,7 +479,7 @@ int mx_check_err_json(cJSON *new);
 void mx_start_chat_json(t_info *info);
 void mx_handle_ucreate_chat(t_info *info, cJSON *json);
 int mx_get_cnt_id_by_login(const char *login, const t_list *list);
-void mx_change_contact_group(t_info *info);
+void mx_change_contact_group(t_info *info, char *name);
 
     /* t_data clear */
 void mx_clr_custom_lst(t_list *list);
@@ -470,6 +498,7 @@ void mx_send_message_t1_json_wrapper(t_chat *chat, char *content);
 void mx_send_message_t2_json_wrapper(t_chat *chat, char *content);
 void mx_edit_message_t1_json_wrapper(t_message *msg, char *content);
 void mx_delete_message_t1_json_wrapper(t_message *msg);
+void mx_delete_message_t2_json_wrapper(t_message_img *msg);
 void mx_get_json_chat_history(t_info *info, t_chat *chat);
 void mx_create_room_wrap(t_info *info);
 void mx_delete_user_wrapper(t_info *info);
@@ -514,7 +543,7 @@ void mx_css_from_data(t_info *info, char *data);
     /* Entrys */
 GtkWidget *mx_entry_constructor(char *name);
 bool mx_entry_text_exist(GtkWidget *entry);
-const char *mx_entry_get_text(GtkWidget *entry);
+char *mx_entry_get_text(GtkWidget *entry);
 
     /* Toggle Button */
 gboolean mx_get_tactive(GtkWidget *widget);
@@ -531,6 +560,10 @@ void mx_dialog_warning_create(GtkWidget *parent, char *message);
 
     /* Set vnotify */
 void mx_set_vnoti(t_info *info, t_main_screen *ms, int cid, gboolean value);
+
+    /* Set snotify */
+void mx_snotify(t_info *info, t_main_screen *ms, int cid);
+void mx_start_snotify(t_info *info);
 
 /* Windows */
 
@@ -587,6 +620,8 @@ void mx_create_table(t_info *info, t_contacts *cont);
 void mx_add_contact_build(t_info *info, t_contact_add *ac);
 void mx_add_contact_destroy(t_info *info);
 void mx_other_profile_build(t_info *info, t_contact *cont);
+void mx_cont_move_build(t_info *info);
+void mx_cont_move_destroy(t_cont_move *cmove);
 
 /*  Callbacks */
 void mx_contacts_tree_on_click(GtkTreeView *tree_view, GtkTreePath *path, GtkTreeViewColumn *column, gpointer user_data);
@@ -604,6 +639,9 @@ void mx_create_group_destroy(t_info *info);
 
 void mx_on_crt_group_cancel(GtkWidget *widget, gpointer data);
 void mx_on_crt_group_create(GtkWidget *widget, gpointer data);
+
+void mx_cont_move_cancel(GtkWidget *widget, gpointer data);
+void mx_cont_move_move(GtkWidget *widget, gpointer data);
 
 /*                              Room Creation */
 void mx_room_creation_build(t_info *info, t_room_creation *rc);
@@ -685,3 +723,5 @@ t_message_img *mx_message_img_build(t_info *info, cJSON *json, int cid);
     /* Message callbacks */
 void mx_msg_img_menu_show(GtkWidget *widget, GdkEvent *event, gpointer data);
 void mx_msg_img_delete(GtkWidget *widget, gpointer data);
+
+void notif();
