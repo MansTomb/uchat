@@ -12,4 +12,5 @@ void mx_handle_invite_user(t_info *info, cJSON *json) {
     member->uid = uid;
     member->login = login;
     mx_push_back(mx_find_chat(info, cid)->users, member);
+    free(member);
 }

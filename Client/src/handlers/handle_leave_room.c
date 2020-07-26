@@ -17,6 +17,7 @@ static int wrap(void *data) {
     t_left_room *lr = data;
 
     mx_chat_destroy(lr->info, lr->cid);
+    free(data);
     return 0;
 }
 
