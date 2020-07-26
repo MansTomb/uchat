@@ -47,7 +47,7 @@ typedef struct s_chat_member t_chat_member;
 typedef struct s_left_room t_left_room;
 typedef struct s_ibear_info_json t_ibear_info_json;
 typedef struct s_cont_move t_cont_move;
-typedef strcut s_fmod t_fmod;
+typedef struct s_fmod t_fmod;
 
 struct s_fmod {
     FMOD_SOUND *sound;
