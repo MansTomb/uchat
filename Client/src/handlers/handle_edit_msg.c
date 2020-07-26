@@ -6,6 +6,7 @@ static int wrap(void *data) {
 
     lable = gtk_bin_get_child(GTK_BIN(edit->msg->msg_bt));
     gtk_label_set_text(GTK_LABEL(lable), edit->content);
+    free(data);
     return 0;
 }
 

@@ -19,6 +19,7 @@
 #define MX_FIELDS_NOTEMPTY "Fields cant be empty!"
 #define MX_CNEXIST_OR_LOGIN "The contact does not exist or this is your login!"
 #define MX_USE_OR_GRP_EMPTY "Contact username or group cant be empty!"
+#define MX_MSGLEN "Message cant be longer than 100 chars!"
 
 #define MX_MSGHEIGHT(msg) (strlen(msg) + 20 * 10)
 #define MX_MSGWIDTH(msg) (strlen(msg) * 4 > 400 ? 400 : strlen(msg) * 4)
