@@ -150,6 +150,7 @@ cJSON *mx_search_user(sqlite3 *db, cJSON *jsn);
 cJSON *mx_delete_user(sqlite3 *db, cJSON *jsn);
 
 cJSON *mx_invite(sqlite3 *db, cJSON *jsn);
+void mx_get_users(sqlite3 *db, cJSON *jsn);
 cJSON *mx_get_chat_for_invite(sqlite3 *db, cJSON *jsn);
 cJSON *mx_leave_chat(sqlite3 *db, cJSON *jsn);
 

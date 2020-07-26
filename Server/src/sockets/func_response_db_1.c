@@ -46,6 +46,7 @@ void mx_db_create_personal_chat(t_info *info, t_peer *peer, cJSON *get) {
     cli[2] = -1;
 
     bd = mx_create_personal_chat(info->sock->db, get);
+    mx_get_users(info->sock->db, bd);
     mx_send_msg_clients(info->sock, peer, bd, cli);
     cJSON_Delete(bd);
     free(cli);

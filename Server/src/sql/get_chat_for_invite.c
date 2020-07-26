@@ -9,7 +9,7 @@ static int callback(void *data, int argc, char **argv, char **cols) {
     return 0;
 }
 
-static void get_users(sqlite3 *db, cJSON *jsn) {
+void mx_get_users(sqlite3 *db, cJSON *jsn) {
     char *query = NULL;
     char *err = NULL;
     int rc = 0;
@@ -34,7 +34,7 @@ static int get_chat(void *data, int argc, char **argv, char **cols) {
     cJSON_AddNumberToObject(sql->jsn, "ctype", atoi(argv[2]));
     cJSON_AddStringToObject(sql->jsn, "cname", argv[3]);
 
-    get_users(sql->db, sql->jsn);
+    mx_get_users(sql->db, sql->jsn);
     return 0;
 }
 
