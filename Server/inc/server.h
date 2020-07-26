@@ -67,7 +67,7 @@ typedef struct s_db_cli {
 /* Init */
 
     /* daemonize.c */
-void mx_daemonize(t_sock *sock);
+void mx_daemonize();
 
     /* init_info.c */
 t_info *mx_init_info();
