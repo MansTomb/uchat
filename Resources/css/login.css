@@ -1,69 +1,15 @@
-/* .main_window { */
-    /* background-image: url("../images/back.gif");
-    background-repeat: no-repeat, repeat;
-    background-size: 100% 100%; */
+* {
+    box-shadow: none;
+    text-shadow: none;
+    border: none;
+}
 
-    /* opacity:0.45;
-    -moz-opacity:0.45;
-    filter:alpha(opacity=45);
-    width: 950px;
-    background-attachment: fixed;
-    background-image: url("../images/anime.gif");
-    background-repeat: no-repeat;
-    background-position: center; */
-    /* width: 504px;
-    height: 896px;
-    background: url('../images/login.jpg') left center;
-    background-size: cover;
-    animation: play 3s steps(1) infinite; */
-    /* display: inline-block; */
-    /* animation: pulse 15s infinite; */
+.main_window {
+    background: url('../images/fon.jpg') left center;
+    background-size: auto;
+    animation: play 1s steps(4) infinite;
+}
 
-/* .main_window { */
-    /* width: 720px; */
-    /* height: 1280px; */
-    /* background: url('../images/fon.jpg') left center;
-    background-size: auto; */
-    /* animation: play 1s steps(4) infinite; */
-    /* display: inline-block; */
-/* } */
-
-/* @keyframes play {
+@keyframes play {
     100% { background-position: -5120px; }
-} */
-/* @keyframes pulse {
-0% {
-    background-color: #FFFFFF;
 }
-5% {
-    background-color: #F5D6DA;
-}
-14% {
-    background-color: #EBADB5;
-}
-28% {
-    background-color: #DB707D;
-}
-42% {
-    background-color: #CC3345;
-}
-56% {
-    background-color: #8F2430;
-}
-70% {
-    background-color: #CC3345;
-}
-84% {
-    background-color: #DB707D;
-}
-95% {
-    background-color: #EBADB5;
-}
-100% {
-    background-color: #FFFFFF;
-}
-} */
-
-/* @keyframes play {
-    100% {background-position: -1792px; }
-} */

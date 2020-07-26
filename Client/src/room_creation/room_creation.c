@@ -16,10 +16,15 @@ void mx_room_creation_build(t_info *info, t_room_creation *rc) {
     rc->channelcheck = mx_gobject_builder(rc->builder, "channel");
     gtk_builder_connect_signals(rc->builder, rc);
     rc->info = info;
+    MX_GSIG_CON(rc->dialog, "delete-event", 
+                               G_CALLBACK(mx_room_creation_destroy), rc->info);
     gtk_widget_show(rc->dialog);
 }
 
-void mx_room_creation_destroy(t_info *info) {
+void mx_room_creation_destroy(GtkWidget *widget, GdkEvent *event, 
+                                                        gpointer data) {
+    t_info *info = data;
+
     gtk_widget_destroy(info->windows->rc->dialog);
     free(info->windows->rc);
     info->windows->rc = NULL;

@@ -15,10 +15,6 @@ static bool user_exist(t_invite_user *inv) {
 static bool validate(t_invite_user *inv) {
     if (mx_entry_text_exist(inv->entry)) {
         if (mx_validate_chars((char *)mx_entry_get_text(inv->entry))) {
-            // if (!user_exist(inv))
-            //     return true;
-            // else
-            //     mx_dialog_warning_create(NULL, "User already in chat!");
             return true;
         }
         else
@@ -32,7 +28,7 @@ static bool validate(t_invite_user *inv) {
 void mx_inv_cancel(GtkWidget *widget, gpointer data) {
     t_invite_user *inv = data;
 
-    mx_invite_user_destroy(inv);
+    mx_invite_user_destroy(NULL, NULL, inv);
 }
 
 void mx_inv_invite(GtkWidget *widget, gpointer data) {
@@ -40,6 +36,6 @@ void mx_inv_invite(GtkWidget *widget, gpointer data) {
 
     if (validate(inv)) {
         mx_invite_json_wrapper(inv);
-        mx_invite_user_destroy(inv);
+        mx_invite_user_destroy(NULL, NULL, inv);
     }
 }

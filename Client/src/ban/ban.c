@@ -11,11 +11,16 @@ void mx_ban_user_build(t_info *info, t_chat *chat) {
 
     ban->info = info;
     ban->chat = chat;
+    MX_GSIG_CON(ban->dialog, "delete-event", G_CALLBACK(mx_ban_user_destroy), 
+                                                                    ban);
 
     gtk_widget_show(ban->dialog);
 }
 
-void mx_ban_user_destroy(t_ban_user *ban) {
+void mx_ban_user_destroy(GtkWidget *widget, GdkEvent *event, 
+                                                        gpointer data) {
+    t_ban_user *ban = data;
+
     gtk_widget_destroy(ban->dialog);
     free(ban);
 }

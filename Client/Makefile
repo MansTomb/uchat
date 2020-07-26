@@ -76,12 +76,9 @@ WFLAGS = -Wall -Wextra -Werror -Wpedantic -Wno-unused-command-line-argument \
 	-Wno-unused-variable -Wno-unused-function -Wno-unused-parameter
 
 LFLAGS = -Iinc -I$(LIB_DIR)inc -I/usr/local/opt/openssl/include \
-	-L/usr/local/opt/openssl/lib -lssl -lcrypto -L . -lfmodex -I.
+	-L/usr/local/opt/openssl/lib -lssl -lcrypto -L. -lfmodex
 
-# CFLAGS = -Os -march=native -fomit-frame-pointer -flto
-
-CFLAGS = -O0 -g3 -glldb -ftrapv -fno-omit-frame-pointer -fsanitize=address    \
-	-fsanitize=undefined
+CFLAGS = -Ofast -march=native -flto -rdynamic
 
 PKGCONFIG = `pkg-config --libs --cflags gtk+-3.0`
 PGKCONFIGFLAGS = `pkg-config --cflags gtk+-3.0`
@@ -92,7 +89,7 @@ EXEC_LD = $(EXEC_IT) -C $(LIB_DIR)
 PRINT = printf
 MKDIR = mkdir -p
 RM = /bin/rm -rf
-TARGET = debug
+TARGET = release
 
 R = \033[1;91m
 G = \033[1;92m

@@ -19,7 +19,7 @@ static int validate(t_delete_profile *dp) {
 void mx_del_profile_cancel(GtkWidget *widget, gpointer data) {
     t_delete_profile *dp = data;
 
-    mx_delete_profile_destroy(dp->info);
+    mx_delete_profile_destroy(NULL, NULL, dp->info);
 }
 void mx_del_profile_delete(GtkWidget *widget, gpointer data) {
     t_delete_profile *dp = data;

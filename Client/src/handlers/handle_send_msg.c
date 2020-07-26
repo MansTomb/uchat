@@ -10,7 +10,7 @@ static int wrap(void *data) {
 
         mx_push_front(msg->chat->msg_list, msg->msg);
         gtk_list_box_insert(GTK_LIST_BOX(msg->chat->message_box),
-                                                        msg->msg->main_fixed, -1);
+                                         msg->msg->main_fixed, -1);
         mx_set_vnoti(msg->info, msg->info->windows->ms, msg->cid, 1);
         mx_snotify(msg->info, msg->info->windows->ms, msg->cid);
     }

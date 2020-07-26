@@ -27,7 +27,7 @@ void mx_send_message(GtkWidget *widget, gpointer data) {
             if (strlen(get_text(chat)) < 100) {
                 if (chat->edit) {
                     mx_edit_message_t1_json_wrapper(chat->editedmsg,
-                                                                get_text(chat));
+                                                    get_text(chat));
                     chat->edit = 0;
                     chat->editedmsg = NULL;
                     delete_text(chat);

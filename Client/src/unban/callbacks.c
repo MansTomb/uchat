@@ -19,7 +19,7 @@ static bool validate(t_unban_user *ban, char *name) {
 void mx_unban_cancel(GtkWidget *widget, gpointer data) {
     t_unban_user *ban = data;
 
-    mx_unban_user_destroy(ban);
+    mx_unban_user_destroy(NULL, NULL, ban);
 }
 
 void mx_unban_ban(GtkWidget *widget, gpointer data) {
@@ -28,6 +28,6 @@ void mx_unban_ban(GtkWidget *widget, gpointer data) {
 
     if (validate(unban, name)) {
         mx_unban_user_wrapper(unban->chat, mx_find_cmember(unban->chat, name)->uid);
-        mx_unban_user_destroy(unban);
+        mx_unban_user_destroy(NULL, NULL, unban);
     }
 }

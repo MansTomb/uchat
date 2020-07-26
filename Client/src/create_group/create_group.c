@@ -15,10 +15,15 @@ void mx_create_group_build(t_info *info, t_group_create *cg) {
     cg->entry = mx_gobject_builder(cg->builder, "entry");
     gtk_builder_connect_signals(cg->builder, cg);
     cg->info = info;
+    MX_GSIG_CON(cg->dialog, "delete-event", 
+                                G_CALLBACK(mx_create_group_destroy), cg->info);
     gtk_widget_show(cg->dialog);
 }
 
-void mx_create_group_destroy(t_info *info) {
+void mx_create_group_destroy(GtkWidget *widget, GdkEvent *event, 
+                                                            gpointer data) {
+    t_info *info = data;
+
     gtk_widget_destroy(info->windows->cg->dialog);
     free(info->windows->cg);
     info->windows->cg = NULL;

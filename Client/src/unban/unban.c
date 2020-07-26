@@ -10,10 +10,15 @@ void mx_unban_user_build(t_info *info, t_chat *chat) {
     gtk_builder_connect_signals(unban->builder, unban);
     unban->info = info;
     unban->chat = chat;
+    MX_GSIG_CON(unban->dialog, "delete-event", 
+                                    G_CALLBACK(mx_unban_user_destroy), unban);
     gtk_widget_show(unban->dialog);
 }
 
-void mx_unban_user_destroy(t_unban_user *unban) {
+void mx_unban_user_destroy(GtkWidget *widget, GdkEvent *event, 
+                                                        gpointer data) {
+    t_unban_user *unban = data;
+
     gtk_widget_destroy(unban->dialog);
     free(unban);
 }

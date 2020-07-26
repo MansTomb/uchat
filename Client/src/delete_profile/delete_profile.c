@@ -13,10 +13,15 @@ void mx_delete_profile_build(t_info *info, t_delete_profile *dp) {
     dp->pass2 = mx_gobject_builder(dp->builder, "pass2");
     gtk_builder_connect_signals(dp->builder, dp);
     dp->info = info;
+    MX_GSIG_CON(dp->dialog, "delete-event", 
+                              G_CALLBACK(mx_delete_profile_destroy), dp->info);
     gtk_widget_show(dp->dialog);
 }
 
-void mx_delete_profile_destroy(t_info *info) {
+void mx_delete_profile_destroy(GtkWidget *widget, GdkEvent *event, 
+                                                            gpointer data) {
+    t_info *info = data;
+
     gtk_widget_destroy(info->windows->dp->dialog);
     free(info->windows->dp);
     info->windows->dp = NULL;

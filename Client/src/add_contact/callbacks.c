@@ -23,7 +23,7 @@ void mx_on_add_contact_cancel(GtkWidget *widget, gpointer data) {
 
     if (ac->info->cl_data->tmp_users)
         mx_clr_custom_lst(ac->info->cl_data->tmp_users);
-    mx_add_contact_destroy(ac->info);
+    mx_add_contact_destroy(NULL, NULL, ac->info);
 }
 
 void mx_on_add_contact_add(GtkWidget *widget, gpointer data) {
@@ -35,7 +35,7 @@ void mx_on_add_contact_add(GtkWidget *widget, gpointer data) {
         mx_add_cnt_json_wrapper(ac);
         mx_create_table(ac->info, ac->info->windows->cont);
         mx_clr_custom_lst(ac->info->cl_data->tmp_users);
-        mx_add_contact_destroy(ac->info);
+        mx_add_contact_destroy(NULL, NULL, ac->info);
     }
     else
         mx_dialog_warning_create(NULL, MX_USE_OR_GRP_EMPTY);

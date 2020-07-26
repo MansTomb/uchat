@@ -620,10 +620,10 @@ GtkWidget *mx_create_menu(t_info *info);
 GtkWidget *mx_create_gmenu(t_info *info);
 void mx_create_table(t_info *info, t_contacts *cont);
 void mx_add_contact_build(t_info *info, t_contact_add *ac);
-void mx_add_contact_destroy(t_info *info);
+void mx_add_contact_destroy(GtkWidget *widget, GdkEvent *event, gpointer data);
 void mx_other_profile_build(t_info *info, t_contact *cont);
 void mx_cont_move_build(t_info *info);
-void mx_cont_move_destroy(t_cont_move *cmove);
+void mx_cont_move_destroy(GtkWidget *widget, GdkEvent *event, gpointer data);
 
 /*  Callbacks */
 void mx_contacts_tree_on_click(GtkTreeView *tree_view, GtkTreePath *path, GtkTreeViewColumn *column, gpointer user_data);
@@ -637,7 +637,7 @@ void mx_on_add_contact_cancel(GtkWidget *widget, gpointer data);
 void mx_on_add_contact_add(GtkWidget *widget, gpointer data);
 
 void mx_create_group_build(t_info *info, t_group_create *cg);
-void mx_create_group_destroy(t_info *info);
+void mx_create_group_destroy(GtkWidget *widget, GdkEvent *event, gpointer data);
 
 void mx_on_crt_group_cancel(GtkWidget *widget, gpointer data);
 void mx_on_crt_group_create(GtkWidget *widget, gpointer data);
@@ -647,7 +647,7 @@ void mx_cont_move_move(GtkWidget *widget, gpointer data);
 
 /*                              Room Creation */
 void mx_room_creation_build(t_info *info, t_room_creation *rc);
-void mx_room_creation_destroy(t_info *info);
+void mx_room_creation_destroy(GtkWidget *widget, GdkEvent *event, gpointer data);
 
     /* Callbacks */
 
@@ -666,7 +666,7 @@ void mx_on_change_password(GtkWidget *widget, gpointer data);
 
 /*                               Change Password */
 void mx_change_password_build(t_info *info, t_change_password *cp);
-void mx_change_password_destroy(t_info *info);
+void mx_change_password_destroy(GtkWidget *widget, GdkEvent *event, gpointer data);
 gboolean mx_cp_validate(t_change_password *cp);
 
     /* Callbacks */
@@ -675,7 +675,7 @@ void mx_on_cp_change(GtkWidget *widget, gpointer data);
 
 /*                                Delete Profile */
 void mx_delete_profile_build(t_info *info, t_delete_profile *dp);
-void mx_delete_profile_destroy(t_info *info);
+void mx_delete_profile_destroy(GtkWidget *widget, GdkEvent *event, gpointer data);
 
     /* Callbacks */
 void mx_del_profile_cancel(GtkWidget *widget, gpointer data);
@@ -687,11 +687,11 @@ void mx_chat_destroy(t_info *info, int cid);
 void mx_chat_put(t_info *info, cJSON *json);
 void mx_set_chat_preferences(t_chat *chat);
 void mx_invite_user_build(t_info *info, t_chat *chat);
-void mx_invite_user_destroy(t_invite_user *inv);
+void mx_invite_user_destroy(GtkWidget *widget, GdkEvent *event, gpointer data);
 void mx_ban_user_build(t_info *info, t_chat *chat);
-void mx_ban_user_destroy(t_ban_user *ban);
+void mx_ban_user_destroy(GtkWidget *widget, GdkEvent *event, gpointer data);
 void mx_unban_user_build(t_info *info, t_chat *chat);
-void mx_unban_user_destroy(t_unban_user *unban);
+void mx_unban_user_destroy(GtkWidget *widget, GdkEvent *event, gpointer data);
 
 void mx_message_put(t_info *info, t_message *msg, int cid);
 void mx_message_img_put(t_info *info, t_message_img *msg, int cid);

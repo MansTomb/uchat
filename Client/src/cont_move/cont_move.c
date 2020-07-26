@@ -20,10 +20,14 @@ void mx_cont_move_build(t_info *info) {
     gtk_builder_connect_signals(cmove->builder, cmove); 
     create_combo(info, cmove);
     cmove->info = info;
+    MX_GSIG_CON(cmove->dialog, "delete-event", 
+                                      G_CALLBACK(mx_cont_move_destroy), cmove);
     gtk_widget_show(cmove->dialog);
 }
 
-void mx_cont_move_destroy(t_cont_move *cmove) {
+void mx_cont_move_destroy(GtkWidget *widget, GdkEvent *event, gpointer data) {
+    t_cont_move *cmove = data;
+
     gtk_widget_destroy(cmove->dialog);
     free(cmove);
 }

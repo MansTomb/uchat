@@ -19,12 +19,12 @@ void mx_on_click_create_room_create(GtkWidget *widget, gpointer data) {
 
     if (mx_room_creation_data_validation(dialog)) {
         mx_create_room_wrap(dialog->info);
-        mx_room_creation_destroy(dialog->info);
+        mx_room_creation_destroy(NULL, NULL, dialog->info);
     }
 }
 
 void mx_on_click_create_room_cancel(GtkWidget *widget, gpointer data) {
     t_room_creation *dialog = data;
 
-    mx_room_creation_destroy(dialog->info);
+    mx_room_creation_destroy(NULL, NULL, dialog->info);
 }

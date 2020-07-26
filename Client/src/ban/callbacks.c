@@ -19,7 +19,7 @@ static bool validate(t_ban_user *ban, char *name) {
 void mx_ban_cancel(GtkWidget *widget, gpointer data) {
     t_ban_user *ban = data;
 
-    mx_ban_user_destroy(ban);
+    mx_ban_user_destroy(NULL, NULL, ban);
 }
 
 void mx_ban_ban(GtkWidget *widget, gpointer data) {
@@ -28,6 +28,6 @@ void mx_ban_ban(GtkWidget *widget, gpointer data) {
 
     if (validate(ban, name)) {
         mx_ban_user_wrapper(ban->chat, mx_find_cmember(ban->chat, name)->uid);
-        mx_ban_user_destroy(ban);
+        mx_ban_user_destroy(NULL, NULL, ban);
     }
 }

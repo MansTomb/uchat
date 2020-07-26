@@ -11,7 +11,7 @@ static bool validate(t_cont_move *move, char *name) {
 void mx_cont_move_cancel(GtkWidget *widget, gpointer data) {
     t_cont_move *move = data;
 
-    mx_cont_move_destroy(move);
+    mx_cont_move_destroy(NULL, NULL, move);
 }
 
 void mx_cont_move_move(GtkWidget *widget, gpointer data) {
@@ -21,6 +21,6 @@ void mx_cont_move_move(GtkWidget *widget, gpointer data) {
 
     if (validate(move, grp)) {
         mx_change_contact_group(move->info, grp);
-        mx_cont_move_destroy(move);
+        mx_cont_move_destroy(NULL, NULL, move);
     }
 }
