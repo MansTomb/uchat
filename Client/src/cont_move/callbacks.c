@@ -19,7 +19,7 @@ void mx_cont_move_move(GtkWidget *widget, gpointer data) {
     char *grp = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(move->combo));
 
     if (validate(move, grp)) {
-        mx_change_contact_group(move->info);
+        mx_change_contact_group(move->info, grp);
         mx_cont_move_destroy(move);
     }
 }

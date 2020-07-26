@@ -25,6 +25,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <signal name="clicked" handler="mx_cont_move_cancel" swapped="no"/>
                 <style>
                   <class name="mx_ban_cancel"/>
                 </style>
@@ -41,6 +42,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <signal name="clicked" handler="mx_cont_move_move" swapped="no"/>
                 <style>
                   <class name="mx_ban_ban"/>
                 </style>

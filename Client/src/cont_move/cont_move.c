@@ -2,10 +2,11 @@
 
 static void create_combo(t_info *info, t_cont_move *mv) {
     char *grp = NULL;
+    t_list *list = info->cl_data->cont_grp_names;
 
-    for (size_t i = 0; i < info->cl_data->cont_grp_names->size; ++i) {
-        grp = mx_get_index(info->cl_data->cont_grp_names, i)->data;
-        gtk_combo_box_text_insert_text(GTK_COMBO_BOX_TEXT(mv->combo), 0, grp);
+    for (size_t i = 0; i < list->size; ++i) {
+        grp = ((t_group *)mx_get_index(list, i)->data)->name;
+        gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(mv->combo), grp);
     }
 }
 
@@ -13,10 +14,11 @@ void mx_cont_move_build(t_info *info) {
     t_cont_move *cmove = malloc(sizeof(t_cont_move));
 
     cmove->builder = gtk_builder_new();
-    gtk_builder_add_from_file(cmove->builder, "./Resources/glade/contant_move.glade", NULL);
+    gtk_builder_add_from_file(cmove->builder, "./Resources/glade/contact_move.glade", NULL);
     cmove->dialog = mx_gobject_builder(cmove->builder, "dialog");
     cmove->combo = mx_gobject_builder(cmove->builder, "combo");
-    gtk_builder_connect_signals(cmove->builder, cmove);
+    gtk_builder_connect_signals(cmove->builder, cmove); 
+    create_combo(info, cmove);
 
     cmove->info = info;
 

@@ -1,5 +1,16 @@
 #include "client.h"
 
+static int get_group_id(t_info *info, char *name) {
+    t_group *node = NULL;
+
+    for (size_t i = 0; i < info->cl_data->cont_grp_names->size; ++i) {
+        node = mx_get_index(info->cl_data->cont_grp_names, i)->data;
+        if (strcmp(node->name, name) == 0)
+            return node->id;
+    }
+    return -1;
+}
+
 static void request(t_info *info, int cid, int gid1, int gid2) {
     cJSON *request = cJSON_CreateObject();
 
@@ -13,10 +24,11 @@ static void request(t_info *info, int cid, int gid1, int gid2) {
     cJSON_Delete(request);
 }
 
-void mx_change_contact_group(t_info *info) {
+void mx_change_contact_group(t_info *info, char *name) {
     int cid = mx_get_cnt_id_by_login(info->windows->cont->clicked_cont, info->cl_data->contacts);
+    t_contact *cont = mx_find_contant(info, cid);
 
-    request(info, cid, 0, 1);
+    request(info, cid, cont->grp_id, get_group_id(info, name));
     mx_wait_for_json(info, success_change_contact_group, failed_change_contact_group);
     if (mx_get_jtype(info, success_change_contact_group)) {
         mx_get_json_contacts(info);
