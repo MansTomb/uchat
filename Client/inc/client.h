@@ -225,6 +225,8 @@ struct s_preferences {
     GtkWidget *snotify;
     GtkWidget *enotify;
     GtkWidget *themeswitch;
+
+    gboolean load;
 };
 
 struct s_chat {

@@ -1,6 +1,7 @@
 #include "client.h"
 
 static void set_preferences(t_info *info, t_preferences *pref) {
+    pref->load = 1;
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pref->vnotify),
                                       info->cl_data->profile->vs_noty);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pref->snotify),
@@ -9,6 +10,7 @@ static void set_preferences(t_info *info, t_preferences *pref) {
                                       info->cl_data->profile->email_noty);
     gtk_stack_add_titled(GTK_STACK(info->windows->ms->menu_stack),
                                       pref->box, "Preferences", "Preferences");
+    pref->load = 0;
 }
 
 void mx_preferences_build(t_info *info, t_preferences *pref) {

@@ -6,7 +6,7 @@ static int find_user(t_chat *chat, int uid) {
     if (chat) {
         for (size_t i = 0; i < chat->users->size; ++i) {
             member = mx_get_index(chat->users, i)->data;
-            if (member->uid == uid)
+            if (member && member->uid == uid)
                 return i;
         }
     }
