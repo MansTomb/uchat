@@ -14,6 +14,7 @@ static void set_preferences(t_info *info, t_profile *prof) {
                                              prof->box, "Profile", "Profile");
     gtk_widget_hide(prof->cancel);
     gtk_widget_hide(prof->save);
+    gtk_widget_hide(prof->avatartbt);
     gtk_widget_show(prof->box);
 }
 
