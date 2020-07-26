@@ -12,11 +12,15 @@
 #define MX_NO_PEER -1
 
 #define MX_DB_PATH "Server/db/uchat.db"
-#define MX_SERVERLOG_PATH "Server/tmp/serverlogs"
-#define MX_EMAIL_PATH "Server/tmp/sendmail"
-#define MX_EMAIL_PATH_LOGIN "Server/tmp/sendmail_login"
+#define MX_SERVERLOG_PATH "Server/db/serverlogs"
+#define MX_EMAIL_PATH "Server/db/sendmail"
+#define MX_EMAIL_PATH_LOGIN "Server/db/sendmail_login"
 
 #define MX_FILES_DIR "Server/tmp/"
+
+#define MX_LIST_SIZE 100
+#define MX_ANIME_LIST_DIR "Server/db/anime.txt"
+#define MX_JOKES_LIST_DIR "Server/db/jokes.txt"
 
 typedef struct sockaddr_in t_saddr;
 
@@ -41,15 +45,13 @@ typedef struct s_sock {                            // t_sock
     int opt;
     int max_sd;
 
-    SSL_CTX *ctx;
-    SSL *ssl;
-
     sqlite3 *db;
+    char *anime_list[MX_LIST_SIZE + 1];
+    char *joke_list[MX_LIST_SIZE + 1];
 
     struct s_peer connection_list[MAX_CLIENTS];
 
     fd_set readfds;
-    fd_set writefds;
     fd_set exceptfds;
 }              t_sock;
 
@@ -72,7 +74,7 @@ t_info *mx_init_info();
 
     /* sockets_initialize.c sockets_initialize_2.c */
 void mx_sockets_initialize(t_sock *sock, int port);
-
+void mx_init_lists(t_sock *sock);
 void mx_socket_bind_to_port(t_sock *sock);
 void mx_socket_specify_maximum_connections_to_master(int sock, int con_num);
 // void mx_init_db(t_sock *sock);
@@ -111,6 +113,7 @@ void mx_db_logout(t_info *info, t_peer *peer, cJSON *get);
 void mx_db_delete(t_info *info, t_peer *peer, cJSON *get);
 void mx_db_create_personal_chat(t_info *info, t_peer *peer, cJSON *get);
 
+int *mx_get_arr(cJSON *bd);
 void mx_db_send_message(t_info *info, t_peer *peer, cJSON *get);
 void mx_db_edit_message(t_info *info, t_peer *peer, cJSON *get);
 
@@ -135,6 +138,7 @@ void mx_json_to_sending_buffer(char *buff, cJSON *json);
 int mx_check_err_json(cJSON *new);
 cJSON *mx_this_uid_login_or_logout(int uid, int type);
 cJSON *mx_su_msg(cJSON *bd, char *s);
+cJSON *mx_bot_msg(cJSON *bd, char *s);
 
 void mx_message_on_mail(char *email, char *path);
 

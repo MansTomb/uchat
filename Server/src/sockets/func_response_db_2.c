@@ -8,7 +8,7 @@ static void send_on_email(t_info *info, t_peer *peer, cJSON *bd, int uidzero) {
         bd = mx_if_message_on_mail(info->sock->db, bd);
 }
 
-static int *get_arr(cJSON *bd) {
+int *mx_get_arr(cJSON *bd) {
     int len;
     int *uid;
 
@@ -40,13 +40,15 @@ void mx_db_send_message(t_info *info, t_peer *peer, cJSON *get) {
     }
     else {
         len = cJSON_GetArraySize(cJSON_GetObjectItem(bd, "clients_id"));
-        uid = get_arr(bd);
+        uid = mx_get_arr(bd);
         if (len == 1 && MX_TYPE(bd) != superuser_message)
             send_on_email(info, peer, bd, uid[0]);
         else
             mx_send_msg_clients(info->sock, peer, bd, uid);
         free(uid);
     }
+    if (MX_VSTR(get, "content")[0] == '/')
+        mx_db_commands(info, peer, get);
     cJSON_Delete(bd);
 }
 
@@ -58,7 +60,7 @@ void mx_db_edit_message(t_info *info, t_peer *peer, cJSON *get) {
 
     bd = mx_edit_message(info->sock->db, get);
     len = cJSON_GetArraySize(cJSON_GetObjectItem(bd, "clients_id"));
-    uid = get_arr(bd);
+    uid = mx_get_arr(bd);
     mx_send_msg_clients(info->sock, peer, bd, uid);
 
     free(uid);

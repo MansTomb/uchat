@@ -17,6 +17,8 @@ static void auditor2(t_info *info, t_peer *peer, int type, cJSON *get) {
         mx_db_leave_send_message(info, peer, get);
     else if (type == make_block_user || type == make_unblock_user)
         mx_db_block_unblock(info, peer, get);
+    else if (type == make_change_contact_group)
+        mx_db_get_self_response(info, peer, get, &mx_change_contact_group);
     else
         printf("unknown type of message\n");
 }
@@ -52,10 +54,7 @@ void mx_response_db(t_info *info, t_peer *peer, cJSON *get) {
     else if (type == make_delete_user)
         mx_db_get_self_response(info, peer, get, &mx_delete_user);
     else if (type == send_message || type == superuser_message) {
-        if (MX_VSTR(get, "content")[0] == '/')
-            mx_db_commands(info, peer, get);
-        else
-            mx_db_send_message(info, peer, get);
+        mx_db_send_message(info, peer, get);
     }
     else if (type == file_msg)
         mx_db_send_message(info, peer, get);

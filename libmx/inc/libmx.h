@@ -67,6 +67,8 @@ void mx_del_strarr(char ***arr);
 int mx_get_char_index(const char *str, char c);
 int mx_get_substr_index(const char *str, const char *sub);
 
+char *mx_itoa(int number);
+
 char *mx_lltoa_s(int64_t nbr, char *str, int len);
 char *mx_lltoa(int64_t number);
 
