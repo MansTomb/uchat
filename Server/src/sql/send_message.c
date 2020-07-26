@@ -29,7 +29,7 @@ static void get_arr_users(sqlite3 *db, cJSON *jsn, int *uid) {
     free(new_uid);
 }
 
-static void get_all_users(sqlite3 *db, cJSON *jsn) {
+void mx_get_all_users_in_chat(sqlite3 *db, cJSON *jsn, int cid) {
     char *query = NULL;
     char *err = NULL;
     int rc = 0;
@@ -37,7 +37,7 @@ static void get_all_users(sqlite3 *db, cJSON *jsn) {
 
     bzero(uid, MAX_CLIENTS);
     asprintf(&query, "SELECT user_id FROM users_chats WHERE chat_id = %i "
-            "AND role > 0;", MX_VINT(jsn, "cid"));
+            "AND role > 0;", cid);
 
     rc = sqlite3_exec(db, query, get_id, uid, &err);
     if (mx_check(rc, err, "get all users") != SQLITE_OK)
@@ -56,7 +56,7 @@ static int get_mid(void *data, int argc, char **argv, char **cols) {
     return 0;
 }
 
-cJSON *mx_send_message(sqlite3 *db, cJSON *jsn) {
+void mx_insert_message_in_db(sqlite3 *db, cJSON *jsn) {
     char *query = NULL;
     char *err = NULL;
     int rc = 0;
@@ -65,7 +65,7 @@ cJSON *mx_send_message(sqlite3 *db, cJSON *jsn) {
             "datetime('now', 'localtime'), '%s'); "
             "SELECT u.login, m.id, m.send_time, m.type "
             "FROM messages AS m JOIN users AS u ON u.id = m.user_id "
-            "WHERE m.id = last_insert_rowid()",
+            "AND m.id = last_insert_rowid();",
             MX_VINT(jsn, "uid"), MX_VINT(jsn, "cid"),
             MX_VINT(jsn, "type"), MX_VSTR(jsn, "content"));
     rc = sqlite3_exec(db, query, get_mid, jsn, &err);
@@ -73,7 +73,6 @@ cJSON *mx_send_message(sqlite3 *db, cJSON *jsn) {
     if (mx_check(rc, err, "send message") != SQLITE_OK)
         MX_SET_TYPE(jsn, failed_send_message);
     else
-        get_all_users(db, jsn);
+        mx_get_all_users_in_chat(db, jsn, MX_VINT(jsn, "cid"));
     free(query);
-    return jsn;
 }

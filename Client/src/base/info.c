@@ -15,6 +15,7 @@ static t_windows *create_windows() {
         new->pref = NULL;
         new->prof = NULL;
         new->cont = NULL;
+        new->dp = NULL;
     }
     return new;
 }
@@ -34,12 +35,13 @@ t_info *mx_create_info() {
 
     new->timer = NULL;
     new->json = NULL;
+    new->response = NULL;
     new->wchange = 0;
     new->windows = create_windows();
     new->chat_list = mx_create_list();
     new->cl_data = (t_data *)malloc(sizeof(t_data));
+    new->cl_data->cont_grp_names = NULL;
+    new->cl_data->contacts = NULL;
     new->cl_data->profile = (t_profile_data *)malloc(sizeof(t_profile_data));
-    new->cl_data->contacts = mx_create_list();
-    new->cl_data->cont_grp_names = mx_create_list();
     return new;
 }

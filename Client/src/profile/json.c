@@ -21,18 +21,23 @@ static void upd_prof_bld_json(const t_info *info, const int *s_sock) {
 static void upd_prof_data(const t_info *info) {
     t_profile_data *p = info->cl_data->profile;
 
-    p->first_name = cJSON_GetObjectItem(info->json, "fname")->valuestring;
-    p->sec_name = cJSON_GetObjectItem(info->json, "sname")->valuestring;
-    p->user_email = cJSON_GetObjectItem(info->json, "email")->valuestring;
-    p->status = cJSON_GetObjectItem(info->json, "status")->valuestring;
+    p->first_name = cJSON_GetObjectItemCaseSensitive(info->json, "fname")->valuestring;
+    p->sec_name = cJSON_GetObjectItemCaseSensitive(info->json, "sname")->valuestring;
+    p->user_email = cJSON_GetObjectItemCaseSensitive(info->json, "email")->valuestring;
+    p->status = cJSON_GetObjectItemCaseSensitive(info->json, "status")->valuestring;
 
-    p->sound_noty = cJSON_GetObjectItem(info->json, "snot")->valueint;
-    p->vs_noty = cJSON_GetObjectItem(info->json, "vnot")->valueint;
-    p->email_noty = cJSON_GetObjectItem(info->json, "enot")->valueint;
+    p->sound_noty = cJSON_GetObjectItemCaseSensitive(info->json, "snot")->valueint;
+    p->vs_noty = cJSON_GetObjectItemCaseSensitive(info->json, "vnot")->valueint;
+    p->email_noty = cJSON_GetObjectItemCaseSensitive(info->json, "enot")->valueint;
 }
 
 void mx_upd_prof_build_json_wrapper(t_info *info) {
     upd_prof_bld_json(info, &info->sock->sock);
-    mx_wait_for_json(info, success_update_profile, success_update_profile);
-    upd_prof_data(info);
+    mx_wait_for_json(info, success_update_profile, failed_update_profile);
+    if (mx_get_jtype(info, success_update_profile)) {
+        upd_prof_data(info);
+    }
+    else {
+        mx_dialog_warning_create(NULL, "Failed update profile!");
+    }
 }

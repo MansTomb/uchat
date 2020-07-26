@@ -31,3 +31,7 @@ uchat_server
 *serverlogs
 *.db
 !*.sql
+
+*.jpg
+*.png
+*.gif

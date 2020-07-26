@@ -5,7 +5,7 @@ static void set_group_names(t_contact_add *ac) {
     char *tmp = NULL;
 
     for (size_t i = 0; i < grp_list->size; ++i) {
-        tmp = mx_get_index(grp_list, i)->data;
+        tmp = ((t_group *)(mx_get_index(grp_list, i)->data))->name;
         gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(ac->combobox), tmp);
     }
 }
@@ -25,15 +25,17 @@ static void set_search_completetion(t_contact_add *ac) {
 void mx_add_contact_build(t_info *info, t_contact_add *ac) {
     if (ac == NULL)
         info->windows->ac = ac = malloc(sizeof(t_contact_add));
+    else
+        return;
 
     ac->builder = gtk_builder_new();
     gtk_builder_add_from_file(ac->builder, "./Resources/glade/add_contact.glade", NULL);
 
-    ac->dialog = GTK_WIDGET(gtk_builder_get_object(ac->builder, "dialog"));
-    ac->addbt = GTK_WIDGET(gtk_builder_get_object(ac->builder, "add"));
-    ac->cancelbt = GTK_WIDGET(gtk_builder_get_object(ac->builder, "cancel"));
-    ac->entry = GTK_WIDGET(gtk_builder_get_object(ac->builder, "entry"));
-    ac->combobox = GTK_WIDGET(gtk_builder_get_object(ac->builder, "combo_box"));
+    ac->dialog = mx_gobject_builder(ac->builder, "dialog");
+    ac->addbt = mx_gobject_builder(ac->builder, "add");
+    ac->cancelbt = mx_gobject_builder(ac->builder, "cancel");
+    ac->entry = mx_gobject_builder(ac->builder, "entry");
+    ac->combobox = mx_gobject_builder(ac->builder, "combobox");
     ac->nameslist = GTK_TREE_STORE(gtk_builder_get_object(ac->builder, "names"));
     ac->e_comp = GTK_ENTRY_COMPLETION(gtk_builder_get_object(ac->builder, "e_comp"));
     gtk_builder_connect_signals(ac->builder, ac);
@@ -44,7 +46,7 @@ void mx_add_contact_build(t_info *info, t_contact_add *ac) {
     set_group_names(ac);
 
     gtk_widget_show(ac->dialog);
-} 
+}
 
 void mx_add_contact_destroy(t_info *info) {
     gtk_widget_destroy(info->windows->ac->dialog);

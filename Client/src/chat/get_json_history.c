@@ -26,7 +26,7 @@ static void save(t_info *info, t_chat *chat) {
                     msg = mx_message_build(info, i, chat->cid);
                     mx_message_put(info, msg, chat->cid);
                 }
-                else {
+                else if (type == 2) {
                     msg_img = mx_message_img_build(info, i, chat->cid);
                     mx_message_img_put(info, msg_img, chat->cid);
                 }
@@ -43,4 +43,5 @@ void mx_get_json_chat_history(t_info *info, t_chat *chat) {
     request(info, chat);
     mx_wait_for_json(info, send_client_chat_messages, send_client_chat_messages);
     save(info, chat);
+    info->json = NULL;
 }

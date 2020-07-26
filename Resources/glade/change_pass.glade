@@ -26,6 +26,9 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <signal name="clicked" handler="mx_on_cp_cancel" swapped="no"/>
+                <style>
+                  <class name="change_pass_cancel_buttons"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -40,6 +43,9 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <signal name="clicked" handler="mx_on_cp_change" swapped="no"/>
+                <style>
+                  <class name="change_pass_change_buttons"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -72,6 +78,7 @@
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">0</property>
+                <property name="padding">5</property>
               </packing>
             </child>
             <child>
@@ -99,6 +106,7 @@
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">2</property>
+                <property name="padding">5</property>
               </packing>
             </child>
             <child>
@@ -126,6 +134,7 @@
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">4</property>
+                <property name="padding">5</property>
               </packing>
             </child>
             <child>
@@ -155,5 +164,8 @@
     <child type="titlebar">
       <placeholder/>
     </child>
+    <style>
+      <class name="change_pass_box"/>
+    </style>
   </object>
 </interface>

@@ -15,11 +15,12 @@ void mx_on_click_login(GtkWidget *widget, gpointer user_data) {
         mx_login_build_json_wrapper(info);
         mx_wait_for_json(info, success_authorization, failed_authorization);
         if (mx_get_jtype(info, success_authorization)) {
-            g_timer_stop(info->timer);
-            pthread_join(info->thread.timer, NULL);
             mx_save_login_data(info);
             mx_login_screen_destroy(info);
-            mx_main_screen_build(info, info->windows->ms);
+            if (info->cl_data->profile->id == 1)
+                mx_admin_screen_build(info, info->windows->adm);
+            else
+                mx_main_screen_build(info, info->windows->ms);
         }
         else if (mx_get_jtype(info, failed_authorization))
             mx_dialog_warning_create(NULL, "Invalid login or password!");

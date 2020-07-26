@@ -1,6 +1,6 @@
 #include "client.h"
 
-static void request(t_info *info, int ctype, char *cname) {
+static void request(t_info *info, int ctype, const char *cname) {
     cJSON *request = cJSON_CreateObject();
 
     cJSON_AddNumberToObject(request, "json_type", make_new_group_chat_channel);
@@ -12,22 +12,17 @@ static void request(t_info *info, int ctype, char *cname) {
     cJSON_Delete(request);
 }
 
-static void push_chat(t_info *info) {
-    int jtype = cJSON_GetObjectItem(info->json, "json_type")->valueint;
-    int cid = cJSON_GetObjectItem(info->json, "cid")->valueint;
-    int ctype = cJSON_GetObjectItem(info->json, "ctype")->valueint;
-    char *cname = cJSON_GetObjectItem(info->json, "cname")->valuestring;
-    
-    if (jtype != failed_new_group_chat_channel) {};
-        // mx_chat_put();
-}
-
 void mx_create_room_wrap(t_info *info) {
     t_room_creation *rc = info->windows->rc;
-    int ctype = gtk_toggle_button_get_active(
-                                    GTK_TOGGLE_BUTTON(rc->roomcheck)) ? 1 : 2;
+    int ctype = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(rc->roomcheck)) ? 2 : 3;
 
-    request(info, ctype, (char *)mx_entry_get_text(rc->entry));
+    request(info, ctype, mx_entry_get_text(rc->entry));
     mx_wait_for_json(info, success_new_group_chat_channel, failed_new_group_chat_channel);
-    push_chat(info);
+    if (mx_get_jtype(info, success_new_group_chat_channel)) {
+        mx_chat_put(info, info->json);
+        mx_dialog_warning_create(NULL, "Channel successfully created!");
+    }
+    else {
+        mx_dialog_warning_create(NULL, "Error creating channel!");
+    }
 }

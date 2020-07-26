@@ -11,7 +11,8 @@ CREATE TABLE IF NOT EXISTS users_profiles (
     first_name VARCHAR(64) DEFAULT '' NOT NULL,
     second_name VARCHAR(64) DEFAULT '' NOT NULL,
     email VARCHAR(64) DEFAULT '' NOT NULL,
-    status VARCHAR(32) DEFAULT '' NOT NULL
+    status VARCHAR(32) DEFAULT '' NOT NULL,
+    avatar VARCHAR(256) DEFAULT '' NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS users_notify_settings (
@@ -42,10 +43,23 @@ CREATE TABLE IF NOT EXISTS contacts_groups (
     name VARCHAR(64) NOT NULL UNIQUE
 );
 
+CREATE TABLE IF NOT EXISTS users_groups (
+    user_id INTEGER NOT NULL,
+    group_id INTEGER NOT NULL,
+
+    PRIMARY KEY (user_id, group_id)
+);
+
+CREATE TRIGGER IF NOT EXISTS del_group
+    AFTER DELETE ON users_groups
+BEGIN
+    UPDATE contacts_lists SET group_id = 0 WHERE user_id = OLD.user_id AND group_id = OLD.group_id;
+END;
+
 CREATE TABLE IF NOT EXISTS contacts_lists (
     user_id INTEGER NOT NULL,
     contact_id INTEGER NOT NULL,
-    group_id INTEGER,
+    group_id INTEGER DEFAULT 0 NOT NULL,
 
     PRIMARY KEY (user_id, contact_id),
     CHECK (user_id != contact_id)
@@ -90,13 +104,14 @@ INSERT INTO users VALUES (NULL, '__NEW_USER_LOGIN__', '__NEW_USER_PASSWORD__');
 SELECT * FROM users WHERE login = '__NEW_USER_LOGIN__';
 
 -- удаление юзера
-DELETE FROM users WHERE id = __UID__ AND hash = __HASH__;
+DELETE FROM users WHERE id = __UID__ AND login = __LOGIN__ AND hash = __HASH__;
 
 -- изменение пароля
 UPDATE users SET hash = '__NEW_USER_PASSWORD__' WHERE id = __UID__;
 
 -- получение профиля
 SELECT * FROM users_profiles WHERE user_id = __UID__;
+SELECT * FROM users JOIN users_profiles AS up ON id = up.user_id JOIN users_notify_settings AS uns ON id = uns.user_id;
 
 -- обновление профиля
 UPDATE users_profiles SET first_name = '__NEW_FIRST_NAME__' WHERE user_id = __UID__;
@@ -104,11 +119,8 @@ UPDATE users_profiles SET second_name = '__NEW_SECOND_NAME__' WHERE user_id = __
 UPDATE users_profiles SET email = '__NEW_EMAIL__' WHERE user_id = __UID__;
 UPDATE users_profiles SET status = '__NEW_STATUS__' WHERE user_id = __UID__;
 
--- создание новой группы контактов
-INSERT INTO contacts_groups VALUES (NULL, '__NEW_GROUP_NAME__');
-
 -- добавление нового контакта
-INSERT INTO contacts_lists VALUES (__UID__, __COID__, NULL);
+INSERT INTO contacts_lists VALUES (__UID__, __COID__, __GID__);
 
 -- удаление из контактов
 DELETE FROM contacts_lists WHERE user_id = __UID__ AND contact_id = __COID__;
@@ -117,15 +129,12 @@ DELETE FROM contacts_lists WHERE user_id = __UID__ AND contact_id = __COID__;
 UPDATE contacts_lists SET group_id = GROUP_ID WHERE user_id = __UID__ AND contact_id = __COID__;
 
 -- удаление контакта из группы
-UPDATE contacts_lists SET group_id = NULL WHERE user_id = __UID__ AND contact_id = __COID__;
+UPDATE contacts_lists SET group_id = 0 WHERE user_id = __UID__ AND contact_id = __COID__;
 
 -- создание чата
 INSERT INTO chats VALUES (NULL, __CHAT_TYPE__, '__NEW_CHAT_NAME__');
 
--- добавление юзера в чат
-INSERT INTO users_chats VALUES (__UID__, __CID__);
-
--- изменение роли (бан / выход / новый админ / новый создатель)
+-- изменение роли (бан / выход / очередняра / админ)
 UPDATE users_chats SET role = __NEW_ROLE__ WHERE user_id = __UID__ AND chat_id = __CID__;
 
 -- отправка сообщения
@@ -151,24 +160,40 @@ SELECT u.id, u.login, up.first_name, up.second_name, up.email, up.status, uns.so
 
 -- создание личной переписки
 INSERT INTO chats VALUES (NULL, 1, '');
-INSERT INTO users_chats VALUES (__UID1__, last_insert_rowid(), 1);
-INSERT INTO users_chats VALUES (__UID2__, (SELECT max(id) FROM chats), 1);
+INSERT INTO users_chats VALUES
+    (__UID1__, last_insert_rowid(), 1),
+    (__UID2__, (SELECT max(id) FROM chats), 1);
 
 -- создание нового группового чата / канала
 INSERT INTO chats VALUES (NULL, __CHAT_TYPE__, '__NEW_CHAT_NAME__');
-INSERT INTO users_chats VALUES (__UID__, last_insert_rowid(), 2);
+INSERT INTO users_chats VALUES (__UID__, __CID__, __CHAT_TYPE__);
+-- INSERT INTO users_chats VALUES (__UID__, last_insert_rowid(), __CHAT_TYPE__);
+
+-- создание группы контактов у юзера
+INSERT INTO contacts_groups VALUES (NULL, '__NEW_GROUP_NAME__');
+INSERT INTO users_groups VALUES (__UID__, __GID__);
+-- INSERT INTO users_groups VALUES (__UID__, last_insert_rowid());
+
+-- удаление группы контактов у юзера
+DELETE FROM users_groups WHERE user_id = __UID__ AND group_id = __GID__;
+UPDATE contacts_lists SET group_id = 0 WHERE user_id = __UID__ AND group_id = __GID__;
+
+-- загрузка групп контактов юзера
+SELECT ug.group_id, cg.name FROM users_groups AS ug
+    JOIN contacts_groups AS cg
+        ON ug.user_id = __UID__ AND cg.id = ug.group_id;
+
+SELECT ug.group_id, cg.name FROM users_groups AS ug JOIN contacts_groups AS cg ON ug.user_id = __UID__ AND cg.id = ug.group_id;
 
 -- загрузка контактов юзера
-SELECT cl.contact_id, u.login, up.first_name, up.second_name, up.email, up.status, cl.group_id, cg.name
+SELECT cl.contact_id, u.login, up.first_name, up.second_name, up.email, up.status, cl.group_id
 FROM contacts_lists AS cl
     JOIN users AS u
         ON cl.contact_id = u.id AND cl.user_id = __UID__
     JOIN users_profiles AS up
-        ON cl.contact_id = up.user_id
-    LEFT JOIN contacts_groups AS cg
-        ON cl.group_id = cg.id;
+        ON cl.contact_id = up.user_id;
 
-SELECT cl.contact_id, u.login, up.first_name, up.second_name, up.email, up.status, cl.group_id, cg.name FROM contacts_lists AS cl JOIN users AS u ON cl.contact_id = u.id AND cl.user_id = __UID__ JOIN users_profiles AS up ON cl.contact_id = up.user_id LEFT JOIN contacts_groups AS cg ON cl.group_id = cg.id;
+SELECT cl.contact_id, u.login, up.first_name, up.second_name, up.email, up.status, cl.group_id FROM contacts_lists AS cl JOIN users AS u ON cl.contact_id = u.id AND cl.user_id = __UID__ JOIN users_profiles AS up ON cl.contact_id = up.user_id;
 
 -- загрузка активных чатов юзера. подтягивает логин собеседника в название чатика, если лс чат
 SELECT uc.chat_id, uc.role, c.type,
@@ -193,14 +218,16 @@ INSERT INTO messages VALUES (NULL, __UID__, __CID__, __TYPE__, datetime('now', '
 SELECT user_id FROM users_chats WHERE chat_id = __CID__ AND user_id != __UID__;
 
 -- найти id чата между двумя юзерами
-SELECT c.id, uc1.role FROM users_chats AS uc1
+SELECT c.id, uc1.role, u.login FROM users_chats AS uc1
     JOIN users_chats AS uc2
         ON uc1.user_id = __UID1__ AND uc2.user_id = __UID2__
             AND uc1.chat_id = uc2.chat_id
     JOIN chats AS c
-        ON c.type = 1 AND uc1.chat_id = c.id;
+        ON c.type = 1 AND uc1.chat_id = c.id
+    JOIN users AS u
+        ON uc2.user_id = u.id;
 
-SELECT c.id, uc1.role FROM users_chats AS uc1 JOIN users_chats AS uc2 ON uc1.user_id = __UID1__ AND uc2.user_id = __UID2__ AND uc1.chat_id = uc2.chat_id JOIN chats AS c ON c.type = 1 AND uc1.chat_id = c.id;
+SELECT c.id, uc1.role, u.login FROM users_chats AS uc1 JOIN users_chats AS uc2 ON uc1.user_id = __UID1__ AND uc2.user_id = __UID2__ AND uc1.chat_id = uc2.chat_id JOIN chats AS c ON c.type = 1 AND uc1.chat_id = c.id JOIN users AS u ON uc2.user_id = u.id;
 
 -- вибрати дані для відправки повідомлень
 SELECT uc.user_id, up.email
@@ -209,3 +236,16 @@ FROM users_chats AS uc
         ON uc.user_id = up.user_id AND uc.chat_id = __CID__ AND uc.user_id != __UID__;
 
 SELECT uc.user_id, up.email FROM users_chats AS uc JOIN users_profiles AS up ON uc.user_id = up.user_id AND uc.chat_id = __CID__ AND uc.user_id != __UID__;
+
+-- добавить юзера в групповой чат / канал
+INSERT INTO users_chats VALUES (__UID__, __CID__, __ROLE__);
+
+-- забанить юзера в групповом чате / канале
+UPDATE users_chats SET role = -1 WHERE user_id = __UID__ AND chat_id = __CID__;
+
+-- загрузка юзеров в одном чате
+SELECT u.id, u.login FROM users AS u
+    JOIN users_chats AS uc
+        ON uc.chat_id = __CID__ AND u.id = uc.user_id AND uc.role > 0;
+
+SELECT u.id, u.login FROM users AS u JOIN users_chats AS uc ON uc.chat_id = __CID__ AND u.id = uc.user_id AND uc.role > 0;

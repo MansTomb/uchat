@@ -4,10 +4,7 @@
   <requires lib="gtk+" version="3.22"/>
   <object class="GtkFileFilter" id="filter">
     <patterns>
-      <pattern>*.png</pattern>
-      <pattern>*.jpg</pattern>
-      <pattern>*.bmp</pattern>
-      <pattern>*.jpeg</pattern>
+      <pattern>*</pattern>
     </patterns>
   </object>
   <object class="GtkFileChooserDialog" id="img_dialog">
@@ -75,12 +72,99 @@
     <property name="can_focus">False</property>
     <property name="orientation">vertical</property>
     <child>
-      <object class="GtkHeaderBar">
+      <object class="GtkBox">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="title" translatable="yes">Chat</property>
         <child>
-          <placeholder/>
+          <object class="GtkHeaderBar">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="title" translatable="yes">Chat</property>
+            <child>
+              <placeholder/>
+            </child>
+            <style>
+              <class name="chat_screen_header"/>
+            </style>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="invite">
+            <property name="label" translatable="yes">Invite</property>
+            <property name="width_request">80</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <signal name="clicked" handler="mx_invite_user" swapped="no"/>
+            <style>
+              <class name="invite_button"/>
+            </style>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="ban">
+            <property name="label" translatable="yes">Ban</property>
+            <property name="width_request">80</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <signal name="clicked" handler="mx_ban_user" swapped="no"/>
+            <style>
+              <class name="ban_button"/>
+            </style>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="unban">
+            <property name="label" translatable="yes">Unban</property>
+            <property name="width_request">80</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <signal name="clicked" handler="mx_unban_user" swapped="no"/>
+            <style>
+              <class name="unban_button"/>
+            </style>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="leave">
+            <property name="label" translatable="yes">Leave Room</property>
+            <property name="width_request">80</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <signal name="clicked" handler="mx_left_room" swapped="no"/>
+            <style>
+              <class name="left_room_button"/>
+              <class name="button"/>
+            </style>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">4</property>
+          </packing>
         </child>
       </object>
       <packing>
@@ -96,6 +180,7 @@
         <property name="shadow_type">in</property>
         <property name="propagate_natural_width">True</property>
         <property name="propagate_natural_height">True</property>
+        <signal name="edge-reached" handler="mx_on_scroll_edge" swapped="no"/>
         <child>
           <object class="GtkViewport">
             <property name="visible">True</property>
@@ -107,11 +192,13 @@
                 <property name="can_focus">False</property>
                 <property name="selection_mode">none</property>
                 <property name="activate_on_single_click">False</property>
+                <style>
+                  <class name="chat_fon"/>
+                </style>
               </object>
             </child>
           </object>
         </child>
-      <signal name="edge-reached" handler="mx_on_scroll_edge" swapped="no"/>
       </object>
       <packing>
         <property name="expand">True</property>
@@ -150,12 +237,16 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton">
-            <property name="label" translatable="yes">Send img</property>
+          <object class="GtkButton" id="sendimg">
+            <property name="label" translatable="yes">File</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <signal name="clicked" handler="mx_choose_dialog" swapped="no"/>
+            <style>
+              <class name="send_img_button"/>
+              <class name="button"/>
+            </style>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -164,13 +255,17 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton">
+          <object class="GtkButton" id="send">
             <property name="label" translatable="yes">Send</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="use_underline">True</property>
             <signal name="clicked" handler="mx_send_message" swapped="no"/>
+            <style>
+              <class name="send_button"/>
+              <class name="button"/>
+            </style>
           </object>
           <packing>
             <property name="expand">False</property>

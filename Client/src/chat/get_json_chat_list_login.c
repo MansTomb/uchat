@@ -17,9 +17,7 @@ static void save_chats(t_info *info) {
 
         if (cJSON_IsArray(chats)) {
             cJSON_ArrayForEach(i, chats) {
-                mx_chat_put(info,
-                            cJSON_GetObjectItem(i, "cname")->valuestring,
-                            cJSON_GetObjectItem(i, "cid")->valueint);
+                mx_chat_put(info, i);
             }
         }
         else
@@ -32,5 +30,7 @@ static void save_chats(t_info *info) {
 void mx_get_json_chats_list(t_info *info) {
     send_get_chats_request(info);
     mx_wait_for_json(info, send_client_chats, send_client_chats);
-    save_chats(info);
+    if (mx_get_jtype(info, send_client_chats)) {
+        save_chats(info);
+    }
 }

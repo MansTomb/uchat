@@ -1,6 +1,9 @@
 #include "client.h"
 
 void mx_set_vnoti(t_info *info, t_main_screen *ms, int cid, gboolean value) {
+    if (info->cl_data->profile->vs_noty == 0)
+        return;
+
     char name[64];
     GValue val = G_VALUE_INIT;
     GtkWidget *vchild = NULL;

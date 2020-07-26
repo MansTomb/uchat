@@ -39,6 +39,10 @@ void mx_send_file(t_sock *sock, t_peer *peer, cJSON *bd, int sd) {
     int size;
     cJSON *msg;
 
+    // char *fullname = mx_strjoin("Client/files_recv/", &path[strlen(MX_FILES_DIR)]);
+    // cJSON_Delete(cJSON_GetObjectItem(bd, "content"));
+    // cJSON_AddStringToObject(bd, "content", fullname);
+
     if ((fp = fopen(path, "rb")) == NULL)
         printf("Cannot open file on server.\n");
     else {
@@ -49,7 +53,7 @@ void mx_send_file(t_sock *sock, t_peer *peer, cJSON *bd, int sd) {
         // printf("%s\n", peer->send_buff);
         sleep(1);
         while (!feof(fp)) {
-            int n = fread(peer->send_buff, 1, MX_MAX_SEND_SIZE, fp);   // ->n
+            fread(peer->send_buff, 1, MX_MAX_SEND_SIZE, fp);   // ->n
             // printf("---\n%s\n strlen = %d\n---", peer->send_buff, n);
             send_one(sock, peer, sd);
             bzero(peer->send_buff, sizeof(peer->send_buff));

@@ -1,0 +1,184 @@
+* {
+    box-shadow: none;
+    text-shadow: none;
+    border: none;
+}
+.stack-switcher * {
+    background: #52141c;
+    color: #db707d;
+}
+.sidebar * {
+    background:#290a0e;
+    color: #db707d;
+}
+entry {
+    color: antiquewhite;
+    background: #52141c;
+    border-radius: 5px;
+}
+textview * {
+    color: antiquewhite;
+    background: #52141c;
+    padding: 5px;
+    /* border-radius: 5px; */
+}
+combobox * {
+    color: antiquewhite;
+    background: #52141c;
+    border-radius: 5px;
+}
+.main_chat_screen_window {
+    background:#290a0e;
+    color: #db707d;
+    /* font-size: 18px; */
+}
+.main_menu_button {
+    background: #52141c;
+    color: #db707d;
+}
+.create_room_button {
+    background: #52141c;
+    color: #db707d;
+}
+.exit_button {
+    background: #52141c;
+    color: #db707d;
+}
+/* --------------------- chat screen */
+
+.chat_screen_header {
+    background:#290a0e;
+    color: #db707d;
+    font-size: 25px;
+}
+list {
+    background:#3e0f15;
+}
+/* .text_view_box {
+    background: #290a0e;
+} */
+.left_room_button {
+    background: #52141c;
+    color: #db707d;
+}
+.send_button {
+    background: #52141c;
+    color: #db707d;
+}
+.send_img_button {
+    background: #52141c;
+    color: #db707d;
+}
+/* --------------------- messages */
+.message_date {
+    color: #db707d;
+}
+.message_username {
+    font-size: 16px;
+    font-weight: bold;
+    color: #290a0e;
+}
+/* .message_img_button {
+    background: #3e0f15;
+    color: #db707d;
+} */
+.message_button {
+    background: #290a0e;
+    color: #db707d;
+}
+/* --------------------- create room */
+.create_room_box {
+    background: rgba(144, 35, 49, 0.5);
+    color: antiquewhite;
+}
+.create_room_cancel_buttons {
+    background: #3e0f15;
+    color: #db707d;
+}
+.create_room_create_buttons {
+    background: #3e0f15;
+    color: #db707d;
+}
+/* --------------------- add contact */
+.add_contact_box {
+    background: rgba(144, 35, 49, 0.5);
+    color: antiquewhite;
+}
+.add_contact_cancel_buttons {
+    background: #3e0f15;
+    color: #db707d;
+}
+.add_contact_add_buttons {
+    background: #3e0f15;
+    color: #db707d;
+}
+/* --------------------- create group */
+.create_group_box {
+    background: rgba(144, 35, 49, 0.5);
+    color: antiquewhite;
+}
+.create_group_cancel_buttons {
+    background: #3e0f15;
+    color: #db707d;
+}
+.create_group_create_buttons {
+    background: #3e0f15;
+    color: #db707d;
+}
+/* --------------------- contacts */
+.contact_header {
+    background:#3e0f15;
+    color: #db707d;
+    font-size: 25px;
+}
+treeview.view * {
+    background:#290a0e;
+    color: #db707d;
+}
+.add_contact_button {
+    background: #52141c;
+    color: #db707d;
+}
+.create_group_button {
+    background: #52141c;
+    color: #db707d;
+}
+.contact_tree.view header {
+    background: #290a0e;
+    color: antiquewhite;
+}
+
+/* --------------------- preferences */
+.preferences_header {
+    background:#3e0f15;
+    color: #db707d;
+    font-size: 25px;
+}
+.preferences_box {
+    color: antiquewhite;
+}
+.change_password_button {
+    background: #52141c;
+    color: #db707d;
+}
+.delete_profile_button {
+    background: #52141c;
+    color: #db707d;
+}
+/* --------------------- profile */
+.profile_header {
+    background:#3e0f15;
+    color: #db707d;
+    font-size: 25px;
+}
+.profile_label {
+    color: antiquewhite;
+}
+.profile_edit_button {
+    background: #52141c;
+    color: #db707d;
+}
+.change_avatar_button {
+    background: #52141c;
+    color: #db707d;
+}

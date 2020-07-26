@@ -59,30 +59,30 @@
             <child>
               <object class="GtkButton" id="back_button">
                 <property name="label" translatable="yes">Back</property>
-                <property name="name">register_button</property>
+                <property name="name">back_button</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <signal name="clicked" handler="mx_on_click_back" swapped="no"/>
                 <style>
-                  <class name="login_button"/>
+                  <class name="register_button"/>
                 </style>
               </object>
             </child>
             <child>
               <object class="GtkButton" id="register_button">
                 <property name="label" translatable="yes">Register</property>
-                <property name="name">login_button</property>
+                <property name="name">register_button</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <signal name="clicked" handler="mx_reg_user_on_click" swapped="no"/>
                 <style>
-                  <class name="login_button"/>
+                  <class name="register_button"/>
                 </style>
               </object>
               <packing>
-                <property name="x">92</property>
+                <property name="x">88</property>
               </packing>
             </child>
           </object>
@@ -99,6 +99,9 @@
             <property name="visibility">False</property>
             <property name="invisible_char">*</property>
             <property name="placeholder_text" translatable="yes">Password</property>
+            <style>
+              <class name="password_entry"/>
+            </style>
           </object>
           <packing>
             <property name="left_attach">1</property>

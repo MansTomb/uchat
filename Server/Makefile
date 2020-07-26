@@ -9,14 +9,17 @@ init = daemonize init_info sockets_initialize sockets_initialize_2
 sockets = handle_incoming_data handle_new_connection loop \
 	receive_message send_message shutdown signals receive_message_handler \
 	func_response_db_1 func_response_db_2 func_response_db_3 response_db \
-	send_message_handler receive_file send_file
+	send_message_handler receive_file send_file func_response_db_4 \
+	check_for_commands
 
 sql = authorization check_error close_db create_tables init_db \
-	receive_message registration create_personal_chat get_present_chat \
-	change_password send_message add_new_contact del_contact \
+	registration create_personal_chat get_present_chat \
+	change_password send_message send_message2 add_new_contact del_contact \
 	if_message_on_email get_contact_list update_profile get_clients_chats \
-	get_client_chat_messages edit_message search_user \
-	create_group_chat_channel
+	get_client_chat_messages edit_message search_user delete_user \
+	create_group_chat_channel create_contact_group del_contact_group \
+	invite get_chat_for_invite leave_chat superuser_message \
+	block_user unblock_user
 
 utils = initialize_zero message_on_email print_serv_out json
 

@@ -23,6 +23,8 @@
 #define MX_SEND_FILES_DIR "Client/files_send/"
 #define MX_RECV_FILES_DIR "Client/files_recv/"
 
+#define MX_STRDEL(str) (MX_MALLOC_SIZE(str) > 0 ? free(str) : (void)0)
+
 /* Types for sending jsons */
 typedef enum {
     make_register,
@@ -43,9 +45,11 @@ typedef enum {
 
     make_update_profile,
     success_update_profile,
+    failed_update_profile,
 
     get_client_contacts,
-    send_client_contacts,
+    failed_client_contacts,
+    success_client_contacts,
 
     get_client_chats,
     send_client_chats,
@@ -61,17 +65,21 @@ typedef enum {
     failed_add_new_contact,
     success_add_new_contact,
 
-    make_add_new_contact_group,
-    failed_add_new_contact_group,
-    success_add_new_contact_group,
-
-    make_del_new_contact_group,
-    failed_del_new_contact_group,
-    success_del_new_contact_group,
-
     make_del_contact,
     failed_del_contact,         // when contact doesn't exist in contacts_list
     success_del_contact,
+
+    make_add_contact_group,
+    failed_add_contact_group,
+    success_add_contact_group,
+
+    make_change_contact_group,
+    failed_change_contact_group,
+    success_change_contact_group,
+
+    make_del_contact_group,
+    failed_del_contact_group,
+    success_del_contact_group,
 
     make_new_personal_chat,
     failed_new_personal_chat,
@@ -90,11 +98,28 @@ typedef enum {
     failed_new_group_chat_channel,
     success_new_group_chat_channel,
 
+    make_add_user_in_chat,
+    failed_add_user_in_chat,
+    success_add_user_in_chat,
+    add_user_in_chat_return_chat,
+
+    make_block_user,
+    failed_block_user,
+    success_block_user,
+
+    make_unblock_user,
+    failed_unblock_user,
+    success_unblock_user,
+
+    make_leave_chat,
+    failed_leave_chat,
+    success_leave_chat,
+
     this_uid_login,   // два єнама без запроса
     this_uid_logout,
 
+    superuser_message,
+
     file_msg,
     failed_receiving_file,
-
-    failed_update_profile,
 } t_actions;

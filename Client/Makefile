@@ -7,16 +7,24 @@ base = main socket info close \
 	receive_file send_file
 
 handlers = read_non_requested_jsons handle_del_msg handle_edit_msg            \
-	handle_send_msg
+	handle_send_msg handle_invite_user handle_being_invited handle_leave_room \
+	handle_ban handle_unban handle_ulogin handle_ulogout handle_ucreate
 
 login = login validate callbacks json
 
 register = register validate json
 
-admin = admin
+admin = admin json
 
 chat = chat interface callbacks get_json_chat_list_login callbacks_2          \
-	json_send_msg_1 get_json_history
+	json_send_msg_1 get_json_history json_left_chat json_ban                  \
+	get_users_from_chat_to_list preferences json_unban
+
+ban = callbacks ban
+
+unban = callbacks unban
+
+invite = callbacks invite json
 
 message = message callbacks interface edit_json delete_json
 
@@ -28,22 +36,32 @@ change_pass = change_pass callbacks validate
 
 main_chat_screen = main_screen
 
-contacts = contacts callbacks json create_table get_json_list_contacts
+contacts = contacts callbacks json create_table get_json_list_contacts \
+	save_json_groups del_cnt_json start_chat_json create_menus
+
+cont_move = cont_move move_cnt callbacks
 
 profile = profile json callbacks
 
+other_profile = other_profile
+
+delete_profile = delete_profile callbacks json
+
 preferences = preferences callbacks chg_pass_json
 
-add_contact = add_contact json callbacks add_json_user_to_contacts
+add_contact = add_contact callbacks add_json_user_to_contacts add_group
 
-create_group = create_group callbacks
+create_group = create_group callbacks delete_group_json
+
+sounds = sounds
 
 utils = css wait_for_json create_hash json_get_type dialog entry toggle       \
-	set_vnotify find_something player
+	set_vnotify find_something player validate_chars gobject_builder get_image \
 
 dirs = base login register admin add_contact chat create_group main_chat_screen \
 	profile preferences contacts message message_img room_creation utils      \
-	change_pass handlers
+	change_pass handlers delete_profile other_profile ban invite sounds unban \
+	cont_move
 
 FILES = $(foreach dir, $(dirs), $($(dir):%=$(dir)/%))
 
@@ -61,7 +79,7 @@ WFLAGS = -Wall -Wextra -Werror -Wpedantic -Wno-unused-command-line-argument \
 LFLAGS = -Iinc -I$(LIB_DIR)inc -I/usr/local/opt/openssl/include \
 	-L/usr/local/opt/openssl/lib -lssl -lcrypto -L . -lfmodex -I.
 
-CFLAGS = -Os -march=native -fomit-frame-pointer -flto
+# CFLAGS = -Os -march=native -fomit-frame-pointer -flto
 
 CFLAGS = -O0 -g3 -glldb -ftrapv -fno-omit-frame-pointer -fsanitize=address    \
 	-fsanitize=undefined
