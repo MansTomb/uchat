@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
 
     info = mx_init_info();
-    // mx_daemonize(info->sock);
+    mx_daemonize();
     mx_sockets_initialize(info->sock, atoi(argv[1]));
     mx_sockets_loop(info);
     mx_shutdown_properly(info, 0);

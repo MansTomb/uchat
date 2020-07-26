@@ -1,9 +1,9 @@
 #include "server.h"
 
 static int get_mid(void *data, int argc, char **argv, char **cols) {
-    // cJSON_AddStringToObject(data, "login", argv[0]);
-    cJSON_AddStringToObject(data, "login", "Master of Evil");
+    cJSON_AddStringToObject(data, "login", argv[0]);
     cJSON_AddNumberToObject(data, "mid", atoi(argv[1]));
+    cJSON_AddNumberToObject(data, "cid", 1);
     cJSON_AddStringToObject(data, "time", argv[2]);
     cJSON_AddNumberToObject(data, "type", atoi(argv[3]));
     cJSON_AddNumberToObject(data, "role", 2);
@@ -25,8 +25,10 @@ cJSON *mx_superuser_message(sqlite3 *db, cJSON *jsn) {
 
     if (mx_check(rc, err, "send message") != SQLITE_OK)
         MX_SET_TYPE(jsn, failed_send_message);
-    else
+    else {
+        MX_SET_TYPE(jsn, send_message);
         mx_get_all_users_in_chat(db, jsn, 1);
+    }
     free(query);
     return jsn;
 }
