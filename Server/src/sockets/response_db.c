@@ -57,9 +57,8 @@ void mx_response_db(t_info *info, t_peer *peer, cJSON *get) {
         mx_db_authorization(info, peer, get);
     else if (type == make_delete_user)
         mx_db_get_self_response(info, peer, get, &mx_delete_user);
-    else if (type == send_message || type == superuser_message) {
+    else if (type == send_message || type == superuser_message)
         mx_db_send_message(info, peer, get);
-    }
     else if (type == file_msg)
         mx_db_send_message(info, peer, get);
     else if (type == edit_message || type == delete_message)
