@@ -26,7 +26,7 @@ t_chat *mx_chat_build(t_info *info, cJSON *json) {
     t_chat *chat = malloc(sizeof(t_chat));
 
     chat->builder = gtk_builder_new();
-    gtk_builder_add_from_file(chat->builder, "./Resources/glade/chat.glade", NULL);
+    gtk_builder_add_from_file(chat->builder, MX_GLADE_CHAT, NULL);
     chat->entry = mx_gobject_builder(chat->builder, "entry");
     chat->banbt = mx_gobject_builder(chat->builder, "ban");
     chat->unbanbt = mx_gobject_builder(chat->builder, "unban");
@@ -37,7 +37,8 @@ t_chat *mx_chat_build(t_info *info, cJSON *json) {
     chat->main_box = mx_gobject_builder(chat->builder, "main_box");
     chat->message_box = mx_gobject_builder(chat->builder, "message_box");
     chat->img_dialog = mx_gobject_builder(chat->builder, "img_dialog");
-    chat->ffilter = GTK_FILE_FILTER(gtk_builder_get_object(chat->builder, "filter"));
+    chat->ffilter = GTK_FILE_FILTER(gtk_builder_get_object(chat->builder,
+                                                                 "filter"));
     chat->msg_list = mx_create_list();
     set_data(info, chat, json);
     return chat;

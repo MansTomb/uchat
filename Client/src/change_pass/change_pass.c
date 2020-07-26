@@ -7,7 +7,7 @@ void mx_change_password_build(t_info *info, t_change_password *cp) {
         return;
 
     cp->builder = gtk_builder_new();
-    gtk_builder_add_from_file(cp->builder, "./Resources/glade/change_pass.glade", NULL);
+    gtk_builder_add_from_file(cp->builder, MX_GLADE_CP, NULL);
 
     cp->dialog = mx_gobject_builder(cp->builder, "dialog");
     cp->changebt = mx_gobject_builder(cp->builder, "change");

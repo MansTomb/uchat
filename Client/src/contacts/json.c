@@ -13,14 +13,14 @@ static void send_contacts_request(const t_info *info) {
 static t_contact *get_contact(const cJSON *iterator) {
     t_contact *c = malloc(sizeof(t_contact));
 
-    c->cid = cJSON_GetObjectItemCaseSensitive(iterator, "coid")->valueint;
-    c->login = cJSON_GetObjectItemCaseSensitive(iterator, "login")->valuestring;
-    c->f_name = cJSON_GetObjectItemCaseSensitive(iterator, "fname")->valuestring;
-    c->s_name = cJSON_GetObjectItemCaseSensitive(iterator, "sname")->valuestring;
-    c->email = cJSON_GetObjectItemCaseSensitive(iterator, "email")->valuestring;
-    c->stat = cJSON_GetObjectItemCaseSensitive(iterator, "status")->valuestring;
-    c->active = cJSON_GetObjectItemCaseSensitive(iterator, "active")->valueint;
-    c->grp_id = cJSON_GetObjectItemCaseSensitive(iterator, "gid")->valueint;
+    c->cid = cJSON_GetObjectItem(iterator, "coid")->valueint;
+    c->login = cJSON_GetObjectItem(iterator, "login")->valuestring;
+    c->f_name = cJSON_GetObjectItem(iterator, "fname")->valuestring;
+    c->s_name = cJSON_GetObjectItem(iterator, "sname")->valuestring;
+    c->email = cJSON_GetObjectItem(iterator, "email")->valuestring;
+    c->stat = cJSON_GetObjectItem(iterator, "status")->valuestring;
+    c->active = cJSON_GetObjectItem(iterator, "active")->valueint;
+    c->grp_id = cJSON_GetObjectItem(iterator, "gid")->valueint;
     return c;
 }
 

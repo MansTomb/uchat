@@ -17,6 +17,6 @@ bool mx_entry_text_exist(GtkWidget *entry) {
     return false;
 }
 
-const char *mx_entry_get_text(GtkWidget *entry) {
-    return gtk_entry_get_text(GTK_ENTRY(entry));
+char *mx_entry_get_text(GtkWidget *entry) {
+    return (char *)gtk_entry_get_text(GTK_ENTRY(entry));
 }

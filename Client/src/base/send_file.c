@@ -54,11 +54,9 @@ void mx_send_file(cJSON *json, int sd) {
     else {
         printf("start sending file\n");
         send_first(json, fp, path, sd);
-        // printf("%s\n", buff);
         sleep(1);
         while (!feof(fp)) {
             int n = fread(buff, 1, MX_MAX_SEND_SIZE, fp);   // ->n
-            // printf("---\n%s\n strlen = %d\n---", buff, n);
             send_one(sd, buff);
             bzero(buff, sizeof(buff));
         }

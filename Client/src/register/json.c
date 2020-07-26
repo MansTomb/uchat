@@ -13,7 +13,6 @@ static void reg_bld_json(const char *login, const char *password, int s_sock) {
     cJSON_AddNumberToObject(jreg, "json_type", make_register);
     cJSON_AddStringToObject(jreg, "login", login);
     cJSON_AddStringToObject(jreg, "hash", hash_pass);
-
     mx_send_message_handler(jreg, s_sock);
     free_wrapper(&hash_pass, &jreg);
 }

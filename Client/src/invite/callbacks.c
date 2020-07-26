@@ -38,7 +38,6 @@ void mx_inv_invite(GtkWidget *widget, gpointer data) {
     t_invite_user *inv = data;
 
     if (validate(inv)) {
-        /* zapros */
         mx_invite_json_wrapper(inv);
         mx_invite_user_destroy(inv);
     }

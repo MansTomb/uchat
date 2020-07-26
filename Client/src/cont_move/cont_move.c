@@ -14,14 +14,12 @@ void mx_cont_move_build(t_info *info) {
     t_cont_move *cmove = malloc(sizeof(t_cont_move));
 
     cmove->builder = gtk_builder_new();
-    gtk_builder_add_from_file(cmove->builder, "./Resources/glade/contact_move.glade", NULL);
+    gtk_builder_add_from_file(cmove->builder, MX_GLADE_CM, NULL);
     cmove->dialog = mx_gobject_builder(cmove->builder, "dialog");
     cmove->combo = mx_gobject_builder(cmove->builder, "combo");
     gtk_builder_connect_signals(cmove->builder, cmove); 
     create_combo(info, cmove);
-
     cmove->info = info;
-
     gtk_widget_show(cmove->dialog);
 }
 

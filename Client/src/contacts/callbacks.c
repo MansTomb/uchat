@@ -51,44 +51,6 @@ void mx_contacts_open_prof(GtkWidget *widget, gpointer data) {
 
 void mx_contacts_send_message(GtkWidget *widget, gpointer data) {
     t_info *info = data;
+
     mx_start_chat_json(info);
-    printf("mx_contacts_send_message\n");
-}
-
-void mx_contacts_move(GtkWidget *widget, gpointer data) {
-    t_info *info = data;
-
-    mx_cont_move_build(info);
-}
-
-void mx_contacts_delete(GtkWidget *widget, gpointer data) {
-    t_info *info = data;
-    // GtkTreeModel *model = gtk_tree_view_get_model(GTK_TREE_VIEW(contacts->treeview));
-    printf("mx_contacts_delete\n");
-    mx_del_cnt_json(info);
-    // // check if this is a grp_name if it is, make request to delete like a grp;
-    // gtk_tree_store_remove(GTK_TREE_STORE(model), &contacts->choosen_contact);
-}
-
-void mx_group_delete(GtkWidget *widget, gpointer data) {
-    t_info *info = data;
-    // GtkTreeModel *model = gtk_tree_view_get_model(GTK_TREE_VIEW(contacts->treeview));
-    printf("mx_contacts_delete\n");
-    mx_del_group_json(info);
-    // // check if this is a grp_name if it is, make request to delete like a grp;
-    // gtk_tree_store_remove(GTK_TREE_STORE(model), &contacts->choosen_contact);
-}
-
-void mx_on_add_contact(GtkWidget *widget, gpointer data) {
-    t_info *info = data;
-
-    info->cl_data->tmp_users = mx_create_list();
-    mx_get_list_users_json_wrapper(info);
-    mx_add_contact_build(info, info->windows->ac);
-}
-
-void mx_on_create_group(GtkWidget *widget, gpointer data) {
-    t_info *info = data;
-
-    mx_create_group_build(info, info->windows->cg);
 }

@@ -1,6 +1,7 @@
 #include "client.h"
 
-static void add_cnt_bld_json(int gid, const int coid, const int uid, int s_sock) {
+static void add_cnt_bld_json(int gid, const int coid, const int uid,
+                                                            int s_sock) {
     cJSON *jobj = cJSON_CreateObject();
 
     cJSON_AddNumberToObject(jobj, "json_type", make_add_new_contact);
@@ -36,13 +37,16 @@ static int get_gid(const t_list *list, char *gname) {
 }
 
 void mx_add_cnt_json_wrapper(t_contact_add *ac) {
+    t_data *data = ac->info->cl_data;
     const char *usr_login = gtk_entry_get_text(GTK_ENTRY(ac->entry));
-    int gid = get_gid(ac->info->cl_data->cont_grp_names, gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(ac->combobox)));
-    int coid = get_uid(ac->info->cl_data->tmp_users, usr_login, ac->info->cl_data->profile->login);
+    int gid = get_gid(data->cont_grp_names,
+         gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(ac->combobox)));
+    int coid = get_uid(data->tmp_users, usr_login, data->profile->login);
 
     if (coid != -1) {
-        add_cnt_bld_json(gid, coid, ac->info->cl_data->profile->id, ac->info->sock->sock);
-        mx_wait_for_json(ac->info, failed_add_new_contact, success_add_new_contact);
+        add_cnt_bld_json(gid, coid, data->profile->id, ac->info->sock->sock);
+        mx_wait_for_json(ac->info, failed_add_new_contact,
+                                   success_add_new_contact);
         if (mx_get_jtype(ac->info, success_add_new_contact)) {
             mx_get_json_contacts(ac->info);
         }
@@ -50,7 +54,6 @@ void mx_add_cnt_json_wrapper(t_contact_add *ac) {
             mx_dialog_warning_create(NULL, "Failed add new_contact!\n");
         }
     }
-    else {
-        mx_dialog_warning_create(NULL, "The contact does not exist or this is your login!\n");
-    }
+    else
+        mx_dialog_warning_create(NULL, MX_CNEXIST_OR_LOGIN);
 }

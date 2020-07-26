@@ -9,13 +9,20 @@ static void set_fields(t_info *info, t_profile *prof) {
     gtk_entry_set_text(GTK_ENTRY(prof->email), data->user_email);
 }
 
+static void set_preferences(t_info *info, t_profile *prof) {
+    gtk_stack_add_titled(GTK_STACK(info->windows->ms->menu_stack),
+                                             prof->box, "Profile", "Profile");
+    gtk_widget_hide(prof->cancel);
+    gtk_widget_hide(prof->save);
+    gtk_widget_show(prof->box);
+}
+
 void mx_profile_build(t_info *info, t_profile *prof) {
     if (prof == NULL)
         info->windows->prof = prof = malloc(sizeof(t_profile));
 
     prof->builder = gtk_builder_new();
-    gtk_builder_add_from_file(prof->builder, "./Resources/glade/profile.glade", NULL);
-
+    gtk_builder_add_from_file(prof->builder, MX_GLADE_PROF, NULL);
     prof->box = mx_gobject_builder(prof->builder, "profile");
     prof->image = mx_gobject_builder(prof->builder, "avatar");
     prof->avatartbt = mx_gobject_builder(prof->builder, "avatarbt");
@@ -27,12 +34,8 @@ void mx_profile_build(t_info *info, t_profile *prof) {
     prof->lname = mx_gobject_builder(prof->builder, "lname");
     prof->email = mx_gobject_builder(prof->builder, "email");
     gtk_builder_connect_signals(prof->builder, info);
-
     set_fields(info, prof);
-    gtk_stack_add_titled(GTK_STACK(info->windows->ms->menu_stack), prof->box, "Profile", "Profile");
-    gtk_widget_hide(prof->cancel);
-    gtk_widget_hide(prof->save);
-    gtk_widget_show(prof->box);
+    set_preferences(info, prof);
 }
 
 void mx_profile_destroy(t_info *info) {

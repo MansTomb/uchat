@@ -180,7 +180,6 @@
         <property name="shadow_type">in</property>
         <property name="propagate_natural_width">True</property>
         <property name="propagate_natural_height">True</property>
-        <signal name="edge-reached" handler="mx_on_scroll_edge" swapped="no"/>
         <child>
           <object class="GtkViewport">
             <property name="visible">True</property>

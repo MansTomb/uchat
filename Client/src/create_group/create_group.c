@@ -7,16 +7,14 @@ void mx_create_group_build(t_info *info, t_group_create *cg) {
         return;
 
     cg->builder = gtk_builder_new();
-    gtk_builder_add_from_file(cg->builder, "./Resources/glade/create_group.glade", NULL);
+    gtk_builder_add_from_file(cg->builder, MX_GLADE_CG, NULL);
 
     cg->dialog = mx_gobject_builder(cg->builder, "dialog");
     cg->createbt = mx_gobject_builder(cg->builder, "create");
     cg->cancelbt = mx_gobject_builder(cg->builder, "cancel");
     cg->entry = mx_gobject_builder(cg->builder, "entry");
     gtk_builder_connect_signals(cg->builder, cg);
-
     cg->info = info;
-
     gtk_widget_show(cg->dialog);
 }
 

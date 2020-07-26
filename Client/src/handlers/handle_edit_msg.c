@@ -15,8 +15,10 @@ void mx_handle_edit_message(t_info *info, cJSON *json) {
 
     t_edit_msg *edit = malloc(sizeof(t_edit_msg));
 
-    edit->chat = mx_find_chat(info, cJSON_GetObjectItem(json, "cid")->valueint);
-    edit->msg = mx_find_message(edit->chat, cJSON_GetObjectItem(json, "mid")->valueint);
+    edit->chat = mx_find_chat(info, 
+                                  cJSON_GetObjectItem(json, "cid")->valueint);
+    edit->msg = mx_find_message(edit->chat, 
+                                  cJSON_GetObjectItem(json, "mid")->valueint);
     edit->content = cJSON_GetObjectItem(json, "content")->valuestring;
     edit->info = info;
 

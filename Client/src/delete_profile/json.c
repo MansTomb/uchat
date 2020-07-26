@@ -20,7 +20,8 @@ static void request(t_info *info, const char *password, int s_sock) {
 }
 
 void mx_delete_user_wrapper(t_info *info) {
-    request(info, mx_entry_get_text(info->windows->dp->pass1), info->sock->sock);
+    request(info, mx_entry_get_text(info->windows->dp->pass1),
+                                                         info->sock->sock);
     mx_wait_for_json(info, success_delete_user, failed_delete_user);
     if (mx_get_jtype(info, success_delete_user)) {
         mx_destroy(NULL, NULL, info);

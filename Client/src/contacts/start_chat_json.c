@@ -25,7 +25,8 @@ int mx_get_cnt_id_by_login(const char *login, const t_list *list) {
 }
 
 void mx_start_chat_json(t_info *info) {
-    int uid2 = mx_get_cnt_id_by_login(info->windows->cont->clicked_cont, info->cl_data->contacts);
+    int uid2 = mx_get_cnt_id_by_login(info->windows->cont->clicked_cont,
+                                                     info->cl_data->contacts);
 
     if (uid2 >= 0) {
         send_request(info, uid2);

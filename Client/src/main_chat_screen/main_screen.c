@@ -5,14 +5,13 @@ void mx_main_screen_build(t_info *info, t_main_screen *ms) {
         info->windows->ms = ms = malloc(sizeof(t_main_screen));
 
     ms->builder = gtk_builder_new();
-    gtk_builder_add_from_file(ms->builder, "./Resources/glade/main_chat_screen.glade", NULL);
+    gtk_builder_add_from_file(ms->builder, MX_GLADE_MS, NULL);
 
     ms->window = mx_gobject_builder(ms->builder, "main_window");
     ms->revealer = mx_gobject_builder(ms->builder, "revealer");
     ms->chat_stack = mx_gobject_builder(ms->builder, "chat_stack");
     ms->menu_stack = mx_gobject_builder(ms->builder, "menu_stack");
     gtk_builder_connect_signals(ms->builder, info);
-
     mx_profile_build(info, info->windows->prof);
     mx_preferences_build(info, info->windows->pref);
     mx_contacts_build(info, info->windows->cont);
@@ -35,23 +34,21 @@ void mx_main_screen_destroy(t_info *info) {
 
 void mx_on_click_main_menu(GtkWidget *widget, gpointer data) {
     t_info *info = data;
-    gboolean revealed = gtk_revealer_get_reveal_child(GTK_REVEALER(info->windows->ms->revealer));
+    gboolean revealed = gtk_revealer_get_reveal_child(
+                                    GTK_REVEALER(info->windows->ms->revealer));
 
-printf("mx_on_click_main_menu\n");
-    gtk_revealer_set_reveal_child(GTK_REVEALER(info->windows->ms->revealer), !revealed);
+    gtk_revealer_set_reveal_child(GTK_REVEALER(info->windows->ms->revealer),
+                                                                 !revealed);
 }
 
 void mx_on_click_room_creation(GtkWidget *widget, gpointer data) {
     t_info *info = data;
 
-printf("mx_on_click_room_creation\n");
     mx_room_creation_build(info, info->windows->rc);
 }
 
 void mx_on_click_exit(GtkWidget *widget, gpointer data) {
     t_info *info = data;
 
-    
-printf("mx_on_click_exit\n");
     mx_destroy(NULL, NULL, info);
 }

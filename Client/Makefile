@@ -8,17 +8,18 @@ base = main socket info close \
 
 handlers = read_non_requested_jsons handle_del_msg handle_edit_msg            \
 	handle_send_msg handle_invite_user handle_being_invited handle_leave_room \
-	handle_ban handle_unban handle_ulogin handle_ulogout handle_ucreate
+	handle_ban handle_unban handle_ulogin handle_ulogout handle_ucreate       \
+	handle_send_msg_img
 
 login = login validate callbacks json
 
 register = register validate json
 
-admin = admin json
+admin = admin json callbacks
 
 chat = chat interface callbacks get_json_chat_list_login callbacks_2          \
 	json_send_msg_1 get_json_history json_left_chat json_ban                  \
-	get_users_from_chat_to_list preferences json_unban
+	get_users_from_chat_to_list preferences json_unban callbacks_3
 
 ban = callbacks ban
 
@@ -28,7 +29,7 @@ invite = callbacks invite json
 
 message = message callbacks interface edit_json delete_json
 
-message_img = message_img callbacks interface
+message_img = message_img callbacks interface json
 
 room_creation = room_creation validate callbacks json
 
@@ -37,7 +38,7 @@ change_pass = change_pass callbacks validate
 main_chat_screen = main_screen
 
 contacts = contacts callbacks json create_table get_json_list_contacts \
-	save_json_groups del_cnt_json start_chat_json create_menus
+	save_json_groups del_cnt_json start_chat_json create_menus callbacks_2
 
 cont_move = cont_move move_cnt callbacks
 

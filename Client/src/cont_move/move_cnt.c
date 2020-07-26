@@ -25,11 +25,13 @@ static void request(t_info *info, int cid, int gid1, int gid2) {
 }
 
 void mx_change_contact_group(t_info *info, char *name) {
-    int cid = mx_get_cnt_id_by_login(info->windows->cont->clicked_cont, info->cl_data->contacts);
+    int cid = mx_get_cnt_id_by_login(info->windows->cont->clicked_cont,
+                                     info->cl_data->contacts);
     t_contact *cont = mx_find_contant(info, cid);
 
     request(info, cid, cont->grp_id, get_group_id(info, name));
-    mx_wait_for_json(info, success_change_contact_group, failed_change_contact_group);
+    mx_wait_for_json(info, success_change_contact_group,
+                                                 failed_change_contact_group);
     if (mx_get_jtype(info, success_change_contact_group)) {
         mx_get_json_contacts(info);
         mx_create_table(info, info->windows->cont);

@@ -443,6 +443,7 @@ struct s_info {
 
     t_data *cl_data;
 
+    gboolean reconnect;
     gboolean wchange;
 };
 
@@ -464,6 +465,7 @@ void mx_handle_ban(t_info *info, cJSON *json);
 void mx_handle_unban(t_info *info, cJSON *json);
 void mx_handle_ulogin(t_info *info, cJSON *json);
 void mx_handle_ulogout(t_info *info, cJSON *json);
+void mx_handle_img_message(t_info *info, cJSON *json);
 
     /* Jsons */
 void mx_save_login_data(t_info *info);
@@ -496,6 +498,7 @@ void mx_send_message_t1_json_wrapper(t_chat *chat, char *content);
 void mx_send_message_t2_json_wrapper(t_chat *chat, char *content);
 void mx_edit_message_t1_json_wrapper(t_message *msg, char *content);
 void mx_delete_message_t1_json_wrapper(t_message *msg);
+void mx_delete_message_t2_json_wrapper(t_message_img *msg);
 void mx_get_json_chat_history(t_info *info, t_chat *chat);
 void mx_create_room_wrap(t_info *info);
 void mx_delete_user_wrapper(t_info *info);
@@ -540,7 +543,7 @@ void mx_css_from_data(t_info *info, char *data);
     /* Entrys */
 GtkWidget *mx_entry_constructor(char *name);
 bool mx_entry_text_exist(GtkWidget *entry);
-const char *mx_entry_get_text(GtkWidget *entry);
+char *mx_entry_get_text(GtkWidget *entry);
 
     /* Toggle Button */
 gboolean mx_get_tactive(GtkWidget *widget);
@@ -560,7 +563,7 @@ void mx_set_vnoti(t_info *info, t_main_screen *ms, int cid, gboolean value);
 
     /* Set snotify */
 void mx_snotify(t_info *info, t_main_screen *ms, int cid);
-void mx_start_snotify(void);
+void mx_start_snotify(t_info *info);
 
 /* Windows */
 
