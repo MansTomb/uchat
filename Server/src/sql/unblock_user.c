@@ -1,7 +1,6 @@
 #include "server.h"
 
 static int callback(void *data, int argc, char **argv, char **cols) {
-    cJSON_AddNumberToObject(data, "role", 1);
     cJSON_AddStringToObject(data, "login", argv[0]);
 
     return 0;

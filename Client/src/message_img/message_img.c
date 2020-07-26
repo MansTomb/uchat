@@ -1,8 +1,15 @@
 #include "client.h"
 
+static char *filename(char *content) {
+    int i = 0;
+
+    for (i = strlen(content) - 1; content[i] != '/'; --i) {};
+    return content + i + 1;
+}
+
 static GtkWidget *get_image_if_image(cJSON *json) {
     char *content = cJSON_GetObjectItem(json, "content")->valuestring;
-    char *path = mx_strjoin(MX_RECV_FILES_DIR, (content + 11));
+    char *path = mx_strjoin(MX_RECV_FILES_DIR, filename(content));
     GdkPixbufAnimation *anim = NULL;
     GtkWidget *image = NULL;
 
