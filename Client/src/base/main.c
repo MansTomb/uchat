@@ -55,28 +55,10 @@ static void *read_from_server(void *info) {
     pthread_exit(0);
 }
 
-// static void *read_from_stdin(void *info) {   // for testing server
-//     t_info *info1 = (t_info *)info;
-//     int n;
-//     char buff[MX_MAX_SEND_SIZE];
-//     char *responce = NULL;
-
-//     while (1) {
-//         fgets(buff, sizeof(buff), stdin);
-//         cJSON *json = cJSON_Parse(buff);
-//         if (mx_check_err_json(json))
-//             puts(buff);     // вивід в термінал
-//         else
-//             mx_send_message_handler(json, info1->sock->sock);
-//         bzero(buff, sizeof(buff));
-//     }
-//     pthread_exit(0);
-// }
-
 int main(int argc, char *argv[]) {
     if (argc != 3) {
         wrong_usage();
-        exit(EXIT_FAILURE); // nado bude funka uni4tozitel
+        exit(EXIT_FAILURE);
     }
 
     t_info *info = mx_create_info();
