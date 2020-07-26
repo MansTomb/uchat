@@ -2,16 +2,18 @@
 
 static GtkWidget *get_image_if_image(cJSON *json) {
     char *content = cJSON_GetObjectItem(json, "content")->valuestring;
+    char *path = mx_strjoin(MX_RECV_FILES_DIR, (content + 11));
     GdkPixbufAnimation *anim = NULL;
     GtkWidget *image = NULL;
 
     if (strstr(content, ".png") || strstr(content, ".jpg")
      || strstr(content, ".mbp") || strstr(content, ".jpeg")
      || strstr(content, ".gif")) {
-        anim = gdk_pixbuf_animation_new_from_file(content, NULL);
+        anim = gdk_pixbuf_animation_new_from_file(path, NULL);
         image = gtk_image_new_from_animation(anim);
         return image;
     }
+    mx_strdel(&path);
     return image;
 }
 

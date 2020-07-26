@@ -13,9 +13,12 @@ void mx_handle_ucreate_chat(t_info *info, cJSON *json) {
         return;
 
     t_ibear_info_json *info_v2 = malloc(sizeof(t_ibear_info_json));
+    int cid = cJSON_GetObjectItem(json, "cid")->valueint;
+    t_chat *chat = mx_find_chat(info, cid);
 
     info_v2->info = info;
     info_v2->json = json;
 
-    gdk_threads_add_idle(wrap, info_v2);
+    if (!chat)
+        gdk_threads_add_idle(wrap, info_v2);
 }
